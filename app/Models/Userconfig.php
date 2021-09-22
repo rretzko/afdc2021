@@ -45,6 +45,21 @@ class Userconfig extends Model
         return self::$method($user_id);
     }
 
+    /**
+     * Counties is binary: 'all' or 'my'
+     *
+     * if at this function, no value has been found, so
+     * default to 'my'
+     *
+     * @param $user_id
+     * @return string
+     */
+    static private function findCounties($user_id)
+    {
+        return 'my';
+    }
+
+
     static private function findEventversion($user_id)
     {
         $event = Event::find(self::getValue('event', $user_id));

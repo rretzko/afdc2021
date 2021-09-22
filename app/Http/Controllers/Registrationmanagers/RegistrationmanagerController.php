@@ -21,7 +21,7 @@ class RegistrationmanagerController extends Controller
             45 => [1,6,7,9,15,17,19,],
             56 => [4,11,12,16,20,],
             249 => [5,8,10,21,13,],
-            435 => [2,3,14,18,]
+            423 => [2,3,14,18,]
         ];
     }
     /**
@@ -38,7 +38,7 @@ class RegistrationmanagerController extends Controller
             'mycounties' => $this->mycounties,
             'myschools' => $eventversion->schoolsByCounties($this->mycounties[auth()->id()]),
             'schools' => $eventversion->schools(),
-            'toggle' => Userconfig::getValue('counties', auth()->id()) ?: 'my',
+            'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);
     }
 

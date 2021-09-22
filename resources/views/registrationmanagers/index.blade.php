@@ -19,14 +19,8 @@
                     </div>
 
                     {{-- COUNTY SCOPE --}}
-                    <div style="display:flex; justify-content: space-evenly;";>
-                        <div>
-                            <a href="{{ route('registrationmanager.show',['counties' => 'my']) }}">My Counties ({{ count($mycounties) }})</a>
-                        </div>
-                        <div>
-                            <a href="{{ route('registrationmanager.show',['counties' => 'all']) }}">All Counties ({{ count($counties) }})</a>
-                        </div>
-                    </div>
+                    <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
+
                     <div>
                         <table>
                             <thead>

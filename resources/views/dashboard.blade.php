@@ -4,7 +4,17 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div style="display: flex; flex-direction: row; justify-content: end; margin-right: 1rem;">
+                    <a href="{{ route('xlogout') }}">
+                        Log out
+                    </a>
+
+                    <!-- onclick="event.preventDefault(); document.getElementById('logout-form').submit();" -->
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+
+                </div>
                 <div class="card">
+
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
                             {{ __('Dashboard') }}

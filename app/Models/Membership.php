@@ -26,4 +26,9 @@ class Membership extends Model
 
         return $organizations;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

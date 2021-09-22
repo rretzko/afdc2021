@@ -28,6 +28,12 @@ Route::post('/logout', [App\Http\Controllers\Afdcauth\LoginController::class, 'd
 /* AUTHORIZED USERS */
 Route::group(['middleware' => 'auth'],function(){
 
+    /** LOGOUT */
+    Route::get('/logout', function(){
+            auth()->logout();
+            return view('welcome');
+        })->name('xlogout');
+
     /** DASHBOARD */
     Route::post('/dashboard/event', 'EventController@store')->name('event.store');
     Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
@@ -35,5 +41,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
     Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');
     Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
+
+    /** REGISTRATION MANAGERS */
+    Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');
+    Route::get('/registrationmanager/{counties}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'show'])->name('registrationmanager.show');
 
 });

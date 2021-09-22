@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasOne(Person::class);
     }
 
+    public function schools()
+    {
+        return $this->belongsToMany(School::class);
+    }
+
 
 
 }

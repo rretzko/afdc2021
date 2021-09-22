@@ -9,6 +9,8 @@ class Userconfig extends Model
 {
     use HasFactory;
 
+    protected $fillable=['user_id', 'descr', 'value'];
+
     static public function getValue($descr, $user_id)
     {
         $value = self::where('user_id', $user_id)
@@ -19,6 +21,19 @@ class Userconfig extends Model
         if($value){ return $value;};
 
         return self::setValue($descr, $user_id);
+    }
+
+    static public function updateValue($descr, $user_id, $value)
+    {
+        self::updateOrCreate(
+            [
+                'user_id' => $user_id,
+                'descr' => $descr,
+            ],
+            [
+                'value' => $value,
+            ]
+        );
     }
 
 /** END OF PUBLIC FUNCTIONS **************************************************/

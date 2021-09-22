@@ -21,5 +21,10 @@ class Event extends Model
         return $this->hasMany(Eventversion::class);
     }
 
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
 
 }

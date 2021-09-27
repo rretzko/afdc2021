@@ -8,7 +8,11 @@
                     Sign in to your account
                 </h2>
             </div>
-            <form style="margin: auto;" class="mt-8 space-y-6" action="{{ route('login.update') }}" method="POST">
+            @if(config('app.url') === 'http://localhost')
+                <form style="margin: auto;" class="mt-8 space-y-6" action="{{ route('login.update') }}" method="POST">
+            @else
+                <form style="margin: auto;" class="mt-8 space-y-6" action="https://afdc-2021-138q8.ondigitalocean.app/login/update" method="POST">
+            @endif
                 @csrf
                 <input type="hidden" name="remember" value="true">
                 <div class="rounded-md shadow-sm -space-y-px">

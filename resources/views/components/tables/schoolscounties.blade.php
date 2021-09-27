@@ -26,7 +26,6 @@
         <th>Total</th>
         <th>Due</th>
         <th>Paid</th>
-        <th> </th>
     </tr>
     </thead>
     <tbody>

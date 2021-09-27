@@ -86,15 +86,15 @@
         </main>
     </div>
     <!-- jQuery  -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <!-- {{-- <script src="{{ asset('js/jquery.min.js') }}"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
-    <script src="{{asset('/js/bootstrap.js')}}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <!-- {{-- <script src="{{ asset('js/jquery.slimscroll.js') }}"></script> --}} -->
+    <!-- {{-- <script src="{{asset('/js/bootstrap.js')}}"></script> --}} -->
+    <!-- {{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> --}} -->
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-     <script src="{{ asset('js/app.js') }}"></script>
+     <!-- {{-- <script src="{{ asset('js/app.js') }}"></script> --}} -->
     <!-- {{-- <script src="{{ asset('js/notifications.js') }}"></script> --}} -->
     @stack('scripts')
 

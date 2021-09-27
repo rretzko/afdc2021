@@ -3,13 +3,24 @@
 namespace App\Models;
 
 use App\Models\Eventversionconfig;
+use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Eventversion extends Model
 {
-    use HasFactory;
+    use HasFactory, SenioryearTrait;
+
+    /**
+     * @return simple array of classofs for $this->eventversionconfig->grades
+     */
+    public function classofs()
+    {
+        return array_map(function($grade){
+                return ($this->senioryear() + (12 - $grade));
+            }, explode(',',$this->eventversionconfig->grades));
+    }
 
     public function countInvitations()
     {
@@ -78,5 +89,23 @@ class Eventversion extends Model
         };
 
         return $schools;
+    }
+
+    public function countInstrumentationForSchool(School $school, Instrumentation $instrumentation)
+    {
+        return rand(0,90);
+    }
+
+    /**
+     * Instrumentation is assigned to eventensembletype
+     *
+     * This method returns the instrumentation for the FIRST ensemble
+     * found for $this->event
+     *
+     * @return mixed
+     */
+    public function instrumentations()
+    {
+        return $this->event->eventensembles->first()->instrumentations();
     }
 }

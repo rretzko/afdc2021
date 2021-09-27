@@ -11,6 +11,11 @@ class Person extends Model
 
     protected $primaryKey = 'user_id';
 
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_id', 'user_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

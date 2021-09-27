@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\School;
 use App\Models\Userconfig;
+use App\Models\Utility\RegistrationActivity;
 use Illuminate\Http\Request;
 
 class RegistrationmanagerController extends Controller
@@ -32,20 +33,27 @@ class RegistrationmanagerController extends Controller
     public function index()
     {
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $toggle = Userconfig::getValue('counties', auth()->id());
+
+        $targetcounties = ($toggle === 'my')
+            ? $this->mycounties[auth()->id()]
+            : $this->counties;
 
         return view('registrationmanagers.index', [
             'counties' => $this->counties,
-            'mycounties' => $this->mycounties,
+            'eventversion' => $eventversion,
+            'mycounties' => $this->mycounties[auth()->id()],
             'myschools' => $eventversion->schoolsByCounties($this->mycounties[auth()->id()]),
+            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => $targetcounties]),
             'schools' => $eventversion->schools(),
-            'toggle' => Userconfig::getValue('counties', auth()->id()),
+            'toggle' => $toggle,
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  string  $counties
+     * @param  string  $counties //my, all, or unknown
      * @return \Illuminate\Http\Response
      */
     public function show($counties)
@@ -53,13 +61,20 @@ class RegistrationmanagerController extends Controller
         Userconfig::updateValue('counties', auth()->id(), $counties);
 
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $toggle = Userconfig::getValue('counties', auth()->id());
+
+        $targetcounties = ($toggle === 'my')
+            ? $this->mycounties[auth()->id()]
+            : $this->counties;
 
         return view('registrationmanagers.index', [
+            'eventversion' => $eventversion,
             'counties' => $this->counties,
-            'mycounties' => $this->mycounties,
+            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => $targetcounties]),
+            'mycounties' => $this->mycounties[auth()->id()],
             'myschools' => $eventversion->schoolsByCounties($this->mycounties[auth()->id()]),
             'schools' => $eventversion->schools(),
-            'toggle' => Userconfig::getValue('counties', auth()->id()) ?: 'my',
+            'toggle' => $toggle,
         ]);
     }
 

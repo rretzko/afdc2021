@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
 
                 <x-logout />
 
@@ -21,25 +21,16 @@
                     {{-- COUNTY SCOPE --}}
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
 
-                    <div>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>###</th>
-                                <th>School Name</th>
-                            </tr>
-                            </thead>
-                            @foreach((($toggle === 'my') ? $myschools : $schools) AS $school)
-                                <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td><span title="{{ $school->shortName }}">
-                                            {{ substr($school->shortName, 0, 20) }} ({{$school->id}})
-                                        </span>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
-
+                    <div style="margin:auto;">
+                        <x-tables.schoolscounties
+                            toggle="{{ $toggle }}"
+                            :counties="$counties"
+                            :eventversion="$eventversion"
+                            :mycounties="$mycounties"
+                            :myschools="$myschools"
+                            :registrationactivity="$registrationactivity"
+                            :schools="$schools"
+                        />
                     </div>
                 </div>
             </div>

@@ -16,6 +16,11 @@ class Event extends Model
         return ($eventversion_id) ? Eventversion::find($eventversion_id) : new Eventversion;
     }
 
+    public function eventensembles()
+    {
+        return $this->hasMany(Eventensemble::class);
+    }
+
     public function eventversions()
     {
         return $this->hasMany(Eventversion::class);

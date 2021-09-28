@@ -22,12 +22,4 @@
         </a>
     </div>
 
-    <div style="width: 100%; text-align: center; border-top: 1px solid lightgrey; border-left: 1px solid lightgrey; margin-right: .25rem;
-    {{ ($toggle === 'unknown') ? 'box-shadow: 5px 5px 5px darkgrey; background-color: white' : 'background-color: lightgrey' }};">
-        <a href="{{ route('registrationmanager.show',['counties' => 'unknown']) }}"
-           style="color: {{ ($toggle === 'all') ? 'blue' : 'black' }};"
-        >
-            Unknown
-        </a>
-    </div>
 </div>

@@ -16,8 +16,8 @@ class RegistrationmanagerController extends Controller
 
     public function __construct()
     {
-        $this->counties = [1,2,3,4,5,6,7,8,9,10,
-            11,12,13,14,15,16,17,18,19,20,21];
+        $this->counties = [1,2,3,4,5,6,7,8,9,10, //includes "unknown" county
+            11,12,13,14,15,16,17,18,19,20,21,22];
         $this->mycounties = [
             45 => [1,6,7,9,15,17,19,],
             56 => [4,11,12,16,20,],

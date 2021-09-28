@@ -59,7 +59,7 @@
             <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td><span title="{{ $school->shortName }}">
-                        {{ substr($school->shortName, 0, 20) }} ({{$school->id}})
+                        {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
                     </span>
                 </td>
                 <td style="text-align: center;">{!! $registrationactivity->eligibleCount($school) !!}</td>

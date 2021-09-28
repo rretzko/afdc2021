@@ -10,6 +10,11 @@ class School extends Model
 {
     use HasFactory;
 
+    public function county()
+    {
+        return $this->belongsTo(County::class);
+    }
+
     /**
      * @since 2020.05.28
      *

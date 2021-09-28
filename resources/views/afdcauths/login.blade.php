@@ -8,8 +8,9 @@
                     Sign in to your account
                 </h2>
             </div>
+
             <!-- {{-- <form style="margin: auto;" class="mt-8 space-y-6" action="{{ route('login.update') }}" method="POST"> --}} -->
-           @if(config('app.url') === 'http://localhost')
+           @if(config('app.url') === 'http://afdc2021.test')
                <form style="margin: auto;" class="mt-8 space-y-6" action="{{ route('login.update') }}" method="POST">
             @else
                 <form style="margin: auto;" class="mt-8 space-y-6" action="https://afdc-2021-l38q8.ondigitalocean.app/login/update" method="POST">

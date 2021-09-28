@@ -161,7 +161,7 @@ class RegistrationActivity extends Model
 
     public function registrationfeePaidTotal()
     {
-        return $this->payment->sumByEventversion($this->eventversion);
+        return $this->payment->sumByEventversion($this->eventversion, $this->counties);
     }
 
     /** END OF PUBLIC FUNCTIONS **************************************************/

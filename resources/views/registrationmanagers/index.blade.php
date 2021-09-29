@@ -21,6 +21,13 @@
                     {{-- COUNTY SCOPE --}}
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
 
+                    {{-- ACTIVITY NAVIGATION MENU --}}
+                    <x-navs.activities toggle="{{ $toggle }}"
+                                        :counties="$counties"
+                                        :mycounties="$mycounties"
+                                        :eventversion="$eventversion"
+                    />
+
                     <div style="margin:auto;">
                         <x-tables.schoolscounties
                             toggle="{{ $toggle }}"

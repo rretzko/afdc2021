@@ -108,4 +108,26 @@ class Eventversion extends Model
     {
         return $this->event->eventensembles->first()->instrumentations();
     }
+
+    public function getParticipatingSchoolsAttribute()
+    {
+        $schoolids = DB::select(DB::raw("
+            SELECT DISTINCT registrants.school_id
+            FROM registrants, schools
+            WHERE registrants.eventversion_id= :eventversion_id
+            AND registrants.registranttype_id=16
+            AND registrants.school_id=schools.id
+            ORDER BY schools.name
+        "), ['eventversion_id' => $this->id]
+        );
+
+        $c = collect();
+
+        foreach($schoolids AS $stdobj){
+
+            $c->push(School::find($stdobj->school_id));
+        }
+
+        return $c;
+    }
 }

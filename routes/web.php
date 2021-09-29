@@ -44,6 +44,6 @@ Route::group(['middleware' => 'auth'],function(){
 
     /** REGISTRATION MANAGERS */
     Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');
+    Route::get('/registrationmanager/payments/', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'index'])->name('payments.index');
     Route::get('/registrationmanager/{counties}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'show'])->name('registrationmanager.show');
-
 });

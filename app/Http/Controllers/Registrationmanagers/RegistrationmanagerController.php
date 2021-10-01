@@ -32,21 +32,11 @@ class RegistrationmanagerController extends Controller
      */
     public function index()
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        $toggle = Userconfig::getValue('counties', auth()->id());
-
-        $targetcounties = ($toggle === 'my')
-            ? $this->mycounties[auth()->id()]
-            : $this->counties;
-
         return view('registrationmanagers.index', [
             'counties' => $this->counties,
-            'eventversion' => $eventversion,
+            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
             'mycounties' => $this->mycounties[auth()->id()],
-            'myschools' => $eventversion->schoolsByCounties($this->mycounties[auth()->id()]),
-            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => $targetcounties]),
-            'schools' => $eventversion->schools(),
-            'toggle' => $toggle,
+            'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);
     }
 
@@ -60,21 +50,11 @@ class RegistrationmanagerController extends Controller
     {
         Userconfig::updateValue('counties', auth()->id(), $counties);
 
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        $toggle = Userconfig::getValue('counties', auth()->id());
-
-        $targetcounties = ($toggle === 'my')
-            ? $this->mycounties[auth()->id()]
-            : $this->counties;
-
         return view('registrationmanagers.index', [
-            'eventversion' => $eventversion,
+            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
             'counties' => $this->counties,
-            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => $targetcounties]),
             'mycounties' => $this->mycounties[auth()->id()],
-            'myschools' => $eventversion->schoolsByCounties($this->mycounties[auth()->id()]),
-            'schools' => $eventversion->schools(),
-            'toggle' => $toggle,
+            'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);
     }
 
@@ -110,15 +90,5 @@ class RegistrationmanagerController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    private function mySchools($counties)
-    {
-        return School::whereIn('county_id',$counties)->get();
-    }
-
-    private function schools($counties)
-    {
-        return collect();
     }
 }

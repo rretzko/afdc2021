@@ -29,15 +29,7 @@
                     />
 
                     <div style="margin:auto;">
-                        <x-tables.schoolscounties
-                            toggle="{{ $toggle }}"
-                            :counties="$counties"
-                            :eventversion="$eventversion"
-                            :mycounties="$mycounties"
-                            :myschools="$myschools"
-                            :registrationactivity="$registrationactivity"
-                            :schools="$schools"
-                        />
+                        <x-tables.schoolscounties toggle="{{ $toggle }}" />
                     </div>
                 </div>
             </div>

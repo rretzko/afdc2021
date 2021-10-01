@@ -43,7 +43,6 @@ class PaymentController extends Controller
             'counties' => $this->counties,
             'eventversion' => $eventversion,
             'mycounties' => $this->mycounties,
-            'schools' => $eventversion->participatingSchools,
             'targetcounties' => $targetcounties,
             'toggle' => $toggle,
         ]);

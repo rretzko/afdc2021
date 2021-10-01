@@ -11,6 +11,18 @@ class Person extends Model
 
     protected $primaryKey = 'user_id';
 
+    public function fullnameAlpha()
+    {
+        $str = $this->last.', '.$this->first;
+
+        if(strlen($this->middle)){
+
+            $str .= ' '.$this->middle;
+        }
+
+        return $str;
+    }
+
     public function student()
     {
         return $this->hasOne(Student::class, 'user_id', 'user_id');

@@ -45,4 +45,19 @@ class School extends Model
         return $str;
     }
 
+    public function getTeachersAttribute()
+    {
+        return Teacher::with(['person' => function($query){
+            $query->orderBy('last');
+            }])
+            ->whereIn('user_id', $this->users)
+            ->get();
+
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

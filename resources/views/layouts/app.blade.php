@@ -23,6 +23,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.6.0/dist/alpine.min.js" defer></script>
 
+    @livewireStyles
+
 </head>
 <body>
     <div id="app">
@@ -111,5 +113,8 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
+    @livewireScripts
+
 </body>
 </html>

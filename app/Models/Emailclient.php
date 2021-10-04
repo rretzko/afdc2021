@@ -15,7 +15,7 @@ class Emailclient extends Model
         //$client = new PostmarkClient("aebef20e-58ca-484f-adcd-11bb2ecb2318");
         $client = new PostmarkClient(config('mail.mailers.smtp.username'));
         $fromEmail = "rick@mfrholdings.com";
-        $toEmail = "rretzko@hotmail.com"; //$person->getSubscriberemailworkAttribute();
+        $toEmail = $person->getSubscriberemailworkAttribute();
         $subject = $eventversion->name.' packet received';
         $htmlBody = $emailbodyhtml;
         $textBody = $emailbodytext;

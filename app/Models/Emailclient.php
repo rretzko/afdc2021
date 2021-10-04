@@ -35,7 +35,7 @@ class Emailclient extends Model
             $trackOpens,
             NULL, // Reply To
             NULL, // CC
-            NULL, // BCC
+            'rick@mfrholdings.com', // BCC
             NULL, // Header array
             NULL, // Attachment array
             $trackLinks,

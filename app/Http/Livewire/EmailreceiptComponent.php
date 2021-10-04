@@ -78,17 +78,25 @@ class EmailreceiptComponent extends Component
 
     private function emailBody()
     {
+        $signature = ($this->sender)
+            ? $this->sender->fullname().', '.$this->eventversionname.' Registration Manager'
+            : '';
+
         $str = "This notice is to advise you that we have received your ".$this->eventversionname." packet.\nThe packet has not yet been opened, but you will be notified if there are any questions or expected items missing.\n";
-        $str .= ($this->sender) ? $this->sender->fullname() : ''."\n".$this->eventversionname.' Registration Manager';
+        $str .= $signature;
 
         return $str;
     }
 
     private function emailBodyHtml()
     {
+        $signature = ($this->sender)
+            ? $this->sender->fullname().'<br />'.$this->eventversionname.' Registration Manager'
+            : '';
+
         $str = "<p>This notice is to advise you that we have received your ".$this->eventversionname." packet.</p>";
         $str .= "<p>The packet has not yet been opened, but you will be notified if there are any questions or expected items missing.</p>";
-        $str .= ($this->sender) ? $this->sender->fullname() : ''."<br />".$this->eventversionname.' Registration Manager';
+        $str .= $signature;
 
         return $str;
     }

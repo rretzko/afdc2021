@@ -50,7 +50,7 @@ class School extends Model
         return Teacher::with(['person' => function($query){
             $query->orderBy('last');
             }])
-            ->whereIn('user_id', $this->users)
+            ->whereIn('user_id', $this->users->modelKeys())
             ->get();
 
     }

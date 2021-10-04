@@ -15,11 +15,5 @@
 
 <livewire:emailreceipt-component :toggle="$toggle" />
 
-<script>
-    function receiptEmail()
-    {
-        console.log('receiptEmail');
-    }
-</script>
 
 

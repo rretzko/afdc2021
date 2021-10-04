@@ -11,6 +11,25 @@ class Person extends Model
 
     protected $primaryKey = 'user_id';
 
+    public function getSubscriberemailworkAttribute()
+    {
+        return $this->subscriberemails->where('emailtype_id', Emailtype::WORK)->first()->email ?? '';
+    }
+
+    public function fullname()
+    {
+        $str = $this->first;
+
+        if(strlen($this->middle)){
+
+            $str .= ' '.$this->middle;
+        }
+
+        $str .= ' '.$this->last;
+
+        return $str;
+    }
+
     public function fullnameAlpha()
     {
         $str = $this->last.', '.$this->first;
@@ -26,6 +45,11 @@ class Person extends Model
     public function student()
     {
         return $this->hasOne(Student::class, 'user_id', 'user_id');
+    }
+
+    public function subscriberemails()
+    {
+        return $this->hasMany(Subscriberemail::class, 'user_id');
     }
 
     public function user()

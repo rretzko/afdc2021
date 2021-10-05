@@ -46,4 +46,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');
     Route::get('/registrationmanager/payments/', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'index'])->name('payments.index');
     Route::get('/registrationmanager/{counties}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'show'])->name('registrationmanager.show');
+    Route::get('/registrationmanager/registrants/county/{county}', [App\Http\Controllers\Registrationmanagers\RegistrantcountyController::class, 'show'])
+        ->name('registrants.county.show');
+    Route::get('/registrationmanager/registrants/school/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
+        ->name('registrants.school.show');
 });

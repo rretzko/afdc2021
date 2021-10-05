@@ -37,6 +37,13 @@ class Eventversion extends Model
         return $this->hasOne(Eventversionconfig::class);
     }
 
+    public function filecontenttypes()
+    {
+        return $this->belongsToMany(Filecontenttype::class)
+            ->withPivot(['title','order_by'])
+            ->orderByPivot('order_by');
+    }
+
     /**
      * Scope a query to only include schools in Eventversion grades.
      *
@@ -129,5 +136,16 @@ class Eventversion extends Model
         }
 
         return $c;
+    }
+
+    public function registrantsForSchool(School $school)
+    {
+        $registrants = Registrant::with('student','student.person')
+            ->where('eventversion_id', $this->id)
+            ->where('school_id', $school->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->get();
+
+        return $registrants->sortBy('student.person.last');
     }
 }

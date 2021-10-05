@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\School;
 use App\Models\Userconfig;
-use App\Models\Utility\RegistrationActivity;
 use App\Traits\CountiesTrait;
 use Illuminate\Http\Request;
 
-class RegistrationmanagerController extends Controller
+class RegistrantschoolController extends Controller
 {
     use CountiesTrait;
 
@@ -21,30 +20,49 @@ class RegistrationmanagerController extends Controller
      */
     public function index()
     {
-        return view('registrationmanagers.index', [
-            'counties' => $this->geostateCounties(),
-            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
-            'mycounties' => $this->userCounties(auth()->id()),
-            'toggle' => Userconfig::getValue('counties', auth()->id()),
-        ]);
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  string  $counties //my, all, or unknown
+     * @param  School $school
      * @return \Illuminate\Http\Response
      */
-    public function show($counties)
+    public function show(School $school)
     {
-        Userconfig::updateValue('counties', auth()->id(), $counties);
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
 
-        return view('registrationmanagers.index', [
-            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
-            'counties' => $this->geostateCounties(),
-            'mycounties' => $this->userCounties(auth()->id()),
-            'toggle' => Userconfig::getValue('counties', auth()->id()),
-        ]);
+        return view('registrationmanagers.registrants.school.show',
+            [
+                'school' => $school,
+                //'registrants' => $eventversion->registrantsForSchool($school),
+                'counties' => $this->geostateCounties(),
+                'eventversion' => $eventversion,
+                'mycounties' => $this->userCounties(auth()->id()),
+                'toggle' => Userconfig::getValue('counties', auth()->id()),
+            ]);
     }
 
     /**

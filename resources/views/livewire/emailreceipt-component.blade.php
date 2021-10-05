@@ -51,7 +51,17 @@
             <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td><span title="{{ $school->shortName }}">
-                        {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
+                        @if(config('app.url') === 'http://afdc2021.test')
+                            <a href="{{ route('registrants.school.show', ['school' => $school]) }}"
+                                title="Click for {{ $school->shortName }} registrants"
+                            >
+                                {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
+                            </a>
+                        @else
+                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrants/school/{{$school->id}}" title="Click for {{ $school->shortName }} registrants">
+                                {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
+                            </a>
+                        @endif
                     </span>
                 </td>
                 <td style="text-align: center; color: blue; cursor: pointer;">

@@ -21,7 +21,11 @@
 
     @if($eventversion->eventversionconfig->virtualaudition)
         <div>
-            Uploads
+            @if(config('app.url') === 'http://afdc2021.test')
+                Registrants
+            @else
+                Registrants
+            @endif
         </div>
     @endif
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85f668f6e8e5a85b0c3e7fbd4f95a3b8",
+    "content-hash": "448bf137fa75a132a6a0289c3d1b6e4c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2772,6 +2772,51 @@
                 }
             ],
             "time": "2021-08-11T01:06:55+00:00"
+        },
+        {
+            "name": "sproutvideo/sproutvideo",
+            "version": "1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SproutVideo/sproutvideo-php.git",
+                "reference": "df0bfaee7581d6848250185df99b6faed3549684"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SproutVideo/sproutvideo-php/zipball/df0bfaee7581d6848250185df99b6faed3549684",
+                "reference": "df0bfaee7581d6848250185df99b6faed3549684",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SproutVideo\\": "lib/"
+                },
+                "files": [
+                    "lib/SproutVideo/SproutVideo.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Podolnick",
+                    "email": "adam@sproutvideo.com"
+                }
+            ],
+            "description": "A PHP client for SproutVideo (https://sproutvideo.com)",
+            "homepage": "https://sproutvideo.com",
+            "keywords": [
+                "video",
+                "video hosting"
+            ],
+            "support": {
+                "issues": "https://github.com/SproutVideo/sproutvideo-php/issues",
+                "source": "https://github.com/SproutVideo/sproutvideo-php/tree/v1.3.3"
+            },
+            "time": "2021-03-02T19:49:08+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

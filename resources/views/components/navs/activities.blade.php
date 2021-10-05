@@ -12,7 +12,7 @@
                 Payments
             </a>
         @else
-            <a href="#">
+            <a href="https://auditionforms.com/registrationmanager/payments">
                 Payments
             </a>
         @endif

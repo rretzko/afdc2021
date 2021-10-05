@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Registrant;
 use App\Models\Registranttype;
 use App\Models\School;
+use App\Models\Schoolpayment;
 use App\Models\Student;
 use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -154,14 +155,47 @@ class RegistrationActivity extends Model
         return $this->registeredTotal()->count() * $this->eventversion->eventversionconfig->registrationfee;
     }
 
+    /**
+     * This tallies the fees collected and recorded by the director
+     * and NOT fees submitted by the director
+     *
+     * @param School $school
+     * @return mixed
+     */
     public function registrationfeePaid(School $school)
     {
         return $this->payment->sumBySchool($this->eventversion, $school);
     }
 
+    /**
+     * This tallies the fees paid by the Director and recorded by the Registration Manager
+     * @param School $school
+     * @return mixed
+     */
+    public function registrationfeePaidBySchool(School $school)
+    {
+        return Schoolpayment::where('eventversion_id', $this->eventversion->id)
+            ->where('school_id', $school->id)
+            ->sum('amount');
+    }
+
+    /**
+     * This tallies payments made by students and recorded by Directors
+     * @return mixed
+     */
     public function registrationfeePaidTotal()
     {
         return $this->payment->sumByEventversion($this->eventversion, $this->counties);
+    }
+
+    /**
+     * This tallies payments made by schools and recorded by Registration Manager(s)
+     * @return mixed
+     */
+    public function registrationfeePaidTotalBySchools()
+    {
+        return Schoolpayment::where('eventversion_id', $this->eventversion->id)
+            ->sum('amount');
     }
 
     /** END OF PUBLIC FUNCTIONS **************************************************/

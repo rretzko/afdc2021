@@ -42,7 +42,7 @@
             </th>
 
             <th style="text-align: right; padding: 0 .25rem;">
-                {{ number_format($registrationactivity->registrationfeePaidTotal(), 0) }}
+                {{ number_format($registrationactivity->registrationfeePaidTotalBySchools(), 0) }}
             </th>
         </tr>
 
@@ -82,7 +82,7 @@
                     {{ number_format($registrationactivity->registrationFeeDue($school), 0 ) }}
                 </td>
                 <th style="text-align: right; padding: 0 .25rem;">
-                    {{ number_format($registrationactivity->registrationfeePaid($school), 0) }}
+                    {{ number_format($registrationactivity->registrationfeePaidBySchool($school), 0) }}
                 </th>
             </tr>
         @endforeach

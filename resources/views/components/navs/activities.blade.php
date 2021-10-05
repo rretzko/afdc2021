@@ -12,7 +12,7 @@
                 Payments
             </a>
         @else
-            <a href="https://auditionforms.com/registrationmanager/payments">
+            <a href="https://afdc-2021-l38q.ondigitalocean.app/registrationmanager/payments">
                 Payments
             </a>
         @endif

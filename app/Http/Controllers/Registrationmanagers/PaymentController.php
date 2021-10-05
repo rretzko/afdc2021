@@ -32,7 +32,7 @@ class PaymentController extends Controller
      //       'eventversion' => $eventversion,
      //       'mycounties' => $this->mycounties,
      //       'targetcounties' => $targetcounties,
-     //       'toggle' => $toggle,
+            'toggle' => $toggle,
         ]);
     }
 

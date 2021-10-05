@@ -28,10 +28,10 @@
                                        :eventversion="$eventversion"
                     />
 
-                    <livewire:schoolpayments-component />
+            <!--        <livewire:schoolpayments-component />
 
                     <livewire:schoolpaymentroster-component />
-
+            -->
                 </div>
             </div>
         </div>

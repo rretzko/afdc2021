@@ -26,7 +26,7 @@
 
         <div class="inputgroup">
             <label for="emailbody">Email text</label>
-            <textarea wire:model="emailbody" cols="60" rows="3" >{!! $emailbody !!}</textarea>
+            <textarea wire:model.lazy="emailbody" cols="60" rows="3" >{!! $emailbody !!}</textarea>
         </div>
 
         <div class="inputgroup">

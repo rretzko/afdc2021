@@ -10,10 +10,11 @@ trait CountiesTrait
     ];
 
     private $usercounties = [
-        45 => [1,6,7,9,15,17,19,],
-        56 => [4,11,12,16,20,],
-        249 => [5,8,10,21,13,],
-        423 => [2,3,14,18,]
+        45 => [1,6,7,9,15,17,19,], //bretzko
+        56 => [4,11,12,16,20,], //cbreitzman
+        249 => [5,8,10,21,13,], //kmarkowski
+        423 => [2,3,14,18,],    //vlal
+        108 => [4,11,12,16,20,],    //mdoheny
     ];
 
     public function geostateCounties($geostate_id = 37)

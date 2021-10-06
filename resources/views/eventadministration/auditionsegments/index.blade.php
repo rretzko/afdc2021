@@ -19,7 +19,11 @@
                     </div>
 
                     <div style="padding:1rem;">
-                        <form method="post" action="{{ route('eventadministrator.segments.update') }}">
+                        @if(config('app.url') === 'http://afdc2021.test')
+                            <form method="post" action="{{ route('eventadministrator.segments.update') }}">
+                        @else
+                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update">
+                        @endif
                             @csrf
 
                             {{-- CHECKBOXES --}}

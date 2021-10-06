@@ -148,4 +148,9 @@ class Eventversion extends Model
 
         return $registrants->sortBy('student.person.last');
     }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

@@ -40,7 +40,13 @@
                                                 Voice Parts ({{ $eventversion->instrumentations()->count() }})
                                             </a>
                                         </li>
-                                        <li>Room Definitions</li>
+                                        <li>
+                                            <a href="{{ route('eventadministrator.rooms') }}"
+                                               title="Define the adjudication room segments and instrumentations"
+                                            >
+                                                Room Definitions ({{ $eventversion->rooms()->count() }})
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>

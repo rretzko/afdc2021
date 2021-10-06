@@ -49,6 +49,12 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.instrumentations');
     Route::post('/eventadministrator/instrumentations/update', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'update'])
         ->name('eventadministrator.instrumentations.update');
+    Route::get('/eventadministrator/rooms', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'index'])
+        ->name('eventadministrator.rooms');
+    Route::get('/eventadministrator/rooms/edit/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'edit'])
+        ->name('eventadministrator.rooms.edit');
+    Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
+        ->name('eventadministrator.rooms.update');
     Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
     Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])

@@ -18,10 +18,35 @@
                         </div>
                     </div>
 
-                    <div>
-                        @foreach($filecontenttypes AS $filecontenttype)
-                            {{ $filecontenttype->descr }}
-                        @endforeach
+                    <div style="padding:1rem;">
+                        <form method="post" action="{{ route('eventadministrator.segments.update') }}">
+                            @csrf
+
+                            {{-- CHECKBOXES --}}
+                            <div style="display: flex; flex-direction: column; padding-left: .5rem">
+                                @foreach($filecontenttypes AS $filecontenttype)
+                                    <div class="input-group" style="">
+                                        <div style="padding-top: .1rem;">
+                                            <input type="checkbox"
+                                                   name="filecontenttypes[]"
+                                                   id="filecontenttype_{{ $filecontenttype->id }}"
+                                                   value="{{ $filecontenttype->id }}"
+                                                   @if($currentfilecontenttypes->contains($filecontenttype))
+                                                       CHECKED
+                                                    @endif
+                                            />
+                                        </div>
+                                        <label for="filecontenttype_{{ $filecontenttype->id }}" style="margin-left: .5rem;">
+                                            {{ $filecontenttype->descr }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="input-group">
+                                <input type="submit" name="submit" id="submit" value="Update Segments" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

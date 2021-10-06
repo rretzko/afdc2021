@@ -29,7 +29,7 @@
                                         <li>
                                             <a href="{{ route('eventadministrator.segments') }}"
                                                title="Define the major audition parts (ex. scales,solo,etc.">
-                                                Audition Segments
+                                                Audition Segments ({{ $eventversion->filecontenttypes->count() }})
                                             </a>
                                         </li>
                                         <li>Voice Parts</li>

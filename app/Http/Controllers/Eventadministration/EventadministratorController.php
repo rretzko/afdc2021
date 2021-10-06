@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Eventversion;
+use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
 class EventadministratorController extends Controller
@@ -14,7 +16,10 @@ class EventadministratorController extends Controller
      */
     public function index()
     {
-        return view('eventadministration.index');
+        return view('eventadministration.index',
+        [
+            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+        ]);
     }
 
     /**

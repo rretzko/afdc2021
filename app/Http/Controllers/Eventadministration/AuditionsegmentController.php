@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Eventversion;
 use App\Models\Filecontenttype;
+use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
 class AuditionsegmentController extends Controller
@@ -15,9 +17,12 @@ class AuditionsegmentController extends Controller
      */
     public function index()
     {
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+
         return view('eventadministration.auditionsegments.index',
         [
             'filecontenttypes' => Filecontenttype::orderBy('descr')->get(),
+            'currentfilecontenttypes' => $eventversion->filecontenttypes,
         ]);
     }
 
@@ -68,12 +73,19 @@ class AuditionsegmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $segments = $request->validate([
+            'filecontenttypes' => ['required','array'],
+            'filecontenttypes.*' => ['required','numeric'],
+        ]);
+
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion->filecontenttypes()->sync($segments['filecontenttypes']);
+
+        return redirect(route('eventadministrator.index'));
     }
 
     /**

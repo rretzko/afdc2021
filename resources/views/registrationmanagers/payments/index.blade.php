@@ -21,15 +21,15 @@
                     {{-- COUNTY SCOPE --}}
 
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
-{{ dd('Please be patient...testing...24') }}
+
                     {{-- ACTIVITY NAVIGATION MENU --}}
-                    <!-- {{--
+
                     <x-navs.activities toggle="{{ $toggle }}"
                                        :counties="$counties"
                                        :mycounties="$mycounties"
                                        :eventversion="$eventversion"
                     />
-                    --}} -->
+{{ dd('Please be patient...testing...06-Oct-21 7:51 am') }}
 
             <!--        ivewire:schoolpayments-component
 

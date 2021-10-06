@@ -29,7 +29,7 @@ class PaymentController extends Controller
         return view('registrationmanagers.payments.index',
         [
             'counties' => $this->geostateCounties(),
-     //       'eventversion' => $eventversion,
+            'eventversion' => $eventversion,
             'mycounties' => $this->userCounties(auth()->id()),
      //       'targetcounties' => $targetcounties,
             'toggle' => $toggle,

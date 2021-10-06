@@ -19,8 +19,9 @@
                     </div>
 
                     {{-- COUNTY SCOPE --}}
+                    <!-- {{--
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
-
+                    --}} -->
                     {{-- ACTIVITY NAVIGATION MENU --}}
                     <!-- {{--
                     <x-navs.activities toggle="{{ $toggle }}"

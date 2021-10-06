@@ -119,7 +119,7 @@ class Eventversion extends Model
     public function getParticipatingSchoolsAttribute()
     {
         $schoolids = DB::select(DB::raw("
-            SELECT DISTINCT registrants.school_id
+            SELECT DISTINCT registrants.school_id, schools.name
             FROM registrants, schools
             WHERE registrants.eventversion_id= :eventversion_id
             AND registrants.registranttype_id=16

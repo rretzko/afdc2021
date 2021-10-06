@@ -1,7 +1,11 @@
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
 
     <div>
-        Event administrator
+        @if(auth()->id() === 45)
+            <a href="{{ route('eventadministrator.index') }}">
+                Event administrator
+            </a>
+        @endif
     </div>
 
     <div style="margin-right: 1rem;">

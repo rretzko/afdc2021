@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-
+{{ dd(7) }}
                 <x-logout />
 
                 <div class="card">
@@ -31,9 +31,9 @@
                     />
                     --}} -->
 
-            <!--        <livewire:schoolpayments-component />
+            <!--        ivewire:schoolpayments-component
 
-                    <livewire:schoolpaymentroster-component />
+                    ivewire:schoolpaymentroster-component
             -->
                 </div>
             </div>

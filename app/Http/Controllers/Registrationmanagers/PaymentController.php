@@ -30,7 +30,7 @@ class PaymentController extends Controller
         [
             'counties' => $this->geostateCounties(),
      //       'eventversion' => $eventversion,
-      //      'mycounties' => $this->userCounties(auth()->id()),
+            'mycounties' => $this->userCounties(auth()->id()),
      //       'targetcounties' => $targetcounties,
             'toggle' => $toggle,
         ]);

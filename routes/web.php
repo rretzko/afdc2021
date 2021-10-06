@@ -45,16 +45,28 @@ Route::group(['middleware' => 'auth'],function(){
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
         ->name('eventadministrator.index');
+
+    Route::get('/eventadministrator/adjudicators', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'index'])
+        ->name('eventadministrator.adjudicators.index');
+    Route::post('/eventadministrator/adjudicators/update', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'update'])
+        ->name('eventadministrator.adjudicators.update');
+
+
+    Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
+        ->name('eventadministrator.instrumentations');
+
     Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');
     Route::post('/eventadministrator/instrumentations/update', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'update'])
         ->name('eventadministrator.instrumentations.update');
+
     Route::get('/eventadministrator/rooms', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'index'])
         ->name('eventadministrator.rooms');
     Route::get('/eventadministrator/rooms/edit/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'edit'])
         ->name('eventadministrator.rooms.edit');
     Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
         ->name('eventadministrator.rooms.update');
+
     Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
     Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])

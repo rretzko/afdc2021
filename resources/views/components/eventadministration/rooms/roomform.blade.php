@@ -1,8 +1,5 @@
 <div style="display: flex; flex-direction: column; padding-left: .5rem">
-    <style>
-        label{width: 8rem;}
-        .input-group{margin-bottom: .5rem;}
-    </style>
+    <x-eventadministration.style />
     @if(config('app.url') === 'http://afdc2021.test')
         <form method="post" action="{{ route('eventadministrator.rooms.update', ['room' => $room]) }}">
     @else

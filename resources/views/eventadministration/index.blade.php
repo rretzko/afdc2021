@@ -24,7 +24,17 @@
                                 Event Administration
                             </h4>
                             <ul>
-                                <li>Judge Assignments
+                                <li>@if($eventversion->filecontenttypes->count() &&
+                                            $eventversion->instrumentations()->count() &&
+                                            $eventversion->rooms->count())
+                                        <a href="{{ route('eventadministrator.adjudicators.index') }}"
+                                            title="Assign members to event adjudicator positions"
+                                        >
+                                            Judge Assignments
+                                        </a>
+                                    @else
+                                        Judge Assignments
+                                    @endif
                                     <ul>
                                         <li>
                                             <a href="{{ route('eventadministrator.segments') }}"

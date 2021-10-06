@@ -28,11 +28,18 @@
                                     <ul>
                                         <li>
                                             <a href="{{ route('eventadministrator.segments') }}"
-                                               title="Define the major audition parts (ex. scales,solo,etc.">
+                                               title="Define the major audition parts (ex. scales,solo,etc."
+                                            >
                                                 Audition Segments ({{ $eventversion->filecontenttypes->count() }})
                                             </a>
                                         </li>
-                                        <li>Voice Parts</li>
+                                        <li>
+                                            <a href="{{ route('eventadministrator.instrumentations') }}"
+                                               title="Define the instrumentation to be adjudicated"
+                                               >
+                                                Voice Parts ({{ $eventversion->instrumentations()->count() }})
+                                            </a>
+                                        </li>
                                         <li>Room Definitions</li>
                                     </ul>
                                 </li>

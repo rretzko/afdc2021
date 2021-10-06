@@ -17,11 +17,11 @@
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
                         </div>
                     </div>
-{{ dd('Please be patient...testing...20') }}
+
                     {{-- COUNTY SCOPE --}}
-                    <!-- {{--
+
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
-                    --}} -->
+{{ dd('Please be patient...testing...24') }}
                     {{-- ACTIVITY NAVIGATION MENU --}}
                     <!-- {{--
                     <x-navs.activities toggle="{{ $toggle }}"

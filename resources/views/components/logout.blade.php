@@ -2,7 +2,9 @@
 
     <div>
         @if(auth()->id() === 45)
-
+            <a href="{{ route('eventadministrator.index') }}">
+                Event administrator
+            </a>
         @endif
     </div>
 

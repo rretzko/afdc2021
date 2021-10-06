@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Filecontenttype;
 use Illuminate\Http\Request;
 
 class AuditionsegmentController extends Controller
@@ -14,7 +15,10 @@ class AuditionsegmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('eventadministration.auditionsegments.index',
+        [
+            'filecontenttypes' => Filecontenttype::orderBy('descr')->get(),
+        ]);
     }
 
     /**

@@ -43,8 +43,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
 
     /** EVENT ADMINISTRATOR */
-    Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])->name('eventadministrator.index');
-
+    Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
+        ->name('eventadministrator.index');
+    Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
+        ->name('eventadministrator.segments');
     /** REGISTRATION MANAGERS */
     Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');
     Route::get('/registrationmanager/payments/', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'index'])->name('payments.index');

@@ -26,7 +26,12 @@
                             <ul>
                                 <li>Judge Assignments
                                     <ul>
-                                        <li>Audition Segments</li>
+                                        <li>
+                                            <a href="{{ route('eventadministrator.segments') }}"
+                                               title="Define the major audition parts (ex. scales,solo,etc.">
+                                                Audition Segments
+                                            </a>
+                                        </li>
                                         <li>Voice Parts</li>
                                         <li>Room Definitions</li>
                                     </ul>

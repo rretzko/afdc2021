@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
                 <x-logout />
-{{ dd(9) }}
+
                 <div class="card">
 
                     <div class="card-header col-12 d-flex">
@@ -17,7 +17,7 @@
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
                         </div>
                     </div>
-
+{{ dd('Please be patient...testing...20) }}
                     {{-- COUNTY SCOPE --}}
                     <!-- {{--
                     <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>

@@ -17,6 +17,37 @@
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
                         </div>
                     </div>
+
+                    <div style="padding: 1rem .5rem;">
+                        <div>
+                            <h4>
+                                Event Administration
+                            </h4>
+                            <ul>
+                                <li>Judge Assignments
+                                    <ul>
+                                        <li>Audition Segments</li>
+                                        <li>Voice Parts</li>
+                                        <li>Room Definitions</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Tab Room
+                            </h4>
+                            <ul>
+                                <li>Score Input</li>
+                                <li>Registrant Updates</li>
+                                <li>Reports</li>
+                            </ul>
+                        </div>
+                        <ul>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

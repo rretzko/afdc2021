@@ -30,12 +30,9 @@
                                        :eventversion="$eventversion"
                     />
 
-
                     <livewire:schoolpayments-component />
-{{ dd('Please be patient...testing...06-Oct-21 7:51 am') }}
-                    <!--
-                    ivewire:schoolpaymentroster-component
-            -->
+
+                    <livewire:schoolpaymentroster-component />
                 </div>
             </div>
         </div>

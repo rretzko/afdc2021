@@ -45,10 +45,14 @@ Route::group(['middleware' => 'auth'],function(){
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
         ->name('eventadministrator.index');
-    Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])
-        ->name('eventadministrator.segments.update');
+    Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
+        ->name('eventadministrator.instrumentations');
+    Route::post('/eventadministrator/instrumentations/update', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'update'])
+        ->name('eventadministrator.instrumentations.update');
     Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
+    Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])
+        ->name('eventadministrator.segments.update');
 
     /** REGISTRATION MANAGERS */
     Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');

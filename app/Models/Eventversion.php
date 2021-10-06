@@ -103,19 +103,6 @@ class Eventversion extends Model
         return rand(0,90);
     }
 
-    /**
-     * Instrumentation is assigned to eventensembletype
-     *
-     * This method returns the instrumentation for the FIRST ensemble
-     * found for $this->event
-     *
-     * @return mixed
-     */
-    public function instrumentations()
-    {
-        return $this->event->eventensembles->first()->instrumentations();
-    }
-
     public function getParticipatingSchoolsAttribute()
     {
         $schoolids = DB::select(DB::raw("
@@ -136,6 +123,19 @@ class Eventversion extends Model
         }
 
         return $c;
+    }
+
+    /**
+     * Instrumentation is assigned to eventensembletype
+     *
+     * This method returns the instrumentation for the FIRST ensemble
+     * found for $this->event
+     *
+     * @return mixed
+     */
+    public function instrumentations()
+    {
+        return $this->event->eventensembles->first()->instrumentations();
     }
 
     public function registrantsForSchool(School $school)

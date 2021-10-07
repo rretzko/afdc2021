@@ -24,7 +24,7 @@
                                 {{ $room->descr }}
                             </a>
                         @else
-                            <a href="https://afdc-2021-l28q8.ondigitalocean.com/eventadministrator/rooms/edit/{{ $room->id }}">
+                            <a href="https://afdc-2021-l38q8.ondigitalocean.com/eventadministrator/rooms/edit/{{ $room->id }}">
                                 {{ $room->descr }}
                             </a>
                         @endif

@@ -3,7 +3,7 @@
     @if(config('app.url') === 'http://afdc2021.test')
         <form method="post" action="{{ route('eventadministrator.rooms.update', ['room' => $room]) }}">
     @else
-        <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministration/rooms/update/{{ $room->id ?: 0 }}">
+        <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/rooms/update/{{ $room->id ?: 0 }}">
     @endif
 
         @csrf

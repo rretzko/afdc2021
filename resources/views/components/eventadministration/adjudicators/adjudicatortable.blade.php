@@ -32,9 +32,13 @@
 
                 <tr>
                     <td colspan="4" style="padding-left: 3rem;">
-                        @foreach($room->adjudicators AS $adjudicator)
-                            {{ $loop->iteration }}
-                        @endforeach
+                        <ul>
+                            @foreach($room->adjudicators AS $adjudicator)
+                            <li>
+                                {{ $adjudicator->adjudicatorname }}
+                            </li>
+                            @endforeach
+                        </ul>
                     </td>
                 </tr>
             @endforeach

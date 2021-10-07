@@ -11,6 +11,11 @@ class Room extends Model
 
     protected $fillable = ['descr', 'eventversion_id', 'order_by'];
 
+    public function adjudicators()
+    {
+        return $this->hasMany(Adjudicator::class);
+    }
+
     public function filecontenttypes()
     {
         return $this->belongsToMany(Filecontenttype::class);

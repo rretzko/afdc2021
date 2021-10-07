@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; padding-left: .5rem">
     <x-eventadministration.style />
     @if(config('app.url') === 'http://afdc2021.test')
-        <form method="post" action="{{ route('eventadministrator.rooms.update', ['room' => $room]) }}">
+        <form method="post" action="{{ route('eventadministrator.rooms.update', ['room' => $room->id]) }}">
     @else
         <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/rooms/update/{{ $room->id ?: 0 }}">
     @endif

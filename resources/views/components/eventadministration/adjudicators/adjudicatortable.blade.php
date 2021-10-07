@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             @foreach($rooms AS $room)
-                <tr style="background-color: rgba(255,255,0,.1);">
+                <tr style="background-color: lightgoldenrodyellow;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $room->descr }}</td>
                     <td>
@@ -32,7 +32,9 @@
 
                 <tr>
                     <td colspan="4" style="padding-left: 3rem;">
-                        Adjudicators (role)
+                        @foreach($room->adjudicators AS $adjudicator)
+                            {{ $loop->iteration }}
+                        @endforeach
                     </td>
                 </tr>
             @endforeach

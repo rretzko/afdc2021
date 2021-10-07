@@ -24,7 +24,7 @@
                                 {{ $room->descr }}
                             </a>
                         @else
-                            <a href="https://afdc-2021-l28q8.ondigitalocean.com">
+                            <a href="https://afdc-2021-l28q8.ondigitalocean.com/eventadministrator/rooms/edit/{{ $room->id }}">
                                 {{ $room->descr }}
                             </a>
                         @endif
@@ -48,13 +48,21 @@
                     </td>
                     <td style="padding-top: .1rem; padding-bottom: .1rem;">
                         <div style="background-color: darkred; border-radius: .5rem;">
-                            <a href="{{ route('eventadministrator.rooms.delete',
-                                [
-                                    'room' => $room,
-                                ]) }}"
-                               title="Delete room: {{ $room->descr }}"
-                               style="color: white; font-size: .66rem; padding:0 .25rem;"
-                            >
+                            @if(config('app.url') === 'http://afdc2021.test')
+                                <a href="{{ route('eventadministrator.rooms.delete',
+                                    [
+                                        'room' => $room,
+                                    ]) }}"
+                                   title="Delete room: {{ $room->descr }}"
+                                   style="color: white; font-size: .66rem; padding:0 .25rem;"
+                                >
+                            @else
+                                <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/rooms/delete/{{ $room->id }}"
+                                           title="Delete room: {{ $room->descr }}"
+                                           style="color: white; font-size: .66rem; padding:0 .25rem;"
+                                >
+                            @endif
+
                                 Delete
                             </a>
                         </div>

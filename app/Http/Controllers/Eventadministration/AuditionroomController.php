@@ -92,8 +92,8 @@ class AuditionroomController extends Controller
      * @param \App\Models\Room $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Room $room)
-    {
+    public function update(Request $request, $room)
+    {dd($room);
         //early exit
         if(isset($request->cancel)){ return $this->index(); }
 

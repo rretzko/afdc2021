@@ -93,7 +93,7 @@ class AuditionroomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $room)
-    {dd($room);
+    {
         //early exit
         if(isset($request->cancel)){ return $this->index(); }
 
@@ -105,6 +105,16 @@ class AuditionroomController extends Controller
             'instrumentations' => ['required','array'],
             'instrumentations.*' => ['required','numeric'],
         ]);
+
+        if(is_int($room) && $room){
+
+            $room = Room::find($room);
+        }
+
+        if(is_int($room) && (! $room)){
+
+            $room = new Room();
+        }
 
         if($room->id) {
 

@@ -28,7 +28,9 @@
                         />
 
                         {{-- ADJUDICATOR TABLE --}}
-
+                        <x-eventadministration.adjudicators.adjudicatortable
+                            :rooms="$rooms"
+                        />
 
                     </div>
                 </div>

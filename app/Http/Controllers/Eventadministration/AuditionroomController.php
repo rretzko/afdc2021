@@ -131,11 +131,17 @@ class AuditionroomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Room $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Room $room)
     {
-        //
+        $room->update(
+            [
+                'eventversion_id' => 1
+            ]
+        );
+
+        return $this->index();
     }
 }

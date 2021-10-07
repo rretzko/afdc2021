@@ -15,8 +15,13 @@
 
         <div class="input-group">
             <label for="descr">Name</label>
-            <input type="text" name="descr" id="descr"
-                   value="{{ $room->id ? $room->descr : '' }}" style="width: 20rem;"/>
+            <div style="display:flex; flex-direction: column;">
+                <input type="text" name="descr" id="descr"
+                       value="{{ $room->id ? $room->descr : '' }}" style="width: 20rem;"/>
+                @error('descr')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="input-group">
@@ -34,32 +39,43 @@
                     </option>
                 @endfor
             </select>
+
         </div>
 
         <div class="input-group">
             <label for="descr">Voice Part(s)</label>
-            <select name="instrumentations[]" multiple style="width: 10rem;">
-                @foreach($instrumentations AS $instrumentation)
-                    <option value="{{ $instrumentation->id }}"
-                        @if($room->instrumentations->contains($instrumentation)) SELECTED @endif
-                    >
-                        {{ $instrumentation->descr }}
-                    </option>
-                @endforeach
-            </select>
+            <div style="display:flex flex-direction: row">
+                <select name="instrumentations[]" multiple style="width: 10rem;">
+                    @foreach($instrumentations AS $instrumentation)
+                        <option value="{{ $instrumentation->id }}"
+                            @if($room->instrumentations->contains($instrumentation)) SELECTED @endif
+                        >
+                            {{ $instrumentation->descr }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('instrumentations')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="input-group">
             <label for="descr">Segments</label>
-            <select name="filecontenttypes[]" multiple style="width: 10rem;">
-                @foreach($filecontenttypes AS $filecontenttype)
-                    <option value="{{ $filecontenttype->id }}"
-                        @if($room->filecontenttypes->contains($filecontenttype)) SELECTED @endif
-                    >
-                        {{ $filecontenttype->descr }}
-                    </option>
-                @endforeach
-            </select>
+            <div style="display: flex; flex-direction: column;">
+                <select name="filecontenttypes[]" multiple style="width: 10rem;">
+                    @foreach($filecontenttypes AS $filecontenttype)
+                        <option value="{{ $filecontenttype->id }}"
+                            @if($room->filecontenttypes->contains($filecontenttype)) SELECTED @endif
+                        >
+                            {{ $filecontenttype->descr }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('filecontenttypes')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="input-group">

@@ -262,7 +262,8 @@ class RegistrationActivity extends Model
         foreach($this->eventversion_schools AS $school) {
             $schoolids[] = $school->id;
         };
-
+        sort($schoolids);
+//dd($schoolids);
         $registrants =  Registrant::with('student', 'student.person', 'student.person.user.schools')
             ->whereIn('id', $ids)
             ->whereIn('school_id', $schoolids)

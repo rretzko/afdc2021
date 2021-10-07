@@ -11,6 +11,7 @@
                 <th>Content</th>
                 <th>Voice Part(s)</th>
                 <th>Order</th>
+                <th class="sr-only">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,19 @@
                     </td>
                     <td style="text-align: center;">
                         {{ $room->order_by }}
+                    </td>
+                    <td style="padding-top: .1rem; padding-bottom: .1rem;">
+                        <div style="background-color: darkred; border-radius: .5rem;">
+                            <a href="{{ route('eventadministrator.rooms.delete',
+                                [
+                                    'room' => $room,
+                                ]) }}"
+                               title="Delete room: {{ $room->descr }}"
+                               style="color: white; font-size: .66rem; padding:0 .25rem;"
+                            >
+                                Delete
+                            </a>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/eventadministrator/rooms', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'index'])
         ->name('eventadministrator.rooms');
+    Route::get('/eventadministrator/rooms/delete/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'destroy'])
+        ->name('eventadministrator.rooms.delete');
     Route::get('/eventadministrator/rooms/edit/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'edit'])
         ->name('eventadministrator.rooms.edit');
     Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])

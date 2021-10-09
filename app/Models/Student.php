@@ -18,4 +18,9 @@ class Student extends Model
     {
         return $this->hasMany(Registrant::class, 'user_id', 'user_id');
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'user_id', 'user_id');
+    }
 }

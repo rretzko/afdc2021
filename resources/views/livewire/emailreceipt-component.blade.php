@@ -62,6 +62,12 @@
                                 {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
                             </a>
                         @endif
+                        <br />
+                        @if($school->currentTeacher && $school->currentTeacher->user_id)
+                            <a href="mailto:{{ $school->currentTeacher->person->subscriberemailwork }}?subject={{$eventversion->name}}&body=Hi,{{$school->currentTeacher->person->first}}">
+                                {{ $school->currentTeacher->person->fullName() }}
+                            </a>
+                        @endif
                     </span>
                 </td>
                 <td style="text-align: center; color: blue; cursor: pointer;">

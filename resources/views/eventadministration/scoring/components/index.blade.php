@@ -29,7 +29,7 @@
                                 @endif
                                 ">
                             @else
-                                <form method="post" action="@if($scoringcomponent) https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/components/update/{{ $scoringcomponent->id }} @else https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/components/new @endif ">
+                                <form method="post" action="@if($scoringcomponent) https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/update/{{ $scoringcomponent->id }} @else https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/new @endif ">
                             @endif
                                 @csrf
 

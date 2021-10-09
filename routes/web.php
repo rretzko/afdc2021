@@ -82,7 +82,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/scoring/components/update/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'update'])
         ->name('eventadministrator.scoring.components.update');
 
-
     Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
     Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])
@@ -96,4 +95,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrants.county.show');
     Route::get('/registrationmanager/registrants/school/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
         ->name('registrants.school.show');
+
+    Route::get('/registrationmanager/participatingteachers/', [App\Http\Controllers\Registrationmanagers\ParticipatingteachersController::class, 'index'])
+        ->name('registrationmanager.participatingteachers.index');
+
 });

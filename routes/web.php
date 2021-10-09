@@ -69,6 +69,20 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
         ->name('eventadministrator.rooms.update');
 
+    Route::get('/eventadministrator/scoring/segments', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])
+        ->name('eventadministrator.scoring.segments');
+    Route::get('/eventadministrator/scoring/components', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'index'])
+        ->name('eventadministrator.scoring.components');
+    Route::get('/eventadministrator/scoring/components/delete/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'destroy'])
+        ->name('eventadministrator.scoring.components.delete');
+    Route::get('/eventadministrator/scoring/components/edit/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'edit'])
+        ->name('eventadministrator.scoring.components.edit');
+    Route::post('/eventadministrator/scoring/components/new', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'store'])
+        ->name('eventadministrator.scoring.components.new');
+    Route::post('/eventadministrator/scoring/components/update/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'update'])
+        ->name('eventadministrator.scoring.components.update');
+
+
     Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
     Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])

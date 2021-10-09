@@ -64,6 +64,26 @@
 
                         <div>
                             <h4>
+                                Score Definition
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('eventadministrator.scoring.segments') }}">
+                                        Segments
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.scoring.components') }}">
+                                        Value Components
+                                    </a>
+                                </li>
+                                <li>Tolerance</li>
+                                <li>Score Legend</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4>
                                 Tab Room
                             </h4>
                             <ul>
@@ -72,9 +92,7 @@
                                 <li>Reports</li>
                             </ul>
                         </div>
-                        <ul>
 
-                        </ul>
                     </div>
                 </div>
             </div>

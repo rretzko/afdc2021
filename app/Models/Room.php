@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descr', 'eventversion_id', 'order_by'];
+    protected $fillable = ['descr', 'eventversion_id', 'order_by','tolerance'];
 
     public function adjudicators()
     {

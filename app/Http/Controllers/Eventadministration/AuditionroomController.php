@@ -50,7 +50,8 @@ class AuditionroomController extends Controller
         return Room::create([
             'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
             'descr' => $inputs['descr'],
-            'order_by' => $inputs['order_by']
+            'order_by' => $inputs['order_by'],
+            'tolerance' => $inputs['tolerance'],
         ]);
     }
 
@@ -100,6 +101,7 @@ class AuditionroomController extends Controller
         $inputs = $request->validate([
             'descr' => ['required','string'],
             'order_by' => ['required','numeric'],
+            'tolerance' => ['required', 'numeric'],
             'filecontenttypes' => ['required','array'],
             'filecontenttypes.*' => ['required','numeric'],
             'instrumentations' => ['required','array'],
@@ -122,7 +124,8 @@ class AuditionroomController extends Controller
                 [
                     'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
                     'descr' => $inputs['descr'],
-                    'order_by' => $inputs['order_by']
+                    'order_by' => $inputs['order_by'],
+                    'tolerance' => $inputs['tolerance'],
                 ]
             );
 

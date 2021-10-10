@@ -11,6 +11,7 @@
                 <th>Content</th>
                 <th>Voice Part(s)</th>
                 <th>Order</th>
+                <th>Tolerance</th>
                 <th class="sr-only">Delete</th>
             </tr>
         </thead>
@@ -24,7 +25,7 @@
                                 {{ $room->descr }}
                             </a>
                         @else
-                            <a href="https://afdc-2021-l38q8.ondigitalocean.com/eventadministrator/rooms/edit/{{ $room->id }}">
+                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/rooms/edit/{{ $room->id }}">
                                 {{ $room->descr }}
                             </a>
                         @endif
@@ -45,6 +46,9 @@
                     </td>
                     <td style="text-align: center;">
                         {{ $room->order_by }}
+                    </td>
+                    <td style="text-align: center;">
+                        {{ $room->tolerance }}
                     </td>
                     <td style="padding-top: .1rem; padding-bottom: .1rem;">
                         <div style="background-color: darkred; border-radius: .5rem;">

@@ -43,6 +43,24 @@
         </div>
 
         <div class="input-group">
+            <label for="order_by">Room Tolerance</label>
+            <select name="tolerance">
+                @for($i=1; $i<25; $i++)
+                    <option value="{{ $i }}"
+                    @if($room->id)
+                        {{ $room->tolerance == $i ? 'SELECTED' : '' }}
+                        @else
+                        {{ $i === 1 ? 'SELECTED' : '' }}
+                        @endif
+                    >
+                        {{ $i }}
+                    </option>
+                @endfor
+            </select>
+
+        </div>
+
+        <div class="input-group">
             <label for="descr">Voice Part(s)</label>
             <div style="display:flex flex-direction: row">
                 <select name="instrumentations[]" multiple style="width: 10rem;">

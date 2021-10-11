@@ -18,10 +18,14 @@ class ParticipatingteachersController extends Controller
     {
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
 
+        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
+            ? $eventversion->participatingTeachersEsignature
+            : $eventversion->participatingTeachers;
+
         return view('eventadministration.participatingteachers.index',
             [
                 'eventversion' => $eventversion,
-                'participatingteachers' => $eventversion->participatingTeachers
+                'participatingteachers' => $participatingteachers,
             ]
         );
     }

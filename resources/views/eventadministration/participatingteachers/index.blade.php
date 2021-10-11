@@ -23,7 +23,11 @@
                         {{-- DEFINITION --}}
                         <div id="definition">
                             <div style="font-style: italic; text-align: center; margin-bottom: 1rem;">
-                                def. A teacher is deemed 'participating' if the teacher has confirmed a registrant's application signatures.
+                                @if(($eventversion->event->id === 11) || ($eventversion->event->id === 12))
+                                    def. A teacher is deemed 'participating' if the teacher has acknowledged the Obligations page.
+                                @else
+                                    def. A teacher is deemed 'participating' if the teacher has confirmed a registrant's application signatures.
+                                @endif
                             </div>
                         </div>
 

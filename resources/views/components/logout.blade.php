@@ -1,7 +1,13 @@
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
 
-    <div>
-        @if(auth()->id() === 45)
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        @if(
+            (auth()->id() === 21) ||
+            (auth()->id() === 28) ||
+            (auth()->id() === 38) ||
+            (auth()->id() === 45) ||
+            (auth()->id() === 82)
+        )
             @if(request()->is('eventadministrator') || request()->is('eventadministrator/*'))
                 <a href="{{ route('registrationmanagers.index') }}">
                     Registration manager

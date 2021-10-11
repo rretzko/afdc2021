@@ -142,6 +142,26 @@ class Eventversion extends Model
             ->sortBy(['person.last', 'person.first']);
     }
 
+    //SJCDA defines registered students as have two esignatures
+    //use the Obligations table to determine those teachers who (at least) signed up to participate
+    public function getParticipatingTeachersEsignatureAttribute()
+    {
+        $registrantids = DB::select("
+            SELECT DISTINCT obligations.user_id
+            FROM obligations, fileuploads
+            WHERE obligations.eventversion_id=".$this->id."
+            AND fileuploads.approved_by=obligations.user_id");
+
+        $teachers = collect();
+
+        foreach($registrantids AS $id){
+
+            $teachers->push(Teacher::find($id->user_id));
+        }
+
+        return $teachers->sortBy(['person.last']);
+    }
+
     /**
      * Instrumentation is assigned to eventensembletype
      *

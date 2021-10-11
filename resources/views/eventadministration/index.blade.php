@@ -81,8 +81,6 @@
                                         Value Components
                                     </a>
                                 </li>
-                                <li>Tolerance</li>
-                                <li>Score Legend</li>
                             </ul>
                         </div>
 

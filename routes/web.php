@@ -51,7 +51,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/adjudicators/update', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'update'])
         ->name('eventadministrator.adjudicators.update');
 
-
     Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');
 

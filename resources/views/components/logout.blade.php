@@ -2,7 +2,8 @@
 
     <div>
         @if(auth()->id() === 45)
-            @if(Route::currentRouteName() === 'registrationmanagers.index')
+            @if((Route::currentRouteName() === 'registrationmanagers.index')
+                || (Route::currentRouteName() === 'registrationmanager.show'))
                 <a href="{{ route('eventadministrator.index') }}">
                     Event administrator
                 </a>
@@ -11,6 +12,7 @@
                     Registration manager
                 </a>
             @endif
+        {{Route::currentRouteName()}}
         @endif
     </div>
 

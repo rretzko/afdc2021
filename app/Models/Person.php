@@ -52,6 +52,11 @@ class Person extends Model
         return $this->hasMany(Subscriberemail::class, 'user_id');
     }
 
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'user_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

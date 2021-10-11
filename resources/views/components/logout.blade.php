@@ -2,17 +2,14 @@
 
     <div>
         @if(auth()->id() === 45)
-            @if((Route::currentRouteName() === 'registrationmanagers.index')
-                || (Route::currentRouteName() === 'registrationmanager.show'))
-                <a href="{{ route('eventadministrator.index') }}">
-                    Event administrator
-                </a>
-            @else
+            @if(request()->is('eventadministrator') || request()->is('eventadministrator/*'))
                 <a href="{{ route('registrationmanagers.index') }}">
                     Registration manager
-                </a>
+                </a> |
             @endif
-        {{Route::currentRouteName()}}
+            <a href="{{ route('eventadministrator.index') }}">
+                Event administrator
+            </a>
         @endif
     </div>
 

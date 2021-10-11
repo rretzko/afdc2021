@@ -126,6 +126,23 @@ class Eventversion extends Model
     }
 
     /**
+     * A teacher is participating if the teacher has confirmed a signature
+     * @return \Illuminate\Support\Collection
+     */
+    public function getParticipatingTeachersAttribute()
+    {
+        $min = ($this->id * 10000);
+        $max = ($min + 10000);
+
+        return Teacher::whereIn('user_id',Signature::where('registrant_id', '>=', $min)
+            ->where('registrant_id', '<', $max)
+            ->distinct()
+            ->pluck('confirmed_by'))
+            ->get()
+            ->sortBy(['person.last', 'person.first']);
+    }
+
+    /**
      * Instrumentation is assigned to eventensembletype
      *
      * This method returns the instrumentation for the FIRST ensemble

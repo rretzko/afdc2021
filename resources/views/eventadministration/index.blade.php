@@ -24,6 +24,10 @@
                                 Event Administration
                             </h4>
                             <ul>
+                                <li><a href="{{ route('eventadministrator.participatingteachers') }}">
+                                        Participating Teachers
+                                    </a>
+                                </li>
                                 <li>@if($eventversion->filecontenttypes->count() &&
                                             $eventversion->instrumentations()->count() &&
                                             $eventversion->rooms->count())

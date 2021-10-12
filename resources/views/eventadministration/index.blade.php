@@ -90,6 +90,7 @@
                             </h4>
                             <ul>
                                 <li>Score Input</li>
+                                <li>Score Tracking</li>
                                 <li>Registrant Updates</li>
                                 <li>Reports</li>
                             </ul>

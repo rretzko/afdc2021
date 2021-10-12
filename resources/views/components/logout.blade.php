@@ -11,7 +11,8 @@
             @if(request()->is('eventadministrator') || request()->is('eventadministrator/*'))
                 <a href="{{ route('registrationmanagers.index') }}">
                     Registration manager
-                </a> |
+                </a>
+                <div style="margin:0 0.5rem;">|</div>
             @endif
             <a href="{{ route('eventadministrator.index') }}">
                 Event administrator

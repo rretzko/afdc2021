@@ -35,7 +35,9 @@
                         <ul>
                             @foreach($room->adjudicators AS $adjudicator)
                             <li>
-                                {{ $adjudicator->adjudicatorname }}
+                                <a href="{{ route('eventadministrator.adjudicators.edit',['id' => $adjudicator->id]) }}">
+                                    {{ $adjudicator->adjudicatorname }}
+                                </a>
                             </li>
                             @endforeach
                         </ul>

@@ -22,6 +22,7 @@
 
                         {{-- ADJUDICATOR FORM --}}
                         <x-eventadministration.adjudicators.adjudicatorform
+                            :adjudicator="$adjudicator"
                             :member="$member"
                             :members="$members"
                             :rooms="$rooms"

@@ -25,6 +25,7 @@ class AdjudicatorController extends Controller
                 'member' => new Membership(),
                 'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
                 'rooms' => $eventversion->rooms->sortBy('order_by'),
+                'adjudicator' => NULL,
             ]);
     }
 
@@ -68,7 +69,15 @@ class AdjudicatorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+
+        return view('eventadministration.adjudicators.index',
+            [
+                'member' => new Membership(),
+                'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
+                'rooms' => $eventversion->rooms->sortBy('order_by'),
+                'adjudicator' => Adjudicator::find($id),
+            ]);
     }
 
     /**
@@ -107,6 +116,8 @@ class AdjudicatorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Adjudicator::destroy($id);
+
+        return $this->index();
     }
 }

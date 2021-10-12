@@ -50,6 +50,10 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.adjudicators.index');
     Route::post('/eventadministrator/adjudicators/update', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'update'])
         ->name('eventadministrator.adjudicators.update');
+    Route::get('/eventadministrator/adjudicators/edit/{id}', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'edit'])
+        ->name('eventadministrator.adjudicators.edit');
+    Route::get('/eventadministrator/adjudicators/delete/{id}', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'destroy'])
+        ->name('eventadministrator.adjudicators.delete');
 
     Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');

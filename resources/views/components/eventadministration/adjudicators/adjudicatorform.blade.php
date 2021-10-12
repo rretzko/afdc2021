@@ -1,7 +1,7 @@
 <div>
     <x-eventadministration.style />
 
-    @if(config('app.url' === 'http://afdc2021.test'))
+    @if(config('app.url') === 'http://afdc2021.test'))
         <form method="post" action="{{ route('eventadministrator.adjudicators.update') }}" >
     @else
         <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadminstrator/adjudicators/update" >

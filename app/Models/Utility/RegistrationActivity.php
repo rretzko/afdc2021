@@ -140,9 +140,17 @@ class RegistrationActivity extends Model
      */
     public function registeredTotal()
     {
-        return $this->registrants->filter(function($registrant){
+        $originals = $this->registrants->filter(function($registrant){
             return $registrant->registranttype_id === Registranttype::REGISTERED;
         });
+
+        $duplicates = $this->duplicateregistrants->filter(function($registrant){
+            return $registrant->registranttype_id === Registranttype::REGISTERED;
+        });
+
+        $merged = $originals->merge($duplicates);
+
+        return $merged;
     }
 
     public function registrationfeeDue(School $school)
@@ -242,7 +250,8 @@ class RegistrationActivity extends Model
      */
     private function buildRegistrants()
     {
-        $registrantids = DB::select(DB::raw("
+        $registrantids = (count($this->counties))
+            ? DB::select(DB::raw("
                 SELECT registrants.id FROM registrants,school_user,schools,students
                 WHERE registrants.eventversion_id= :eventversion_id
                 AND registrants.user_id=school_user.user_id
@@ -250,7 +259,16 @@ class RegistrationActivity extends Model
                 AND schools.county_id IN (".implode(',',$this->counties).")
                 AND registrants.user_id=students.user_id
                 AND students.classof IN (".implode(',',$this->classofs).")"),
-            ['eventversion_id' => $this->eventversion_id,]);
+              ['eventversion_id' => $this->eventversion_id,])
+            : DB::select(DB::raw("
+                SELECT registrants.id
+                FROM registrants,school_user,schools,students
+                WHERE registrants.eventversion_id= :eventversion_id
+                AND registrants.user_id=school_user.user_id
+                AND school_user.school_id=schools.id
+                AND registrants.user_id=students.user_id
+                AND students.classof IN (".implode(',',$this->classofs).")"),
+                ['eventversion_id' => $this->eventversion_id,]);
 
         //array of registrant ids
         $ids = array_map(function($row){
@@ -263,7 +281,7 @@ class RegistrationActivity extends Model
             $schoolids[] = $school->id;
         };
         sort($schoolids);
-//dd($schoolids);
+
         $registrants =  Registrant::with('student', 'student.person', 'student.person.user.schools')
             ->whereIn('id', $ids)
             ->whereIn('school_id', $schoolids)

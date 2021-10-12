@@ -90,9 +90,15 @@
                             </h4>
                             <ul>
                                 <li>Score Input</li>
-                                <li>Score Tracking</li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.scoretracking') }}">
+                                        Score Tracking
+                                    </a>
+                                </li>
+                                <li>Cut-Offs</li>
                                 <li>Registrant Updates</li>
                                 <li>Reports</li>
+                                <li>Publish Results</li>
                             </ul>
                         </div>
 

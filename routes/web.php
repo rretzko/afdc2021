@@ -95,9 +95,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/registrationmanager/registrants/school/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
         ->name('registrants.school.show');
 
-   // Route::get('/registrationmanager/participatingteachers/', [App\Http\Controllers\Registrationmanagers\ParticipatingteachersController::class, 'index'])
-   //     ->name('registrationmanager.participatingteachers.index');
     Route::get('/eventadministrator/participatingteachers', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
+
+    Route::get('/eventadministrator/tabroom/scoretracking', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])
+        ->name('eventadministrator.tabroom.scoretracking');
 
 });

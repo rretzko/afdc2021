@@ -95,6 +95,15 @@
                             </ul>
                         </div>
 
+                        <div>
+                            <h4>
+                                Registration Desk
+                            </h4>
+                            <ul>
+                                <li>In-person registration</li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>

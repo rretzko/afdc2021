@@ -51,7 +51,8 @@ class Adjudicatedstatus extends Model
     private function init()
     {
         //Count of  component scores possible for $this->eventversion
-        $this->countscores = \App\Models\Scoringcomponent::where('eventversion_id', $this->eventversion->id)->count();
+        $this->countscores = (\App\Models\Scoringcomponent::where('eventversion_id', $this->eventversion->id)->count() *
+            $this->eventversion->eventversionconfig->judge_count);
 
         //Object to access all scores for $this->registrant
         $this->scores = new \App\Models\Utility\Registrantscores(['registrant' => $this->registrant]);

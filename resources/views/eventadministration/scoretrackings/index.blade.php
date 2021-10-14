@@ -20,15 +20,14 @@
 
                     <div style="padding:1rem; display:flex; flex-direction: column; justify-content: space-around">
 
-                        {{-- DEFINITION --}}
-                        <div id="definition">
-                            <div style="font-style: italic; text-align: center; margin-bottom: 1rem;">
-                                @if(($eventversion->event->id === 11) || ($eventversion->event->id === 12))
-                                    def. A teacher is deemed 'participating' if the teacher has acknowledged the Obligations page.
-                                @else
-                                    def. A teacher is deemed 'participating' if the teacher has confirmed a registrant's application signatures.
-                                @endif
-                            </div>
+                        {{-- LEGEND --}}
+                        <div id="legend" style="display: flex; flex-direction: row; margin: auto;">
+                                <div style="border:1px solid black; padding: 0 .25rem;" title="No scores found">Unauditioned</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(240,255,0,.1);" title="Incomplete set of scores found">Partial</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,255,0,.1);" title="Complete set of scores found">Completed</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,0,0,.1);" title="Scores are out of tolerance">Tolerance</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(44,130,201,.1);" title="More than expected number of scores found">Excess</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,255,255,.1);" title="Something unexpected has occurred">Error</div>
                         </div>
 
                         {{-- REGISTRANT ID SECTION --}}

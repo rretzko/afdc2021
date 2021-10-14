@@ -42,6 +42,19 @@ class School extends Model
     }
 
     /**
+     * Return array of all grades found for $this
+     */
+    public function getGradesAttribute() : array
+    {
+        return DB::table('gradetype_school_user')
+            ->select('gradetype_id')
+            ->where('school_id', $this->id)
+            ->distinct()
+            ->pluck('gradetype_id')
+            ->toArray();
+    }
+
+    /**
      * @since 2020.05.28
      *
      * abbreviate common terms

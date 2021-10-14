@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, SenioryearTrait;
 
     public function getCurrentSchoolAttribute()
     {
         foreach($this->person->user->schools AS $school){
 
-            if($school->currentUserGrades &&
-                in_array($this->getGradeAttribute(), $school->currentUserGrades)){
+            if($school->grades &&
+                in_array($this->getGradeAttribute(), $school->grades)){
 
                 return $school;
             }
@@ -37,6 +38,16 @@ class Student extends Model
         }
     }
 
+    public function getGradeAttribute()
+    {
+        $sr_year = $this->senioryear();
+
+        //early exit
+        if($this->classof < $sr_year){ return 'alum';}
+
+        return (12 - ($this->classof - $sr_year));
+    }
+
     public function person()
     {
         return $this->belongsTo(Person::class, 'user_id', 'user_id');
@@ -49,6 +60,9 @@ class Student extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'user_id', 'user_id');
+        return $this->belongsToMany(Teacher::class,'student_teacher','student_user_id', 'teacher_user_id')
+            ->withPivot('studenttype_id')
+            ->withTimestamps()
+            ->orderBy('updated_at','desc');
     }
 }

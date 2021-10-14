@@ -12,6 +12,13 @@ class Registrant extends Model
 
     protected $fillable = ['eventversion_id', 'id', 'programname', 'registranttype_id', 'school_id', 'user_id'];
 
+    public function adjudicatedStatus()
+    {
+        $status = new \App\Models\Utility\Adjudicatedstatus(['registrant' => $this]);
+
+        return $status->status();
+    }
+
     public function adjudicators()
     {
         return Adjudicator::whereIn('user_id', Score::where('registrant_id', $this->id)
@@ -23,6 +30,23 @@ class Registrant extends Model
     public function application()
     {
         return $this->hasOne(Application::class,'id', 'registrant_id');
+    }
+
+    public function auditionDetails()
+    {
+        $scores = Score::where('registrant_id', $this->id)->get();
+        $crlf = '&#13;';
+
+        $card = $this->student->person->fullnameAlpha().$crlf;
+
+        $card .= $this->student->currentSchool->shortName.$crlf;
+
+        $card .= 'Score count: '.$scores->count().$crlf;
+        //$card .= $this->student->currentTeacher;
+
+
+
+        return $card;
     }
 
     public function eventversion()
@@ -73,13 +97,6 @@ class Registrant extends Model
     public function student()
     {
         return $this->belongsTo(Student::class, 'user_id', 'user_id');
-    }
-
-    public function adjudicatedStatus()
-    {
-        $status = new \App\Models\Utility\Adjudicatedstatus(['registrant' => $this]);
-
-        return $status->status();
     }
 
     public function tabroomStatusBackgroundColor()

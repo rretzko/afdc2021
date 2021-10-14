@@ -37,7 +37,8 @@
                                 <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
                                     @foreach($registrants AS $registrant)
                                         @if($registrant->instrumentations->first()->id === $instrumentation->id)
-                                            <div style="background-color: {{ $registrant->tabroomStatusBackgroundColor() }}; border: 1px solid black; border-radius: .25rem; margin-right: .25rem; margin-bottom: .25rem; padding: 0 .1rem">
+                                            <div style="background-color: {{ $registrant->tabroomStatusBackgroundColor() }}; border: 1px solid black; border-radius: .25rem; margin-right: .25rem; margin-bottom: .25rem; padding: 0 .1rem"
+                                                title="{!! $registrant->auditionDetails() !!}">
                                                 {{ $registrant->id }}
                                             </div>
                                         @endif

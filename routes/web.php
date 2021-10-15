@@ -55,6 +55,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/adjudicators/delete/{id}', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'destroy'])
         ->name('eventadministrator.adjudicators.delete');
 
+    Route::get('/eventadministrator/tabroom/cutoffs', [App\Http\Controllers\Eventadministration\CutoffController::class, 'index'])
+        ->name('eventadministrator.tabroom.cutoffs');
+
     Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');
 

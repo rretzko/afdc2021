@@ -95,7 +95,11 @@
                                         Score Tracking
                                     </a>
                                 </li>
-                                <li>Cut-Offs</li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.cutoffs') }}">
+                                        Cut-Offs
+                                    </a>
+                                </li>
                                 <li>Registrant Updates</li>
                                 <li>Reports</li>
                                 <li>Publish Results</li>

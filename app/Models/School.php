@@ -38,7 +38,7 @@ class School extends Model
             ->pluck('teacher_user_id')
             ->toArray();
 
-        return Teacher::find($teacher_user_id[0]);
+        return (count($teacher_user_id)) ? Teacher::find($teacher_user_id[0]) : new Teacher;
     }
 
     /**

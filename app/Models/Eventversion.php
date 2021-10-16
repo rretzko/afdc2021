@@ -103,6 +103,12 @@ class Eventversion extends Model
         return rand(0,90);
     }
 
+    public function eventensembles()
+    {
+        return $this->hasMany(Eventensemble::class);
+    }
+
+
     public function getParticipatingSchoolsAttribute()
     {
         $schoolids = DB::select(DB::raw("

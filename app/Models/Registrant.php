@@ -44,8 +44,6 @@ class Registrant extends Model
         $card .= 'Score count: '.$scores->count().$crlf;
         //$card .= $this->student->currentTeacher;
 
-
-
         return $card;
     }
 

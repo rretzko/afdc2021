@@ -37,6 +37,11 @@ class Eventversion extends Model
         return $this->hasOne(Eventversionconfig::class);
     }
 
+    public function eventversiondates()
+    {
+        return $this->hasMany(Eventversiondate::class);
+    }
+
     public function filecontenttypes()
     {
         return $this->belongsToMany(Filecontenttype::class)

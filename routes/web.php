@@ -62,6 +62,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/lock/{eventensemble}', [App\Http\Controllers\Eventadministration\CutofflockController::class, 'update'])
         ->name('eventadministrator.tabroom.cutoffs.lock');
 
+    Route::get('/eventadministrator/tabroom/publish', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'index'])
+        ->name('eventadministrator.tabroom.publish');
+    Route::get('/eventadministrator/tabroom/publish/update', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'update'])
+        ->name('eventadministrator.tabroom.publish.update');
+
+
     Route::get('/eventadministrator/tabroom/results', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.results');
     Route::get('/eventadministrator/tabroom/results/show/{instrumentation}', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'show'])

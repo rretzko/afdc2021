@@ -107,7 +107,11 @@
                                 </li>
                                 <li>Registrant Updates</li>
                                 <li>Reports</li>
-                                <li>Publish Results</li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.publish') }}">
+                                        Publish Results
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 

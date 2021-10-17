@@ -42,6 +42,29 @@ class Person extends Model
         return $str;
     }
 
+    public function getSubscriberPhoneCsvAttribute()
+    {
+        $phones = [];
+
+        $home = Phone::where('user_id', $this->user_id)
+            ->where('phonetype_id', Phonetype::HOME)
+            ->first();
+
+        $mobile = Phone::where('user_id', $this->user_id)
+            ->where('phonetype_id', Phonetype::MOBILE)
+            ->first();
+
+        $work = Phone::where('user_id', $this->user_id)
+            ->where('phonetype_id', Phonetype::WORK)
+            ->first();
+
+        if($mobile){$phones[] = $mobile->phone.' (c)';}
+        if($home){$phones[] = $home->phone.' (h)';}
+        if($work){$phones[] = $work->phone.' (w)';}
+
+        return implode(', ', $phones);
+    }
+
     public function student()
     {
         return $this->hasOne(Student::class, 'user_id', 'user_id');

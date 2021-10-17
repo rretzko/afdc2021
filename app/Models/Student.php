@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Student extends Model
 {
@@ -26,7 +27,6 @@ class Student extends Model
 
     public function getCurrentTeacherAttribute()
     {
-        //early exit
         if($this->teachers->count() === 1){ return $this->teachers->first(); }
 
         foreach($this->teachers AS $teacher){
@@ -46,6 +46,37 @@ class Student extends Model
         if($this->classof < $sr_year){ return 'alum';}
 
         return (12 - ($this->classof - $sr_year));
+    }
+
+    public function getEmailPersonalAttribute()
+    {
+        return Nonsubscriberemail::where('user_id',$this->user_id)
+                ->where('emailtype_id', Emailtype::where('descr', 'email_student_personal')->first()->id)
+                ->first()
+            ?? new Nonsubscriberemail;
+    }
+
+    public function getEmailSchoolAttribute()
+    {
+        return Nonsubscriberemail::where('user_id',$this->user_id)
+                ->where('emailtype_id', Emailtype::where('descr', 'email_student_school')->first()->id)
+                ->first()
+            ?? new Nonsubscriberemail;
+    }
+
+    public function getEmailsCsvAttribute()
+    {
+        $emails = [];
+
+        if($this->getEmailPersonalAttribute()->id){
+            $emails[] = $this->getEmailPersonalAttribute()->email;
+        }
+
+        if($this->getEmailSchoolAttribute()->id){
+            $emails[] = $this->getEmailSchoolAttribute()->email;
+        }
+
+        return implode(', ',$emails);
     }
 
     public function person()

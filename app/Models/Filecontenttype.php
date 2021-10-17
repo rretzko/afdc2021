@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Filecontenttype extends Model
 {
     use HasFactory;
+
+    public function scoringcomponents()
+    {
+        return $this->hasMany(Scoringcomponent::class);
+    }
 }

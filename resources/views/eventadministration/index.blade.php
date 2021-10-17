@@ -100,6 +100,11 @@
                                         Cut-Offs
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.results') }}">
+                                        Detailed Audition Results
+                                    </a>
+                                </li>
                                 <li>Registrant Updates</li>
                                 <li>Reports</li>
                                 <li>Publish Results</li>

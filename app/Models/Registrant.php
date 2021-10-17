@@ -82,6 +82,11 @@ class Registrant extends Model
         return $viewport->viewport();
     }
 
+    public function grandtotal()
+    {
+        return Scoresummary::where('registrant_id', $this->id)->first()->score_total;
+    }
+
     public function instrumentations()
     {
         return $this->belongsToMany(Instrumentation::class);

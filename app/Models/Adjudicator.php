@@ -16,5 +16,10 @@ class Adjudicator extends Model
         return User::find($this->user_id)->person->fullnameAlpha();
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 
 }

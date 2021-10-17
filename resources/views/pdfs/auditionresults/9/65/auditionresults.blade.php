@@ -1,6 +1,7 @@
+{{ set_time_limit(300) }}
 <style>
-    table{border-collapse: collapse;}
-    td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .75rem;}
+    table{border-collapse: collapse;margin:auto;}
+    td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .66rem;}
 
     .page_break{page-break-before: always;}
 </style>
@@ -43,9 +44,29 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $registrant->id }}</td>
                     <td>{{ strtoupper($registrant->instrumentations->first()->abbr)  }}</td>
+
                     @foreach($score->registrantScores($registrant) AS $value)
                         <td>{{ $value }}</td>
                     @endforeach
+
+                    <td>
+                        {{ $scoresummary->registrantScore($registrant) }}
+                    </td>
+                    <td>
+                        @if($scoresummary->registrantResult($registrant) === 'TB')
+                            -
+                        @else
+                            {{ $scoresummary->registrantResult($registrant) }}
+                        @endif
+                    </td>
+
+                    <td>
+                        @if($scoresummary->registrantResult($registrant) === 'MX')
+                            -
+                        @else
+                            {{ $scoresummary->registrantResult($registrant) }}
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>

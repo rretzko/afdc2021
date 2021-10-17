@@ -10,9 +10,16 @@ class Scoresummary extends Model
     use HasFactory;
 
     protected $fillable = ['result'];
+
     public function registrantScore(\App\Models\Registrant $registrant)
     {
         return $this->where('registrant_id', $registrant->id)
             ->value('score_total');
+    }
+
+    public function registrantResult(\App\Models\Registrant $registrant)
+    {
+        return $this->where('registrant_id', $registrant->id)
+            ->value('result');
     }
 }

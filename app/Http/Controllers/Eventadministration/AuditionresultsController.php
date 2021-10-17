@@ -23,15 +23,10 @@ class AuditionresultsController extends Controller
     public function index()
     {
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        //$completes = $this->completedAdjudications($eventversion);
 
         return view('eventadministration.auditionresults.index',
         [
-            //'completes' => $completes,
             'eventversion' => $eventversion,
-           // 'registrants' => Registrant::where('eventversion_id', $eventversion->id)
-           //     ->where('registranttype_id', Registranttype::REGISTERED)
-            //    ->get(),
         ]);
     }
 

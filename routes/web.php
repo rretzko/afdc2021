@@ -67,6 +67,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/publish/update', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'update'])
         ->name('eventadministrator.tabroom.publish.update');
 
+    Route::get('/eventadministrator/tabroom/reports', [App\Http\Controllers\Eventadministration\ReportsController::class, 'index'])
+        ->name('eventadministrator.tabroom.reports');
+    Route::get('/eventadministrator/tabroom/reports/auditionresults', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'index'])
+        ->name('eventadministrator.tabroom.reports.auditionresults');
 
     Route::get('/eventadministrator/tabroom/results', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.results');

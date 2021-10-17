@@ -18,8 +18,8 @@ class Eventensemble extends Model
 
     public function acceptanceStatus(\App\Models\Registrant $registrant)
     {
-        $names = [20 => 'MX', 21 => "TB"];
-        $result = 'N/A/';
+        $names = [20 => 'MX', 21 => 'TB'];
+
         $instrumentation = $registrant->instrumentations->first();
         $scoresummary = \App\Models\Scoresummary::where('registrant_id', $registrant->id)->first();
         $totalscore = $scoresummary->score_total;
@@ -49,8 +49,6 @@ class Eventensemble extends Model
         }
 
         return $scoresummary->result;
-        //dd($cutoffs);
-        //return ($totalscore <= $cutoff->cutoff) ? $names[$this->id] : 'NA';
     }
 
     private function updateResult($eventversion, $registrant, $value)

@@ -45,12 +45,22 @@
                                 <table>
                                 <thead>
                                     <tr>
-                                        <th colspan="3" style="border-top: 0; border-left: 0;"></th>
+                                        <th colspan="3" style="border-top: 0; border-bottom: 0; border-left: 0;"></th>
                                         @for($i = 1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
-                                            <th colspan="{{ $scoringcomponents->count() }}" text-align: center;>
+                                            <th colspan="{{ $scoringcomponents->count() }}" >
                                                 Judge #{{ $i }}
                                             </th>
                                         @endfor
+                                        <th colspan="3" style="border:0; border-left: 1px solid black;"></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" style="border-top: 0; border-left: 0;"></th>
+                                        @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
+                                                <th colspan="4">Scales</th>
+                                                <th colspan="3">Solo</th>
+                                                <th colspan="3">Swan</th>
+                                        @endfor
+                                        <th colspan="3" style="border-top:0; border-right: 0;"></th>
                                     </tr>
                                     <tr>
                                         <th style="text-align: center;">###</th>

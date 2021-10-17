@@ -33,7 +33,8 @@ class ReportsAuditionresultsController extends Controller
             .'.'
             . $eventversion->id
             . '.auditionresults',
-            compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'));
+            compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
+            ->setPaper('letter', 'portrait');;
 
         //log application printing
         //Application::create([

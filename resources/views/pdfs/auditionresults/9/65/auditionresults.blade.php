@@ -1,4 +1,4 @@
-{{ set_time_limit(300) }}
+<div style="display: none;">{{ set_time_limit(360) }}</div>
 <style>
     table{border-collapse: collapse;margin:auto;}
     td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .66rem;}
@@ -23,6 +23,15 @@
                         Judge #{{ $i }}
                     </th>
                 @endfor
+            </tr>
+            <tr>
+                <th colspan="3" style="border-top: 0; border-left: 0;"></th>
+                @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
+                    <th colspan="4">Scales</th>
+                    <th colspan="3">Solo</th>
+                    <th colspan="3">Swan</th>
+                @endfor
+                <th colspan="3" style="border-top:0; border-right: 0;"></th>
             </tr>
             <tr>
                 <th>###</th>

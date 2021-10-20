@@ -28,14 +28,17 @@
                                         Download Audition Results pdf
                                     </a>
                                 </li>
+
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatings') }}">
                                         Participating Directors
                                     </a>
                                 </li>
+                                <!-- {{--
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents') }}">
                                         Participating Students
                                     </a>
                                 </li>
+                                --}} -->
                             </ul>
                         </div>
 

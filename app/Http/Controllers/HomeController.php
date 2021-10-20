@@ -1,31 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Eventadministration;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Eventversion;
+use App\Models\Eventrole;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
-class ParticipatingteachersController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion)
+    public function index()
     {
-        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
-            ? $eventversion->participatingTeachersEsignature
-            : $eventversion->participatingTeachers;
+        $eventroles = Eventrole::where('user_id', auth()->id())->get();
 
-        return view('eventadministration.participatingteachers.index',
+        //return redirect()->route('registrationmanagers.index');
+        return view('home',
             [
-                'eventversion' => $eventversion,
-                'participatingteachers' => $participatingteachers,
-            ]
-        );
+                'eventroles' => $eventroles,
+            ]);
+        return view('home');
     }
 
     /**

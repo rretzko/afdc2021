@@ -7,7 +7,7 @@ use App\Models\Eventversion;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
-class ParticipatingteachersController extends Controller
+class Eventversioncontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,10 @@ class ParticipatingteachersController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
-            ? $eventversion->participatingTeachersEsignature
-            : $eventversion->participatingTeachers;
-
-        return view('eventadministration.participatingteachers.index',
+        return view('eventadministration.eventversions.eventversion.index',
             [
                 'eventversion' => $eventversion,
-                'participatingteachers' => $participatingteachers,
-            ]
-        );
+            ]);
     }
 
     /**

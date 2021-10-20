@@ -5,13 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion"/>
 
                 <div class="card">
 
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
-                            {{ __('Event Administration: Participating Teachers') }}
+                            {{ __("Event Administration: $eventversion->name Participating Teachers") }}
                         </div>
                         <div class="text-right col-7">
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}

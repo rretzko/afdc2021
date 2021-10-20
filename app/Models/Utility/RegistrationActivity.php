@@ -260,6 +260,7 @@ class RegistrationActivity extends Model
                 AND registrants.user_id=students.user_id
                 AND students.classof IN (".implode(',',$this->classofs).")"),
               ['eventversion_id' => $this->eventversion_id,])
+
             : DB::select(DB::raw("
                 SELECT registrants.id
                 FROM registrants,school_user,schools,students

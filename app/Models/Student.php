@@ -79,6 +79,11 @@ class Student extends Model
         return implode(', ',$emails);
     }
 
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class, 'user_id', 'user_id');
+    }
+
     public function person()
     {
         return $this->belongsTo(Person::class, 'user_id', 'user_id');

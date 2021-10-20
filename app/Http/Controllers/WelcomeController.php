@@ -1,31 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Eventadministration;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Eventversion;
-use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
-class ParticipatingteachersController extends Controller
+class WelcomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion)
+    public function index()
     {
-        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
-            ? $eventversion->participatingTeachersEsignature
-            : $eventversion->participatingTeachers;
-
-        return view('eventadministration.participatingteachers.index',
-            [
-                'eventversion' => $eventversion,
-                'participatingteachers' => $participatingteachers,
-            ]
-        );
+        //
     }
 
     /**

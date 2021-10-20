@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Emailclient;
 use App\Models\Eventversion;
 use App\Models\Person;
+use App\Models\Registrant;
 use App\Models\School;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
@@ -45,7 +46,6 @@ class EmailreceiptComponent extends Component
 
     public function init()
     {
-        $this->eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $this->eventversionname = $this->eventversion->name;
         $this->sender = Person::find(auth()->id());
         $this->emailbody = $this->emailBody();
@@ -106,6 +106,15 @@ class EmailreceiptComponent extends Component
         return $this->emailBody();
     }
 
+    private function filterParticipatingSchools($schools)
+    {
+        return $schools->filter(function($school){
+            return Registrant::where('school_id',$school->id)
+                ->where('eventversion_id', $this->eventversion->id)
+                ->count('id');
+        });
+    }
+
     private function myCounties(){
 
         $usercounties = [
@@ -115,7 +124,9 @@ class EmailreceiptComponent extends Component
             423 => [2,3,14,18,]
         ];
 
-        return $usercounties[auth()->id()];
+        return array_key_exists(auth()->id(), $usercounties)
+            ? $usercounties[auth()->id()]
+            : [];
     }
 
     private function registrationActivity()
@@ -137,9 +148,11 @@ class EmailreceiptComponent extends Component
 
     private function targetSchools()
     {
-        return ($this->toggle === 'my')
+        $allschools = (($this->toggle === 'my') && count($this->myCounties()))
             ? $this->eventversion->schoolsByCounties($this->myCounties())
             : $this->eventversion->schools();
+
+        return $this->filterParticipatingSchools($allschools);
     }
 
 

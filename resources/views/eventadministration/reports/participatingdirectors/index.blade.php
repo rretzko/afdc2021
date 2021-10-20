@@ -59,6 +59,10 @@
                                                 <td>
                                                     {{ $registrant->student->currentSchool->name }}
                                                 </td>
+
+                                                <td>
+                                                    {{ $registrant->student->guardians->count() }}
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

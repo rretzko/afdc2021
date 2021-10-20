@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout  :event="$eventversion->event" :eventversion="$eventversion"/>
 
                 <div class="card">
 
@@ -24,6 +24,7 @@
                                 Eventversion Administration
                             </h4>
                             <ul>
+
                                 {{-- PARTICIPATING TEACHERS --}}
                                 <li><a href="{{ route('eventadministrator.participatingteachers',
                                         ['eventversion' => $eventversion]) }}"
@@ -121,6 +122,24 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Registration Manager
+                            </h4>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
+                                            Participating Schools
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Non-Participating Schools
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div>

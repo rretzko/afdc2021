@@ -1,7 +1,52 @@
+@props([
+'event' => '',
+'eventversion' => ''
+])
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
 
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-        @if(
+        @if(Route::currentRouteName() === 'eventadministration.index')
+            <a href="{{ route('home') }}">
+                Home
+            </a>
+        @endif
+
+        @if(Route::currentRouteName() === 'eventadministration.eventversion.index')
+            <a href="{{ route('home') }}">
+                Home
+            </a>
+             &nbsp; - &nbsp;
+            <a href="{{ route('eventadministration.index',['event' => $event]) }}">
+                Eventversions
+            </a>
+        @endif
+
+        @if((Route::currentRouteName() === 'eventadministrator.participatingteachers') ||
+            (Route::currentRouteName() === 'registrationmanagers.index'))
+            <a href="{{ route('home') }}">
+                Home
+            </a>
+            &nbsp; - &nbsp;
+            <a href="{{ route('eventadministration.index',['event' => $event]) }}">
+                Eventversions
+            </a>
+
+            &nbsp; - &nbsp;
+            <a href="{{ route('eventadministration.eventversion.index',['eventversion' => $eventversion]) }}">
+                Eventversion
+            </a>
+        @endif
+
+
+        <!-- {{--
+        @if(Route::currentRouteName() === 'eventadministration.index')
+            <a href="{{ route('eventadministration.index', ['event' => $event]) }}">
+                Events
+            </a>
+        @endif
+        --}} -->
+
+        <!-- {{-- @if(
             (auth()->id() === 21) ||
             (auth()->id() === 28) ||
             (auth()->id() === 38) ||
@@ -18,6 +63,7 @@
                 Event administrator
             </a>
         @endif
+        --}} -->
     </div>
 
     <div style="margin-right: 1rem;">

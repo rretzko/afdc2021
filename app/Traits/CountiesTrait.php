@@ -24,7 +24,9 @@ trait CountiesTrait
 
     public function userCounties($user_id)
     {
-        return $this->usercounties[$user_id];
+        return array_key_exists($user_id, $this->usercounties)
+            ? $this->usercounties[$user_id]
+            : [];
     }
 
 }

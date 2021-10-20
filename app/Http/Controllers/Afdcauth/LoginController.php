@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Afdcauth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard;
+use App\Models\Eventrole;
+use App\Models\Eventversionrole;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +78,7 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $registrationmanagers = [45,56,249,423]; //Retzko, Breitzman,  Markowski, Lal
+        $registrationmanagers = [45,56,249,423,21]; //Retzko, Breitzman,  Markowski, Lal
 
         if(Auth::attempt($credentials)){
 
@@ -85,11 +87,17 @@ class LoginController extends Controller
              */
             if(in_array(auth()->id(), $registrationmanagers )){
 
+                $eventroles = Eventrole::where('user_id', auth()->id())->get();
+
                 Userconfig::updateValue('eventversion', auth()->id(), 65); //2021 NJ All-State Chorus
                 Userconfig::updateValue('event', auth()->id(), 9); //NJ All-State Chorus
                 Userconfig::updateValue('organization', auth()->id(), 3); //NJMEA
 
-                return redirect()->route('registrationmanagers.index');
+                //return redirect()->route('registrationmanagers.index');
+                return view('home',
+                [
+                    'eventroles' => $eventroles,
+                ]);
 
             }else {
 

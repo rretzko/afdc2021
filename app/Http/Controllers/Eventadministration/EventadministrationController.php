@@ -3,29 +3,38 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
-use App\Models\Eventversion;
-use App\Models\Userconfig;
+use App\Models\Eventversionrole;
 use Illuminate\Http\Request;
 
-class ParticipatingteachersController extends Controller
+class EventadministrationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion)
+    public function index(\App\Models\Event $event)
     {
-        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
-            ? $eventversion->participatingTeachersEsignature
-            : $eventversion->participatingTeachers;
+        $eventversionroles = Eventversionrole::where('user_id', auth()->id())
+            ->get();
 
-        return view('eventadministration.participatingteachers.index',
-            [
-                'eventversion' => $eventversion,
-                'participatingteachers' => $participatingteachers,
-            ]
-        );
+        $eventversions = $event->eventversions->filter(function($eventversion) use($eventversionroles){
+
+            foreach($eventversionroles AS $role){
+
+                if($eventversion->id === $role->eventversion_id){
+
+                    return true;
+                }
+            }
+        });
+
+        return view('eventadministration.eventversions.index',
+        [
+            'event' => $event,
+            'eventversions' => $eventversions,
+            'eventversionroles' => $eventversionroles,
+        ]);
     }
 
     /**

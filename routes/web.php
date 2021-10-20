@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'],function(){
             return view('welcome');
         })->name('xlogout');
 
+    /** HOME PAGE */
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     /** DASHBOARD */
     Route::post('/dashboard/event', 'EventController@store')->name('event.store');
     Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
@@ -41,6 +44,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
     Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');
     Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
+
+    /** EVENT ADMINISTRATION */
+    Route::get('/eventadministration/{event}',[App\Http\Controllers\Eventadministration\EventadministrationController::class, 'index'])
+        ->name('eventadministration.index');
+    Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
+        ->name('eventadministration.eventversion.index');
 
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
@@ -75,6 +84,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.tabroom.reports.participatingdirectors');
     Route::get('/eventadministrator/tabroom/reports/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingstudents');
+    Route::get('/eventadministrator/tabroom/reports/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
+        ->name('eventadministrator.tabroom.reports.participatings');
 
     Route::get('/eventadministrator/tabroom/results', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.results');
@@ -117,7 +128,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.segments.update');
 
     /** REGISTRATION MANAGERS */
-    Route::get('/registrationmanager', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])->name('registrationmanagers.index');
+    Route::get('/registrationmanager/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])
+        ->name('registrationmanagers.index');
     Route::get('/registrationmanager/payments/', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'index'])->name('payments.index');
     Route::get('/registrationmanager/{counties}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'show'])->name('registrationmanager.show');
     Route::get('/registrationmanager/registrants/county/{county}', [App\Http\Controllers\Registrationmanagers\RegistrantcountyController::class, 'show'])
@@ -125,7 +137,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/registrationmanager/registrants/school/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
         ->name('registrants.school.show');
 
-    Route::get('/eventadministrator/participatingteachers', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
+    Route::get('/eventadministrator/participatingteachers/{eventversion}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 
     Route::get('/eventadministrator/tabroom/scoretracking', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])

@@ -19,11 +19,11 @@ class RegistrationmanagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
         return view('registrationmanagers.index', [
             'counties' => $this->geostateCounties(),
-            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+            'eventversion' => $eventversion,
             'mycounties' => $this->userCounties(auth()->id()),
             'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);

@@ -78,7 +78,7 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $registrationmanagers = [45,56,249,423,21]; //Retzko, Breitzman,  Markowski, Lal
+        $registrationmanagers = [45,56,249,423,21,368]; //Retzko, Breitzman,  Markowski, Lal
 
         if(Auth::attempt($credentials)){
 

@@ -167,19 +167,18 @@ class Eventversion extends Model
 
         //initialize empty collection
         $teachers = collect();
+
         //initialize storage array for ids
         $ids = [];
         foreach($registrants AS $registrant) {
 
             $teacher = Student::find($registrant->user_id)->currentTeacher;
 
-            if ($teacher) {
-                if(! in_array($teacher->user_id, $ids)) {
+            if($teacher && (! in_array($teacher->user_id, $ids))) {
 
-                    $ids[] = $teacher->user_id;
+                $ids[] = $teacher->user_id;
 
-                    $teachers->push($teacher);
-                }
+                $teachers->push($teacher);
             }
         }
 

@@ -52,7 +52,11 @@
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td><span title="{{ $school->shortName }}">
                         @if(config('app.url') === 'http://afdc2021.test')
-                            <a href="{{ route('registrants.school.show', ['school' => $school]) }}"
+                            <a href="{{ route('registrants.school.show',
+                                [
+                                    'eventversion' => $eventversion,
+                                    'school' => $school
+                                ]) }}"
                                 title="Click for {{ $school->shortName }} registrants"
                             >
                                 {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
@@ -71,7 +75,7 @@
                     </span>
                 </td>
                 <td style="text-align: center; color: blue; cursor: pointer;">
-                    <span wire:click="setSchool({{ $school }})">
+                    <span wire:click="setSchool({{ $school->id }})">
                         email
                     </span>
                 </td>

@@ -47,13 +47,12 @@ class RegistrantschoolController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Eventversion $eventversion
      * @param  School $school
      * @return \Illuminate\Http\Response
      */
-    public function show(School $school)
+    public function show(Eventversion $eventversion, School $school)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('registrationmanagers.registrants.school.show',
             [
                 'school' => $school,

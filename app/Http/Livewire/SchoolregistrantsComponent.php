@@ -16,7 +16,6 @@ class SchoolregistrantsComponent extends Component
 
     public function mount(School $school)
     {
-        $this->eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $this->reviews = $this->getReviews();
         $this->school = $school;
     }

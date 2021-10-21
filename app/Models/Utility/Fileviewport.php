@@ -57,19 +57,26 @@ class Fileviewport extends Model
 
         $assets = $this->getSproutvideoAssets($server_id);
 
-        $this->viewport = $this->embedCodeEdits($assets['embed_code']);
+        $this->viewport = (array_key_exists('embed_code', $assets))
+            ? $this->embedCodeEdits($assets['embed_code'])
+            : 'No Approved Upload';
     }
 
     private function getSproutvideoAssets($server_id)
     {
-        $fileserver = new Fileserver($this->registrant);
-
         $assets = [];
 
-        //in case of server delay, keep pinging $vs until response is received
-        while (! array_key_exists('id', $assets)) {
+        //stop processing if no files have been uploaded for $this->registrant
+        if(Fileupload::where('registrant_id', $this->registrant->id)->first()) {
 
-            $assets = $fileserver->assets($server_id);
+            $fileserver = new Fileserver($this->registrant);
+
+
+            //in case of server delay, keep pinging $vs until response is received
+            while (!array_key_exists('id', $assets)) {
+
+                $assets = $fileserver->assets($server_id);
+            }
         }
 
         return $assets;

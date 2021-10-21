@@ -6,7 +6,8 @@
     <h3 style="text-align: center;">
         {{ $school->name }}
     </h3>
-    <table>
+
+    <table style="margin:auto;">
         <thead>
         <tr>
             <th>###</th>
@@ -19,8 +20,9 @@
         </tr>
         </thead>
         <tbody>
+
         @foreach($registrants AS $registrant)
-            <tr>
+               <tr>
                 <td style="text-align: center;">{{ $loop->iteration }}</td>
                 <td>{{ $registrant->student->person->fullNameAlpha() }}</td>
                 <td style="text-align: center;">
@@ -28,9 +30,11 @@
                         {{ strtoupper($instrumentation->abbr) }}
                     @endforeach
                 </td>
+
                 @foreach($eventversion->filecontenttypes AS $filecontenttype)
                     <td >{!! $registrant->fileviewport($filecontenttype) !!}</td>
                 @endforeach
+
                 <td style="text-align: center;">
                     <input wire:click="updateReviewed({{ $registrant->id }})"
                            type="checkbox"
@@ -41,8 +45,11 @@
                            {{ in_array($registrant->id, $reviews) ? 'CHECKED' : '' }}
                     />
                 </td>
+
             </tr>
+
         @endforeach
+
         </tbody>
     </table>
 </div>

@@ -12,4 +12,12 @@ class Teacher extends Model
     {
         return $this->belongsTo(Person::class, 'user_id', 'user_id');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class,'student_teacher','teacher_user_id', 'student_user_id')
+            ->withPivot('studenttype_id')
+            ->withTimestamps()
+            ->orderBy('updated_at','desc');
+    }
 }

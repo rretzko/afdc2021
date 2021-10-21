@@ -157,17 +157,30 @@ class Eventversion extends Model
     //use the Obligations table to determine those teachers who (at least) signed up to participate
     public function getParticipatingTeachersEsignatureAttribute()
     {
-        $registrantids = DB::select("
-            SELECT DISTINCT obligations.user_id
-            FROM obligations, fileuploads
-            WHERE obligations.eventversion_id=".$this->id."
-            AND fileuploads.approved_by=obligations.user_id");
+        $registrants = Registrant::whereIn('id',
+            Eapplication::where('eventversion_id', $this->id)
+            ->where('signatureguardian', 1)
+            ->where('signaturestudent', 1)
+            ->get('registrant_id')
+            ->toArray())
+            ->get();
 
+        //initialize empty collection
         $teachers = collect();
+        //initialize storage array for ids
+        $ids = [];
+        foreach($registrants AS $registrant) {
 
-        foreach($registrantids AS $id){
+            $teacher = Student::find($registrant->user_id)->currentTeacher;
 
-            $teachers->push(Teacher::find($id->user_id));
+            if ($teacher) {
+                if(! in_array($teacher->user_id, $ids)) {
+
+                    $ids[] = $teacher->user_id;
+
+                    $teachers->push($teacher);
+                }
+            }
         }
 
         return $teachers->sortBy(['person.last']);
@@ -201,4 +214,5 @@ class Eventversion extends Model
     {
         return $this->hasMany(Room::class);
     }
+
 }

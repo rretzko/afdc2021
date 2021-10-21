@@ -11,6 +11,8 @@ class Student extends Model
 {
     use HasFactory, SenioryearTrait;
 
+    protected $primaryKey = 'user_id';
+
     public function getCurrentSchoolAttribute()
     {
         foreach($this->person->user->schools AS $school){

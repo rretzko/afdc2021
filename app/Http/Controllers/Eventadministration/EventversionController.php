@@ -7,7 +7,7 @@ use App\Models\Eventversion;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
-class Eventversioncontroller extends Controller
+class EventversionController extends Controller
 {
     /**
      * Display a listing of the resource.

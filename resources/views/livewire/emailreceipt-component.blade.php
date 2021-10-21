@@ -62,7 +62,7 @@
                                 {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
                             </a>
                         @else
-                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrants/school/{{$school->id}}" title="Click for {{ $school->shortName }} registrants">
+                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrants/school/{{$eventversion->id}}/{{$school->id}}" title="Click for {{ $school->shortName }} registrants">
                                 {{ substr($school->shortName, 0, 20) }} ({{ substr($school->county->name, 0, 3) }})
                             </a>
                         @endif

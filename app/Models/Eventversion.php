@@ -168,21 +168,17 @@ class Eventversion extends Model
         //initialize empty collection
         $teachers = collect();
 
-        //initialize storage array for ids
-        $ids = [];
         foreach($registrants AS $registrant) {
 
             $teacher = Student::find($registrant->user_id)->currentTeacher;
 
-            if($teacher && (! in_array($teacher->user_id, $ids))) {
-
-                $ids[] = $teacher->user_id;
+            if($teacher){
 
                 $teachers->push($teacher);
             }
         }
 
-        return $teachers->sortBy(['person.last']);
+        return $teachers->unique('user_id')->sortBy('person.last');
     }
 
     /**

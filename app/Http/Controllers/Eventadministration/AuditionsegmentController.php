@@ -15,13 +15,12 @@ class AuditionsegmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.auditionsegments.index',
         [
             'filecontenttypes' => Filecontenttype::orderBy('descr')->get(),
+            'eventversion' => $eventversion,
             'currentfilecontenttypes' => $eventversion->filecontenttypes,
         ]);
     }

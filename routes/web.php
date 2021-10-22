@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
         ->name('eventadministrator.rooms.update');
 
-    Route::get('/eventadministrator/scoring/segments', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])
+    Route::get('/eventadministrator/scoring/segments/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])
         ->name('eventadministrator.scoring.segments');
     Route::get('/eventadministrator/scoring/components', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'index'])
         ->name('eventadministrator.scoring.components');
@@ -122,9 +122,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/scoring/components/update/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'update'])
         ->name('eventadministrator.scoring.components.update');
 
-    Route::get('/eventadministrator/segments', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
+    Route::get('/eventadministrator/segments/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'index'])
         ->name('eventadministrator.segments');
-    Route::post('/eventadministrator/segments/update', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])
+    Route::post('/eventadministrator/segments/update/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionsegmentController::class, 'update'])
         ->name('eventadministrator.segments.update');
 
     /** REGISTRATION MANAGERS */
@@ -137,10 +137,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/registrationmanager/registrants/school/{eventversion}/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
         ->name('registrants.school.show');
 
-    Route::get('/eventadministrator/participatingteachers/{eventversion}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
+    Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 
-    Route::get('/eventadministrator/tabroom/scoretracking', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/scoretracking/{eventversion}', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])
         ->name('eventadministrator.tabroom.scoretracking');
 
 });

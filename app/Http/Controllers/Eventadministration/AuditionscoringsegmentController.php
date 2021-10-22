@@ -15,12 +15,11 @@ class AuditionscoringsegmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.scoring.segments.index',
             [
+                'eventversion' => $eventversion,
                 'filecontenttypes' => Filecontenttype::orderBy('descr')->get(),
                 'currentfilecontenttypes' => $eventversion->filecontenttypes,
             ]);
@@ -83,7 +82,7 @@ class AuditionscoringsegmentController extends Controller
             'filecontenttypes.*' => ['required','numeric'],
         ]);
 
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion = Eventversion::find($id);
         $eventversion->filecontenttypes()->sync($segments['filecontenttypes']);
 
         return redirect(route('eventadministrator.index'));

@@ -23,7 +23,10 @@
 
         @if(
                 (Route::currentRouteName() === 'eventadministrator.participatingteachers') ||
-                (Route::currentRouteName() === 'registrationmanagers.index')
+                (Route::currentRouteName() === 'registrationmanagers.index') ||
+                (Route::currentRouteName() === 'eventadministrator.segments') ||
+                (Route::currentRouteName() === 'eventadministrator.segments.update') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretracking')
             )
             <a href="{{ route('home') }}">
                 Home

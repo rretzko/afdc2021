@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Eventversion;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
@@ -15,9 +16,8 @@ class ScoretrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
         return view('eventadministration.scoretrackings.index',

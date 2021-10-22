@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -20,7 +20,8 @@
 
                     <div style="padding:1rem;">
                         @if(config('app.url') === 'http://afdc2021.test')
-                            <form method="post" action="{{ route('eventadministrator.segments.update') }}">
+                            <form method="post" action="{{ route('eventadministrator.segments.update',
+                                                ['eventversion' => $eventversion]) }}">
                         @else
                             <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update">
                         @endif

@@ -18,11 +18,11 @@ class EventadministrationController extends Controller
         $eventversionroles = Eventversionrole::where('user_id', auth()->id())
             ->get();
 
-        $eventversions = $event->eventversions->filter(function($eventversion) use($eventversionroles){
+        $eventversions = $event->eventversions->filter(function($eventversion) use($event,$eventversionroles){
 
             foreach($eventversionroles AS $role){
 
-                if($eventversion->id === $role->eventversion_id){
+                if(($eventversion->event->id === $event->id) && ($eventversion->id === $role->eventversion_id)){
 
                     return true;
                 }

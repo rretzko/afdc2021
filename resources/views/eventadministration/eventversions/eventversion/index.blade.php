@@ -32,11 +32,12 @@
                                         Participating Teachers
                                     </a>
                                 </li>
-
+<!-- {{--
                                 <li>@if($eventversion->filecontenttypes->count() &&
                                             $eventversion->instrumentations()->count() &&
                                             $eventversion->rooms->count())
-                                        <a href="{{ route('eventadministrator.adjudicators.index') }}"
+                                        <a href="{{ route('eventadministrator.adjudicators.index',
+                                                ['eventversion' => $eventversion]) }}"
                                             title="Assign members to event adjudicator positions"
                                         >
                                             Judge Assignments
@@ -46,21 +47,24 @@
                                     @endif
                                     <ul>
                                         <li>
-                                            <a href="{{ route('eventadministrator.segments') }}"
+                                            <a href="{{ route('eventadministrator.segments',
+                                                ['eventversion' => $eventversion]) }}"
                                                title="Define the major audition parts (ex. scales,solo,etc."
                                             >
                                                 Audition Segments ({{ $eventversion->filecontenttypes->count() }})
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('eventadministrator.instrumentations') }}"
+                                            <a href="{{ route('eventadministrator.instrumentations',
+                                                ['eventversion' => $eventversion]) }}"
                                                title="Define the instrumentation to be adjudicated"
                                                >
                                                 Voice Parts ({{ $eventversion->instrumentations()->count() }})
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('eventadministrator.rooms') }}"
+                                            <a href="{{ route('eventadministrator.rooms',
+                                                ['eventversion' => $eventversion]) }}"
                                                title="Define the adjudication room segments and instrumentations"
                                             >
                                                 Room Definitions ({{ $eventversion->rooms()->count() }})
@@ -68,21 +72,25 @@
                                         </li>
                                     </ul>
                                 </li>
+--}} -->
                             </ul>
-                        </div>
 
+                        </div>
+<!-- {{--
                         <div>
                             <h4>
                                 Score Definition
                             </h4>
                             <ul>
                                 <li>
-                                    <a href="{{ route('eventadministrator.scoring.segments') }}">
+                                    <a href="{{ route('eventadministrator.scoring.segments',
+                                                ['eventversion' => $eventversion]) }}">
                                         Segments
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.scoring.components') }}">
+                                    <a href="{{ route('eventadministrator.scoring.components',
+                                                ['eventversion' => $eventversion]) }}">
                                         Value Components
                                     </a>
                                 </li>
@@ -96,34 +104,39 @@
                             <ul>
                                 <li>Score Input</li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.scoretracking') }}">
+                                    <a href="{{ route('eventadministrator.tabroom.scoretracking',
+                                        ['eventversion' => $eventversion]) }}">
                                         Score Tracking
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.cutoffs') }}">
+                                    <a href="{{ route('eventadministrator.tabroom.cutoffs',
+                                                ['eventversion' => $eventversion]) }}">
                                         Cut-Offs
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.results') }}">
+                                    <a href="{{ route('eventadministrator.tabroom.results',
+                                                ['eventversion' => $eventversion]) }}">
                                         Detailed Audition Results
                                     </a>
                                 </li>
                                 <li>Registrant Updates</li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.reports') }}">
+                                    <a href="{{ route('eventadministrator.tabroom.reports',
+                                                ['eventversion' => $eventversion]) }}">
                                         Reports
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.publish') }}">
+                                    <a href="{{ route('eventadministrator.tabroom.publish',
+                                                ['eventversion' => $eventversion]) }}">
                                         Publish Results
                                     </a>
                                 </li>
                             </ul>
                         </div>
-
+--}} -->
                         <div>
                             <h4>
                                 Registration Manager
@@ -135,13 +148,15 @@
                                             Participating Schools
                                         </a>
                                     </li>
+<!-- {{--
                                     <li>
                                         Non-Participating Schools
                                     </li>
+--}} -->
                                 </ul>
                             </div>
                         </div>
-
+<!-- {{--
                         <div>
                             <h4>
                                 Registration Desk
@@ -150,7 +165,7 @@
                                 <li>In-person registration</li>
                             </ul>
                         </div>
-
+--}} -->
                     </div>
                 </div>
             </div>

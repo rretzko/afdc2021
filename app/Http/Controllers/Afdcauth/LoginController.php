@@ -78,21 +78,21 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $registrationmanagers = [45,56,249,423,21,368]; //Retzko, Breitzman,  Markowski, Lal
+        //$registrationmanagers = [45,56,249,423,21,368]; //Retzko, Breitzman,  Markowski, Lal
 
         if(Auth::attempt($credentials)){
 
             /**
              * All of the following should be (maybe) assigned to a roles event
              */
-            if(in_array(auth()->id(), $registrationmanagers )){
+        //    if(in_array(auth()->id(), $registrationmanagers )){
 
                 $eventroles = Eventrole::where('user_id', auth()->id())->get();
 
-                Userconfig::updateValue('eventversion', auth()->id(), 65); //2021 NJ All-State Chorus
-                Userconfig::updateValue('event', auth()->id(), 9); //NJ All-State Chorus
-                Userconfig::updateValue('organization', auth()->id(), 3); //NJMEA
-
+        //        Userconfig::updateValue('eventversion', auth()->id(), 65); //2021 NJ All-State Chorus
+        //        Userconfig::updateValue('event', auth()->id(), 9); //NJ All-State Chorus
+        //        Userconfig::updateValue('organization', auth()->id(), 3); //NJMEA
+            if($eventroles){
                 //return redirect()->route('registrationmanagers.index');
                 return view('home',
                 [

@@ -6,6 +6,7 @@ use App\Models\Emailclient;
 use App\Models\Eventversion;
 use App\Models\Person;
 use App\Models\Registrant;
+use App\Models\Registranttype;
 use App\Models\School;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
@@ -111,6 +112,7 @@ class EmailreceiptComponent extends Component
         return $schools->filter(function($school){
             return Registrant::where('school_id',$school->id)
                 ->where('eventversion_id', $this->eventversion->id)
+                ->where('registranttype_id', Registranttype::REGISTERED)
                 ->count('id');
         });
     }

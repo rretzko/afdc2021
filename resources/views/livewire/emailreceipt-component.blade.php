@@ -67,9 +67,9 @@
                             </a>
                         @endif
                         <br />
-                        @if($school->currentTeacher && $school->currentTeacher->user_id)
-                            <a href="mailto:{{ $school->currentTeacher->person->subscriberemailwork }}?subject={{$eventversion->name}}&body=Hi,{{$school->currentTeacher->person->first}}">
-                                {{ $school->currentTeacher->person->fullName() }}
+                        @if($school->currentTeacher($eventversion) && $school->currentTeacher($eventversion)->user_id)
+                            <a href="mailto:{{ $school->currentTeacher($eventversion)->person->subscriberemailwork }}?subject={{$eventversion->name}}&body=Hi,{{$school->currentTeacher($eventversion)->person->first}}">
+                                {{ $school->currentTeacher($eventversion)->person->fullName() }}
                             </a>
                         @endif
                     </span>

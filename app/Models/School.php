@@ -22,10 +22,10 @@ class School extends Model
      * 3. use that user_id to return Teacher class
      * @return mixed
      */
-    public function getCurrentTeacherAttribute()
+    public function currentTeacher($eventversion)
     {
         $registrant = Registrant::where('school_id',$this->id)
-            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->where('eventversion_id', $eventversion->id)
             ->where('registranttype_id', Registranttype::REGISTERED)
             ->first();
 

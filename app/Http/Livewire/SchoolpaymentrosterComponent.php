@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class SchoolpaymentrosterComponent extends Component
 {
+    public $eventversion;
     protected $listeners = ['refreshcheckregister' => 'render'];
 
     public function render()
@@ -21,7 +22,7 @@ class SchoolpaymentrosterComponent extends Component
     private function schoolPayments()
     {
         return Schoolpayment::with('person','school')
-            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->where('eventversion_id', $this->eventversion->id)
             ->orderByDesc('id')
             ->get();
     }

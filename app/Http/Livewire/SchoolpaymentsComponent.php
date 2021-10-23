@@ -30,10 +30,6 @@ class SchoolpaymentsComponent extends Component
 
     public function render()
     {
-        if(! $this->eventversion) {
-            $this->eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        }
-
         return view('livewire.schoolpayments-component',
         [
             'schools' => $this->eventversion->participatingSchools,
@@ -56,7 +52,7 @@ class SchoolpaymentsComponent extends Component
             'comments' => ['nullable','string'],
         ]);
 
-        Schoolpayment::create(
+        $payment = Schoolpayment::create(
             [
                 'eventversion_id' => $this->eventversion->id,
                 'school_id' => $this->targetschool->id,
@@ -69,6 +65,6 @@ class SchoolpaymentsComponent extends Component
 
         $this->emit('refreshcheckregister');
 
-        $this->reset();
+        $this->reset(['amount', 'comments','targetschool','teachers']);
     }
 }

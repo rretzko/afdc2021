@@ -42,7 +42,8 @@
         @endif
 
         @if(
-            (Route::currentRouteName() === 'registrants.school.show')
+            (Route::currentRouteName() === 'registrants.school.show') ||
+            (Route::currentRouteName() === 'payments.index')
            )
             <a href="{{ route('home') }}">
                 Home

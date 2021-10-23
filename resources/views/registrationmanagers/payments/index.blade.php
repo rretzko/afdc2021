@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -19,20 +19,23 @@
                     </div>
 
                     {{-- COUNTY SCOPE --}}
-
-                    <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
+                    @if(count($mycounties))
+                        <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
+                    @endif
 
                     {{-- ACTIVITY NAVIGATION MENU --}}
-
+                    {{-- PLACEHOLDER FOR ADDITIONAL ACTIVITIES --}}
+<!-- {{--
                     <x-navs.activities toggle="{{ $toggle }}"
                                        :counties="$counties"
                                        :mycounties="$mycounties"
                                        :eventversion="$eventversion"
                     />
+--}} -->
 
-                    <livewire:schoolpayments-component />
+                    <livewire:schoolpayments-component :eventversion="$eventversion" />
 
-                    <livewire:schoolpaymentroster-component />
+                    <livewire:schoolpaymentroster-component :eventversion="$eventversion" />
                 </div>
             </div>
         </div>

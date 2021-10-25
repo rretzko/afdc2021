@@ -3,6 +3,7 @@
 'eventversion' => ''
 ])
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
+<!-- {{-- {{Route::currentRouteName()}} --}} -->
 
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
         @if(Route::currentRouteName() === 'eventadministration.index')
@@ -22,7 +23,16 @@
         @endif
 
         @if(
+                (Route::currentRouteName() === 'eventadministrator.adjudicators.index') ||
+                (Route::currentRouteName() === 'eventadministrator.adjudicators.delete') ||
+                (Route::currentRouteName() === 'eventadministrator.adjudicators.edit') ||
+                (Route::currentRouteName() === 'eventadministrator.adjudicators.update') ||
+                (Route::currentRouteName() === 'eventadministrator.instrumentations') ||
                 (Route::currentRouteName() === 'eventadministrator.participatingteachers') ||
+                (Route::currentRouteName() === 'eventadministrator.rooms') ||
+                (Route::currentRouteName() === 'eventadministrator.rooms.delete') ||
+                (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
+                (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
                 (Route::currentRouteName() === 'eventadministrator.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments.update') ||

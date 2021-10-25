@@ -13,15 +13,15 @@ class AuditionroomController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.auditionrooms.index',
             [
                 'currentinstrumentations' => $eventversion->instrumentations(),
+                'eventversion' => $eventversion,
                 'filecontenttypes' => $eventversion->filecontenttypes->sortBy('descr'),
                 'instrumentations' => $eventversion->instrumentations(),
                 'room' => new Room(),
@@ -43,12 +43,13 @@ class AuditionroomController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  array $inputs
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function store(array $inputs)
+    public function store(array $inputs, Eventversion $eventversion)
     {
         return Room::create([
-            'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+            'eventversion_id' => $eventversion->id,
             'descr' => $inputs['descr'],
             'order_by' => $inputs['order_by'],
             'tolerance' => $inputs['tolerance'],
@@ -74,11 +75,12 @@ class AuditionroomController extends Controller
      */
     public function edit(Room $room)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion = Eventversion::find($room->eventversion_id);
 
         return view('eventadministration.auditionrooms.index',
             [
                 'currentinstrumentations' => $eventversion->instrumentations(),
+                'eventversion' => $eventversion,
                 'filecontenttypes' => $eventversion->filecontenttypes->sortBy('descr'),
                 'instrumentations' => $eventversion->instrumentations(),
                 'room' => $room,
@@ -90,13 +92,14 @@ class AuditionroomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \App\Models\Eventversion $eventversion
      * @param \App\Models\Room $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $room="0")
+    public function update(Request $request, Eventversion $eventversion, $room="0")
     {
         //early exit
-        if(isset($request->cancel)){ return $this->index(); }
+        if(isset($request->cancel)){ return $this->index($eventversion); }
 
         $inputs = $request->validate([
             'descr' => ['required','string'],
@@ -122,7 +125,7 @@ class AuditionroomController extends Controller
 
             $room->update(
                 [
-                    'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+                    'eventversion_id' => $eventversion->id,
                     'descr' => $inputs['descr'],
                     'order_by' => $inputs['order_by'],
                     'tolerance' => $inputs['tolerance'],
@@ -131,30 +134,33 @@ class AuditionroomController extends Controller
 
         }else{
 
-            $room = $this->store($inputs);
+            $room = $this->store($inputs,$eventversion);
         }
 
         $room->filecontenttypes()->sync($inputs['filecontenttypes']);
 
         $room->instrumentations()->sync($inputs['instrumentations']);
 
-        return redirect(route('eventadministrator.rooms'));
+        return $this->index($eventversion); //redirect(route('eventadministrator.rooms'));
     }
 
     /**
      * Remove the specified resource from storage.
+     * No soft-delete; change eventversion_id to 1 to hide
      *
      * @param  \App\Models\Room $room
      * @return \Illuminate\Http\Response
      */
     public function destroy(Room $room)
     {
+        $eventversion = Eventversion::find($room->eventversion_id);
+
         $room->update(
             [
                 'eventversion_id' => 1
             ]
         );
 
-        return $this->index();
+        return $this->index($eventversion);
     }
 }

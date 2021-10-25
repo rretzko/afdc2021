@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -22,6 +22,7 @@
 
                         {{-- ROOM FORM --}}
                         <x-eventadministration.rooms.roomform
+                            :eventversion="$eventversion"
                             :room="$room"
                             :filecontenttypes="$filecontenttypes"
                             :instrumentations="$instrumentations"

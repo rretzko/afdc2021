@@ -28,10 +28,10 @@
                                 <li><a href="{{ route('eventadministrator.participatingteachers',
                                         ['eventversion' => $eventversion]) }}"
                                     >
-                                        Participating Teachers
+                                        Participating Teachers***
                                     </a>
                                 </li>
-<!-- {{--
+
                                 <li>@if($eventversion->filecontenttypes->count() &&
                                             $eventversion->instrumentations()->count() &&
                                             $eventversion->rooms->count())
@@ -73,7 +73,7 @@
                                 </li>
                             </ul>
                         </div>
-
+<!-- {{--
                         <div>
                             <h4>
                                 Score Definition

@@ -71,20 +71,20 @@ class AuditionsegmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Eventversion $eventversion)
     {
         $segments = $request->validate([
             'filecontenttypes' => ['required','array'],
             'filecontenttypes.*' => ['required','numeric'],
         ]);
 
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $eventversion->filecontenttypes()->sync($segments['filecontenttypes']);
 
-        return redirect(route('eventadministrator.index'));
+        return redirect(route('eventadministration.eventversion.index',['eventversion' => $eventversion]));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Adjudicator;
 use App\Models\Eventversion;
 use App\Models\Membership;
+use App\Models\Room;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,11 @@ class AdjudicatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(\App\Models\Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.adjudicators.index',
             [
+                'eventversion' => $eventversion,
                 'member' => new Membership(),
                 'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
                 'rooms' => $eventversion->rooms->sortBy('order_by'),
@@ -69,10 +69,11 @@ class AdjudicatorController extends Controller
      */
     public function edit($id)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion = Eventversion::find(Adjudicator::find($id)->eventversion_id);
 
         return view('eventadministration.adjudicators.index',
             [
+                'eventversion' => $eventversion,
                 'member' => new Membership(),
                 'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
                 'rooms' => $eventversion->rooms->sortBy('order_by'),
@@ -93,9 +94,11 @@ class AdjudicatorController extends Controller
            'user_id' => ['required', 'numeric'],
         ]);
 
+        $eventversion = Eventversion::find(Room::find($inputs['room_id'])->eventversion_id);
+
         Adjudicator::updateOrCreate(
             [
-                'eventversion_id' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id()))->id,
+                'eventversion_id' => $eventversion->id,
                 'room_id' => $inputs['room_id'],
                 'user_id' => $inputs['user_id'],
             ],
@@ -104,7 +107,7 @@ class AdjudicatorController extends Controller
             ]
         );
 
-        return $this->index();
+        return $this->index($eventversion);
 
     }
 
@@ -116,8 +119,10 @@ class AdjudicatorController extends Controller
      */
     public function destroy($id)
     {
+        $eventversion = Eventversion::find(Adjudicator::find($id)->eventversion_id);
+
         Adjudicator::destroy($id);
 
-        return $this->index();
+        return $this->index($eventversion);
     }
 }

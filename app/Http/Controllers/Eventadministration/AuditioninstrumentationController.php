@@ -13,15 +13,15 @@ class AuditioninstrumentationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.auditioninstrumentations.index',
             [
                 'currentinstrumentations' => $eventversion->instrumentations(),
+                'eventversion' => $eventversion,
                 'instrumentations' => $eventversion->instrumentations(),
             ]);
     }

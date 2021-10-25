@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
         ->name('eventadministrator.index');
 
-    Route::get('/eventadministrator/adjudicators', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'index'])
+    Route::get('/eventadministrator/adjudicators/{eventversion}', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'index'])
         ->name('eventadministrator.adjudicators.index');
     Route::post('/eventadministrator/adjudicators/update', [App\Http\Controllers\Eventadministration\AdjudicatorController::class, 'update'])
         ->name('eventadministrator.adjudicators.update');
@@ -92,21 +92,21 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/results/show/{instrumentation}', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'show'])
         ->name('eventadministrator.tabroom.results.show');
 
-    Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
-        ->name('eventadministrator.instrumentations');
+    //Route::get('/eventadministrator/instrumentations/{eventversion}', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
+     //   ->name('eventadministrator.instrumentations');
 
-    Route::get('/eventadministrator/instrumentations', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
+    Route::get('/eventadministrator/instrumentations/{eventversion}', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');
     Route::post('/eventadministrator/instrumentations/update', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'update'])
         ->name('eventadministrator.instrumentations.update');
 
-    Route::get('/eventadministrator/rooms', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'index'])
+    Route::get('/eventadministrator/rooms/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'index'])
         ->name('eventadministrator.rooms');
     Route::get('/eventadministrator/rooms/delete/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'destroy'])
         ->name('eventadministrator.rooms.delete');
     Route::get('/eventadministrator/rooms/edit/{room}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'edit'])
         ->name('eventadministrator.rooms.edit');
-    Route::post('/eventadministrator/rooms/update/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
+    Route::post('/eventadministrator/rooms/update/{eventversion}/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
         ->name('eventadministrator.rooms.update');
 
     Route::get('/eventadministrator/scoring/segments/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])

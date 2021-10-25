@@ -11,7 +11,7 @@
 
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
-                            {{ __('Event Administration: Audition Segments') }}
+                            {{ __("Event Administration: $eventversion->name : Audition Segments") }}
                         </div>
                         <div class="text-right col-7">
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
@@ -23,7 +23,7 @@
                             <form method="post" action="{{ route('eventadministrator.segments.update',
                                                 ['eventversion' => $eventversion]) }}">
                         @else
-                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update">
+                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update/{{ $eventversion->id }}">
                         @endif
                             @csrf
 

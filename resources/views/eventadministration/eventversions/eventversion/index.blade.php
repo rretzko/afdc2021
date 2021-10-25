@@ -21,7 +21,7 @@
                     <div style="padding: 1rem .5rem;">
                         <div>
                             <h4>
-                                Eventversion Administration
+                                Eventversion Administration!!!
                             </h4>
                             <ul>
 
@@ -32,7 +32,7 @@
                                         Participating Teachers
                                     </a>
                                 </li>
-<!-- {{--
+
                                 <li>@if($eventversion->filecontenttypes->count() &&
                                             $eventversion->instrumentations()->count() &&
                                             $eventversion->rooms->count())
@@ -72,7 +72,7 @@
                                         </li>
                                     </ul>
                                 </li>
---}} -->
+
                             </ul>
 
                         </div>

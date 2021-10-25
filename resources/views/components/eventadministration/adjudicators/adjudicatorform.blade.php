@@ -8,7 +8,7 @@
             ]) }}"
         >
     @else
-        <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/adjudicators/update/{{ $eventversion->id }}" >
+        <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/adjudicators/update" >
     @endif
 
         @csrf

@@ -21,7 +21,7 @@
                     <div style="padding: 1rem .5rem;">
                         <div>
                             <h4>
-                                Eventversion Administration!!!
+                                Eventversion Administration
                             </h4>
                             <ul>
 

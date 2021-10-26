@@ -9,7 +9,11 @@
 
     <div id="changeform" style="width: 100%;">
         @if($registrant)
-            <form method="POST" action="{{ route('registrationmanager.registrant.update',['registrant' => $registrant]) }}" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+            @if(config('app.url') === 'http://afdc2021.test')
+                <form method="POST" action="{{ route('registrationmanager.registrant.update',['registrant' => $registrant]) }}" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+            @else
+                <form method="POST" action="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrant/update/{{ $registrant->id }}" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+            @endif
                 @csrf
                 <header>Click the student's name to populate this form...</header>
                 <div style="display: flex; flex-direction: row; justify-content: space-around;">

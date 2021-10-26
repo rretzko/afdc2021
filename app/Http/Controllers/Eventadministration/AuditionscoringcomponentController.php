@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Filecontenttype;
 use App\Models\Scoringcomponent;
-use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
 class AuditionscoringcomponentController extends Controller
@@ -92,7 +91,7 @@ class AuditionscoringcomponentController extends Controller
      */
     public function edit($id)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion = Eventversion::find(Scoringcomponent::find($id)->eventversion_id);
 
         return view('eventadministration.scoring.components.index',
             [

@@ -14,12 +14,11 @@ class AuditionscoringcomponentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.scoring.components.index',
             [
                 'currentfilecontenttypes' => $eventversion->filecontenttypes,
@@ -45,9 +44,10 @@ class AuditionscoringcomponentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Eventversion $eventversion)
     {
         $inputs = $request->validate([
             'filecontenttype_id' => ['required','numeric'],
@@ -61,7 +61,7 @@ class AuditionscoringcomponentController extends Controller
         ]);
 
         Scoringcomponent::create([
-            'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+            'eventversion_id' => $eventversion->id,
             'filecontenttype_id' => $inputs['filecontenttype_id'],
             'descr' => $inputs['descr'],
             'abbr' => $inputs['abbr'],
@@ -72,7 +72,7 @@ class AuditionscoringcomponentController extends Controller
             'tolerance' => $inputs['tolerance']
         ]);
 
-        return $this->index();
+        return $this->index($eventversion);
     }
 
     /**
@@ -112,10 +112,11 @@ class AuditionscoringcomponentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \App\Models\Eventversion $eventversion
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Eventversion $eventversion, $id )
     {
         $inputs = $request->validate([
             'filecontenttype_id' => ['required','numeric'],
@@ -131,7 +132,7 @@ class AuditionscoringcomponentController extends Controller
         $scoringcomponent = Scoringcomponent::find($id);
 
         $scoringcomponent->update([
-            'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+            'eventversion_id' => $eventversion->id,
             'filecontenttype_id' => $inputs['filecontenttype_id'],
             'descr' => $inputs['descr'],
             'abbr' => $inputs['abbr'],
@@ -142,7 +143,7 @@ class AuditionscoringcomponentController extends Controller
             'tolerance' => $inputs['tolerance']
         ]);
 
-        return $this->index();
+        return $this->index($eventversion);
 
     }
 
@@ -154,8 +155,10 @@ class AuditionscoringcomponentController extends Controller
      */
     public function destroy($id)
     {
+        $eventversion = Eventversion::find(Scoringcomponent::find($id)->eventversion_id);
+
         Scoringcomponent::destroy($id);
 
-        return $this->index();
+        return $this->index($eventversion);
     }
 }

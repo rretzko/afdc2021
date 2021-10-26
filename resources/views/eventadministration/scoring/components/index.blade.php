@@ -11,7 +11,7 @@
 
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
-                            {{ __('Event Administration: Scoring Components') }}
+                            {{ __("Event Administration: $eventversion->name Scoring Components") }}
                         </div>
                         <div class="text-right col-7">
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
@@ -23,13 +23,17 @@
                             {{-- FORM --}}
                             @if(config('app.url') === 'http://afdc2021.test')
                                 <form method="post" action="@if($scoringcomponent)
-                                    {{ route('eventadministrator.scoring.components.update',['scoringcomponent' => $scoringcomponent->id]) }}
+                                    {{ route('eventadministrator.scoring.components.update',['eventversion' => $eventversion, 'scoringcomponent' => $scoringcomponent->id]) }}
                                 @else
-                                    {{ route('eventadministrator.scoring.components.new') }}
+                                    {{ route('eventadministrator.scoring.components.new',['eventversion' => $eventversion]) }}
                                 @endif
                                 ">
                             @else
-                                <form method="post" action="@if($scoringcomponent) https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/update/{{ $scoringcomponent->id }} @else https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/new @endif ">
+                                @if($scoringcomponent)
+                                    <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/update/{{ $eventversion->id }}/{{ $scoringcomponent->id }} ">
+                                @else
+                                    <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/new/{{ $eventversion->id }} @endif ">
+                                @endif
                             @endif
                                 @csrf
 

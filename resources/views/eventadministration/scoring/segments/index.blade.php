@@ -11,7 +11,7 @@
 
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
-                            {{ __('Event Administration: Scoring Segments') }}
+                            {{ __("Event Administration: $eventversion->name Scoring Segments") }}
                         </div>
                         <div class="text-right col-7">
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}

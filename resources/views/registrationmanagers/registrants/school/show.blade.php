@@ -32,7 +32,11 @@
                 </div>
 
                 <div style="margin:auto;">
-                    <livewire:schoolregistrants-component :school="$school" :eventversion="$eventversion"/>
+                    <livewire:schoolregistrants-component
+                        :school="$school"
+                        :eventversion="$eventversion"
+                        :registrant="$registrant"
+                    />
                 </div>
 
             </div>

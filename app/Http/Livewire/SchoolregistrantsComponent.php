@@ -11,6 +11,7 @@ use Livewire\Component;
 class SchoolregistrantsComponent extends Component
 {
     public $eventversion;
+    public $registrant;
     public $reviews = [];
     public $school;
 
@@ -23,6 +24,7 @@ class SchoolregistrantsComponent extends Component
     {
         return view('livewire.schoolregistrants-component', [
             'registrants' => $this->eventversion->registrantsForSchool($this->school),
+            'voiceparts' => $this->voiceparts(),
         ]);
     }
 
@@ -50,5 +52,28 @@ class SchoolregistrantsComponent extends Component
             ->where('reviewed', 1)
             ->pluck('registrant_id')
             ->toArray();
+    }
+
+    private function voiceparts()
+    {
+        $str = '';
+
+        if($this->registrant){
+
+            $str .= '<select name="instrumentation_id">';
+            foreach($this->eventversion->instrumentations() AS $instrumentation){
+                $str .= '<option value="'.$instrumentation->id.'" ';
+                if($this->registrant->instrumentations->first()->id == $instrumentation->id){
+                    $str .= 'SELECTED ';
+                }
+                $str .= '>';
+                $str .= strtoupper($instrumentation->descr);
+                $str .= '</option>';
+            }
+
+            $str .= '</select>';
+        }
+
+        return $str;
     }
 }

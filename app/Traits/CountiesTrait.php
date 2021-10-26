@@ -2,8 +2,12 @@
 
 namespace App\Traits;
 
+use App\Models\Userconfig;
+
 trait CountiesTrait
 {
+    private $eventversionswithcounties = [65];
+
     private $counties = [
         37 => [1,2,3,4,5,6,7,8,9,10, //NJ includes "unknown" county
                 11,12,13,14,15,16,17,18,19,20,21,22]
@@ -22,11 +26,16 @@ trait CountiesTrait
         return $this->counties[$geostate_id];
     }
 
-    public function userCounties($user_id)
+    public function userCounties($user_id, $eventversion_id = 65)
     {
-        return array_key_exists($user_id, $this->usercounties)
-            ? $this->usercounties[$user_id]
-            : [];
+        if(in_array($eventversion_id, $this->eventversionswithcounties)) {
+
+            return array_key_exists($user_id, $this->usercounties)
+                ? $this->usercounties[$user_id]
+                : [];
+        }
+
+        return [];
     }
 
 }

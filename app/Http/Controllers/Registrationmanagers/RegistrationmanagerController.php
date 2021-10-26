@@ -24,7 +24,7 @@ class RegistrationmanagerController extends Controller
         return view('registrationmanagers.index', [
             'counties' => $this->geostateCounties(),
             'eventversion' => $eventversion,
-            'mycounties' => $this->userCounties(auth()->id()),
+            'mycounties' => $this->userCounties(auth()->id(),$eventversion->id),
             'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);
     }
@@ -42,7 +42,7 @@ class RegistrationmanagerController extends Controller
         return view('registrationmanagers.index', [
             'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
             'counties' => $this->geostateCounties(),
-            'mycounties' => $this->userCounties(auth()->id()),
+            'mycounties' => $this->userCounties(auth()->id(), ),
             'toggle' => Userconfig::getValue('counties', auth()->id()),
         ]);
     }

@@ -117,7 +117,9 @@ class EmailreceiptComponent extends Component
         });
     }
 
-    private function myCounties(){
+    private function myCounties()
+    {
+        $eventversionswithcounties = [65];
 
         $usercounties = [
             45 => [1,6,7,9,15,17,19,],
@@ -126,7 +128,7 @@ class EmailreceiptComponent extends Component
             423 => [2,3,14,18,]
         ];
 
-        return array_key_exists(auth()->id(), $usercounties)
+        return (in_array($this->eventversion->id, $eventversionswithcounties) && array_key_exists(auth()->id(), $usercounties))
             ? $usercounties[auth()->id()]
             : [];
     }

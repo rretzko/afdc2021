@@ -18,6 +18,28 @@
                         </div>
                     </div>
 
+                    <div style="padding: 1rem .5rem; padding-bottom: 0;">
+                        <h4>Event Configuration</h4>
+                        <ul>
+                            <li>Score Definition <span style="color: red;">*** NEW! ***</span>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('eventadministrator.scoring.segments',
+                                                ['eventversion' => $eventversion]) }}">
+                                            Segments
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('eventadministrator.scoring.components',
+                                                ['eventversion' => $eventversion]) }}">
+                                            Value Components
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div style="padding: 1rem .5rem;">
                         <div>
                             <h4>
@@ -76,27 +98,8 @@
                             </ul>
 
                         </div>
-<!-- {{--
-                        <div>
-                            <h4>
-                                Score Definition
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('eventadministrator.scoring.segments',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Segments
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.scoring.components',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Value Components
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
 
+<!-- {{--
                         <div>
                             <h4>
                                 Tab Room

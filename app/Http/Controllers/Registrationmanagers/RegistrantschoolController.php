@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
+use App\Models\Registrant;
 use App\Models\School;
 use App\Models\Userconfig;
 use App\Traits\CountiesTrait;
@@ -59,20 +60,32 @@ class RegistrantschoolController extends Controller
                 //'registrants' => $eventversion->registrantsForSchool($school),
                 'counties' => $this->geostateCounties(),
                 'eventversion' => $eventversion,
-                'mycounties' => $this->userCounties(auth()->id()),
+                'mycounties' => $this->userCounties(auth()->id(), $eventversion->id),
                 'toggle' => Userconfig::getValue('counties', auth()->id()),
+                'registrant' => NULL,
             ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Models\Eventversion $eventversion
+     * @param App\Models\School $school
+     * @param App\Models\Registrant $registrant
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Eventversion $eventversion, School $school, Registrant $registrant)
     {
-        //
+        return view('registrationmanagers.registrants.school.show',
+            [
+                'school' => $school,
+                //'registrants' => $eventversion->registrantsForSchool($school),
+                'counties' => $this->geostateCounties(),
+                'eventversion' => $eventversion,
+                'mycounties' => $this->userCounties(auth()->id(), $eventversion->id),
+                'toggle' => Userconfig::getValue('counties', auth()->id()),
+                'registrant' => $registrant,
+            ]);
     }
 
     /**

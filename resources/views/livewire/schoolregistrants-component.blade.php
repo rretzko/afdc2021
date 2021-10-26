@@ -7,6 +7,35 @@
         {{ $school->name }}
     </h3>
 
+    <div id="changeform" style="width: 100%;">
+        @if($registrant)
+            <form method="POST" action="" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+                <header>Click the student's name to populate this form...</header>
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                    <div>
+                        <label>Name</label>
+                        <div>
+                            {{ $registrant->student->person->fullName() }}
+                        </div>
+                    </div>
+                    <div>
+                        <label>Voice Part</label></lable>
+                        <div>
+                            {!! $voiceparts !!}
+                        </div>
+                    </div>
+                    <div>
+                        <label></label>
+                        <div>
+                            <input type="submit" name="submit" id="submit" value="Update" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        @endif
+    </div>
+
     <table style="margin:auto;">
         <thead>
         <tr>
@@ -24,7 +53,17 @@
         @foreach($registrants AS $registrant)
                <tr>
                 <td style="text-align: center;">{{ $loop->iteration }}</td>
-                <td>{{ $registrant->student->person->fullNameAlpha() }}</td>
+               <td>
+                    <a href="{{ route('registrants.school.edit',
+                        [
+                            'eventversion' => $eventversion,
+                            'school' => $school,
+                            'registrant' => $registrant,
+                        ]) }}"
+                    >
+                        {{ $registrant->student->person->fullNameAlpha() }}
+                    </a>
+                </td>
                 <td style="text-align: center;">
                     @foreach($registrant->instrumentations AS $instrumentation)
                         {{ strtoupper($instrumentation->abbr) }}

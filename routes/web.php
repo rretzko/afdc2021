@@ -137,6 +137,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrants.county.show');
     Route::get('/registrationmanager/registrants/school/{eventversion}/{school}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'show'])
         ->name('registrants.school.show');
+    Route::get('/registrationmanager/registrants/school/{eventversion}/{school}/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'edit'])
+        ->name('registrants.school.edit');
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');

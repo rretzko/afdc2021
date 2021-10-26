@@ -71,8 +71,6 @@ class AuditionscoringcomponentController extends Controller
             'interval' => $inputs['interval'],
             'tolerance' => $inputs['tolerance']
         ]);
-
-        return $this->index($eventversion);
     }
 
     /**
@@ -118,30 +116,36 @@ class AuditionscoringcomponentController extends Controller
      */
     public function update(Request $request, Eventversion $eventversion, $id )
     {
-        $inputs = $request->validate([
-            'filecontenttype_id' => ['required','numeric'],
-            'descr' => ['required','string'],
-            'abbr' => ['required','string'],
-            'order_by' => ['required','numeric'],
-            'bestscore' => ['required','numeric'],
-            'worstscore' => ['required','numeric'],
-            'interval' => ['required','numeric'],
-            'tolerance' => ['required','numeric'],
-        ]);
+        if($id) {
+            $inputs = $request->validate([
+                'filecontenttype_id' => ['required', 'numeric'],
+                'descr' => ['required', 'string'],
+                'abbr' => ['required', 'string'],
+                'order_by' => ['required', 'numeric'],
+                'bestscore' => ['required', 'numeric'],
+                'worstscore' => ['required', 'numeric'],
+                'interval' => ['required', 'numeric'],
+                'tolerance' => ['required', 'numeric'],
+            ]);
 
-        $scoringcomponent = Scoringcomponent::find($id);
+            $scoringcomponent = Scoringcomponent::find($id);
 
-        $scoringcomponent->update([
-            'eventversion_id' => $eventversion->id,
-            'filecontenttype_id' => $inputs['filecontenttype_id'],
-            'descr' => $inputs['descr'],
-            'abbr' => $inputs['abbr'],
-            'order_by' => $inputs['order_by'],
-            'bestscore' => $inputs['bestscore'],
-            'worstscore' => $inputs['worstscore'],
-            'interval' => $inputs['interval'],
-            'tolerance' => $inputs['tolerance']
-        ]);
+            $scoringcomponent->update([
+                'eventversion_id' => $eventversion->id,
+                'filecontenttype_id' => $inputs['filecontenttype_id'],
+                'descr' => $inputs['descr'],
+                'abbr' => $inputs['abbr'],
+                'order_by' => $inputs['order_by'],
+                'bestscore' => $inputs['bestscore'],
+                'worstscore' => $inputs['worstscore'],
+                'interval' => $inputs['interval'],
+                'tolerance' => $inputs['tolerance']
+            ]);
+
+        }else{ //new component
+
+            $this->store($request, $eventversion);
+        }
 
         return $this->index($eventversion);
 

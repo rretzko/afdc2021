@@ -117,8 +117,6 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.scoring.components.delete');
     Route::get('/eventadministrator/scoring/components/edit/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'edit'])
         ->name('eventadministrator.scoring.components.edit');
-    Route::post('/eventadministrator/scoring/components/new/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'store'])
-        ->name('eventadministrator.scoring.components.new');
     Route::post('/eventadministrator/scoring/components/update/{eventversion}/{scoringcomponent}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'update'])
         ->name('eventadministrator.scoring.components.update');
 

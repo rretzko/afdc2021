@@ -22,18 +22,9 @@
                         <div style="display: flex; flex-direction: row; ">
                             {{-- FORM --}}
                             @if(config('app.url') === 'http://afdc2021.test')
-                                <form method="post" action="@if($scoringcomponent)
-                                    {{ route('eventadministrator.scoring.components.update',['eventversion' => $eventversion, 'scoringcomponent' => $scoringcomponent->id]) }}
-                                @else
-                                    {{ route('eventadministrator.scoring.components.new',['eventversion' => $eventversion]) }}
-                                @endif
-                                ">
+                                <form method="post" action="{{ route('eventadministrator.scoring.components.update',['eventversion' => $eventversion, 'scoringcomponent' => $scoringcomponent ? $scoringcomponent->id : 0]) }}">
                             @else
-                                @if($scoringcomponent)
-                                    <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/update/{{ $eventversion->id }}/{{ $scoringcomponent->id }} ">
-                                @else
-                                    <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/new/{{ $eventversion->id }} @endif ">
-                                @endif
+                                <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/update/{{ $eventversion->id }}/{{ $scoringcomponent ? $scoringcomponent->id : 0 }} ">
                             @endif
                                 @csrf
 

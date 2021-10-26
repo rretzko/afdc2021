@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
+use App\Models\Registrant;
 use App\Models\School;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
@@ -61,13 +62,17 @@ class RegistrationmanagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @todo log these changes by registration manager
+     *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Registrant $registrant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Registrant $registrant)
     {
-        //
+        $registrant->instrumentations()->sync($request['instrumentation_id']);
+
+        return $this->index(Eventversion::find($registrant->eventversion_id));
     }
 
     /**

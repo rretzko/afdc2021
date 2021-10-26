@@ -9,7 +9,8 @@
 
     <div id="changeform" style="width: 100%;">
         @if($registrant)
-            <form method="POST" action="" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+            <form method="POST" action="{{ route('registrationmanager.registrant.update',['registrant' => $registrant]) }}" style="display: flex; flex-direction: column; width: 50%; margin-left: 25%; margin-bottom: 1rem; border:1px solid gray; padding: .25rem;">
+                @csrf
                 <header>Click the student's name to populate this form...</header>
                 <div style="display: flex; flex-direction: row; justify-content: space-around;">
                     <div>

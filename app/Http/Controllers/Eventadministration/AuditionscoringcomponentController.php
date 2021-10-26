@@ -23,6 +23,7 @@ class AuditionscoringcomponentController extends Controller
         return view('eventadministration.scoring.components.index',
             [
                 'currentfilecontenttypes' => $eventversion->filecontenttypes,
+                'eventversion' => $eventversion,
                 'scoringcomponent' => null,
                 'scoringcomponents' => Scoringcomponent::where('eventversion_id', $eventversion->id)
                     ->orderBy('order_by')
@@ -98,6 +99,7 @@ class AuditionscoringcomponentController extends Controller
         return view('eventadministration.scoring.components.index',
             [
                 'currentfilecontenttypes' => $eventversion->filecontenttypes,
+                'eventversion' => $eventversion,
                 'scoringcomponent' => Scoringcomponent::find($id),
                 'scoringcomponents' => Scoringcomponent::where('eventversion_id', $eventversion->id)
                     ->orderBy('filecontenttype_id')

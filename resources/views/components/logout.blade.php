@@ -35,6 +35,7 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
+                (Route::currentRouteName() === 'eventadministrator.scoring.components.new') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments.update') ||

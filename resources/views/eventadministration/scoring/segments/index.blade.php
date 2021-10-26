@@ -23,7 +23,7 @@
                             <form method="post" action="{{ route('eventadministrator.segments.update',
                                                 ['eventversion' => $eventversion]) }}">
                         @else
-                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update/{{$eventversion_id}}">
+                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/segments/update/{{$eventversion->id}}">
                         @endif
                             @csrf
 

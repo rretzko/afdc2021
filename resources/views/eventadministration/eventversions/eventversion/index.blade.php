@@ -19,7 +19,7 @@
                     </div>
 
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
-                        <h4>Event Configuration</h4>
+                        <h4>Event Version Configuration</h4>
                         <ul>
                             <li>Score Definition
                                 <ul>
@@ -43,7 +43,7 @@
                     <div style="padding: 1rem .5rem;">
                         <div>
                             <h4>
-                                Eventversion Administration
+                                Event Version Administration
                             </h4>
                             <ul>
 

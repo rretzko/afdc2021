@@ -21,7 +21,7 @@
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Configuration</h4>
                         <ul>
-                            <li>Score Definition <span style="color: red;">*** NEW! ***</span>
+                            <li>Score Definition
                                 <ul>
                                     <li>
                                         <a href="{{ route('eventadministrator.scoring.segments',

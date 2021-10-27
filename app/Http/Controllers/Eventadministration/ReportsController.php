@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Eventversion;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
@@ -12,12 +13,11 @@ class ReportsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.reports.index',
         [
             'eventversion' => $eventversion,

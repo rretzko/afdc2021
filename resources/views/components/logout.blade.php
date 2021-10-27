@@ -41,6 +41,9 @@
                 (Route::currentRouteName() === 'eventadministrator.scoring.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments.update') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.cutoffs') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.results') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.results.show') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretracking')
             )
             <a href="{{ route('home') }}">

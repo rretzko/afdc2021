@@ -14,11 +14,11 @@ class CutoffController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $adjudication = new \App\Models\Utility\Adjudication(['eventversion' => $eventversion]);
 
         $eventensemblecutoff = new Eventensemblecutoff;
@@ -38,7 +38,7 @@ class CutoffController extends Controller
             'eventensembles' => $eventversion->event->eventensembles,
             'eventensemblecutoff' => $eventensemblecutoff,
             'eventensemblelocks' => $eventensemblelocks,
-            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+            'eventversion' => $eventversion,
         ]);
     }
 

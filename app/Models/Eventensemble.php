@@ -22,8 +22,8 @@ class Eventensemble extends Model
 
         $instrumentation = $registrant->instrumentations->first();
         $scoresummary = \App\Models\Scoresummary::where('registrant_id', $registrant->id)->first();
-        $totalscore = $scoresummary->score_total;
-        $countscore = $scoresummary->score_count;
+        $totalscore = ($scoresummary) ? $scoresummary->score_total : 0;
+        $countscore = ($scoresummary) ? $scoresummary->score_count : 0;
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $countscoreset = ($eventversion->eventversionconfig->judge_count * \App\Models\Scoringcomponent::where('eventversion_id', $eventversion->id)->get()->count());
 

@@ -18,12 +18,11 @@ class AuditionresultsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-
         return view('eventadministration.auditionresults.index',
         [
             'eventversion' => $eventversion,
@@ -54,13 +53,13 @@ class AuditionresultsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Eventversion $eventversion
+     * @param  \App\Models\Instrumentation $instrumentation
      * @return \Illuminate\Http\Response
      */
-    public function show(\App\Models\Instrumentation $instrumentation)
+    public function show(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        $completes = $this->completedAdjudicationsByInstrumentation($instrumentation);
+        $completes = $this->completedAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
         $filtered = $this->filterRegistrants($eventversion, $instrumentation);
 
@@ -122,7 +121,7 @@ class AuditionresultsController extends Controller
 
         //sort by grandtotal
         $a = [];
-        foreach($filtered AS $item){
+        foreach($filtered AS $item){ //$item = registrant
 
             $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
         }

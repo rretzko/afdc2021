@@ -21,9 +21,9 @@ trait CompletedAdjudicationsTrait
             ->get();
     }
 
-    public function completedAdjudicationsByInstrumentation(\App\Models\Instrumentation $instrumentation)
+    public function completedAdjudicationsByInstrumentation(
+        \App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation)
     {
-        $eventversion = \App\Models\Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $scorecomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->get();
         $countcomponents = ($scorecomponents->count() * $eventversion->eventversionconfig->judge_count);
 

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -25,6 +25,7 @@
                                 @foreach($eventversion->instrumentations() AS $instrumentation)
                                     <a href="{{ route('eventadministrator.tabroom.results.show',
                                             [
+                                                'eventversion' => $eventversion,
                                                 'instrumentation' => $instrumentation
                                             ]
                                         )}}"
@@ -74,7 +75,9 @@
                                         <th>Total</th>
 
                                         <th>Mix</th>
-                                        <th>Tbl</th>
+                                        @if($eventversion->event->eventensembles->count() === 2)
+                                            <th>Tbl</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,13 +105,15 @@
                                                 {{ $eventversion->event->eventensembles[0]->acceptanceStatus($registrant) }}
                                             @endif
                                         </td>
-                                        <td>
-                                            @if($eventversion->event->eventensembles[1]->acceptanceStatus($registrant) === 'MX')
-                                                -
-                                            @else
-                                                {{ $eventversion->event->eventensembles[1]->acceptanceStatus($registrant) }}
-                                            @endif
-                                        </td>
+                                        @if($eventversion->event->eventensembles->count() === 2)
+                                            <td>
+                                                @if($eventversion->event->eventensembles[1]->acceptanceStatus($registrant) === 'MX')
+                                                    -
+                                                @else
+                                                    {{ $eventversion->event->eventensembles[1]->acceptanceStatus($registrant) }}
+                                                @endif
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -84,7 +84,9 @@ class Registrant extends Model
 
     public function grandtotal()
     {
-        return Scoresummary::where('registrant_id', $this->id)->first()->score_total;
+        $scoresummary =Scoresummary::where('registrant_id', $this->id)->first();
+
+        return $scoresummary ? $scoresummary->score_total : 0;
     }
 
     public function instrumentations()

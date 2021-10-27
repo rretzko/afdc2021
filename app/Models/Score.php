@@ -30,23 +30,25 @@ class Score extends Model
         $filecontenttypes = $eventversion->filecontenttypes;
         $scores = [];
 
-        for($i=0; $i<$eventversion->eventversionconfig->judge_count; $i++) { //1,2,3
+        if($rooms->count()) {
+            for ($i = 0; $i < $eventversion->eventversionconfig->judge_count; $i++) { //1,2,3
 
-            foreach($filecontenttypes AS $key => $filecontenttype) { //scales, solo, quartet
+                foreach ($filecontenttypes as $key => $filecontenttype) { //scales, solo, quartet
 
-                $room = $rooms->filter(function($room) use($filecontenttype){
-                    return $room->filecontenttypes->contains($filecontenttype);
-                });
+                    $room = $rooms->filter(function ($room) use ($filecontenttype) {
+                        return $room->filecontenttypes->contains($filecontenttype);
+                    });
 
-                $adjudicators = $room->first()->adjudicators;
+                    $adjudicators = $room->first()->adjudicators;
 
-                foreach($filecontenttype->scoringcomponents AS $scoringcomponent){
+                    foreach ($filecontenttype->scoringcomponents as $scoringcomponent) {
 
-                    $scores[] = $this->where('registrant_id', $registrant->id)
-                        ->where('scoringcomponent_id', $scoringcomponent->id)
-                        ->where('eventversion_id', $eventversion->id)
-                        ->where('user_id', $adjudicators[$i]->user_id)
-                        ->value('score');
+                        $scores[] = $this->where('registrant_id', $registrant->id)
+                            ->where('scoringcomponent_id', $scoringcomponent->id)
+                            ->where('eventversion_id', $eventversion->id)
+                            ->where('user_id', $adjudicators[$i]->user_id)
+                            ->value('score');
+                    }
                 }
             }
         }

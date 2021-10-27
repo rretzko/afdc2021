@@ -99,10 +99,10 @@
 
                         </div>
 
-<!-- {{--
+
                         <div>
                             <h4>
-                                Tab Room
+                                Tab Room <span style="color: red;">*** NEW ***</span>
                             </h4>
                             <ul>
                                 <li>Score Input</li>
@@ -139,7 +139,7 @@
                                 </li>
                             </ul>
                         </div>
---}} -->
+
                         <div>
                             <h4>
                                 Registration Manager

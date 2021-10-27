@@ -120,7 +120,7 @@
                                         @if(config('app.url') === 'http://afdc2021.test')
                                             <a href="{{ route('eventadministrator.scoring.components.delete', ['scoringcomponent' => $scoringcomponent->id]) }}" style="color: red;" class="text-red-500">- Delete {{ $scoringcomponent->descr }} -</a>
                                         @else
-                                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadminstrator/scoring/components/delete/{{ $scoringcomponent->id }}" style="color: red;" class="text-red-500">- Delete {{ $scoringcomponent->descr }} -</a>
+                                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/scoring/components/delete/{{ $scoringcomponent->id }}" style="color: red;" class="text-red-500">- Delete {{ $scoringcomponent->descr }} -</a>
                                         @endif
 
                                     @endif

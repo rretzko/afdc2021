@@ -102,10 +102,10 @@
 
                         <div>
                             <h4>
-                                Tab Room <span style="color: red;">*** NEW ***</span>
+                                Tab Room
                             </h4>
                             <ul>
-                                <li>Score Input</li>
+                        <!--        <li>Score Input</li> -->
                                 <li>
                                     <a href="{{ route('eventadministrator.tabroom.scoretracking',
                                         ['eventversion' => $eventversion]) }}">
@@ -124,7 +124,7 @@
                                         Detailed Audition Results
                                     </a>
                                 </li>
-                                <li>Registrant Updates</li>
+                        <!--        <li>Registrant Updates</li> -->
                                 <li>
                                     <a href="{{ route('eventadministrator.tabroom.reports',
                                                 ['eventversion' => $eventversion]) }}">

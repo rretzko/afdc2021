@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -21,7 +21,7 @@
                     <section style="margin: auto; padding: 1rem 0; ">
 
                         <div style="font-size: 2rem; margin-bottom: 1rem;">
-                            <a href="{{ route('eventadministrator.tabroom.publish.update') }}">
+                            <a href="{{ route('eventadministrator.tabroom.publish.update',['eventversion' => $eventversion]) }}">
                                 <style>
                                     button:hover{background-color: lightgrey;}
                                 </style>

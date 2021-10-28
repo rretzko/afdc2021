@@ -16,11 +16,11 @@ class PublishresultsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $currentdt = $eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first()->dt;
 
         return view('eventadministration.publishresults.index',
@@ -76,13 +76,12 @@ class PublishresultsController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @param  \Illuminate\Http\Request  $request
-
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $current = $eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first();
 
         if($current->dt){ //unset date
@@ -91,7 +90,7 @@ class PublishresultsController extends Controller
             $current->update(['dt' => Carbon::now()]);
         }
 
-        return $this->index();
+        return $this->index($eventversion);
     }
 
     /**

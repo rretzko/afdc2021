@@ -71,20 +71,20 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/lock/{eventensemble}', [App\Http\Controllers\Eventadministration\CutofflockController::class, 'update'])
         ->name('eventadministrator.tabroom.cutoffs.lock');
 
-    Route::get('/eventadministrator/tabroom/publish', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/publish/{eventversion}', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.publish');
-    Route::get('/eventadministrator/tabroom/publish/update', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'update'])
+    Route::get('/eventadministrator/tabroom/publish/{eventversion}/update', [App\Http\Controllers\Eventadministration\PublishresultsController::class, 'update'])
         ->name('eventadministrator.tabroom.publish.update');
 
     Route::get('/eventadministrator/tabroom/report/{eventversion}', [App\Http\Controllers\Eventadministration\ReportsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports');
-    Route::get('/eventadministrator/tabroom/reports/auditionresults', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/reports/{eventversion}/auditionresults', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.auditionresults');
-    Route::get('/eventadministrator/tabroom/reports/participatingdirectors', [App\Http\Controllers\Eventadministration\ReportsParticipatingdirectorsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingdirectors', [App\Http\Controllers\Eventadministration\ReportsParticipatingdirectorsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingdirectors');
-    Route::get('/eventadministrator/tabroom/reports/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingstudents');
-    Route::get('/eventadministrator/tabroom/reports/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatings');
 
     Route::get('/eventadministrator/tabroom/results/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'index'])

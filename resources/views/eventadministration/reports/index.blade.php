@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <x-logout />
+                <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
                 <div class="card">
 
@@ -24,13 +24,21 @@
                                 Audition Results
                             </h4>
                             <ul>
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults') }}">
+                                <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
+                                        [
+                                            'eventversion' => $eventversion,
+                                        ]) }}"
+                                    >
                                         Download Audition Results pdf
                                     </a>
                                 </li>
 
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatings') }}">
-                                        Participating Directors
+                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatings',
+                                        [
+                                            'eventversion' => $eventversion,
+                                        ]) }}"
+                                    >
+                                        Participating Students
                                     </a>
                                 </li>
                                 <!-- {{--

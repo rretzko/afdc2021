@@ -7,7 +7,6 @@ use App\Models\Eventversion;
 use App\Models\Registrant;
 use App\Models\Registranttype;
 use App\Models\Scoringcomponent;
-use App\Models\Userconfig;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
@@ -16,11 +15,11 @@ class ReportsAuditionresultsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventverion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $filename = self::build_Filename($eventversion);
         $registrants = $this->filterRegistrants($eventversion);
         $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->get();

@@ -14,11 +14,11 @@ class ReportsParticipatingstudentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Eventversion $eventversion)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $participating = $this->participating($eventversion);
 
         return view('eventadministration.reports.participatingdirectors.index',

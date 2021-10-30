@@ -23,8 +23,8 @@ class Score extends Model
 
     public function registrantScores(\App\Models\Registrant $registrant)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        $scores = Score::where('registrant_id', $registrant->id)->get();
+        $eventversion = Eventversion::find($registrant->eventversion_id);
+       // $scores = Score::where('registrant_id', $registrant->id)->get();
         $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->orderBy('order_by')-> get();
         $rooms = $this->filterRooms($eventversion, $registrant);
         $filecontenttypes = $eventversion->filecontenttypes;
@@ -41,7 +41,7 @@ class Score extends Model
 
                     $adjudicators = $room->first()->adjudicators;
 
-                    foreach ($filecontenttype->scoringcomponents as $scoringcomponent) {
+                    foreach ($filecontenttype->scoringcomponents->where('eventversion_id', $eventversion->id) as $scoringcomponent) {
 
                         $scores[] = $this->where('registrant_id', $registrant->id)
                             ->where('scoringcomponent_id', $scoringcomponent->id)

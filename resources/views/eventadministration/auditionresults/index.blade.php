@@ -98,19 +98,25 @@
                                         <td>
                                             {{ $scoresummary->registrantScore($registrant) }}
                                         </td>
+
                                         <td>
-                                            @if($eventversion->event->eventensembles[0]->acceptanceStatus($registrant) === 'TB')
+                                            @if(
+                                                ($eventversion->event->eventensembles[0]->acceptanceStatus($eventversion, $registrant) === 'TB') ||
+                                                ($eventversion->event->eventensembles[1]->acceptanceStatus($eventversion, $registrant) === 'TB')
+                                                )
                                                 -
                                             @else
-                                                {{ $eventversion->event->eventensembles[0]->acceptanceStatus($registrant) }}
+                                                {{ $eventversion->event->eventensembles[0]->acceptanceStatus($eventversion, $registrant) }}
                                             @endif
                                         </td>
+
                                         @if($eventversion->event->eventensembles->count() === 2)
                                             <td>
-                                                @if($eventversion->event->eventensembles[1]->acceptanceStatus($registrant) === 'MX')
+
+                                                @if($eventversion->event->eventensembles[1]->acceptanceStatus($eventversion, $registrant) === 'MX')
                                                     -
                                                 @else
-                                                    {{ $eventversion->event->eventensembles[1]->acceptanceStatus($registrant) }}
+                                                    {{ $eventversion->event->eventensembles[1]->acceptanceStatus($eventversion, $registrant) }}
                                                 @endif
                                             </td>
                                         @endif

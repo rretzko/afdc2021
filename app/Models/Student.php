@@ -6,6 +6,7 @@ use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Student extends Model
 {
@@ -14,7 +15,7 @@ class Student extends Model
     protected $primaryKey = 'user_id';
 
     public function getCurrentSchoolAttribute()
-    {
+    {//if($this->user_id === 1700){dd($this->person->user->schools);}
         foreach($this->person->user->schools AS $school){
 
             if($school->grades &&
@@ -23,7 +24,8 @@ class Student extends Model
                 return $school;
             }
         }
-
+Log::info('*** FJR: '.__METHOD__.': user_id: '.$this->user_id.': school_id: '.$school->id.': grades: '.serialize($school->grades).': gradeAttribute: '.$this->getGradeAttribute());
+Log::info('*** FJR: Check the student grade v. grades @ the school v. grades teacher has checked.');
         return new School;
     }
 

@@ -73,6 +73,8 @@ class School extends Model
         $haystack = $this->name; //avoid repeated downstream calls
         $str = $haystack;   //initialize $str value
 
+        //graceful faile
+        if(! $haystack){ return 'No School Found';}
         foreach($abbrs AS $descr => $abbr){
 
             if(strstr($haystack, $descr)){

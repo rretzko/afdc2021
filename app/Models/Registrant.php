@@ -33,13 +33,16 @@ class Registrant extends Model
     }
 
     public function auditionDetails()
-    {
+    {//$user = User::with('schools')->where('id', (1700))->first();
+      //  dd($user);
         $scores = Score::where('registrant_id', $this->id)->get();
         $crlf = '&#13;';
 
         $card = $this->student->person->fullnameAlpha().$crlf;
 
-        $card .= $this->student->currentSchool->shortName.$crlf;
+        $card .= ($this->student->currentSchool)
+            ? $this->student->currentSchool->shortName.$crlf
+            : 'No school found; check logs';
 
         $card .= 'Score count: '.$scores->count().$crlf;
         //$card .= $this->student->currentTeacher;

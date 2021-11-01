@@ -146,7 +146,7 @@ class ReportsAuditionresultsController extends Controller
 
             $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
         }
-dd($registrants);
+
         return $registrants;
     }
 }

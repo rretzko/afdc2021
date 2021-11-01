@@ -11,7 +11,7 @@
 </div>
 
 @foreach($registrants AS $key => $voicings)
-
+@if($key === 'soprano i')
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>
@@ -83,7 +83,7 @@
 
     {{-- PAGE BREAK --}}
     <div class="page_break"></div>
-
+@endif
 @endforeach
 
 

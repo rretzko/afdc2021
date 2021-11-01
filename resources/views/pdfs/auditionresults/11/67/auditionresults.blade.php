@@ -12,7 +12,7 @@
 
 @foreach($registrants AS $key => $voicings)
 <!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass')) --}} -->
-@if(($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass'))
+@if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass'))
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>
@@ -24,7 +24,7 @@
                         Judge #{{ $i }}
                     </th>
                 @endfor
-                <th colspan="2" style="border: 0; border-left: 1px solid black; border-bottom: 1px solid black;"></th>
+                <th colspan="2" style="border: 0; border-left: 1px solid black;"></th>
             </tr>
             <tr>
                 <th colspan="3" style="border-top: 0; border-left: 0;"></th>
@@ -33,7 +33,7 @@
                     <th colspan="3">Solo</th>
                     <th colspan="3">Swan</th>
                 @endfor
-                <th colspan="3" style="border-top:0; border-right: 0;"></th>
+                <th colspan="2" style="border:0; border-left:1px solid black;"></th>
             </tr>
             <tr>
                 <th>###</th>
@@ -41,7 +41,7 @@
                 <th>Voice</th>
                 @for($i = 1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
                     @foreach($scoringcomponents AS $scoringcomponent)
-                        <th>{{ $scoringcomponent->abbr }}</th>
+                        <th style="background-color: {{ (! ($i % 2)) ? 'rgba(255,255,255,.1)' : '' }}">{{ $scoringcomponent->abbr }}</th>
                     @endforeach
                 @endfor
                 <th>Total</th>
@@ -62,7 +62,7 @@
                     <td>
                         {{ $scoresummary->registrantScore($registrant) }}
                     </td>
-                    <td>
+                    <td style="border-right: 1px solid black;">
                         {{ $scoresummary->registrantResult($registrant) }}
                     </td>
                 </tr>

@@ -38,7 +38,7 @@
                     </section>
 
                     <section id="results">
-                        @if(isset($completes))
+                        @if(isset($completes) && $completes->count())
                             <div style="padding: 0 1rem; margin:auto;">
                                 <style>
                                     td,th{border: 1px solid black;padding:0 .25rem; text-align: center;}
@@ -102,7 +102,10 @@
                                         <td>
                                             @if(
                                                 ($eventversion->event->eventensembles[0]->acceptanceStatus($eventversion, $registrant) === 'TB') ||
-                                                ($eventversion->event->eventensembles[1]->acceptanceStatus($eventversion, $registrant) === 'TB')
+                                                    (
+                                                        ($eventversion->event->eventensembles->count() === 2) &&
+                                                        ($eventversion->event->eventensembles[1]->acceptanceStatus($eventversion, $registrant) === 'TB')
+                                                    )
                                                 )
                                                 -
                                             @else
@@ -125,6 +128,12 @@
                                 </tbody>
                             </table>
                             </div>
+                        @else
+                            <table style="margin: auto; ">
+                                <tr>
+                                    <th>No completed auditions found...</th>
+                                </tr>
+                            </table>
                         @endif
                     </section>
 

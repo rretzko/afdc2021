@@ -1,4 +1,7 @@
-<div style="display: none;">{{ set_time_limit(360) }}</div>
+<div style="display: none;">
+    {{ set_time_limit(360) }}
+    ini_set('memory_limit','512M');
+</div>
 <style>
     table{border-collapse: collapse;margin:auto;}
     td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .6rem;}
@@ -9,9 +12,6 @@
 <div style="text-align: center; font-size: 1.5rem;">
     Audition Results for the {{ $eventversion->name }}
 </div>
-{{-- PDF ABSORBS MORE MEMORY --}}
-<!-- ini_set('max_execution_time', 3000); -->
-ini_set('memory_limit','256M');
 
 @foreach($registrants AS $key => $voicings)
 <!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass'))

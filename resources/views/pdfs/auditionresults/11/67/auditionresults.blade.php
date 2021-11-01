@@ -1,7 +1,7 @@
 <div style="display: none;">{{ set_time_limit(360) }}</div>
 <style>
     table{border-collapse: collapse;margin:auto;}
-    td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .66rem;}
+    td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .6rem;}
 
     .page_break{page-break-before: always;}
 </style>
@@ -12,7 +12,7 @@
 
 @foreach($registrants AS $key => $voicings)
 <!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass')) --}} -->
-@if(($key === 'tenor') || ($key === 'bass'))
+@if(($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass'))
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>
@@ -45,7 +45,6 @@
                 @endfor
                 <th>Total</th>
                 <th>Mix</th>
-                <th>Tbl</th>
             </tr>
         </thead>
         <tbody>
@@ -63,19 +62,7 @@
                         {{ $scoresummary->registrantScore($registrant) }}
                     </td>
                     <td>
-                        @if($scoresummary->registrantResult($registrant) === 'TB')
-                            -
-                        @else
-                            {{ $scoresummary->registrantResult($registrant) }}
-                        @endif
-                    </td>
-
-                    <td>
-                        @if($scoresummary->registrantResult($registrant) === 'MX')
-                            -
-                        @else
-                            {{ $scoresummary->registrantResult($registrant) }}
-                        @endif
+                        {{ $scoresummary->registrantResult($registrant) }}
                     </td>
                 </tr>
             @endforeach

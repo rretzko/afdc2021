@@ -11,7 +11,7 @@
 </div>
 
 @foreach($registrants AS $key => $voicings)
-@if($key === 'soprano i')
+@if(($key === 'soprano i') || ($key === 'soprano ii'))
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>

@@ -12,7 +12,7 @@
 
 @foreach($registrants AS $key => $voicings)
 <!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass')) --}} -->
-@if($key === 'tenor')
+@if(($key === 'tenor') || ($key === 'bass'))
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>

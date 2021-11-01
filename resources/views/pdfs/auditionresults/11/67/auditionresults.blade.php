@@ -16,7 +16,7 @@ ini_set('memory_limit','256M');
 @foreach($registrants AS $key => $voicings)
 <!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass'))
 @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass')) --}} -->
-@if($key === 'bass')
+{{-- @if($key === 'bass') --}}
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>
@@ -76,7 +76,7 @@ ini_set('memory_limit','256M');
 
     {{-- PAGE BREAK --}}
     <div class="page_break"></div>
-@endif
+{{--  @endif --}}
 @endforeach
 
 

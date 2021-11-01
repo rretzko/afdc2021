@@ -1,3 +1,4 @@
+ini_set('memory_limit','512M');
 <div style="display: none;">
     {{ set_time_limit(360) }}
     ini_set('memory_limit','512M');

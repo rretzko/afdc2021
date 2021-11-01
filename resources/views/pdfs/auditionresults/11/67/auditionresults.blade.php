@@ -9,10 +9,11 @@
 <div style="text-align: center; font-size: 1.5rem;">
     Audition Results for the {{ $eventversion->name }}
 </div>
-
+{{dd(phpinfo())}}
 @foreach($registrants AS $key => $voicings)
-<!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass')) --}} -->
-@if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass'))
+<!-- {{-- @if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'bass'))
+@if(($key === 'soprano i') || ($key === 'soprano ii') || ($key === 'alto i') || ($key === 'alto ii') || ($key === 'tenor') || ($key === 'bass')) --}} -->
+@if($key === 'bass')
     <h3>{{ strtoupper($key) }}</h3>
 
     <table>
@@ -41,7 +42,7 @@
                 <th>Voice</th>
                 @for($i = 1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
                     @foreach($scoringcomponents AS $scoringcomponent)
-                        <th style="background-color: {{ (! ($i % 2)) ? 'rgba(255,255,255,.1)' : '' }}">{{ $scoringcomponent->abbr }}</th>
+                        <th>{{ $scoringcomponent->abbr }}</th>
                     @endforeach
                 @endfor
                 <th>Total</th>

@@ -37,6 +37,26 @@
                         </div>
                     </section>
 
+                    <section id="summary_counts">
+                        <table style="margin: auto; ">
+                            <tr>
+                                <th>
+                                    @if( $completes->count()) {{ $completes->count() }}
+                                    @else No
+                                    @endif
+                                    completed {{ $targetinstrumentation->formattedDescr() }} auditions found...
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>@if( $incompletes->count()) {{ $incompletes->count() }}
+                                    @else No
+                                    @endif
+                                    incomplete {{ $targetinstrumentation->formattedDescr() }} auditions found...</th>
+                            </tr>
+                        </table>
+
+                    </section>
+
                     <section id="results">
                         @if(isset($completes) && $completes->count())
                             <div style="padding: 0 1rem; margin:auto;">
@@ -128,12 +148,14 @@
                                 </tbody>
                             </table>
                             </div>
-                        @else
-                            <table style="margin: auto; ">
-                                <tr>
-                                    <th>No completed auditions found...</th>
-                                </tr>
-                            </table>
+                        @endif
+                        @if(isset($incompletes) && $incompletes->count())
+                            @if($eventversion->id === 66)
+                                <x-eventadministration.results.incompletes.12.66.table
+                                    :eventversion="$eventversion"
+                                    :incompletes="$incompletes" />
+                            @endif
+
                         @endif
                     </section>
 

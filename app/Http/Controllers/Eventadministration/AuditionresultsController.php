@@ -8,12 +8,13 @@ use App\Models\Registranttype;
 use App\Models\Scoringcomponent;
 use App\Models\Userconfig;
 use App\Traits\CompletedAdjudicationsTrait;
+use App\Traits\IncompleteAdjudicationsTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AuditionresultsController extends Controller
 {
-    use CompletedAdjudicationsTrait;
+    use CompletedAdjudicationsTrait, IncompleteAdjudicationsTrait;
 
     /**
      * Display a listing of the resource.
@@ -59,6 +60,8 @@ class AuditionresultsController extends Controller
      */
     public function show(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation)
     {
+        $incompletes = $this->incompleteAdjudicationsByInstrumentation($eventversion, $instrumentation);
+
         $completes = $this->completedAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
         $filtered = $this->filterRegistrants($eventversion, $instrumentation);
@@ -67,6 +70,8 @@ class AuditionresultsController extends Controller
             [
                 'completes' => $completes,
                 'eventversion' => $eventversion,
+                'incompletes' => $incompletes,
+                'targetinstrumentation' => $instrumentation,
                 'registrants' => $filtered,
                 'score' => new \App\Models\Score,
                 'scoresummary' => new \App\Models\Scoresummary,

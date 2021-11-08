@@ -49,6 +49,14 @@ class Eventversion extends Model
             ->orderByPivot('order_by');
     }
 
+    public function filecontenttypeScoringcomponents($filecontenttype)
+    {
+        return Scoringcomponent::where('filecontenttype_id', $filecontenttype->id)
+            ->where('eventversion_id', $this->id)
+            ->orderBy('order_by')
+            ->get();
+    }
+
     /**
      * Scope a query to only include schools in Eventversion grades.
      *
@@ -208,6 +216,12 @@ class Eventversion extends Model
     public function rooms()
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function scoringcomponents()
+    {
+        return $this->hasMany(Scoringcomponent::class)
+            ->orderBy('order_by');
     }
 
 }

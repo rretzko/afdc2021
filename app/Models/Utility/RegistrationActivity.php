@@ -150,7 +150,7 @@ class RegistrationActivity extends Model
 
         $merged = $originals->merge($duplicates);
 
-        return $merged;
+        return $merged->sortBy('id');
     }
 
     public function registrationfeeDue(School $school)

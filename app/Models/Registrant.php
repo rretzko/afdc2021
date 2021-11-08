@@ -113,7 +113,7 @@ class Registrant extends Model
             'completed' => 'rgba(0,255,0,.1)',//'bg-green-100',
             'excess' => 'rgba(44,130,201,.1)', //bg-blue-100,
             'error' => 'rgba(0,0,0,.1)',
-            'partial' => 'rgba(240,255,0,.1)',//'bg-yellow-100',
+            'partial' => 'rgba(240,255,0,.3)',//'bg-yellow-100',
             'tolerance' => 'rgba(255,0,0,.1)',//'bg-red-100',
             'unauditioned' => '',//bg-white
         ];

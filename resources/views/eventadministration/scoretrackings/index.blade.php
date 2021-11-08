@@ -23,7 +23,7 @@
                         {{-- LEGEND --}}
                         <div id="legend" style="display: flex; flex-direction: row; margin: auto;">
                                 <div style="border:1px solid black; padding: 0 .25rem;" title="No scores found">Unauditioned</div>
-                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(240,255,0,.1);" title="Incomplete set of scores found">Partial</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(240,255,0,.3);" title="Incomplete set of scores found">Partial</div>
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,255,0,.1);" title="Complete set of scores found">Completed</div>
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,0,0,.1);" title="Scores are out of tolerance">Tolerance</div>
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(44,130,201,.1);" title="More than expected number of scores found">Excess</div>

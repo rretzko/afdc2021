@@ -76,7 +76,7 @@
                 </td>
 
                 @foreach($eventversion->filecontenttypes AS $filecontenttype)
-                    <td >{!! $registrant->fileviewport($filecontenttype) !!}</td>
+                    <td style="text-center" >{!! $registrant->fileviewport($filecontenttype) !!}</td>
                 @endforeach
 
                 <td style="text-align: center;">

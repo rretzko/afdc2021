@@ -70,6 +70,21 @@ class Registrant extends Model
         return $collect;
     }
 
+    public function fileUploaded(Filecontenttype $filecontenttype)
+    {
+        return Fileupload::where('registrant_id', $this->id)
+            ->where('filecontenttype_id', $filecontenttype->id)
+            ->first();
+    }
+
+    public function fileUploadedAndApproved(Filecontenttype $filecontenttype)
+    {
+        return Fileupload::where('registrant_id', $this->id)
+            ->where('filecontenttype_id', $filecontenttype->id)
+            ->whereNotNull('approved')
+            ->first();
+    }
+
     /**
      * Return the embed code for the requested videotype
      *
@@ -80,6 +95,16 @@ class Registrant extends Model
      */
     public function fileviewport(Filecontenttype $filecontenttype)
     {
+        if(! $this->fileUploaded($filecontenttype)){
+
+            return 'No file found';
+        }
+
+        if(! $this->fileUploadedAndApproved($filecontenttype)){
+
+            return 'Unapproved file found';
+        }
+
         $viewport = new Fileviewport($this,$filecontenttype);
 
         return $viewport->viewport();

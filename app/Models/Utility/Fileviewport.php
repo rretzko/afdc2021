@@ -76,6 +76,7 @@ class Fileviewport extends Model
             while (!array_key_exists('id', $assets)) {
 
                 $assets = $fileserver->assets($server_id);
+                if(is_null($assets)){dd($server_id);}
             }
         }
 

@@ -86,7 +86,7 @@
                            id="reviewed"
                            value="1"
                            key="{{ $registrant->id }}"
-                           {{ in_array($registrant->id, $reviews) ? 'CHECKED' : '' }}
+                           {{ (count($reviews) &&  in_array($registrant->id, $reviews)) ? 'CHECKED' : '' }}
                     />
                 </td>
 

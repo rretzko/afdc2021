@@ -32,7 +32,7 @@ trait CompletedAdjudicationsTrait
         return $scoresummary->where('eventversion_id', $eventversion->id)
             ->where('score_count', $countcomponents)
             ->where('instrumentation_id', $instrumentation->id)
-            ->get();
+            ->get() ?? collect();
     }
 
 }

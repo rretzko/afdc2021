@@ -44,14 +44,14 @@
                                     @if( $completes->count()) {{ $completes->count() }}
                                     @else No
                                     @endif
-                                    completed {{ $targetinstrumentation->formattedDescr() }} auditions found...
+                                    completed {{ isset($targetinstrumentation) ? $targetinstrumentation->formattedDescr() : '' }} auditions found...
                                 </th>
                             </tr>
                             <tr>
                                 <th>@if( $incompletes->count()) {{ $incompletes->count() }}
                                     @else No
                                     @endif
-                                    incomplete {{ $targetinstrumentation->formattedDescr() }} auditions found...</th>
+                                    incomplete {{ isset($targetinstrumentation) ? $targetinstrumentation->formattedDescr() : '' }} auditions found...</th>
                             </tr>
                         </table>
 
@@ -112,7 +112,7 @@
                                         <td style="text-align: center;">{{ strtoupper($registrant->instrumentations->first()->abbr) }}</td>
 
                                             @foreach($score->registrantScores($registrant) AS $value)
-                                                <td>{{ $value }}</td>
+                                                <td> {{  $value }} </td>
                                             @endforeach
 
                                         <td>

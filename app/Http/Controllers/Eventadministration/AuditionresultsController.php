@@ -24,9 +24,12 @@ class AuditionresultsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+
         return view('eventadministration.auditionresults.index',
         [
+            'completes' => collect(),
             'eventversion' => $eventversion,
+            'incompletes' => collect(),
         ]);
     }
 

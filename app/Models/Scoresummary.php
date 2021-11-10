@@ -44,13 +44,23 @@ class Scoresummary extends Model
     public function reportingDetails()
     {
         $eventversion = Eventversion::find($this->eventversion_id);
+        $scoringcomponents = $eventversion->scoringcomponents;
+        $score = new Score;
 
         $scores = [];
 
         for($i = 0; $i < $eventversion->eventversionconfig->judge_count; $i++) {
-            for ($j = 1; $j <= $eventversion->scoringcomponents->count(); $j++) {
 
-                $scores[] = rand(1, 9);
+            for ($j = 0; $j < $scoringcomponents->count(); $j++) {
+
+                /**
+                 * @todo Adjudicator reference in Score s/b adjudicators->id, not user_Id
+                 */
+
+               $scores[] = $score->registrantScoringcomponentScoreByAdjudicatorRank(
+                   Registrant::find($this->registrant_id),
+                   $scoringcomponents[$j],
+                   ($i + 1));
             }
         }
 

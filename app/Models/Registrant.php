@@ -127,6 +127,11 @@ class Registrant extends Model
         return School::find($this->school_id);
     }
 
+    public function scoresummary()
+    {
+        return Scoresummary::where('registrant_id', $this->id)->first() ?? new Scoresummary;
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'user_id', 'user_id');

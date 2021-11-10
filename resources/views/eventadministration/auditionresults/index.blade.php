@@ -118,7 +118,7 @@
                                         <td>
                                             {{ $scoresummary->registrantScore($registrant) }}
                                         </td>
-
+<!-- {{--
                                         <td>
                                             @if(
                                                 ($eventversion->event->eventensembles[0]->acceptanceStatus($eventversion, $registrant) === 'TB') ||
@@ -128,8 +128,10 @@
                                                     )
                                                 )
                                                 -
-                                            @else
+                                            @elseif(1 === 2)
                                                 {{ $eventversion->event->eventensembles[0]->acceptanceStatus($eventversion, $registrant) }}
+                                            @else
+                                                @if($scoresummary->id){{ dd($registrant->scoresummary()) }} @else n/s @endif
                                             @endif
                                         </td>
 
@@ -143,6 +145,10 @@
                                                 @endif
                                             </td>
                                         @endif
+--}} -->
+                                        <td>
+                                            {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->result : 'n/s' }}
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

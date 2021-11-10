@@ -85,6 +85,7 @@
 
                                                     <a href="{{ route('eventadministrator.tabroom.cutoffs.update',
                                                         [
+                                                            'eventversion_id' => $eventversion->id,
                                                             'instrumentation_id' => $instrumentation->id,
                                                             'cutoff' => $scoresummary->score_total,
                                                         ]) }}

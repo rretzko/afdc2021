@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/eventadministrator/tabroom/cutoffs/{eventversion}', [App\Http\Controllers\Eventadministration\CutoffController::class, 'index'])
         ->name('eventadministrator.tabroom.cutoffs');
-    Route::get('/eventadministrator/tabroom/cutoffs/{instrumentation_id}/{cutoff}', [App\Http\Controllers\Eventadministration\CutoffController::class, 'update'])
+    Route::get('/eventadministrator/tabroom/cutoffs/{eventversion_id}/{instrumentation_id}/{cutoff}', [App\Http\Controllers\Eventadministration\CutoffController::class, 'update'])
         ->name('eventadministrator.tabroom.cutoffs.update');
     Route::get('/eventadministrator/tabroom/lock/{eventensemble}', [App\Http\Controllers\Eventadministration\CutofflockController::class, 'update'])
         ->name('eventadministrator.tabroom.cutoffs.lock');

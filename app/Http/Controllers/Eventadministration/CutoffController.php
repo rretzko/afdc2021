@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Eventadministration;
 
+use App\Events\UpdateScoresummaryCutoffEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Eventensemblecutoff;
 use App\Models\Eventensemblecutofflock;
@@ -92,14 +93,14 @@ class CutoffController extends Controller
      * @param  int  $score
      * @return \Illuminate\Http\Response
      */
-    public function update($instrumentation_id, $cutoff)
+    public function update($eventversion_id, $instrumentation_id, $cutoff)
     {
-        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion = Eventversion::find($eventversion_id);
         $eventensembles = $eventversion->event->eventensembles;
 
         foreach($eventensembles AS $eventensemble){
 
-            $eventensemblecutofflock = Eventensemblecutofflock::where('eventversion_id', $eventversion->id)
+            $eventensemblecutofflock = Eventensemblecutofflock::where('eventversion_id', $eventversion_id)
                 ->where('eventensemble_id', $eventensemble->id)
                 ->first() ?? new Eventensemblecutofflock;
 
@@ -110,7 +111,7 @@ class CutoffController extends Controller
 
                 $eventensemblecutoff::updateOrCreate(
                     [
-                        'eventversion_id' => $eventversion->id,
+                        'eventversion_id' => $eventversion_id,
                         'eventensemble_id' => $eventensemble->id,
                         'instrumentation_id' => $instrumentation_id,
                     ],
@@ -120,11 +121,13 @@ class CutoffController extends Controller
                     ],
                 );
 
+                event(new UpdateScoresummaryCutoffEvent($eventversion_id, $eventensemble->id, $instrumentation_id, $cutoff));
+
                 break;
             }
         }
 
-        return $this->index();
+        return $this->index($eventversion);
 
     }
 

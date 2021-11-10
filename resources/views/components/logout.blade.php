@@ -42,6 +42,7 @@
                 (Route::currentRouteName() === 'eventadministrator.segments') ||
                 (Route::currentRouteName() === 'eventadministrator.segments.update') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.cutoffs') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.cutoffs.update') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.publish') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.publish.update') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.reports') ||

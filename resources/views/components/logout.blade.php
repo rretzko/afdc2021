@@ -28,6 +28,8 @@
                 (Route::currentRouteName() === 'eventadministrator.adjudicators.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.adjudicators.update') ||
                 (Route::currentRouteName() === 'eventadministrator.instrumentations') ||
+                (Route::currentRouteName() === 'eventadministrator.media.download') ||
+                (Route::currentRouteName() === 'eventadministrator.media.downloads') ||
                 (Route::currentRouteName() === 'eventadministrator.participatingteachers') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.delete') ||

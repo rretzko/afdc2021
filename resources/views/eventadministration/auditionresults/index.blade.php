@@ -156,12 +156,11 @@
                             </div>
                         @endif
                         @if(isset($incompletes) && $incompletes->count())
-                            @if($eventversion->id === 66)
+                            @if(($eventversion->id === 66) || ($eventversion->id === 67))
                                 <x-eventadministration.results.incompletes.12.66.table
                                     :eventversion="$eventversion"
                                     :incompletes="$incompletes" />
                             @endif
-
                         @endif
                     </section>
 

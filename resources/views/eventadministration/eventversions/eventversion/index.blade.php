@@ -95,6 +95,12 @@
                                     </ul>
                                 </li>
 
+                                <li>
+                                    <a href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
+                                        View and Download media files
+                                    </a>
+                                </li>
+
                             </ul>
 
                         </div>

@@ -92,8 +92,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/results/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Eventadministration\AuditionresultsController::class, 'show'])
         ->name('eventadministrator.tabroom.results.show');
 
-    //Route::get('/eventadministrator/instrumentations/{eventversion}', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
-     //   ->name('eventadministrator.instrumentations');
+    Route::get('/eventadministrator/media/download/{registrant}', [App\Http\Controllers\Eventadministration\MediadownloadController::class, 'download'])
+        ->name('eventadministrator.media.download');
+    Route::get('/eventadministrator/media/downloads/{eventversion}', [App\Http\Controllers\Eventadministration\MediadownloadController::class, 'index'])
+        ->name('eventadministrator.media.downloads');
 
     Route::get('/eventadministrator/instrumentations/{eventversion}', [App\Http\Controllers\Eventadministration\AuditioninstrumentationController::class, 'index'])
         ->name('eventadministrator.instrumentations');

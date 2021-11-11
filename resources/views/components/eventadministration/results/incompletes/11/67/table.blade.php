@@ -7,7 +7,7 @@
         {{ $eventversion->name }} Incomplete Audition Results
     </header>
     <x-eventadministration.tablestyle />
-    <table style="margin: auto;">
+    <table style="margin: auto; margin-top: 1rem;">
         <thead>
         <tr>
             <th></th>
@@ -50,13 +50,11 @@
                 <td title="{{ $scoresummary['registrant']->student->person->fullNameAlpha() }},{{$scoresummary['registrant']->student->currentSchool->name}}">
                     {{$scoresummary['registrant']->id}}
                 </td>
-
                 @foreach($scoresummary->reportingDetails() AS $score)
                     <td style="text-align:center; @if(! $score) color: lightgrey; @endif" >
                         {{ $score}}
                     </td>
                 @endforeach
-
                 <td style="text-align: right;">{{ $scoresummary->score_total }}</td>
             </tr>
         @endforeach

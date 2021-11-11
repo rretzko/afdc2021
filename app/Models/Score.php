@@ -44,7 +44,7 @@ class Score extends Model
 
         //all rooms in eventversion
         $rooms = Room::where('eventversion_id', $registrant->eventversion_id)->get();
-
+;
         //filter all rooms by instrumentation
         $roomsinstrumentation = $rooms->filter(function($roomi) use($instrumentation_id){
             return $roomi->instrumentations->contains($instrumentation_id);
@@ -92,11 +92,17 @@ class Score extends Model
 
                     foreach ($filecontenttype->scoringcomponents->where('eventversion_id', $eventversion->id) as $scoringcomponent) {
 
-                        $scores[] = $this->where('registrant_id', $registrant->id)
-                            ->where('scoringcomponent_id', $scoringcomponent->id)
-                            ->where('eventversion_id', $eventversion->id)
-                            ->where('user_id', $adjudicators[$i]->user_id)
-                            ->value('score');
+                        //error avoidance if full compliment of adjudicators is not available
+                        if(isset($adjudicators[$i])) {
+                            $scores[] = $this->where('registrant_id', $registrant->id)
+                                ->where('scoringcomponent_id', $scoringcomponent->id)
+                                ->where('eventversion_id', $eventversion->id)
+                                ->where('user_id', $adjudicators[$i]->user_id)
+                                ->value('score');
+                        }else{
+
+                            $scores[] = 0;
+                        }
                     }
                 }
             }

@@ -1,4 +1,7 @@
-<div style="display: none;">{{ set_time_limit(360) }}</div>
+<div style="display: none;">
+    {{ ini_set('memory_limit','512M') }}
+    {{ set_time_limit(360) }}
+</div>
 <style>
     table{border-collapse: collapse;margin:auto;}
     td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .66rem;}
@@ -29,7 +32,7 @@
                 @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
                     <th colspan="4">Scales</th>
                     <th colspan="3">Solo</th>
-                    <th colspan="3">Swan</th>
+                    <th colspan="3">Quartet</th>
                 @endfor
                 <th colspan="3" style="border-top:0; border-right: 0;"></th>
             </tr>
@@ -44,7 +47,6 @@
                 @endfor
                 <th>Total</th>
                 <th>Mix</th>
-                <th>Tbl</th>
             </tr>
         </thead>
         <tbody>
@@ -59,22 +61,10 @@
                     @endforeach
 
                     <td>
-                        {{ $scoresummary->registrantScore($registrant) }}
+                        {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->total_score : '' }}
                     </td>
                     <td>
-                        @if($scoresummary->registrantResult($registrant) === 'TB')
-                            -
-                        @else
-                            {{ $scoresummary->registrantResult($registrant) }}
-                        @endif
-                    </td>
-
-                    <td>
-                        @if($scoresummary->registrantResult($registrant) === 'MX')
-                            -
-                        @else
-                            {{ $scoresummary->registrantResult($registrant) }}
-                        @endif
+                        {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->result : '' }}
                     </td>
                 </tr>
             @endforeach

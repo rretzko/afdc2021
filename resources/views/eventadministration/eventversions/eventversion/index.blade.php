@@ -95,12 +95,6 @@
                                     </ul>
                                 </li>
 
-                                <li>
-                                    <a href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
-                                        View and Download media files
-                                    </a>
-                                </li>
-
                             </ul>
 
                         </div>
@@ -116,6 +110,11 @@
                                     <a href="{{ route('eventadministrator.tabroom.scoretracking',
                                         ['eventversion' => $eventversion]) }}">
                                         Score Tracking
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
+                                        View and Download media files
                                     </a>
                                 </li>
                                 <li>

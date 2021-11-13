@@ -2,6 +2,7 @@
     {{ ini_set('memory_limit','512M') }}
     {{ set_time_limit(360) }}
 </div>
+{{ phpinfo()}}
 <style>
     table{border-collapse: collapse;margin:auto;}
     td,th{border: 1px solid black; text-align: center; padding:0 .25rem; font-size: .66rem;}

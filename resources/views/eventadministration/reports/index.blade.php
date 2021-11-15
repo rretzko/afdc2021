@@ -41,6 +41,16 @@
                                         Participating Students
                                     </a>
                                 </li>
+                                @if(auth()->id() === 368)
+                                    <li><a href="{{ route('eventadministrator.tabroom.reports.testing',
+                                            [
+                                                'eventversion' => $eventversion,
+                                            ]) }}"
+                                        >
+                                            Testing
+                                        </a>
+                                    </li>
+                                @endif
                                 <!-- {{--
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents') }}">
                                         Participating Students

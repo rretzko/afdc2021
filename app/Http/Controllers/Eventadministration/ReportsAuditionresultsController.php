@@ -46,28 +46,10 @@ class ReportsAuditionresultsController extends Controller
 
     public function testing(Eventversion $eventversion)
     {
-        $filename = self::build_Filename($eventversion);
-        $registrants = $this->filterRegistrants($eventversion);
-        $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->get();
-        $score = new \App\Models\Score;
-        $scoresummary =  new \App\Models\Scoresummary;
+        $pdf = PDF::loadview('pdfs.testing.auditionresults.11.67.auditionresults',compact('eventversion'));
 
-        //ex. pages.pdfs.applications.12.64.application
-        $pdf = PDF::loadView('pdfs.testing.auditionresults.'//9.65.2021_22_auditionresults',
-            . $eventversion->event->id
-            .'.'
-            . $eventversion->id
-            . '.auditionresults',
-            compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
-            ->setPaper('letter', 'portrait');
+        return $pdf->download('test.pdf');
 
-        //log application printing
-        //Application::create([
-        //    'registrant_id' => $registrant->id,
-        // //    'updated_by' => auth()->id(),
-        // ]);
-
-        return $pdf->download($filename);
     }
     /**
      * Show the form for creating a new resource.

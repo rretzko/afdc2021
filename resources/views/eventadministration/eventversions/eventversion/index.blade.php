@@ -17,7 +17,7 @@
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
                         </div>
                     </div>
-@if(auth()->id()===368){{phpinfo()}}
+@if(auth()->id()===368) {{phpinfo()}} @endif
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Version Configuration</h4>
                         <ul>

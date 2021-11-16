@@ -28,6 +28,8 @@ Route::post('/logout', [App\Http\Controllers\Afdcauth\LoginController::class, 'd
 /* AUTHORIZED USERS */
 Route::group(['middleware' => 'auth'],function(){
 
+    Route::get('test/pdf', [App\Http\Controllers\TestpdfController::class,'index'])->name('test.pdf');
+
     /** LOGOUT */
     Route::get('/logout', function(){
             auth()->logout();

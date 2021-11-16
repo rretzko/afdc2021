@@ -35,6 +35,11 @@
                                 </div>
                             @endif
                         </div>
+                        <div>
+                            @if(auth()->id() === 368)
+                                <a href="{{route('test.pdf')}}">Test PDF</a>
+                            @endif
+                        </div>
                     </section>
 
                 </div>

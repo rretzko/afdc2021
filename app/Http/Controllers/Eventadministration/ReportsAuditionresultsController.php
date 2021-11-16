@@ -34,7 +34,8 @@ class ReportsAuditionresultsController extends Controller
             . '.auditionresults',
             compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
             ->setPaper('letter', 'portrait');;
-
+$pdf = PDF::loadView('testpdf');
+return $pdf->download('testpdf.pdf');
         //log application printing
         //Application::create([
         //    'registrant_id' => $registrant->id,

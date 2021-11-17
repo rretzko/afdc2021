@@ -24,8 +24,8 @@ class TestpdfController extends Controller
             compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
             ->setPaper('letter', 'portrait');;
          */
-        $pdf = PDF::loadView('pdfs.auditionresults.testpdf');
+        $pdf = PDF::loadView('pdfs.auditionresults.11.67.testpdf');
 
-        return $pdf->download('testpdf_auditionresults.pdf');
+        return $pdf->download('testpdf_auditionresults_11_67.pdf');
     }
 }

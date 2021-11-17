@@ -4,6 +4,6 @@
     <meta charset="utf-8">
 </head>
 <body>
-Tis is the test pdf
+This is the test pdf from {{__FILE__}}
 </body>
 </html>

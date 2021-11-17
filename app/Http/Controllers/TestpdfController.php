@@ -15,8 +15,8 @@ class TestpdfController extends Controller
      */
     public function index(Request $request)
     {
-        $pdf = PDF::loadView('eventadministration.reports.testpdf');
+        $pdf = PDF::loadView('pdfs.testpdf');
 
-        return $pdf->download('testpdf_reports.pdf');
+        return $pdf->download('testpdf_pdfs.pdf');
     }
 }

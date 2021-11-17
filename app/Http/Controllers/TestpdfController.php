@@ -15,8 +15,17 @@ class TestpdfController extends Controller
      */
     public function index(Request $request)
     {
-        $pdf = PDF::loadView('pdfs.testpdf');
+        /*
+         *  $pdf = PDF::loadView('pdfs.auditionresults.'//9.65.2021_22_auditionresults',
+            . $eventversion->event->id
+            .'.'
+            . $eventversion->id
+            . '.auditionresults',
+            compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
+            ->setPaper('letter', 'portrait');;
+         */
+        $pdf = PDF::loadView('pdfs.auditionresults.testpdf');
 
-        return $pdf->download('testpdf_pdfs.pdf');
+        return $pdf->download('testpdf_auditionresults.pdf');
     }
 }

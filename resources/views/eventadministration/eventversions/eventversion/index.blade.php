@@ -142,6 +142,11 @@
                                         Publish Results
                                     </a>
                                 </li>
+                                <li>
+                                    @if(auth()->id() === 368)
+                                        <a href="{{route('test.pdf')}}">Test PDF</a>
+                                    @endif
+                                </li>
                             </ul>
                         </div>
 
@@ -155,6 +160,18 @@
                                         <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
                                             Participating Schools
                                         </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('registrationmanagers.registrationcards.index',
+                                                ['eventversion' => $eventversion]) }}" >
+                                            Registration Cards
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Adjudication Forms
+                                    </li>
+                                    <li>
+                                        Room checklists
                                     </li>
 <!-- {{--
                                     <li>

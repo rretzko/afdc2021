@@ -61,7 +61,7 @@
                     @endforeach
 
                     <td>
-                        {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->total_score : '' }}
+                        {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->score_total : '' }}
                     </td>
                     <td>
                         {{ $registrant->scoresummary()->id ? $registrant->scoresummary()->result : '' }}

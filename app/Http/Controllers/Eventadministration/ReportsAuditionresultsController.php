@@ -49,13 +49,6 @@ class ReportsAuditionresultsController extends Controller
         return $pdf->download($filename);
     }
 
-    public function testing(Eventversion $eventversion)
-    {
-        $pdf = PDF::loadview('pdfs.testing.auditionresults.11.67.auditionresults',compact('eventversion'));
-
-        return $pdf->download('test.pdf');
-
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -78,14 +71,32 @@ class ReportsAuditionresultsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * FOR DOMAIN OWNER ONLY UNTIL runtime production can be reduced below 100 seconds
+     * THIS SHOULD BE RUN ON LOCAL MACHINE
      *
-     * @param  int  $id
+     * @param  \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Eventversion $eventversion)
     {
-        //
+        $filename = self::build_Filename($eventversion);
+
+        $registrants = $this->filterRegistrantsAllInstrumentations($eventversion);
+
+        $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->get();
+        $score = new \App\Models\Score;
+        $scoresummary =  new \App\Models\Scoresummary;
+
+        //ex. pages.pdfs.applications.12.64.application
+        $pdf = PDF::loadView('pdfs.auditionresults.'//9.65.2021_22_auditionresults',
+            . $eventversion->event->id
+            .'.'
+            . $eventversion->id
+            . '.auditionresults',
+            compact('eventversion','registrants', 'scoringcomponents','score','scoresummary'))
+            ->setPaper('letter', 'portrait');;
+
+        return $pdf->download($filename);
     }
 
     /**
@@ -122,18 +133,23 @@ class ReportsAuditionresultsController extends Controller
         //
     }
 
-    private function build_Filename(Eventversion $eventversion, Instrumentation $instrumentation) : string
+    private function build_Filename(Eventversion $eventversion, Instrumentation $instrumentation = NULL) : string
     {
-        return str_replace(' ', '_', //'2022_NJASC_2022.pdf';
+        $str = str_replace(' ', '_', //'2022_NJASC_2022.pdf';
                 str_replace('.', '', $eventversion->short_name))
             . '_'
             . $eventversion->senior_class_of
-            . '_'
-            .str_replace(' ', '_', $instrumentation->formattedDescr())
-           . '.pdf';
+            . '_';
+        $str .= ($instrumentation)
+            ? str_replace(' ', '_', $instrumentation->formattedDescr())
+            : 'ALL';
+
+        $str .= '.pdf';
+
+        return $str;
     }
 
-    private function filterRegistrants($eventversion, Instrumentation $instrumentation)
+    private function filterRegistrants(Eventversion $eventversion, Instrumentation $instrumentation)
     {
         $registrants = [];
 
@@ -161,6 +177,36 @@ class ReportsAuditionresultsController extends Controller
 
             $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
         //}
+
+        return $registrants;
+    }
+
+    private function filterRegistrantsAllInstrumentations(Eventversion $eventversion)
+    {
+        $registrants = [];
+
+        $unsorted = Registrant::where('eventversion_id', $eventversion->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->get();
+
+        foreach($eventversion->instrumentations() AS $instrumentation){
+
+            $filtered = $unsorted->filter(function($registrant) use($instrumentation){
+
+                return $registrant->instrumentations->contains($instrumentation);
+            });
+
+            //sort by grandtotal
+            $a = [];
+            foreach($filtered AS $item){
+
+                $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
+            }
+
+            asort($a,);
+
+            $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
+        }
 
         return $registrants;
     }

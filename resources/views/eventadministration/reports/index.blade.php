@@ -37,6 +37,19 @@
                                     </li>
                                 @endforeach
 
+                                @if(auth()->id() === 368)
+                                        <li>
+                                            <a href="{{ route('eventadministrator.tabroom.reports.auditionresults.all',
+                                            [
+                                                'eventversion' => $eventversion,
+                                            ]) }}"
+                                            >
+                                                Print ALL Audition Results pdf (Domain Owner)
+                                            </a>
+                                        </li>
+                                @endif
+
+
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatings',
                                         [
                                             'eventversion' => $eventversion,

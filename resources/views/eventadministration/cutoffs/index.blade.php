@@ -45,12 +45,13 @@
                                                 {{ $eventensemblecutoff->countByCutoffEventensembleInstrumentation($eventensemble, $instrumentation) }}
                                             </td>
                                         @endforeach
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $eventensemblecutoff->countAccepted($eventensemble) }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('eventadministrator.tabroom.cutoffs.lock',
+                                            <a href="{{ route('eventadministrator.lock',
                                                 [
+                                                    'eventversion' => $eventversion,
                                                     'eventensemble' => $eventensemble,
                                                 ]) }}">
                                                 @if($eventensemblelocks->where('eventensemble_id', $eventensemble->id)->first())

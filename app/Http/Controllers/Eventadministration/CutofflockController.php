@@ -8,17 +8,15 @@ use Illuminate\Http\Request;
 
 class CutofflockController extends Controller
 {
-    public function update(\App\Models\Eventensemble $eventensemble)
+    public function update(\App\Models\Eventversion $eventversion, \App\Models\Eventensemble $eventensemble)
     {
-        $eventversionid = Userconfig::getValue('eventversion', auth()->id());
-
-        $current = \App\Models\Eventensemblecutofflock::where('eventversion_id', $eventversionid)
+        $current = \App\Models\Eventensemblecutofflock::where('eventversion_id', $eventversion->id)
             ->where('eventensemble_id', $eventensemble->id)
             ->first() ?? new \App\Models\Eventensemblecutofflock;
 
         \App\Models\Eventensemblecutofflock::updateOrCreate(
             [
-                'eventversion_id' => $eventversionid,
+                'eventversion_id' => $eventversion->id,
                 'eventensemble_id' => $eventensemble->id,
             ],
             [
@@ -27,6 +25,8 @@ class CutofflockController extends Controller
             ]
         );
 
-        return redirect(route('eventadministrator.tabroom.cutoffs'));
+        return redirect(route('eventadministrator.tabroom.cutoffs',[
+            'eventversion' => $eventversion,
+        ]));
     }
 }

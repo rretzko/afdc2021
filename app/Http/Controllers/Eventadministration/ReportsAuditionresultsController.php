@@ -17,16 +17,14 @@ class ReportsAuditionresultsController extends Controller
      * Display a listing of the resource.
      *
      * @param \App\Models\Eventversion $eventverion
-     * @param string $chunkdescr upper/lower
+     * @param \App\Models\Instrumentation $instrumentation
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion, string $chunkdescr)
+    public function index(Eventversion $eventversion, Instrumentation $instrumentation)
     {
-        $instrumentations = $this->chunkInstrumentations($eventversion, $chunkdescr);
+        $filename = self::build_Filename($eventversion, $instrumentation);
 
-        $filename = self::build_Filename($eventversion, $chunkdescr);
-
-        $registrants = $this->filterRegistrants($eventversion, $instrumentations);
+        $registrants = $this->filterRegistrants($eventversion, $instrumentation);
 
         $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->get();
         $score = new \App\Models\Score;
@@ -124,47 +122,18 @@ class ReportsAuditionresultsController extends Controller
         //
     }
 
-    private function build_Filename(Eventversion $eventversion,string $chunkdescr) : string
+    private function build_Filename(Eventversion $eventversion, Instrumentation $instrumentation) : string
     {
         return str_replace(' ', '_', //'2022_NJASC_2022.pdf';
                 str_replace('.', '', $eventversion->short_name))
             . '_'
             . $eventversion->senior_class_of
             . '_'
-            .ucwords($chunkdescr)
+            .str_replace(' ', '_', $instrumentation->formattedDescr())
            . '.pdf';
     }
 
-    private function chunkInstrumentations($eventversion, $instrumentations)
-    {
-
-        $upper = [1,5,63,64,65,66];
-
-        $a = [];
-        foreach($eventversion->instrumentations() AS $instrumentation){
-            if($instrumentations === 'upper'){
-
-                if(in_array($instrumentation->id, $upper)) {
-
-                    $a[] = $instrumentation->id;
-                }
-
-            }elseif($instrumentations === 'lower'){
-
-                if(! in_array($instrumentation->id, $upper)){
-
-                    $a[] = $instrumentation->id;
-                }
-            }else{
-
-                $a[] = $instrumentation->id;
-            }
-        }
-
-        return $a;
-    }
-
-    private function filterRegistrants($eventversion, $instrumentations)
+    private function filterRegistrants($eventversion, Instrumentation $instrumentation)
     {
         $registrants = [];
 
@@ -172,9 +141,9 @@ class ReportsAuditionresultsController extends Controller
             ->where('registranttype_id', Registranttype::REGISTERED)
             ->get();
 
-        foreach($instrumentations AS $instrumentation_id){
+        //foreach($instrumentations AS $instrumentation_id){
 
-            $instrumentation = Instrumentation::find($instrumentation_id);
+          //  $instrumentation = Instrumentation::find($instrumentation_id);
 
             $filtered = $unsorted->filter(function($registrant) use($instrumentation){
 
@@ -191,7 +160,7 @@ class ReportsAuditionresultsController extends Controller
             asort($a,);
 
             $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
-        }
+        //}
 
         return $registrants;
     }

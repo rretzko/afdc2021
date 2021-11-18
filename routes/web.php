@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/eventadministrator/tabroom/report/{eventversion}', [App\Http\Controllers\Eventadministration\ReportsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports');
-    Route::get('/eventadministrator/tabroom/reports/{eventversion}/auditionresults/{chunkdescr}', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'index'])
+    Route::get('/eventadministrator/tabroom/reports/{eventversion}/auditionresults/{instrumentation}', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.auditionresults');
     Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingdirectors', [App\Http\Controllers\Eventadministration\ReportsParticipatingdirectorsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingdirectors');

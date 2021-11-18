@@ -24,25 +24,18 @@
                                 Audition Results
                             </h4>
                             <ul>
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
-                                        [
-                                            'eventversion' => $eventversion,
-                                            'chunkdescr' => 'upper',
-                                        ]) }}"
-                                    >
-                                        Download Upper Voices Audition Results pdf
-                                    </a>
-                                </li>
-
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
-                                        [
-                                            'eventversion' => $eventversion,
-                                            'chunkdescr' => 'lower',
-                                        ]) }}"
-                                    >
-                                        Download Lower Voices Audition Results pdf
-                                    </a>
-                                </li>
+                                @foreach($eventversion->instrumentations() AS $instrumentation)
+                                    <li>
+                                        <a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
+                                            [
+                                                'eventversion' => $eventversion,
+                                                'instrumentation' => $instrumentation,
+                                            ]) }}"
+                                        >
+                                        {{ $instrumentation->formattedDescr() }} Audition Results pdf
+                                        </a>
+                                    </li>
+                                @endforeach
 
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatings',
                                         [

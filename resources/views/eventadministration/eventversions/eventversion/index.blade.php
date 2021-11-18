@@ -142,11 +142,6 @@
                                         Publish Results
                                     </a>
                                 </li>
-                                <li>
-                                    @if(auth()->id() === 368)
-                                        <a href="{{route('test.pdf')}}">Test PDF</a>
-                                    @endif
-                                </li>
                             </ul>
                         </div>
 

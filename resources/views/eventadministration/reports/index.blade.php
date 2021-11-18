@@ -27,9 +27,20 @@
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
                                         [
                                             'eventversion' => $eventversion,
+                                            'chunkdescr' => 'upper',
                                         ]) }}"
                                     >
-                                        Download Audition Results pdf
+                                        Download Upper Voices Audition Results pdf
+                                    </a>
+                                </li>
+
+                                <li><a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
+                                        [
+                                            'eventversion' => $eventversion,
+                                            'chunkdescr' => 'lower',
+                                        ]) }}"
+                                    >
+                                        Download Lower Voices Audition Results pdf
                                     </a>
                                 </li>
 
@@ -41,16 +52,6 @@
                                         Participating Students
                                     </a>
                                 </li>
-                                @if(auth()->id() === 368)
-                                    <li><a href="{{ route('eventadministrator.tabroom.reports.testing',
-                                            [
-                                                'eventversion' => $eventversion,
-                                            ]) }}"
-                                        >
-                                            Testing
-                                        </a>
-                                    </li>
-                                @endif
                                 <!-- {{--
                                 <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents') }}">
                                         Participating Students

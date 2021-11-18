@@ -68,6 +68,21 @@ Log::info('*** FJR: Check the student grade v. grades @ the school v. grades tea
             ?? new Nonsubscriberemail;
     }
 
+    public function getEmailsAttribute()
+    {
+        $emails = [];
+
+        if($this->getEmailPersonalAttribute()->id){
+            $emails[] = $this->getEmailPersonalAttribute();
+        }
+
+        if($this->getEmailSchoolAttribute()->id){
+            $emails[] = $this->getEmailSchoolAttribute();
+        }
+
+        return collect($emails);
+    }
+
     public function getEmailsCsvAttribute()
     {
         $emails = [];

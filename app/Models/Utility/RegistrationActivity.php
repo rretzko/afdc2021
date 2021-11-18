@@ -138,6 +138,16 @@ class RegistrationActivity extends Model
     /**
      * @return Collection
      */
+    public function registeredInstrumentationTotalCount(Instrumentation $instrumentation)
+    {
+        return $this->registeredTotal()->filter(function($registrant) use($instrumentation){
+            return $registrant->instrumentations->contains($instrumentation);
+        })->count();
+    }
+
+    /**
+     * @return Collection
+     */
     public function registeredTotal()
     {
         $originals = $this->registrants->filter(function($registrant){

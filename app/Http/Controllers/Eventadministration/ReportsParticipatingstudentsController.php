@@ -19,12 +19,9 @@ class ReportsParticipatingstudentsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $participating = $this->participating($eventversion);
-
-        return view('eventadministration.reports.participatingdirectors.index',
+        return view('eventadministration.reports.participatingstudents.index',
             [
                 'eventversion' => $eventversion,
-                'participating' => $participating,
             ]);
     }
 
@@ -94,21 +91,4 @@ class ReportsParticipatingstudentsController extends Controller
         //
     }
 
-    private function participating(Eventversion $eventversion)
-    {
-        $a = [];
-        $a['MX'] =  Registrant::whereIn('id', Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', 'MX')
-            ->pluck('registrant_id')
-            ->toArray())
-            ->get();
-
-        $a['TB'] = Registrant::whereIn('id', Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', 'TB')
-            ->pluck('registrant_id')
-            ->toArray())
-            ->get();
-
-        return $a;
-    }
 }

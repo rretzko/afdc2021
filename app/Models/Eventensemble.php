@@ -51,6 +51,63 @@ class Eventensemble extends Model
         return $scoresummary->result;
     }
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    /**
+     * 1. Identify accepted registrants
+     * 2. Identify unique current schools for #1
+     * 3. Identify teacher(s) in #2 who is a member of $this->event->organization
+     *
+     * @todo register eventensemble_id in scoresummaries for accepted students OR
+     *       create a new pivot table to link registrants_id to eventensemble_id with status OR
+     *       create a participants model with teacher/student switch and status
+     * @param \App\Models\Eventversion $eventversion
+     * @return \Illuminate\Support\Collection
+     */
+    public function participatingTeachers(Eventversion $eventversion)
+    {
+        $organization_id = $this->event->organization->id;
+
+        //#1 Identify Registrants
+        $ss = Scoresummary::where('eventversion_id', $eventversion->id)
+            ->where('result','acc')
+            ->pluck('registrant_id');
+
+        $registrants = Registrant::find($ss);
+
+        //#2 Identify Schools
+        $schools = [];
+        foreach($registrants AS $registrant){
+
+            if(! array_key_exists($registrant->student->currentSchool->id, $schools)){
+
+                $schools[$registrant->student->currentSchool->id] = $registrant->student->currentSchool;
+            }
+        }
+
+        //#3 Identify Teachers
+        $teachers = [];
+        foreach($schools AS $school){
+
+            foreach($school->teachers AS $teacher){
+
+                $membership = Membership::where('user_id', $teacher->user_id)
+                    ->where('organization_id', $organization_id)
+                    ->first();
+
+                if($membership && (! array_key_exists($teacher->user_id, $teachers))){
+
+                    $teachers[$teacher->user_id] = $teacher;
+                }
+            }
+        }
+
+        return collect($teachers)->sortBy('person.last');
+    }
+
     private function updateResult($eventversion, $registrant, $value)
     {
         \App\Models\Scoresummary::updateOrCreate(

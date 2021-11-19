@@ -116,9 +116,12 @@ class Eventversion extends Model
         return rand(0,90);
     }
 
-    public function eventensembles()
+    /**
+     * @return collection
+     */
+    public function getEventensemblesAttribute()
     {
-        return $this->hasMany(Eventensemble::class);
+        return $this->event->eventensembles();
     }
 
 
@@ -209,6 +212,17 @@ class Eventversion extends Model
             ->where('school_id', $school->id)
             ->where('registranttype_id', Registranttype::REGISTERED)
             ->get();
+
+        return $registrants->sortBy('student.person.last');
+    }
+
+    public function registrantsForSchoolByInstrumentation(School $school, Instrumentation $instrumentation)
+    {
+        $total = $this->registrantsForSchool($school);
+
+        $registrants = $total->filter(function($registrant) use($instrumentation){
+            return $registrant->instrumentations->contains($instrumentation);
+        });
 
         return $registrants->sortBy('student.person.last');
     }

@@ -88,6 +88,27 @@
             </a>
         @endif
 
+            @if(
+                    (Route::currentRouteName() === 'eventadministrator.tabroom.reports.participatingdirectors') ||
+                    (Route::currentRouteName() === 'eventadministrator.tabroom.reports.participatingstudents')
+               )
+                <a href="{{ route('home') }}">
+                    Home
+                </a>
+                &nbsp; - &nbsp;
+                <a href="{{ route('eventadministration.index',['event' => $event]) }}">
+                    Eventversions
+                </a>
+                &nbsp; - &nbsp;
+                <a href="{{ route('eventadministration.eventversion.index',['eventversion' => $eventversion]) }}">
+                    Eventversion
+                </a>
+                &nbsp; - &nbsp;
+                <a href="{{ route('eventadministrator.tabroom.reports',['eventversion' => $eventversion]) }}">
+                    Reports
+                </a>
+            @endif
+
     </div>
 
     <div style="margin-right: 1rem;">

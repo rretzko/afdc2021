@@ -42,6 +42,29 @@ class Person extends Model
         return $str;
     }
 
+    public function getSubscriberEmailsCsvAttribute()
+    {
+        $emails = [];
+
+        $personal = Subscriberemail::where('user_id', $this->user_id)
+            ->where('emailtype_id', Emailtype::PERSONAL)
+            ->first() ?? NULL;
+
+        $work = Subscriberemail::where('user_id', $this->user_id)
+            ->where('emailtype_id', Emailtype::WORK)
+            ->first() ?? NULL;
+
+        $other = Subscriberemail::where('user_id', $this->user_id)
+            ->where('emailtype_id', Emailtype::OTHER)
+            ->first() ?? NULL;
+
+        if($personal){ $emails[] = $personal->email;}
+        if($work){ $emails[] = $work->email;}
+        if($other){ $emails[] = $other->email;}
+
+        return implode(', ', $emails);
+    }
+
     public function getSubscriberPhoneCsvAttribute()
     {
         $phones = [];

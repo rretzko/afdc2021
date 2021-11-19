@@ -64,22 +64,34 @@ class School extends Model
     public function getShortNameAttribute() : string
     {
         $abbrs = [
-            'High School' => 'HS',
             'Regional High School' => 'RHS',
+            'High School' => 'HS',
             'International' => 'Int\'l',
+            'School District' => 'SD',
+            'Township' => 'Twp',
             'University' => 'U',
         ];
 
         $haystack = $this->name; //avoid repeated downstream calls
         $str = $haystack;   //initialize $str value
 
-        //graceful faile
+        //graceful fail
         if(! $haystack){ return 'No School Found';}
+
         foreach($abbrs AS $descr => $abbr){
 
-            if(strstr($haystack, $descr)){
+            //no change has been made
+            if($str === $haystack){
+                if (strstr($haystack, $descr)) {
 
-                $str = str_replace($descr, $abbr, $haystack);
+                    $str = str_replace($descr, $abbr, $haystack);
+                }
+            }else {//a change has occurred; use abbreviated value
+
+                if (strstr($str, $descr)) {
+
+                    $str = str_replace($descr, $abbr, $str);
+                }
             }
         }
 

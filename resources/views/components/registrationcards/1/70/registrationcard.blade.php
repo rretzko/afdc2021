@@ -33,7 +33,7 @@
         {{ $registrant->student->person->fullNameAlpha() }}
     </div>
     <div style="text-align: center; font-size: 0.8rem;">
-        {{ $registrant->student->emails->first()->email }}
+        {{ $registrant->student->emails->count() ? $registrant->student->emails->first()->email : 'No email found' }}
     </div>
     <div style="text-align: center; font-size: 0.8rem;">
         timeslot

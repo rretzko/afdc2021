@@ -88,8 +88,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.tabroom.reports.participatingdirectors');
     Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingstudents');
-    Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
-        ->name('eventadministrator.tabroom.reports.participatings');
+   // Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
+  //      ->name('eventadministrator.tabroom.reports.participatings');
 
     Route::get('/eventadministrator/tabroom/reports/{eventversion}/testing', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'testing'])
         ->name('eventadministrator.tabroom.reports.testing');
@@ -151,6 +151,9 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');
+
+    Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
+        ->name('registrationmanagers.timeslotassignment.index');
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');

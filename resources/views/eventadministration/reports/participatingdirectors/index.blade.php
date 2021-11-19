@@ -27,46 +27,40 @@
                             <h4>
                                 Participating Directors
                             </h4>
-                            @foreach($participating AS $key => $registrants)
-                                <h3>{{ $key }}</h3>
+                            @foreach($eventversion->eventensembles->get() AS $ensemble)
+                                <h3>{{ $ensemble->name }}</h3>
+
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>###</th>
                                             <th>Name</th>
-                                            <th>Voice</th>
-                                            <th>Emails</th>
-                                            <th>Teacher</th>
                                             <th>School</th>
+                                            <th>Emails</th>
+                                            <th>Phones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($registrants AS $registrant)
+                                        @foreach($ensemble->participatingTeachers($eventversion) AS $teacher)
                                             <tr>
                                                <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align: left;">
-                                                    {{ $registrant->student->person->fullnameAlpha() }}
+                                                    {{ $teacher->person->fullnameAlpha() }}
                                                 </td>
                                                 <td>
-                                                    {{ strtoupper($registrant->instrumentations->first()->abbr) }}
+                                                    {{ $teacher->schools->first()->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $registrant->student->emailsCsv }}
+                                                    {!! str_replace(',', '<br />',$teacher->person->subscriberEmailsCsv) !!}
                                                 </td>
                                                 <td>
-                                                    {{ $registrant->student->currentTeacher }}
-                                                </td>
-                                                <td>
-                                                    {{ $registrant->student->currentSchool->name }}
-                                                </td>
-
-                                                <td>
-                                                    {{ $registrant->student->guardians->count() }}
+                                                    {!!  str_replace(',','<br />', $teacher->person->subscriberPhoneCsv) !!}
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             @endforeach
 
                         </div>

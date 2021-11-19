@@ -21,7 +21,7 @@
                     <div style="padding: 1rem .5rem;">
                         <div>
                             <h4>
-                                Audition Results
+                                Reports
                             </h4>
                             <ul>
                                 @foreach($eventversion->instrumentations() AS $instrumentation)
@@ -50,10 +50,19 @@
                                 @endif
 
 
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatings',
+                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatingdirectors',
                                         [
                                             'eventversion' => $eventversion,
                                         ]) }}"
+                                    >
+                                        Participating Directors
+                                    </a>
+                                </li>
+
+                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents',
+                                    [
+                                        'eventversion' => $eventversion,
+                                    ]) }}"
                                     >
                                         Participating Students
                                     </a>

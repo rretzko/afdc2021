@@ -13,6 +13,11 @@ class Teacher extends Model
         return $this->belongsTo(Person::class, 'user_id', 'user_id');
     }
 
+    public function getSchoolsAttribute()
+    {
+        return $this->person->user->schools;
+    }
+
     public function students()
     {
         return $this->belongsToMany(Student::class,'student_teacher','teacher_user_id', 'student_user_id')

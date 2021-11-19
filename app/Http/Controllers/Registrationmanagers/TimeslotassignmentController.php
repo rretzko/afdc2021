@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Eventadministration;
+namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
-use App\Models\Registrant;
-use App\Models\Scoresummary;
-use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
-class ReportsParticipatingdirectorsController extends Controller
+class TimeslotassignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +16,7 @@ class ReportsParticipatingdirectorsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        return view('eventadministration.reports.participatingdirectors.index',
+        return view('registrationmanagers.timeslots.index',
         [
             'eventversion' => $eventversion,
         ]);
@@ -89,27 +86,5 @@ class ReportsParticipatingdirectorsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    private function participating(Eventversion $eventversion)
-    {
-        $a = [];
-        foreach($eventversion->eventensembles AS $ensemble){
-
-            dd($ensemble);
-        }
-        $a['MX'] =  Registrant::whereIn('id', Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', 'MX')
-            ->pluck('registrant_id')
-            ->toArray())
-            ->get();
-
-        $a['TB'] = Registrant::whereIn('id', Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', 'TB')
-            ->pluck('registrant_id')
-             ->toArray())
-            ->get();
-
-        return $a;
     }
 }

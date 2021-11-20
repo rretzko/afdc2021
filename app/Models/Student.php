@@ -98,9 +98,40 @@ Log::info('*** FJR: Check the student grade v. grades @ the school v. grades tea
         return implode(', ',$emails);
     }
 
+    public function getPhonesCsvAttribute()
+    {
+        $phones = [];
+
+        if($this->getPhoneHomeAttribute()->id){
+            $phones[] = $this->getPhoneHomeAttribute()->labeledPhone;
+        }
+
+        if($this->getPhoneMobileAttribute()->id){
+            $phones[] = $this->getPhoneMobileAttribute()->labeledPhone;
+        }
+
+        return implode(', ',$phones);
+    }
+
+    public function getPhoneHomeAttribute()
+    {
+        return Phone::where('user_id',$this->user_id)
+                ->where('phonetype_id', Phonetype::STUDENT_HOME)
+                ->first()
+            ?? new Phone;
+    }
+
+    public function getPhoneMobileAttribute()
+    {
+        return Phone::where('user_id',$this->user_id)
+                ->where('phonetype_id', Phonetype::STUDENT_MOBILE)
+                ->first()
+            ?? new Phone;
+    }
+
     public function guardians()
     {
-        return $this->belongsToMany(Guardian::class, 'user_id', 'user_id');
+        return $this->belongsToMany(Guardian::class, 'guardian_student', 'student_user_id', 'guardian_user_id');
     }
 
     public function person()

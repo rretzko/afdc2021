@@ -15,7 +15,9 @@ class Guardian extends Model
 
     public function getEmailAlternateAttribute()
     {
-        return $this->getEmail('email_guardian_alternate');
+        return Nonsubscriberemail::where('user_id', $this->user_id)
+            ->where('emailtype_id', Emailtype::GUARDIAN_ALTERNATE)
+            ->first() ?? new Nonsubscriberemail;
     }
 
     public function getEmailCsvAttribute()
@@ -32,7 +34,9 @@ class Guardian extends Model
 
     public function getEmailPrimaryAttribute()
     {
-        return $this->getEmail('email_guardian_primary');
+        return Nonsubscriberemail::where('user_id', $this->user_id)
+                ->where('emailtype_id', Emailtype::GUARDIAN_PRIMARY)
+                ->first() ?? new Nonsubscriberemail;
     }
 
     public function getPhoneCsvAttribute()

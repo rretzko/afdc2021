@@ -12,6 +12,10 @@ class Emailtype extends Model
     const OTHER = 3;
     const PERSONAL = 2;
     const WORK = 1;
+    const GUARDIAN_ALTERNATE = 6;
+    const GUARDIAN_PRIMARY = 7;
+    const STUDENT_PERSONAL = 5;
+    const STUDENT_SCHOOL = 4;
 
     public function nonsubscriberemails()
     {

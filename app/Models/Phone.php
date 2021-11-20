@@ -16,7 +16,7 @@ class Phone extends Model
 
     public function getLabeledPhoneAttribute()
     {
-        return $this->phone.' ('.Phonetype::where('id', $this->phonetype_id)->first()->descr.')';
+        return $this->phone.' ('.Phonetype::where('id', $this->phonetype_id)->first()->abbr.')';
     }
 
     public function getPhoneWithLabel(int $user_id, int $phonetype_id) : string

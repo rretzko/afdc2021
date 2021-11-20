@@ -40,6 +40,9 @@
                                         <th>Teacher</th>
                                         <th>Emails</th>
                                         <th>Phones</th>
+                                        <th>Guardians</th>
+                                        <th>Guardian Emails</th>
+                                        <th>Guardian Phones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -63,11 +66,34 @@
                                             <td>
                                                 {!! str_replace(',', '<br />',$registrant->student->emailsCsv) !!}
                                             </td>
-                                        <!-- {{--
+
                                             <td>
-                                                {!!  str_replace(',','<br />', $teacher->person->subscriberPhoneCsv) !!}
+                                                {!!  str_replace(',','<br />', $registrant->student->phonesCsv) !!}
                                             </td>
-                                            --}} -->
+                                            <td>
+                                                @forelse($registrant->student->guardians AS $guardian)
+                                                        {{ $guardian->person->fullName() }}
+                                                @empty
+                                                    No guardian found
+                                                @endforelse
+                                            </td>
+                                            <td>
+                                                @forelse($registrant->student->guardians AS $guardian)
+                                                    {!!  str_replace(',','<br />', $guardian->emailCsv) !!}
+                                                @empty
+                                                    No guardian emails found
+                                                @endforelse
+                                            </td>
+
+                                            <td>
+                                                @forelse($registrant->student->guardians AS $guardian)
+                                                    {!!  str_replace(',','<br />', $guardian->phoneCsv) !!}
+                                                @empty
+                                                    No guardian phones found
+                                                @endforelse
+                                            </td>
+
+
                                         </tr>
                                     @endforeach
                                     </tbody>

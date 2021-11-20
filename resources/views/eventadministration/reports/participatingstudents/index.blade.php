@@ -30,12 +30,24 @@
                             @foreach($eventversion->eventensembles->get() AS $ensemble)
                                 <h3>{{ $ensemble->name }}</h3>
 
+                                <a>
+                                    <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents.csv',
+                                        [
+                                            'eventversion' => $eventversion,
+                                            'eventensemble' => $ensemble
+                                        ]) }}"
+                                    >
+                                        Download csv
+                                    </a>
+                                </div>
+
                                 <table>
                                     <thead>
                                     <tr>
                                         <th>###</th>
                                         <th>Name</th>
                                         <th>Voice Part</th>
+                                        <th>Score</th>
                                         <th>School</th>
                                         <th>Teacher</th>
                                         <th>Emails</th>
@@ -58,6 +70,9 @@
                                             </td>
                                             <td>
                                                 {{ strtoupper($registrant->instrumentations->first()->abbr) }}
+                                            </td>
+                                            <td>
+                                                {{ $registrant->grandtotal() }}
                                             </td>
                                             <td style="text-align: left;">
                                                 {{ $registrant->student->currentTeacher->person->fullName() }}

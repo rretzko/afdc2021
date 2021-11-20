@@ -88,8 +88,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.tabroom.reports.participatingdirectors');
     Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
         ->name('eventadministrator.tabroom.reports.participatingstudents');
-   // Route::get('/eventadministrator/tabroom/reports/{eventversion}/participatingstudents', [App\Http\Controllers\Eventadministration\ReportsParticipatingstudentsController::class, 'index'])
-  //      ->name('eventadministrator.tabroom.reports.participatings');
+    Route::get('/eventadministrator/tabroom/reports/participatingstudents/csv/{eventversion}/{eventensemble}', [App\Http\Controllers\Eventadministration\CsvParticipatingstudentsController::class, 'index'])
+        ->name('eventadministrator.tabroom.reports.participatingstudents.csv');
 
     Route::get('/eventadministrator/tabroom/reports/{eventversion}/testing', [App\Http\Controllers\Eventadministration\ReportsAuditionresultsController::class, 'testing'])
         ->name('eventadministrator.tabroom.reports.testing');

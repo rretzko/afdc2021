@@ -11,11 +11,6 @@ class Person extends Model
 
     protected $primaryKey = 'user_id';
 
-    public function getSubscriberemailworkAttribute()
-    {
-        return $this->subscriberemails->where('emailtype_id', Emailtype::WORK)->first()->email ?? '';
-    }
-
     public function fullname()
     {
         $str = $this->first;
@@ -42,6 +37,21 @@ class Person extends Model
         return $str;
     }
 
+    public function getSubscriberemailotherAttribute()
+    {
+        return $this->subscriberemails->where('emailtype_id', Emailtype::OTHER)->first()->email ?? '';
+    }
+
+    public function getSubscriberemailpersonalAttribute()
+    {
+        return $this->subscriberemails->where('emailtype_id', Emailtype::PERSONAL)->first()->email ?? '';
+    }
+
+    public function getSubscriberemailworkAttribute()
+    {
+        return $this->subscriberemails->where('emailtype_id', Emailtype::WORK)->first()->email ?? '';
+    }
+
     public function getSubscriberEmailsCsvAttribute()
     {
         $emails = [];
@@ -63,6 +73,24 @@ class Person extends Model
         if($other){ $emails[] = $other->email;}
 
         return implode(', ', $emails);
+    }
+
+    public function getPhonehomeAttribute()
+    {
+        return Phone::where('user_id', $this->user_id)
+                ->where('phonetype_id', Phonetype::HOME)->first()->phone ?? '';
+    }
+
+    public function getPhonemobileAttribute()
+    {
+        return Phone::where('user_id', $this->user_id)
+            ->where('phonetype_id', Phonetype::MOBILE)->first()->phone ?? '';
+    }
+
+    public function getPhoneworkAttribute()
+    {
+        return Phone::where('user_id', $this->user_id)
+                ->where('phonetype_id', Phonetype::WORK)->first()->phone ?? '';
     }
 
     public function getSubscriberPhoneCsvAttribute()

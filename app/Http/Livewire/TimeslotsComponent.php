@@ -22,7 +22,6 @@ class TimeslotsComponent extends Component
     {
         return view('livewire.timeslots-component',[
             'eventversion' => $this->eventversion,
-            'schools' => $this->eventversion->participatingSchools,
             'table' => $this->tableTimeslots()
         ]);
     }

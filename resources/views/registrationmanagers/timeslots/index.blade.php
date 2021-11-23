@@ -22,7 +22,7 @@
                         <x-tables.timeslots
                             :eventversion="$eventversion"
                             csrf="{{ csrf_token() }}"
-                            route="{{ route('registrationmanagers.timeslotassignment.update') }}"
+                            route="{{ (config('app.url') === 'http://afdc2021.test') ? route('registrationmanagers.timeslotassignment.update') : 'https://afdc-2021-l38q8.ondigitalocean.net/registrationmanager/timeslots/update' }}"
                         />
                     </div>
                 </div>

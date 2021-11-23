@@ -118,9 +118,11 @@ class TableTimeslots extends Model
     private function dataRows($schools)
     {
         $this->datarows = [];
-        $rowtotal = 0;
+
 
         foreach($schools AS $key => $school){
+
+            $rowtotal = 0;
 
             $timeslot = Timeslot::where('school_id', $school->id)
                 ->where('eventversion_id', $this->eventversion->id)

@@ -22,9 +22,6 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
-    /**
      * @return Collection
      */
     public function collection()

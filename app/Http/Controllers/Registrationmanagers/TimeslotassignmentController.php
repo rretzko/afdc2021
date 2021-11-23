@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Registrationmanagers;
 
+use App\Exports\ParticipantsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TimeslotassignmentController extends Controller
 {
@@ -93,6 +95,13 @@ class TimeslotassignmentController extends Controller
 
         return $this->index(Eventversion::find($input['eventversion_id']));
 
+    }
+
+    public function download(Eventversion $eventversion)
+    {
+        $timeslots = new \App\Exports\TimeslotsExport($eventversion);
+
+        return Excel::download($timeslots, 'timeslots.csv');
     }
 
     /**

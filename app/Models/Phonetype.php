@@ -14,6 +14,9 @@ class Phonetype extends Model
     const WORK = 2;
     const STUDENT_HOME = 5;
     const STUDENT_MOBILE = 4;
+    const PHONE_GUARDIAN_MOBILE = 6;
+    const PHONE_GUARDIAN_WORK = 7;
+    const PHONE_GUARDIAN_HOME = 8;
 
     public function phones()
     {

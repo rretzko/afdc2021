@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Utility\TableTimeslots;
 use Livewire\Component;
 
 class TimeslotsComponent extends Component
 {
+    public $csrf;
     public $eventversion;
     public $interval;
+    public $route;
     public $timeslot = 0;
 
     public function mount()
@@ -20,7 +23,7 @@ class TimeslotsComponent extends Component
         return view('livewire.timeslots-component',[
             'eventversion' => $this->eventversion,
             'schools' => $this->eventversion->participatingSchools,
-            'timeslots' => $this->timeslots()
+            'table' => $this->tableTimeslots()
         ]);
     }
 
@@ -32,6 +35,18 @@ class TimeslotsComponent extends Component
     public function updateTimeslot($value)
     {
         dd($value);
+    }
+
+    private function tableTimeslots()
+    {
+        $table = new TableTimeslots([
+            'csrf' => $this->csrf,
+            'eventversion' => $this->eventversion,
+            'route' => $this->route,
+            'schools' => $this->eventversion->participatingSchools
+        ]);
+
+        return $table->table();
     }
 
     private function timeslots()

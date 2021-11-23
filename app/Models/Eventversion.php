@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Eventversionconfig;
+use App\Models\Registranttype;
 use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -127,6 +128,16 @@ class Eventversion extends Model
 
     public function getParticipatingSchoolsAttribute()
     {
+        $allschools = collect();
+
+        //get schools with timeslots
+        $timeslots = Timeslot::where('eventversion_id', $this->id)->orderBy('armytime')->get();
+        foreach($timeslots AS $timeslot){
+
+            $allschools->push(School::find($timeslot->school_id));
+        }
+
+        //get all schools regardless of timeslot
         $schoolids = DB::select(DB::raw("
             SELECT DISTINCT registrants.school_id, schools.name
             FROM registrants, schools
@@ -137,14 +148,17 @@ class Eventversion extends Model
         "), ['eventversion_id' => $this->id]
         );
 
-        $c = collect();
-
+        //add schools without timeslots to schools with timeslots
         foreach($schoolids AS $stdobj){
 
-            $c->push(School::find($stdobj->school_id));
+            $school = School::find($stdobj->school_id);
+
+            if(! $allschools->contains($school)) {
+                $allschools->push(School::find($stdobj->school_id));
+            }
         }
 
-        return $c;
+        return $allschools;
     }
 
     /**

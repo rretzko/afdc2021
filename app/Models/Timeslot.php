@@ -10,6 +10,8 @@ class Timeslot extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['eventversion_id', 'school_id', 'armytime', 'timeslot'];
+
     /**
      * Timeslots between 8am and 6pm on $interval minutes
      * @param int $starttime

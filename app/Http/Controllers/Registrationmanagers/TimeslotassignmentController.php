@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
+use App\Models\Timeslot;
 use Illuminate\Http\Request;
 
 class TimeslotassignmentController extends Controller
@@ -72,9 +73,26 @@ class TimeslotassignmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $input = $request->validate([
+           'eventversion_id' => ['required', 'numeric'],
+           'school_id' => ['required', 'numeric'],
+           'timeslot' => ['required', 'string'],
+        ]);
+
+        Timeslot::updateOrCreate([
+            'eventversion_id' => $input['eventversion_id'],
+            'school_id' => $input['school_id'],
+            ],
+            [
+            'armytime' => $this->convertToArmytime($input['timeslot']),
+            'timeslot' => $input['timeslot'],
+            ]
+        );
+
+        return $this->index(Eventversion::find($input['eventversion_id']));
+
     }
 
     /**
@@ -86,5 +104,17 @@ class TimeslotassignmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function convertToArmytime($string)
+    {
+        $poscolon = strpos($string, ':');
+
+        $hour = substr($string,0,$poscolon);
+        $minute = substr($string, ($poscolon + 1), 2);
+
+        $hour = ($hour < 8) ? ($hour + 12) : $hour;
+
+        return $hour.$minute;
     }
 }

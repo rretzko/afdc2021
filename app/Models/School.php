@@ -108,6 +108,13 @@ class School extends Model
 
     }
 
+    public function timeslot(Eventversion $eventversion)
+    {
+        return Timeslot::where('school_id', $this->id)
+            ->where('eventversion_id', $eventversion->id)
+            ->first()->timeslot ?? '';
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

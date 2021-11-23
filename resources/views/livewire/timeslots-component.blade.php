@@ -1,7 +1,13 @@
+<!--
 <style>
     table{border-collapse: collapse;margin-top: 1rem;}
     td,th{border:1px solid black; padding: 0 .25rem;}
 </style>
+-->
+<div>
+    {!! $table !!}
+</div>
+<!-- {{--
 <div>
     <table>
         <thead>
@@ -16,10 +22,13 @@
             </tr>
         </thead>
         @foreach($schools AS $school)
-            <form method="post" action="" >
+            <form method="post" action="{{ route('registrationmanagers.timeslotassignment.update') }}" >
+                @csrf
+                <input type="hidden" name="eventversion_id" id="eventversion_id" value="{{ $eventversion->id }}" />
+                <input type="hidden" name="school_id" id="school_id" value="{{ $school->id }}" />
             <tr>
-                <td>
-                    <input type="text" name="timeslots" id="{{ $school->id }}" style="width: 4rem;" />
+                <td style="text-align: right;">
+                    <input type="text" name="timeslot" id="timeslot" value="{{ $school->timeslot($eventversion) }}" style="width: 4rem;" />
                 </td>
                 <td>{{ $school->shortName }}</td>
                 <td style="text-align: center;">{{ $eventversion->registrantsForSchool($school)->count() }}</td>
@@ -36,3 +45,4 @@
         @endforeach
     </table>
 </div>
+--}} -->

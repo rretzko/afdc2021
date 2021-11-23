@@ -154,6 +154,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
         ->name('registrationmanagers.timeslotassignment.index');
+    Route::post('registrationmanager/timeslots/update', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'update'])
+        ->name('registrationmanagers.timeslotassignment.update');
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');

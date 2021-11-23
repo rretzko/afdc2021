@@ -2,7 +2,11 @@
 
 namespace App\Exports;
 
+use App\Models\Emailtype;
 use App\Models\Eventensembleparticipant;
+use App\Models\Nonsubscriberemail;
+use App\Models\Phone;
+use App\Models\Phonetype;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -50,16 +54,14 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
             'teacher-phone-cell',
             'teacher-phone-work',
             'teacher-phone-home',
+            'guardian-1',
+            'guaridan-1-email-primary',
+            'guardian-1-email-alternate',
+            'guardian-1-phone-cell',
+            'guardian-1-phone-work',
+            'guardian-1-phone-home'
         ];
         $test = [
-            'Guardian.1.first',
-            'Guardian.1.middle',
-            'Guardian.1.last',
-            'Guardian.1.EmailPrimary',
-            'Guardian.1.EmailAlternate',
-            'Guardian.1.PhoneCell',
-            'Guardian.1.PhoneWork',
-            'Guardian.1.PhoneHome',
             'Guardian.2.first',
             'Guardian.2.middle',
             'Guardian.2.last',
@@ -102,6 +104,12 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
             $participant->student->currentTeacher->person->phoneMobile,
             $participant->student->currentTeacher->person->phoneWork,
             $participant->student->currentTeacher->person->phoneHome,
+            $this->guardianName($participant, 0),
+            $this->guardianEmailPrimary($participant, 0),
+            $this->guardianEmailAlternate($participant, 0),
+            $this->guardianPhoneMobile($participant, 0),
+            $this->guardianPhoneWork($participant, 0),
+            $this->guardianPhoneHome($participant, 0),
         ];
         $s = Student::find($student['user_id']);
 
@@ -133,4 +141,89 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
         return $a;
     }
 
+    private function guardianEmailAlternate($participant, $index)
+    {
+        if($participant->student->guardians->count() &&
+            $participant->student->guardians[$index]){
+
+            $email = Nonsubscriberemail::where('user_id', $participant->student->guardians[$index]->user_id)
+                ->where('emailtype_id',Emailtype::GUARDIAN_ALTERNATE)
+                ->first() ?? new Nonsubscriberemail;
+
+            return $email->id ? $email->email : '';
+        }
+
+        return '';
+    }
+
+    private function guardianEmailPrimary($participant, $index)
+    {
+        if($participant->student->guardians->count() &&
+            $participant->student->guardians[$index]){
+
+
+            $email = Nonsubscriberemail::where('user_id', $participant->student->guardians[$index]->user_id)
+                ->where('emailtype_id',Emailtype::GUARDIAN_PRIMARY)
+                ->first() ?? new Nonsubscriberemail;
+
+            return $email->id ? $email->email : '';
+        }
+
+        return '';
+    }
+
+    private function guardianName($participant, $index)
+    {
+        if($participant->student->guardians->count() && $participant->student->guardians[$index]){
+
+            return $participant->student->guardians[$index]->person->fullName();
+        }
+
+        return 'None found';
+    }
+
+    private function guardianPhoneHome($participant, $index)
+    {
+        if($participant->student->guardians->count() &&
+            $participant->student->guardians[$index]){
+
+            $phone = Phone::where('user_id', $participant->student->guardians[$index]->user_id)
+                    ->where('phonetype_id', Phonetype::PHONE_GUARDIAN_HOME)
+                    ->first() ?? new Phone;
+
+            return $phone->id ? $phone->phone : '';
+        }
+
+        return '';
+    }
+
+    private function guardianPhoneMobile($participant, $index)
+    {
+        if($participant->student->guardians->count() &&
+            $participant->student->guardians[$index]){
+
+            $phone = Phone::where('user_id', $participant->student->guardians[$index]->user_id)
+                    ->where('phonetype_id', Phonetype::PHONE_GUARDIAN_MOBILE)
+                    ->first() ?? new Phone;
+
+            return $phone->id ? $phone->phone : '';
+        }
+
+        return '';
+    }
+
+    private function guardianPhoneWork($participant, $index)
+    {
+        if($participant->student->guardians->count() &&
+            $participant->student->guardians[$index]){
+
+            $phone = Phone::where('user_id', $participant->student->guardians[$index]->user_id)
+                    ->where('phonetype_id', Phonetype::PHONE_GUARDIAN_WORK)
+                    ->first() ?? new Phone;
+
+            return $phone->id ? $phone->phone : '';
+        }
+
+        return '';
+    }
 }

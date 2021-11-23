@@ -19,7 +19,11 @@
                     </div>
 
                     <div style="margin:auto;">
-                        <x-tables.timeslots :eventversion="$eventversion" />
+                        <x-tables.timeslots
+                            :eventversion="$eventversion"
+                            csrf="{{ csrf_token() }}"
+                            route="{{ route('registrationmanagers.timeslotassignment.update') }}"
+                        />
                     </div>
                 </div>
             </div>

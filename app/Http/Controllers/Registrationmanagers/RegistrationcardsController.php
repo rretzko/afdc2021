@@ -79,7 +79,14 @@ class RegistrationcardsController extends Controller
         })
         ->values();
 
-        $pdf = PDF::loadView('pdfs.registrationcards.1.70.double',
+        $doubleformats = [63,64,65,66];
+
+        $view = 'pdfs.registrationcards.';
+        $view .= $eventversion->event->id.'.';
+        $view .= $eventversion->id.'.';
+        $view .= in_array($instrumentation->id, $doubleformats) ? 'double' : 'single';
+
+        $pdf = PDF::loadView($view,
         compact('eventversion','instrumentation','registrants','rooms'))
         ->setPaper('letter','portrait');
 

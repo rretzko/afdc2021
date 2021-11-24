@@ -32,6 +32,8 @@ class School extends Model
         //early exit
         if(! $registrant){ return new Teacher(); }
 
+        return $registrant->student->currentTeacher;
+/*
         $teacher_user_id = DB::table('student_teacher')
             ->where('student_user_id', $registrant->user_id)
             ->orderByDesc('updated_at')
@@ -39,6 +41,7 @@ class School extends Model
             ->toArray();
 
         return (count($teacher_user_id)) ? Teacher::find($teacher_user_id[0]) : new Teacher;
+*/
     }
 
     /**

@@ -79,6 +79,8 @@ class RegistrationcardsController extends Controller
         })
         ->values();
 
+        //upper voicing instrumentations
+        /** @todo should be a configuration option */
         $doubleformats = [63,64,65,66];
 
         $view = 'pdfs.registrationcards.';

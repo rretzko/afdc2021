@@ -40,6 +40,7 @@
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.update') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.index') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.edit') ||

@@ -200,7 +200,22 @@
                             </h4>
 
                             <ul>
-                                <li>Mass Mailing</li>
+                                <li>
+                                    @if(config('app.url') === 'http://afdc2021.test')
+                                        <a href="{{ route('rehearsalmanager.massmailings.index',
+                                            [
+                                                'eventversion' => $eventversion,
+                                            ]) }}"
+                                        >
+                                            Mass Mailings
+                                        </a>
+                                    @else
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/.../{{ $eventversion->id }}"
+                                        >
+                                            Mass Mailings
+                                        </a>
+                                    @endif
+                                </li>
                                 <li>Participant Status Change</li>
                             </ul>
 

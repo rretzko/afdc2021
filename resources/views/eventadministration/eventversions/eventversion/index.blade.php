@@ -182,6 +182,29 @@
                                 </ul>
                             </div>
                         </div>
+
+                        {{-- REGISTRATION DESK --}}
+                        <div>
+                            <h4>
+                                Registration Desk
+                            </h4>
+                            <ul>
+                                <li>In-person registration</li>
+                            </ul>
+                        </div>
+
+                        {{-- REHEARSAL MANAGER --}}
+                        <div>
+                            <h4>
+                                Rehearsal Manager
+                            </h4>
+
+                            <ul>
+                                <li>Mass Mailing</li>
+                                <li>Participant Status Change</li>
+                            </ul>
+
+                        </div>
 <!-- {{--
                         <div>
                             <h4>

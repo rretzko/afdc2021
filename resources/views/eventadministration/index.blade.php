@@ -73,68 +73,8 @@
                                 </li>
                             </ul>
                         </div>
-<!-- {{--
-                        <div>
-                            <h4>
-                                Score Definition
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('eventadministrator.scoring.segments',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Segments
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.scoring.components',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Value Components
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
 
-                        <div>
-                            <h4>
-                                Tab Room
-                            </h4>
-                            <ul>
-                                <li>Score Input</li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.scoretracking',
-                                        ['eventversion' => $eventversion]) }}"
-                                    >
-                                        Score Tracking
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.cutoffs',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Cut-Offs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.results',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Detailed Audition Results
-                                    </a>
-                                </li>
-                                <li>Registrant Updates</li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.reports',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.publish',
-                                                ['eventversion' => $eventversion]) }}">
-                                        Publish Results
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
---}} -->
+                        {{-- REGISTRATION DESK --}}
                         <div>
                             <h4>
                                 Registration Desk

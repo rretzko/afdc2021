@@ -110,6 +110,13 @@ class Registrant extends Model
         return $viewport->viewport();
     }
 
+    public function getTimeslotAttribute() : string
+    {
+        return Timeslot::where('school_id', $this->school_id)
+            ->where('eventversion_id', $this->eventversion_id)
+            ->first()->timeslot ?? 'None found';
+    }
+
     public function grandtotal()
     {
         $scoresummary =Scoresummary::where('registrant_id', $this->id)->first();

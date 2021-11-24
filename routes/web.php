@@ -151,6 +151,10 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');
+    Route::get('registrationmanager/registrationcards/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'show'])
+        ->name('registrationmanagers.registrationcards.show');
+    Route::get('registrationmanager/registrationcards/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'pdf'])
+        ->name('registrationmanagers.registrationcards.pdf');
 
     Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
         ->name('registrationmanagers.timeslotassignment.index');

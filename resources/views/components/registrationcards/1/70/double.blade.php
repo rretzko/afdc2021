@@ -4,9 +4,7 @@
     'registrant',
     'rooms',
 ])
-
 <style>
-    label{margin-right: .5rem;}
     .data{font-weight: bold;}
 </style>
 <div style="display:flex; flex-direction:row;">

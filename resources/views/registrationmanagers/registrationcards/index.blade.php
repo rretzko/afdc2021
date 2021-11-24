@@ -81,6 +81,7 @@
                                                         :eventversion="$eventversion"
                                                         :instrumentation="$targetinstrumentation"
                                                         :registrant="$registrant"
+                                                        :rooms="$rooms"
                                                     />
                                                 @endif
                                         @endif

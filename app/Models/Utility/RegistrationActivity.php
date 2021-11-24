@@ -163,6 +163,24 @@ class RegistrationActivity extends Model
         return $merged->sortBy('id');
     }
 
+    public function registrantsBySchoolNameFullnameAlpha(Instrumentation $instrumentation)
+    {
+        $a = [];
+
+        foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
+
+            $a[] = [
+                'schoolname' => $registrant->student->currentSchool->name,
+                'fullname' => $registrant->student->person->fullnameAlpha(),
+                'registrant' => $registrant,
+            ];
+        }
+
+        sort($a);
+
+        return collect(array_column($a,'registrant'));
+    }
+
     public function registrationfeeDue(School $school)
     {
         return $this->registeredRegistrantsForSchool($school)->count() * $this->eventversion->eventversionconfig->registrationfee;

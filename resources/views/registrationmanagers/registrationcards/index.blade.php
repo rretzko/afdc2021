@@ -23,7 +23,7 @@
                             <label for="instrumentation_id"></label>
 
                             @foreach($instrumentations AS $instrumentation)
-                                <a href="{{ route('eventadministrator.tabroom.results.show',
+                                <a href="{{ route('registrationmanagers.registrationcards.show',
                                             [
                                                 'eventversion' => $eventversion,
                                                 'instrumentation' => $instrumentation
@@ -38,22 +38,57 @@
                     </section>
 
                     <section id="cards" style="padding: 0 .5rem;">
-                        @foreach($instrumentations as $instrumentation)
-                            <h2>{{ strtoupper($instrumentation->descr) }}</h2>
-                            <div style="display: flex; flex-wrap:wrap;">
-                                @foreach($registrationactivity->registeredInstrumentationTotal($instrumentation) AS $registrant)
+                        @if($targetinstrumentation)
+
+                            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h2>{{ strtoupper($targetinstrumentation->descr) }}</h2>
+
+                                <div>
+                                    @if(config('app.url') === 'http://afdc2021.test')
+                                        <a href="{{ route('registrationmanagers.registrationcards.pdf',
+                                            [
+                                                'eventversion' => $eventversion,
+                                                'instrumentation' => $targetinstrumentation,
+                                            ]) }}"
+                                        >
+                                            Print PDF
+                                        </a>
+                                    @else
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrationcards/pdfs/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
+                                            Print PDF
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-wrap:wrap; ">
+                                @foreach($registrationactivity->registrantsBySchoolNameFullnameAlpha($targetinstrumentation) AS $registrant)
 
                                         @if($eventversion->id === 70)
-                                            <x-registrationcards.1.70.registrationcard
-                                                :eventversion="$eventversion"
-                                                :instrumentation="$instrumentation"
-                                                :registrant="$registrant"
-                                            />
+                                            @if(
+                                                    ($targetinstrumentation->id === 63) ||
+                                                    ($targetinstrumentation->id === 64) ||
+                                                    ($targetinstrumentation->id === 65) ||
+                                                    ($targetinstrumentation->id === 66)
+                                                )
+                                                    <x-registrationcards.1.70.double
+                                                        :eventversion="$eventversion"
+                                                        :instrumentation="$targetinstrumentation"
+                                                        :registrant="$registrant"
+                                                        :rooms="$rooms"
+                                                    />
+                                                @else
+                                                    <x-registrationcards.1.70.single
+                                                        :eventversion="$eventversion"
+                                                        :instrumentation="$targetinstrumentation"
+                                                        :registrant="$registrant"
+                                                    />
+                                                @endif
                                         @endif
 
                                 @endforeach
                             </div>
-                        @endforeach
+
+                        @endif
                     </section>
 
                 </div>

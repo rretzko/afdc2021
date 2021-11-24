@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
+use App\Models\Instrumentation;
+use App\Models\Room;
 use App\Models\Utility\RegistrationActivity;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class RegistrationcardsController extends Controller
@@ -21,52 +24,66 @@ class RegistrationcardsController extends Controller
         return view('registrationmanagers.registrationcards.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
+            'targetinstrumentation' => NULL,
             'instrumentations' => $eventversion->instrumentations(),
             'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Eventversion $eventversion
+     * @param  \App\Models\Instrumentation $instrumentation
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Eventversion $eventversion, Instrumentation $instrumentation)
     {
-        //
+        $bladepath = 'x-registrationcards.'.$eventversion->event->id.'.'.$eventversion->id.'.registrationcard';
+        $eventversionrooms = Room::with('instrumentations')
+            ->where('eventversion_id', $eventversion->id)
+            ->get();
+
+        $rooms = $eventversionrooms->filter(function($room) use($instrumentation){
+           return $room->instrumentations->contains($instrumentation);
+        })
+            ->values(); //reset collection keys
+
+        return view('registrationmanagers.registrationcards.index',[
+            'bladepath' => $bladepath,
+            'eventversion' => $eventversion,
+            'targetinstrumentation' => $instrumentation,
+            'instrumentations' => $eventversion->instrumentations(),
+            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
+            'rooms' => $rooms,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * download a pdf
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Eventversion $eventversion
+     * @param  \App\Models\Instrumentation $instrumentation
      */
-    public function edit($id)
+    public function pdf(Eventversion $eventversion, Instrumentation $instrumentation)
     {
-        //
+        $ra = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
+        $registrants = $ra->registrantsBySchoolNameFullnameAlpha($instrumentation);
+
+        $eventversionrooms = Room::with('instrumentations')
+            ->where('eventversion_id', $eventversion->id)
+            ->get();
+
+        $rooms = $eventversionrooms->filter(function($room) use($instrumentation){
+            return $room->instrumentations->contains($instrumentation);
+        })
+        ->values();
+
+        $pdf = PDF::loadView('pdfs.registrationcards.1.70.double',
+        compact('eventversion','instrumentation','registrants','rooms'))
+        ->setPaper('letter','portrait');
+
+        return $pdf->download('registrationcards.pdf');
     }
 
     /**

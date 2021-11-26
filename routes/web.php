@@ -149,6 +149,15 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/registrationmanager/registrant/update/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'update'])
         ->name('registrationmanager.registrant.update');
 
+    /** REGISTRATION MANAGER: ADJUDICATION FORMS */
+    Route::get('registrationmanager/adjudicationforms/{eventversion}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'index'])
+        ->name('registrationmanagers.adjudicationforms.index');
+    Route::get('registrationmanager/adjudicationforms/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'show'])
+        ->name('registrationmanagers.adjudicationforms.show');
+    Route::get('registrationmanager/adjudicationforms/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'pdf'])
+        ->name('registrationmanagers.adjudicationforms.pdf');
+
+    /** REGISTRATION MANAGER: REGISTRATION CARDS */
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');
     Route::get('registrationmanager/registrationcards/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'show'])

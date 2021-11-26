@@ -181,6 +181,25 @@ class RegistrationActivity extends Model
         return collect(array_column($a,'registrant'));
     }
 
+    public function registrantsByTimeslotSchoolNameFullnameAlpha(Instrumentation $instrumentation)
+    {
+        $a = [];
+
+        foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
+
+            $a[] = [
+                'timeslot' => $registrant->timeslot,
+                'schoolname' => $registrant->student->currentSchool->name,
+                'fullname' => $registrant->student->person->fullnameAlpha(),
+                'registrant' => $registrant,
+            ];
+        }
+
+        sort($a);
+
+        return collect(array_column($a,'registrant'));
+    }
+
     public function registrationfeeDue(School $school)
     {
         return $this->registeredRegistrantsForSchool($school)->count() * $this->eventversion->eventversionconfig->registrationfee;

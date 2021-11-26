@@ -169,7 +169,10 @@
                                         </a>
                                     </li>
                                     <li>
-                                        Adjudication Forms
+                                        <a href="{{ route('registrationmanagers.adjudicationforms.index',
+                                                ['eventversion' => $eventversion]) }}" >
+                                            Adjudication Forms
+                                        </a>
                                     </li>
                                     <li>
                                         Room checklists

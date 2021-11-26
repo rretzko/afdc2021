@@ -36,6 +36,8 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.index') ||

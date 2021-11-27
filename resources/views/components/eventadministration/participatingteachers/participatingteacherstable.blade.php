@@ -1,5 +1,6 @@
 <div style="margin: auto;">
     <x-eventadministration.tablestyle />
+
     <table>
         <thead>
             <tr>
@@ -12,10 +13,11 @@
         </thead>
         <tbody>
             @foreach($participatingteachers AS $teacher)
+
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $teacher->person->fullnameAlpha() }}</td>
-                    <td>{{ $teacher->person->user->schools->first()->name }}</td>
+                    <td>{{ $teacher->currentSchool()->name }}</td>
                     <td>
                         @foreach($teacher->person->subscriberemails AS $email)
                             <div>

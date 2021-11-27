@@ -157,6 +157,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('registrationmanagers.registrantdetails.index',['eventversion' => $eventversion]) }}">
+                                            Registrant Detail
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('registrationmanagers.timeslotassignment.index',
                                             ['eventversion' => $eventversion]) }}">
                                             Assign Audition Timeslots

@@ -165,6 +165,15 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanager/registrationcards/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'pdf'])
         ->name('registrationmanagers.registrationcards.pdf');
 
+    /** REGISTRATION MANAGER: REGISTRANT DETAIL */
+    Route::get('registrationmanager/registrantdetails/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'index'])
+        ->name('registrationmanagers.registrantdetails.index');
+    Route::get('registrationmanager/registrantdetails/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'show'])
+        ->name('registrationmanagers.registrantdetails.show');
+    Route::get('registrationmanager/registrantdetails/csvs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'csv'])
+        ->name('registrationmanagers.registrantdetails.csv');
+
+    /** REGISTRATION MANAGER: TIMESLOTS */
     Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
         ->name('registrationmanagers.timeslotassignment.index');
     Route::get('registrationmanager/timeslots/download/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'download'])
@@ -172,6 +181,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('registrationmanager/timeslots/update', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'update'])
         ->name('registrationmanagers.timeslotassignment.update');
 
+    /** REGISTRATION MANAGER: PATICIPATING TEACHERS */
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 

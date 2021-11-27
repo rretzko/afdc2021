@@ -20,7 +20,10 @@ class Guardian extends Model
             ->first() ?? new Nonsubscriberemail;
     }
 
-    public function getEmailCsvAttribute()
+    /**
+     * @return string
+     */
+    public function getEmailsCsvAttribute()
     {
         $emails = [];
         $alternate = $this->getEmailAlternateAttribute();
@@ -29,7 +32,17 @@ class Guardian extends Model
         if($primary->id){ $emails[] = $primary->email;}
         if($alternate->id){ $emails[] = $alternate->email;}
 
-        return implode(', ',$emails);
+        return implode(', ',$emails);return $this->getEmailCsvAttribute();
+    }
+
+    /**
+     * @deprecated 27-Nov-21
+     * synonym to newer getEmailsCsvAttribute
+     * @return string
+     */
+    public function getEmailCsvAttribute()
+    {
+        return $this->getEmailsCsvAttribute();
     }
 
     public function getEmailPrimaryAttribute()

@@ -58,7 +58,7 @@ class RegistrantsExport implements FromCollection, WithHeadings, WithMapping
     }
 
     public function map($registrant): array
-    {
+    {if($registrant->user_id === 1470){dd($registrant->student->currentTeacher);}
         return [
             $registrant->id,
             $registrant->student->person->last,
@@ -71,13 +71,13 @@ class RegistrantsExport implements FromCollection, WithHeadings, WithMapping
             $registrant->student->phoneMobile->id ? $registrant->student->phoneMobile->phone : '',
             $registrant->student->phoneHome->id ? $registrant->student->phoneHome->phone : '',
             $registrant->student->currentSchool->name,
-            $registrant->student->currentTeacher->person->fullName(),
-            $registrant->student->currentTeacher->person->subscriberemailwork,
-            $registrant->student->currentTeacher->person->subscriberemailpersonal,
-            $registrant->student->currentTeacher->person->subscriberemailother,
-            $registrant->student->currentTeacher->person->phoneMobile,
-            $registrant->student->currentTeacher->person->phoneWork,
-            $registrant->student->currentTeacher->person->phoneHome,
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->fullName() : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->subscriberemailwork : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->subscriberemailpersonal : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->subscriberemailother : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->phoneMobile : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->phoneWork : '*** missing ***',
+            $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->phoneHome : '*** missing ***',
             $this->guardianName($registrant, 0),
             $this->guardianEmailPrimary($registrant, 0),
             $this->guardianEmailAlternate($registrant, 0),

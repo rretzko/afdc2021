@@ -18,7 +18,8 @@ class Room extends Model
 
     public function filecontenttypes()
     {
-        return $this->belongsToMany(Filecontenttype::class);
+        return $this->belongsToMany(Filecontenttype::class)
+            ->orderBy('order_by');
     }
 
     public function instrumentations()

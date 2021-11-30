@@ -180,7 +180,10 @@
                                         </a>
                                     </li>
                                     <li>
-                                        Room checklists
+                                        <a href="{{ route('registrationmanagers.monitorchecklists.index',
+                                                ['eventversion' => $eventversion]) }}" >
+                                            Room monitor checklists
+                                        </a>
                                     </li>
 <!-- {{--
                                     <li>

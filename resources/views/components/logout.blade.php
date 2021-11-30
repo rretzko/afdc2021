@@ -36,10 +36,12 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
-                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||
-                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||
+                (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.show') ||
+                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.index') ||

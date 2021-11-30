@@ -157,6 +157,14 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanager/adjudicationforms/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'pdf'])
         ->name('registrationmanagers.adjudicationforms.pdf');
 
+    /** REGISTRATION MANAGER: MONITOR CHECKLISTS */
+    Route::get('registrationmanager/monitorchecklists/{eventversion}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'index'])
+        ->name('registrationmanagers.monitorchecklists.index');
+    Route::get('registrationmanager/monitorchecklists/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'show'])
+        ->name('registrationmanagers.monitorchecklists.show');
+    Route::get('registrationmanager/monitorchecklists/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'pdf'])
+        ->name('registrationmanagers.monitorchecklists.pdf');
+
     /** REGISTRATION MANAGER: REGISTRATION CARDS */
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');

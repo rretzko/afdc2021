@@ -188,7 +188,7 @@ class RegistrationActivity extends Model
         foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
 
             $a[] = [
-                'timeslot' => $registrant->timeslot,
+                'timeslot' => $registrant->armytime,
                 'schoolname' => $registrant->student->currentSchool->name,
                 'fullname' => $registrant->student->person->fullnameAlpha(),
                 'registrant' => $registrant,

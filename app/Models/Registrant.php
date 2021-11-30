@@ -110,11 +110,18 @@ class Registrant extends Model
         return $viewport->viewport();
     }
 
-    public function getTimeslotAttribute() : string
+    public function getArmytimeAttribute() : string
     {
         return Timeslot::where('school_id', $this->school_id)
             ->where('eventversion_id', $this->eventversion_id)
-            ->first()->timeslot ?? 'None found';
+            ->first()->armytime ?? 'None found';
+    }
+
+    public function getTimeslotAttribute() : string
+    {
+        return Timeslot::where('school_id', $this->school_id)
+                ->where('eventversion_id', $this->eventversion_id)
+                ->first()->timeslot ?? 'None found';
     }
 
     public function grandtotal()

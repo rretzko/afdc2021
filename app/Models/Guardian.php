@@ -52,18 +52,31 @@ class Guardian extends Model
                 ->first() ?? new Nonsubscriberemail;
     }
 
-    public function getPhoneCsvAttribute()
+    /**
+     * @since 2021-11-30
+     * @return string
+     */
+    public function getPhonesCsvAttribute()
     {
         $phones = [];
         $home = $this->getPhoneHomeAttribute();
         $mobile = $this->getPhoneMobileAttribute();
         $work = $this->getPhoneWorkAttribute();
 
-        if($mobile->id){ $phones[] = $mobile->phone.' (c)';}
-        if($home->id){ $phones[] = $home->phone.' (h)';}
-        if($work->id){ $phones[] = $work->phone.' (w)';}
+        if($mobile->id && strlen($mobile->phone)){ $phones[] = $mobile->phone.' (c)';}
+        if($home->id && strlen($home->phone)){ $phones[] = $home->phone.' (h)';}
+        if($work->id && strlen($work->phone)){ $phones[] = $work->phone.' (w)';}
 
         return implode(', ',$phones);
+    }
+
+    /**
+     * @deprecated 2021-11-30
+     * @return string
+     */
+    public function getPhoneCsvAttribute()
+    {
+        return $this->getPhonesCsvAttribute();
     }
 
     public function getPhoneHomeAttribute()

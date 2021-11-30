@@ -33,6 +33,7 @@
 
             <tbody>
             @foreach($registrants AS $registrant)
+
                 <tr style="font-weight: bold;">
                     <td>{{ $loop->iteration }}</td>
                     <td style="text-align: left;">{{ $registrant->student->currentSchool->name }}</td>
@@ -72,7 +73,7 @@
                 <tr style="font-size: .8rem;">
                     <td></td>
                     <td style="text-align: right; @if(! $registrant->student->guardians->count()) color: red; @endif">Parent/Guardian</td>
-                    <td colspan="4" style="text-align: left;">{{ $registrant->student->guardians->count() ? $registrant->student->guardians->first()->person->fullname() : '*** missing ***'}}</td>
+                    <td colspan="4" style="text-align: left;">{{ $registrant->student->guardians->count() ? $registrant->student->guardians->first()->person->fullname().' ('.$registrant->student->guardians->first()->user_id.') ': '*** missing ***'}} </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>

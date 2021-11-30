@@ -18,6 +18,11 @@
                 {{ $room->descr }}
             </th>
         </tr>
+        <tr>
+            <th style="font-size: 1.15rem;">
+                {{ $instrumentation->formattedDescr() }}
+            </th>
+        </tr>
     </table>
 
     {{-- ROWS --}}

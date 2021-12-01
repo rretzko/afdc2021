@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Registrationmanagers;
 
+use App\Exports\RegistrantsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Instrumentation;
-use App\Models\Room;
 use App\Models\Utility\RegistrationActivity;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrantdetailController extends Controller
@@ -61,8 +59,8 @@ class RegistrantdetailController extends Controller
      */
     public function csv(Eventversion $eventversion, Instrumentation $instrumentation)
     {
-        $download = new \App\Exports\RegistrantsExport($eventversion, $instrumentation);
+        $download = new RegistrantsExport($eventversion, $instrumentation);
 
-        return Excel::download($download, 'registrants.csv');
+        return Excel::download($download, 'registrants_'.strtotime('NOW').'.csv');
     }
 }

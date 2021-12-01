@@ -77,9 +77,10 @@
                                     <tr>
                                         <th colspan="3" style="border-top: 0; border-left: 0;"></th>
                                         @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
-                                                <th colspan="4">Scales</th>
-                                                <th colspan="3">Solo</th>
-                                                <th colspan="3">Swan</th>
+
+                                            @foreach($eventversion->filecontenttypes->where('eventversion_id', $eventversion->id) AS $filecontenttype)
+                                                <th colspan="">{{ucwords($filecontenttype->descr)}}</th>
+                                            @endforeach
                                         @endfor
                                         <th colspan="3" style="border-top:0; border-right: 0;"></th>
                                     </tr>

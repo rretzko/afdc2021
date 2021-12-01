@@ -42,19 +42,14 @@
                                 </div>
                             </section>
                             <section id="variables">
-                                <div>Concert Date</div>
-                                <div>Concert Time</div>
-                                <div>Arrival Time</div>
-                                <div>Venue name</div>
-                                <div>Venue short name</div>
-                                <div>Venue address</div>
-                                <div>Venue google address link</div>
-                                <div>Postscript</div>
-                                <div>Sender name</div>
-                                <div>Sender title</div>
-                                <div>Sender School address block</div>
-                                <div>Sender email address</div>
-                                <div>Sender contact number</div>
+                                <x-rehearsalmanagers.forms.massmailings.concert :eventversion="$eventversion" />
+
+                            </section>
+
+                            <section id="paragraphs" style="background-color: aliceblue; padding: .5rem;">
+                                @foreach($paragraphs AS $paragraph)
+                                    <div>{!! $paragraph !!}</div>
+                                @endforeach
                             </section>
                             <section id="display" style="background-color: aliceblue; padding: .5rem;">
                                 <p>

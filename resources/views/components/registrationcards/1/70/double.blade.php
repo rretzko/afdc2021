@@ -78,7 +78,7 @@
                 {{ $registrant->student->emails->count() ? $registrant->student->emails->first()->email : 'No email found' }}
             </div>
             <div style="text-align: center; font-size: 0.8rem;">
-                timeslot
+                {{ $registrant->timeslot }}
             </div>
             <div style="text-align: center; font-size: 0.8rem;">
                 {{ $registrant->student->currentSchool->shortName }}

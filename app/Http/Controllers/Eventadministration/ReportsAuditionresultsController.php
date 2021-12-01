@@ -173,7 +173,9 @@ class ReportsAuditionresultsController extends Controller
                 $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
             }
 
-            asort($a,);
+        ($eventversion->eventversionconfig->bestscore === 'asc')
+            ? asort($a,)
+            : arsort($a);;
 
             $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
         //}
@@ -203,7 +205,9 @@ class ReportsAuditionresultsController extends Controller
                 $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
             }
 
-            asort($a,);
+            ($eventversion->eventversionconfig->bestscore === 'asc')
+                ? asort($a,)
+                : arsort($a);
 
             $registrants[$instrumentation->descr] = collect(array_column($a, 'registrant'));
         }

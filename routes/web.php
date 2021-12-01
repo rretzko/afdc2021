@@ -135,6 +135,27 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.segments.update');
 
     /** REGISTRATION MANAGERS */
+    Route::get('registrationmanagers/adjudicationforms/{eventversion}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'index'])
+        ->name('registrationmanagers.adjudicationforms.index');
+    Route::get('registrationmanagers/adjudicationforms/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'show'])
+        ->name('registrationmanagers.adjudicationforms.show');
+    Route::get('registrationmanagers/adjudicationforms/pdf/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'pdf'])
+        ->name('registrationmanagers.adjudicationforms.pdf');
+
+    Route::get('registrationmanagers/monitorchecklists/{eventversion}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'index'])
+        ->name('registrationmanagers.monitorchecklists.index');
+    Route::get('registrationmanagers/monitorchecklists/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'show'])
+        ->name('registrationmanagers.monitorchecklists.show');
+    Route::get('registrationmanagers/monitorchecklists/pdf/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'pdf'])
+        ->name('registrationmanagers.monitorchecklists.pdf');
+
+    Route::get('registrationmanagers/registrantdetails/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'index'])
+        ->name('registrationmanagers.registrantdetails.index');
+    Route::get('registrationmanagers/registrantdetails/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'show'])
+        ->name('registrationmanagers.registrantdetails.show');
+    Route::get('registrationmanagers/registrantdetails/csv/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'csv'])
+        ->name('registrationmanagers.registrantdetails.csv');
+
     Route::get('/registrationmanager/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])
         ->name('registrationmanagers.index');
     Route::get('/registrationmanager/payments/{eventversion}', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'index'])
@@ -169,8 +190,6 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('rehearsalmanager.massmailings.concert.index');
     Route::post('rehearsalmanager/massmailings/concert/{eventversion}/update', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
         ->name('rehearsalmanager.massmailings.concert.update');
-
-
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');

@@ -149,23 +149,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/registrationmanager/registrant/update/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'update'])
         ->name('registrationmanager.registrant.update');
 
-    /** REGISTRATION MANAGER: ADJUDICATION FORMS */
-    Route::get('registrationmanager/adjudicationforms/{eventversion}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'index'])
-        ->name('registrationmanagers.adjudicationforms.index');
-    Route::get('registrationmanager/adjudicationforms/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'show'])
-        ->name('registrationmanagers.adjudicationforms.show');
-    Route::get('registrationmanager/adjudicationforms/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\AdjudicationformController::class , 'pdf'])
-        ->name('registrationmanagers.adjudicationforms.pdf');
-
-    /** REGISTRATION MANAGER: MONITOR CHECKLISTS */
-    Route::get('registrationmanager/monitorchecklists/{eventversion}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'index'])
-        ->name('registrationmanagers.monitorchecklists.index');
-    Route::get('registrationmanager/monitorchecklists/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'show'])
-        ->name('registrationmanagers.monitorchecklists.show');
-    Route::get('registrationmanager/monitorchecklists/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class , 'pdf'])
-        ->name('registrationmanagers.monitorchecklists.pdf');
-
-    /** REGISTRATION MANAGER: REGISTRATION CARDS */
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');
     Route::get('registrationmanager/registrationcards/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'show'])
@@ -173,15 +156,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanager/registrationcards/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'pdf'])
         ->name('registrationmanagers.registrationcards.pdf');
 
-    /** REGISTRATION MANAGER: REGISTRANT DETAIL */
-    Route::get('registrationmanager/registrantdetails/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'index'])
-        ->name('registrationmanagers.registrantdetails.index');
-    Route::get('registrationmanager/registrantdetails/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'show'])
-        ->name('registrationmanagers.registrantdetails.show');
-    Route::get('registrationmanager/registrantdetails/csvs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class , 'csv'])
-        ->name('registrationmanagers.registrantdetails.csv');
-
-    /** REGISTRATION MANAGER: TIMESLOTS */
     Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
         ->name('registrationmanagers.timeslotassignment.index');
     Route::get('registrationmanager/timeslots/download/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'download'])
@@ -189,7 +163,15 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('registrationmanager/timeslots/update', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'update'])
         ->name('registrationmanagers.timeslotassignment.update');
 
-    /** REGISTRATION MANAGER: PATICIPATING TEACHERS */
+    Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])
+        ->name('rehearsalmanager.massmailings.index');
+    Route::get('rehearsalmanager/massmailings/concert/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'index'])
+        ->name('rehearsalmanager.massmailings.concert.index');
+    Route::post('rehearsalmanager/massmailings/concert/{eventversion}/update', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
+        ->name('rehearsalmanager.massmailings.concert.update');
+
+
+
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 

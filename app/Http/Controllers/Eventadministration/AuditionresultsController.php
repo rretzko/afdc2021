@@ -24,7 +24,6 @@ class AuditionresultsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-
         return view('eventadministration.auditionresults.index',
         [
             'completes' => collect(),
@@ -134,7 +133,9 @@ class AuditionresultsController extends Controller
             $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
         }
 
-        asort($a,);
+        ($eventversion->eventversionconfig->best_score === 'asc')
+            ? asort($a,)
+            : arsort($a);
 
         return collect(array_column($a, 'registrant'));
     }

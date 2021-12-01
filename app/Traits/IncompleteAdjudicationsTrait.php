@@ -25,7 +25,7 @@ trait IncompleteAdjudicationsTrait
         $countcomponents = ($scorecomponents->count() * $eventversion->eventversionconfig->judge_count);
 
         $scoresummary = new \App\Models\Scoresummary;
-//dd($scoresummary->where('eventversion_id', $eventversion->id)->where('score_count', $countcomponents)->where('instrumentation_id', 63)->get());
+
         return $scoresummary->where('eventversion_id', $eventversion->id)
             ->where('score_count', '<', $countcomponents)
             ->where('instrumentation_id', $instrumentation->id)

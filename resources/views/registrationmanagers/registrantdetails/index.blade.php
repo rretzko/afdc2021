@@ -54,7 +54,7 @@
                                             Print CSV
                                         </a>
                                     @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrantdetails/csv/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanagers/registrantdetails/csv/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
                                             Print CSV
                                         </a>
                                     @endif

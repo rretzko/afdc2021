@@ -38,9 +38,19 @@ class Eventensemblecutoff extends Model
                 ->where('instrumentation_id', $instrumentation->id)
                 ->value('cutoff') ?? 0;
 
-            if($scoresummary->score_total <= $cutoff){
+            //early exit
+            if(! $cutoff){return '';}
 
-                return $this->colors[$key];
+            if ($this->eventversion->eventversionconfig->bestscore === 'asc') {
+                if ($scoresummary->score_total <= $cutoff) {
+
+                    return $this->colors[$key];
+                }
+            } else {
+                if ($scoresummary->score_total >= $cutoff) {
+
+                    return $this->colors[$key];
+                }
             }
         }
 

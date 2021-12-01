@@ -54,7 +54,7 @@
                                             Print PDF
                                         </a>
                                     @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/adjudicationforms/pdfs/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/adjudicationforms/pdf/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
                                             Print PDF
                                         </a>
                                     @endif

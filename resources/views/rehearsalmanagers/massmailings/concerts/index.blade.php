@@ -42,48 +42,24 @@
                                 </div>
                             </section>
                             <section id="variables">
-                                <x-rehearsalmanagers.forms.massmailings.concert :eventversion="$eventversion" />
+                                <x-rehearsalmanagers.forms.massmailings.concert
+                                    :eventversion="$eventversion"
+                                    :massmailing="$massmailing"
+                                />
 
                             </section>
 
                             <section id="paragraphs" style="background-color: aliceblue; padding: .5rem;">
-                                @foreach($paragraphs AS $paragraph)
-                                    <div>{!! $paragraph !!}</div>
-                                @endforeach
-                            </section>
-                            <section id="display" style="background-color: aliceblue; padding: .5rem;">
-                                <p>
-                                    Dear [firstname]
-                                </p>
-                                <p>
-                                    Thank you all in advance for giving your time on [concert date] at [venue name] for the [concert time] Concert. Your help that day will surely contribute to a smooth, effective concert.  Here is what is expected of you when you arrive:
-                                </p>
-                                <ul>
-                                    <li>Please be at [concert short name] no later than [arrival time] to aid with student check-in</li>
-                                    <li>You will assist with keeping the halls quiet while getting students in and out of the auditorium.</li>
-                                    <li>While students are on stage, please stand behind the risers to aid in keeping the students quiet and any student who is not feeling that may come off the stage.</li>
-                                    <li>While not on stage, please stay in the rehearsal room and monitor students in the bathroom, etc.</li>
-                                    <li>Aid with check-out and clean up at the end of the concert.</li>
-                                </ul>
-                                <p>
-                                    <b>Please [sender email address]confirm to me that you have received this email.</b>  I will send you a reminder email a few days prior to the rehearsal. I hope you enjoyed your Thanksgiving!
-                                </p>
-                                <p>
-                                    Thanks you!
-                                </p>
-                                <p>
-                                    [Sender name]<br />
-                                    [Sender title]<br />
-                                    [Sender School address block]<br />
-                                    [Sender email address]<br />
-                                    [Sender contact number]<br />
-                                </p>
-                                <p>
-                                    [Postscript]
-                                </p>
+                                <div>{!! $emailbody !!}</div>
                             </section>
                         </div>
-                        <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem;">Participant checklist</section>
+                        <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem; background-color: aliceblue;">
+                            <div style="text-align: center;font-weight: bold; background-color: rgba(0,0,0,.1);">Teacher checklist</div>
+                            <x-rehearsalmanagers.checklists.teachers
+                                :eventversion="$eventversion"
+                                :teachers="$teachers"
+                            />
+                        </section>
                     </div>
                 </div>
             </div>

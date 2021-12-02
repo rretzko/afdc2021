@@ -3,11 +3,21 @@
 namespace App\Http\Controllers\Rehearsalmanagers\Massmailings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Audiencetype;
 use App\Models\Eventversion;
+use App\Models\Massmailing;
+use App\Models\Massmailingtype;
+use App\Models\Massmailingvar;
 use Illuminate\Http\Request;
 
 class ConcertController extends Controller
 {
+    private $massmailingtype_id;
+
+    public function __controller()
+    {
+        $this->massmailingtype_id = Massmailingtype::CONCERT;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +26,19 @@ class ConcertController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+        $massmailing = Massmailing::with('massmailingvars')
+            ->where('eventversion_id', $eventversion->id)
+            ->where('massmailingtype_id', Massmailingtype::CONCERT)
+            ->first();
+
+        $eventensemble = $eventversion->event->eventensembles->first();
+
         return view('rehearsalmanagers.massmailings.concerts.index',
         [
             'eventversion' => $eventversion,
-            'paragraphs' => $this->paragraphs(),
+            'massmailing' => $massmailing,
+            'emailbody' => $massmailing->parse(),
+            'teachers' => $eventensemble->participatingTeachers($eventversion),
         ]);
     }
 
@@ -76,7 +95,7 @@ class ConcertController extends Controller
     public function update(Request $request, Eventversion $eventversion)
     {
         $data = $request->validate([
-           'concert_date' => ['required', 'date'],
+           'concert_date' => ['required', 'string'],
            'concert_time' => ['required', 'string'],
            'arrival_time' => ['required', 'string'],
            'venue_name' => ['required', 'string'],
@@ -91,7 +110,32 @@ class ConcertController extends Controller
            'sender_phone' => ['required', 'string'],
         ]);
 
-        dd($data);
+        $massmailing = Massmailing::firstOrCreate([
+            'eventversion_id' => $eventversion->id,
+            'massmailingtype_id' => Massmailingtype::CONCERT,
+        ],[
+            'audiencetype_id', Audiencetype::TEACHERS,
+        ]);
+
+        $massmailing_id = $massmailing->id;
+        $order_by = 1;
+
+        foreach($data AS $key => $var){
+
+            Massmailingvar::updateOrCreate(
+                [
+                    'massmailing_id' => $massmailing_id,
+                    'order_by'=> $order_by,
+                ],
+                [
+                    'descr' => $key,
+                    'var' => $var ?? '',
+            ]);
+
+            $order_by++;
+        }
+
+        return $this->index($eventversion);
     }
 
     /**

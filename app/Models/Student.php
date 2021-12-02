@@ -98,6 +98,11 @@ Log::info('*** FJR: Check the student grade v. grades @ the school v. grades tea
         return implode(', ',$emails);
     }
 
+    public function getHeightFootInchAttribute()
+    {
+        return floor($this->height / 12)."' ".($this->height % 12).'" ('.$this->height.'")';
+    }
+
     public function getPhonesCsvAttribute()
     {
         $phones = [];

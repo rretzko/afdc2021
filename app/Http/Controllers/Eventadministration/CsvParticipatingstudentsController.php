@@ -20,6 +20,8 @@ class CsvParticipatingstudentsController extends Controller
     {
         $participants = new ParticipantsExport($eventversion, $eventensemble);
 
-        return Excel::download($participants, 'participants.csv');
+        $datetime = date('Ynd_Gis');
+
+        return Excel::download($participants, 'participants_'.$datetime.'.csv');
     }
 }

@@ -47,6 +47,8 @@
                                         <th>###</th>
                                         <th>Name</th>
                                         <th>Voice Part</th>
+                                        <th>Height</th>
+                                        <th>FootInches</th>
                                         <th>Score</th>
                                         <th>School</th>
                                         <th>Teacher</th>
@@ -64,15 +66,20 @@
                                             <td style="text-align: left;">
                                                 {{ $registrant->student->person->fullnameAlpha() }}
                                             </td>
-
-                                            <td style="text-align: left;">
-                                                {{ $registrant->student->currentSchool->shortName }}
-                                            </td>
                                             <td>
                                                 {{ strtoupper($registrant->instrumentations->first()->abbr) }}
                                             </td>
                                             <td>
+                                                {{ $registrant->student->height }}
+                                            </td>
+                                            <td>
+                                                {{ $registrant->student->heightFootInch }}
+                                            </td>
+                                            <td>
                                                 {{ $registrant->grandtotal() }}
+                                            </td>
+                                            <td style="text-align: left;">
+                                                {{ $registrant->student->currentSchool->shortName }}
                                             </td>
                                             <td style="text-align: left;">
                                                 {{ $registrant->student->currentTeacher->person->fullName() }}

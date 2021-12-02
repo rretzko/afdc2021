@@ -39,6 +39,8 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
             'voice part',
             'score',
             'grade',
+            'height (in)',
+            'height (ftin)',
             'student-email-school',
             'student-email-personal',
             'student-phone-cell',
@@ -58,25 +60,7 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
             'guardian-1-phone-work',
             'guardian-1-phone-home'
         ];
-        $test = [
-            'Guardian.2.first',
-            'Guardian.2.middle',
-            'Guardian.2.last',
-            'Guardian.2.EmailPrimary',
-            'Guardian.2.EmailAlternate',
-            'Guardian.2.PhoneCell',
-            'Guardian.2.PhoneWork',
-            'Guardian.2.PhoneHome',
-            'Guardian.3.first',
-            'Guardian.3.middle',
-            'Guardian.3.last',
-            'Guardian.3.EmailPrimary',
-            'Guardian.3.EmailAlternate',
-            'Guardian.3.PhoneCell',
-            'Guardian.3.PhoneWork',
-            'Guardian.3.PhoneHome',
 
-        ];
     }
 
     public function map($participant): array
@@ -89,6 +73,8 @@ class ParticipantsExport implements FromCollection, WithHeadings, WithMapping
             $participant->instrumentations()->first()->formattedDescr(),
             $participant->grandtotal(),
             $participant->student->grade,
+            $participant->student->height,
+            $participant->student->heightFootInch,
             $participant->student->emailSchool->id ? $participant->student->emailSchool->email : '',
             $participant->student->emailPersonal->id ? $participant->student->emailPersonal->email : '',
             $participant->student->phoneMobile->id ? $participant->student->phoneMobile->phone : '',

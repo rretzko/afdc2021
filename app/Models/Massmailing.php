@@ -12,14 +12,21 @@ class Massmailing extends Model
     protected $fillable = ['audiencetype_id', 'eventversion_id','massmailingtype_id'];
     private $vars;
 
-    public function paragraphs()
+    public function findVar($descr) : string
     {
-        return $this->hasMany(Paragraph::class)->orderBy('order_by');
+        return Massmailingvar::where('massmailing_id', $this->id)
+            ->where('descr', $descr)
+            ->first()->var ?? '';
     }
 
     public function massmailingvars()
     {
         return $this->hasMany(Massmailingvar::class)->orderBy('order_by');
+    }
+
+    public function paragraphs()
+    {
+        return $this->hasMany(Paragraph::class)->orderBy('order_by');
     }
 
     public function parse() : string
@@ -34,7 +41,7 @@ class Massmailing extends Model
         return $str;
     }
 
-    public function replaceVars($paragraph)
+    private function replaceVars($paragraph)
     {
         //break string by |* variable header
         $parts = explode('|*',$paragraph);
@@ -50,15 +57,13 @@ class Massmailing extends Model
                 //define target
                 $start = '0';
                 $finish = strpos($part, '*|');
-                $descr = substr($part, $start, $finish);
-//if(! $vars->where('descr', $target)->first()){ dd($target);}
+                $descr = substr($part, $start, $finish); //ex: concert_date
+
                 //define target
                 $target = $descr.'*|';
 
                 //find replacement
-                $replacement = $vars->where('descr', $descr)->first()->var;
-//dd($part.': '.$target.': '.$replacement);
-
+                $replacement = $this->findVar($descr);
 
                 //replace target with correct value
                 $parts[$key] = str_replace($target, $replacement, $part);

@@ -23,24 +23,7 @@
 
                     <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 1rem .5rem;">
                         <div style="display: flex; flex-direction: column; width: 66%;">
-                            <section id="buttons" >
-                                <div style="display: flex; flex-direction: row; justify-content: space-around;">
-                                    <div>
-                                        <a href="">
-                                            <button style="border-radius: .5rem; background-color: blanchedalmond;">
-                                                Send Test Email
-                                            </button>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href="">
-                                            <button style="border-radius: .5rem; background-color: darkseagreen; color: white;">
-                                                Send LIVE Email
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </section>
+
                             <section id="variables">
                                 <x-rehearsalmanagers.forms.massmailings.concert
                                     :eventversion="$eventversion"
@@ -55,10 +38,30 @@
                         </div>
                         <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem; background-color: aliceblue;">
                             <div style="text-align: center;font-weight: bold; background-color: rgba(0,0,0,.1);">Teacher checklist</div>
-                            <x-rehearsalmanagers.checklists.teachers
-                                :eventversion="$eventversion"
-                                :teachers="$teachers"
-                            />
+                            <form>
+                                <div id="buttons" >
+                                    <div style="display: flex; flex-direction: column; text-align: center; margin: .5rem 0;">
+                                        <div style="margin-bottom: .5rem;">
+                                            <a href="">
+                                                <input type="submit"; style="border-radius: .5rem; background-color: blanchedalmond;">
+                                                    Send Test Email
+                                                </input>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="">
+                                                <button type="submit" style="border-radius: .5rem; background-color: darkseagreen; color: white;">
+                                                    Send LIVE Email
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <x-rehearsalmanagers.checklists.teachers
+                                    :eventversion="$eventversion"
+                                    :teachers="$teachers"
+                                />
+                            </form>
                         </section>
                     </div>
                 </div>

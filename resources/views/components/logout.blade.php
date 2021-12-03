@@ -48,6 +48,7 @@
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.update') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.edit') ||
@@ -77,7 +78,10 @@
                 Eventversion
             </a>
 
-            @if(Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index')
+            @if(
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update')
+                )
             &nbsp; - &nbsp;
             <a href="{{ route('rehearsalmanager.massmailings.index',['eventversion' => $eventversion]) }}">
                 Mass Mailings

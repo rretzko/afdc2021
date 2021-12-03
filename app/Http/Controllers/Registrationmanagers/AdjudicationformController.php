@@ -91,6 +91,6 @@ class AdjudicationformController extends Controller
             compact('eventversion','instrumentation','registrants','rooms'))
             ->setPaper('letter','portrait');
 
-        return $pdf->download('registrationcards.pdf');
+        return $pdf->download('adjudicationForm_'.str_replace(' ','_',$instrumentation->formattedDescr()).'.pdf');
     }
 }

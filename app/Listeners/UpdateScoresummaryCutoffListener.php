@@ -48,7 +48,7 @@ class UpdateScoresummaryCutoffListener
 
             foreach($summaries AS $summary) {
 
-                $summary->update(['result' => ($summary->score_total > $event->cutoff) ? 'acc' : 'n/a']);
+                $summary->update(['result' => ($summary->score_total >= $event->cutoff) ? 'acc' : 'n/a']);
             }
 
         }

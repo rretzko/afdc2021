@@ -42,18 +42,16 @@
                                 <div id="buttons" >
                                     <div style="display: flex; flex-direction: column; text-align: center; margin: .5rem 0;">
                                         <div style="margin-bottom: .5rem;">
-                                            <a href="">
-                                                <input type="submit"; style="border-radius: .5rem; background-color: blanchedalmond;">
-                                                    Send Test Email
-                                                </input>
-                                            </a>
+                                            <input type="submit";
+                                                style="border-radius: .5rem; background-color: blanchedalmond;"
+                                                value="Send Test Email"
+                                            />
                                         </div>
                                         <div>
-                                            <a href="">
-                                                <button type="submit" style="border-radius: .5rem; background-color: darkseagreen; color: white;">
-                                                    Send LIVE Email
-                                                </button>
-                                            </a>
+                                            <input type="submit"
+                                               style="border-radius: .5rem; background-color: darkseagreen; color: white;"
+                                               value="Send LIVE Email"
+                                            />
                                         </div>
                                     </div>
                                 </div>

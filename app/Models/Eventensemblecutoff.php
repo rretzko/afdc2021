@@ -75,12 +75,19 @@ class Eventensemblecutoff extends Model
         $startfrom = $this->startFrom($eventensemble, $instrumentation);
         $cutoff = $this->cutoffByEnsembleInstrumentation($eventensemble,$instrumentation);
         $instrumentationid = $instrumentation->id;
+        $bestscore = $this->eventversion->eventversionconfig->bestscore;
 
         foreach ($this->CompletedAdjudications($this->eventversion) as $scoresummary) {
 
-            $cntr += (($scoresummary->instrumentation_id === $instrumentationid) &&
-                ($scoresummary->score_total > $startfrom) &&
-                ($scoresummary->score_total <= $cutoff));
+            if($bestscore === 'asc') {
+                $cntr += (($scoresummary->instrumentation_id === $instrumentationid) &&
+                    ($scoresummary->score_total > $startfrom) &&
+                    ($scoresummary->score_total <= $cutoff));
+            }else{
+                $cntr += (($scoresummary->instrumentation_id === $instrumentationid) &&
+                    ($scoresummary->score_total > $startfrom) &&
+                    ($scoresummary->score_total >= $cutoff));
+            }
         }
 
         return $cntr;
@@ -117,7 +124,7 @@ class Eventensemblecutoff extends Model
     {
         $startfrom = 0;
 
-        foreach($this->eventversion->event->eventensembles AS $key => $current){
+        foreach($this->eventversion->event->eventensembles AS $current){
 
             if($current === $eventensemble){
 

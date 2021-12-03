@@ -41,6 +41,7 @@ class Adjudication extends Model
                 $segment->push($scoresummary);
             }
         }
+
         return ($this->eventversion->eventversionconfig->bestscore === 'asc')
             ? $segment->sortBy('score_total')
             : $segment->sortByDesc('score_total');

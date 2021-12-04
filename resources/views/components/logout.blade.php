@@ -48,6 +48,8 @@
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.update') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.send') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.test') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.delete') ||
@@ -80,6 +82,8 @@
 
             @if(
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.send') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.test') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update')
                 )
             &nbsp; - &nbsp;

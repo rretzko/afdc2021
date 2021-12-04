@@ -184,12 +184,17 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('registrationmanager/timeslots/update', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'update'])
         ->name('registrationmanagers.timeslotassignment.update');
 
+    /** REHEARSAL MANAGERS */
     Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])
         ->name('rehearsalmanager.massmailings.index');
     Route::get('rehearsalmanager/massmailings/concert/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'index'])
         ->name('rehearsalmanager.massmailings.concert.index');
     Route::post('rehearsalmanager/massmailings/concert/{eventversion}/update', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
         ->name('rehearsalmanager.massmailings.concert.update');
+    Route::post('rehearsalmanager/massmailings/concert/test/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class,'show'])
+        ->name('rehearsalmanager.massmailings.concert.test');
+    Route::post('rehearsalmanager/massmailings/concert/send/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class,'store'])
+        ->name('rehearsalmanager.massmailings.concert.send');
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rehearsalmanagers\Massmailings;
 
+use App\Events\SendTestMassmailingEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Audiencetype;
 use App\Models\Eventversion;
@@ -22,9 +23,10 @@ class ConcertController extends Controller
      * Display a listing of the resource.
      *
      * @param \App\Models\Eventversion $eventversion
+     * @param string $message sent from show() and store() functions
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion)
+    public function index(Eventversion $eventversion, $message=NULL)
     {
         $massmailing = Massmailing::with('massmailingvars')
             ->where('eventversion_id', $eventversion->id)
@@ -39,6 +41,7 @@ class ConcertController extends Controller
             'massmailing' => $massmailing,
             'emailbody' => $massmailing->parse(),
             'teachers' => $eventensemble->participatingTeachers($eventversion),
+            'message' => $message,
         ]);
     }
 
@@ -53,29 +56,37 @@ class ConcertController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Send the concert email to included list of users
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //synonym for send-email
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Send the concert email to the current user as a TEST email
      *
-     * @param  int  $id
+     * @param  \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Eventversion $eventversion) //synonym for send-email-test
     {
-        //
+        $massmailing = Massmailing::where('eventversion_id', $eventversion->id)
+            ->where('massmailingtype_id', Massmailingtype::CONCERT)
+            ->first();
+
+        event(new SendTestMassmailingEvent($massmailing));
+
+        $message = 'Test email sent to: '.$massmailing->findVar('sender_email');
+
+        return $this->index($eventversion, $message);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the object
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

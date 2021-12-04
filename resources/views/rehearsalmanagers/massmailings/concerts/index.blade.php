@@ -36,16 +36,30 @@
                                 <div>{!! $emailbody !!}</div>
                             </section>
                         </div>
+
                         <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem; background-color: aliceblue;">
                             <div style="text-align: center;font-weight: bold; background-color: rgba(0,0,0,.1);">Teacher checklist</div>
-                            <form>
+                            @if(config('app.url') === 'http://afdc2021.test')
+                                <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.test', ['eventversion' => $eventversion]) }}">
+                            @else
+                                <form method="post" action="https://afdc-2021-l38q8.digitalocean.app/rehearsalmanager/massmailings/concert/test/{{ $eventversion->id }}"
+                            @endif
+                                    @csrf
                                 <div id="buttons" >
                                     <div style="display: flex; flex-direction: column; text-align: center; margin: .5rem 0;">
                                         <div style="margin-bottom: .5rem;">
-                                            <input type="submit";
-                                                style="border-radius: .5rem; background-color: blanchedalmond;"
-                                                value="Send Test Email"
-                                            />
+                                            @if(strlen($massmailing->findVar('sender_email')))
+                                                <input type="submit";
+                                                    style="border-radius: .5rem; background-color: blanchedalmond; "
+                                                    value="Send Test Email to: {{ $massmailing->findVar('sender_email') }}"
+                                                />
+                                            @else
+                                                <input type="submit";
+                                                       style="border-radius: .5rem; background-color: blanchedalmond;"
+                                                       value="Sender email is missing"
+                                                       DISABLED
+                                                />
+                                            @endif
                                         </div>
                                         <div>
                                             <input type="submit"
@@ -55,6 +69,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- SENT MESSAGE --}}
+                                @isset($message)
+                                    <div style="background-color: rgba(0,255,0,.1);border: 1px solid darkgreen; border-radius: 1rem; text-align: center; font-size: 0.8rem; margin-bottom: .5rem;">
+                                        {{ $message }}
+                                    </div>
+                                @endisset
+
                                 <x-rehearsalmanagers.checklists.teachers
                                     :eventversion="$eventversion"
                                     :teachers="$teachers"

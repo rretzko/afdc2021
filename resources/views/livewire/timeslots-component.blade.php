@@ -10,13 +10,15 @@
             </a>
         </div>
     @else
-        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/timeslots/download/{{ $eventversion->id }}">
-            Download Assigned Timeslots
-        </a>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/timeslots/download/{{ $eventversion->id }}">
+                Download Assigned Timeslots
+            </a>
 
-        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/timeslots/students/{{ $eventversion->id }}">
-            Student Detail
-        </a>
+            <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/timeslots/students/{{ $eventversion->id }}">
+                Student Detail
+            </a>
+        </div>
     @endif
 
 </div>

@@ -46,6 +46,7 @@
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.update') ||
+                (Route::currentRouteName() === 'registrationmanagers.timeslotstudent.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
@@ -82,6 +83,13 @@
             <a href="{{ route('rehearsalmanager.massmailings.index',['eventversion' => $eventversion]) }}">
                 Mass Mailings
             </a>
+            @endif
+
+            @if(Route::currentRouteName() === 'registrationmanagers.timeslotstudent.index')
+                &nbsp; - &nbsp;
+                <a href="{{ route('registrationmanagers.timeslotassignment.index',['eventversion' => $eventversion]) }}">
+                    Timeslots
+                </a>
             @endif
 
         @endif

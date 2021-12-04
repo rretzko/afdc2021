@@ -184,6 +184,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('registrationmanager/timeslots/update', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'update'])
         ->name('registrationmanagers.timeslotassignment.update');
 
+    Route::get('registrationmanager/timeslots/students/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotstudentController::class, 'index'])
+        ->name('registrationmanagers.timeslotstudent.index');
+
     Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])
         ->name('rehearsalmanager.massmailings.index');
     Route::get('rehearsalmanager/massmailings/concert/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'index'])

@@ -110,11 +110,25 @@ class Registrant extends Model
         return $viewport->viewport();
     }
 
+    /**
+     * Provide a string to sort by full name alpha
+     * @return string
+     */
+    public function getFullnameAlphaAttribute()
+    {
+        return $this->student->person->fullnameAlpha();
+    }
+
     public function getArmytimeAttribute() : string
     {
         return Timeslot::where('school_id', $this->school_id)
             ->where('eventversion_id', $this->eventversion_id)
             ->first()->armytime ?? 'None found';
+    }
+
+    public function getSchoolnameAttribute() : string
+    {
+        return $this->school()->name;
     }
 
     public function getTimeslotAttribute() : string

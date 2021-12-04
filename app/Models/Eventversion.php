@@ -219,6 +219,17 @@ class Eventversion extends Model
         return $this->event->eventensembles->first()->instrumentations();
     }
 
+    public function registrantsByTimeslotSchoolStudent()
+    {
+        $raw = Registrant::where('eventversion_id', $this->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->get();
+
+        $armytime = $raw->sortBy(['armytime','schoolname','fullnameAlpha']);
+
+        return $armytime;
+    }
+
     public function registrantsForSchool(School $school)
     {
         $registrants = Registrant::with('student','student.person')

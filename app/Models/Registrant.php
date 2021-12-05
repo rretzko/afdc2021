@@ -131,6 +131,11 @@ class Registrant extends Model
         return $this->school()->name;
     }
 
+    public function getSchoolShortnameAttribute() : string
+    {
+        return $this->school()->shortname;
+    }
+
     public function getTimeslotAttribute() : string
     {
         return Timeslot::where('school_id', $this->school_id)

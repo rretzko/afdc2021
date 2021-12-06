@@ -2,24 +2,46 @@
 
 namespace App\Http\Controllers\Rehearsalmanagers\Massmailings;
 
+use App\Events\SendTestMassmailingEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Audiencetype;
 use App\Models\Eventversion;
+use App\Models\Massmailing;
+use App\Models\Massmailingtype;
+use App\Models\Massmailingvar;
 use Illuminate\Http\Request;
 
 class ConcertController extends Controller
 {
+    private $massmailingtype_id;
+
+    public function __controller()
+    {
+        $this->massmailingtype_id = Massmailingtype::CONCERT;
+    }
     /**
      * Display a listing of the resource.
      *
      * @param \App\Models\Eventversion $eventversion
+     * @param string $message sent from show() and store() functions
      * @return \Illuminate\Http\Response
      */
-    public function index(Eventversion $eventversion)
+    public function index(Eventversion $eventversion, $message=NULL)
     {
+        $massmailing = Massmailing::with('massmailingvars')
+            ->where('eventversion_id', $eventversion->id)
+            ->where('massmailingtype_id', Massmailingtype::CONCERT)
+            ->first();
+
+        $eventensemble = $eventversion->event->eventensembles->first();
+
         return view('rehearsalmanagers.massmailings.concerts.index',
         [
             'eventversion' => $eventversion,
-            'paragraphs' => $this->paragraphs(),
+            'massmailing' => $massmailing,
+            'emailbody' => $massmailing->parse(),
+            'teachers' => $eventensemble->participatingTeachers($eventversion),
+            'message' => $message,
         ]);
     }
 
@@ -34,29 +56,37 @@ class ConcertController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Send the concert email to included list of users
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //synonym for send-email
     {
         //
     }
 
     /**
-     * Display the specified resource.
+     * Send the concert email to the current user as a TEST email
      *
-     * @param  int  $id
+     * @param  \App\Models\Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Eventversion $eventversion) //synonym for send-email-test
     {
-        //
+        $massmailing = Massmailing::where('eventversion_id', $eventversion->id)
+            ->where('massmailingtype_id', Massmailingtype::CONCERT)
+            ->first();
+
+        event(new SendTestMassmailingEvent($massmailing, auth()->user()->person));
+
+        $message = 'Test email sent to: '.$massmailing->findVar('sender_email');
+
+        return $this->index($eventversion, $message);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the object
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -76,7 +106,7 @@ class ConcertController extends Controller
     public function update(Request $request, Eventversion $eventversion)
     {
         $data = $request->validate([
-           'concert_date' => ['required', 'date'],
+           'concert_date' => ['required', 'string'],
            'concert_time' => ['required', 'string'],
            'arrival_time' => ['required', 'string'],
            'venue_name' => ['required', 'string'],
@@ -91,7 +121,32 @@ class ConcertController extends Controller
            'sender_phone' => ['required', 'string'],
         ]);
 
-        dd($data);
+        $massmailing = Massmailing::firstOrCreate([
+            'eventversion_id' => $eventversion->id,
+            'massmailingtype_id' => Massmailingtype::CONCERT,
+        ],[
+            'audiencetype_id', Audiencetype::TEACHERS,
+        ]);
+
+        $massmailing_id = $massmailing->id;
+        $order_by = 1;
+
+        foreach($data AS $key => $var){
+
+            Massmailingvar::updateOrCreate(
+                [
+                    'massmailing_id' => $massmailing_id,
+                    'order_by'=> $order_by,
+                ],
+                [
+                    'descr' => $key,
+                    'var' => $var ?? '',
+            ]);
+
+            $order_by++;
+        }
+
+        return $this->index($eventversion);
     }
 
     /**

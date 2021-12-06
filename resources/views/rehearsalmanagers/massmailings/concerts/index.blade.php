@@ -23,67 +23,66 @@
 
                     <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 1rem .5rem;">
                         <div style="display: flex; flex-direction: column; width: 66%;">
-                            <section id="buttons" >
-                                <div style="display: flex; flex-direction: row; justify-content: space-around;">
-                                    <div>
-                                        <a href="">
-                                            <button style="border-radius: .5rem; background-color: blanchedalmond;">
-                                                Send Test Email
-                                            </button>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href="">
-                                            <button style="border-radius: .5rem; background-color: darkseagreen; color: white;">
-                                                Send LIVE Email
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </section>
+
                             <section id="variables">
-                                <x-rehearsalmanagers.forms.massmailings.concert :eventversion="$eventversion" />
+                                <x-rehearsalmanagers.forms.massmailings.concert
+                                    :eventversion="$eventversion"
+                                    :massmailing="$massmailing"
+                                />
 
                             </section>
 
                             <section id="paragraphs" style="background-color: aliceblue; padding: .5rem;">
-                                @foreach($paragraphs AS $paragraph)
-                                    <div>{!! $paragraph !!}</div>
-                                @endforeach
-                            </section>
-                            <section id="display" style="background-color: aliceblue; padding: .5rem;">
-                                <p>
-                                    Dear [firstname]
-                                </p>
-                                <p>
-                                    Thank you all in advance for giving your time on [concert date] at [venue name] for the [concert time] Concert. Your help that day will surely contribute to a smooth, effective concert.  Here is what is expected of you when you arrive:
-                                </p>
-                                <ul>
-                                    <li>Please be at [concert short name] no later than [arrival time] to aid with student check-in</li>
-                                    <li>You will assist with keeping the halls quiet while getting students in and out of the auditorium.</li>
-                                    <li>While students are on stage, please stand behind the risers to aid in keeping the students quiet and any student who is not feeling that may come off the stage.</li>
-                                    <li>While not on stage, please stay in the rehearsal room and monitor students in the bathroom, etc.</li>
-                                    <li>Aid with check-out and clean up at the end of the concert.</li>
-                                </ul>
-                                <p>
-                                    <b>Please [sender email address]confirm to me that you have received this email.</b>  I will send you a reminder email a few days prior to the rehearsal. I hope you enjoyed your Thanksgiving!
-                                </p>
-                                <p>
-                                    Thanks you!
-                                </p>
-                                <p>
-                                    [Sender name]<br />
-                                    [Sender title]<br />
-                                    [Sender School address block]<br />
-                                    [Sender email address]<br />
-                                    [Sender contact number]<br />
-                                </p>
-                                <p>
-                                    [Postscript]
-                                </p>
+                                <div>{!! $emailbody !!}</div>
                             </section>
                         </div>
-                        <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem;">Participant checklist</section>
+
+                        <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem; background-color: aliceblue;">
+                            <div style="text-align: center;font-weight: bold; background-color: rgba(0,0,0,.1);">Teacher checklist</div>
+                            @if(config('app.url') === 'http://afdc2021.test')
+                                <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.test', ['eventversion' => $eventversion]) }}">
+                            @else
+                                <form method="post" action="https://afdc-2021-l38q8.digitalocean.app/rehearsalmanager/massmailings/concert/test/{{ $eventversion->id }}"
+                            @endif
+                                    @csrf
+                                <div id="buttons" >
+                                    <div style="display: flex; flex-direction: column; text-align: center; margin: .5rem 0;">
+                                        <div style="margin-bottom: .5rem;">
+                                            @if(strlen($massmailing->findVar('sender_email')))
+                                                <input type="submit";
+                                                    style="border-radius: .5rem; background-color: blanchedalmond; "
+                                                    value="Send Test Email to: {{ $massmailing->findVar('sender_email') }}"
+                                                />
+                                            @else
+                                                <input type="submit";
+                                                       style="border-radius: .5rem; background-color: blanchedalmond;"
+                                                       value="Sender email is missing"
+                                                       DISABLED
+                                                />
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <input type="submit"
+                                               style="border-radius: .5rem; background-color: darkseagreen; color: white;"
+                                               value="Send LIVE Email"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- SENT MESSAGE --}}
+                                @isset($message)
+                                    <div style="background-color: rgba(0,255,0,.1);border: 1px solid darkgreen; border-radius: 1rem; text-align: center; font-size: 0.8rem; margin-bottom: .5rem;">
+                                        {{ $message }}
+                                    </div>
+                                @endisset
+
+                                <x-rehearsalmanagers.checklists.teachers
+                                    :eventversion="$eventversion"
+                                    :teachers="$teachers"
+                                />
+                            </form>
+                        </section>
                     </div>
                 </div>
             </div>

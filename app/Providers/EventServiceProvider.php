@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\SendTestMassmailingEvent;
 use App\Events\UpdateScoresummaryCutoffEvent;
+use App\Listeners\SendTestMassmailingListener;
 use App\Listeners\UpdateScoresummaryCutoffListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdateScoresummaryCutoffEvent::class => [
             UpdateScoresummaryCutoffListener::class,
-        ]
+        ],
+        SendTestMassmailingEvent::class =>[
+            SendTestMassmailingListener::class,
+        ],
     ];
 
     /**

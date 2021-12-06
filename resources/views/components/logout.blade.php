@@ -50,6 +50,7 @@
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.send') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.store') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.test') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
@@ -84,6 +85,7 @@
             @if(
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.index') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.send') ||
+                (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.store') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.test') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update')
                 )

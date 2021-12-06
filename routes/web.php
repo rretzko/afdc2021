@@ -195,7 +195,7 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('rehearsalmanager.massmailings.concert.index');
     Route::post('rehearsalmanager/massmailings/concert/email/{eventversion}',[App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'store'])
         ->name('rehearsalmanager.massmailings.concert.store');
-    Route::post('rehearsalmanager/massmailings/concert/{eventversion}/update', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
+    Route::post('rehearsalmanager/massmailings/concert/update/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
         ->name('rehearsalmanager.massmailings.concert.update');
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])

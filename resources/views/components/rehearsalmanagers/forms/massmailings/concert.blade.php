@@ -6,7 +6,12 @@
     label{width:10rem; text-align: right; margin-right: 0.5rem;}
     .input-group{ margin-bottom: 0.5rem;}
 </style>
-<form method="post" action="{{ route('rehearsalmanager.massmailings.concert.update', ['eventversion' => $eventversion]) }}">
+
+@if(config('app.url') === 'http://afdc2021.test')
+    <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.update', ['eventversion' => $eventversion]) }}">
+@else
+    <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/rehearsalmanager/massmailings/concert/update/{{ $eventversion->id }} ">
+@endif
     @csrf
     <h2>Update the following information to complete the email template:</h2>
 

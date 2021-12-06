@@ -42,7 +42,7 @@
                             @if(config('app.url') === 'http://afdc2021.test')
                                 <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.store', ['eventversion' => $eventversion]) }}">
                             @else
-                                <form method="post" action="https://afdc-2021-l38q8.digitalocean.app/rehearsalmanager/massmailings/concert/store/{{ $eventversion->id }}"
+                                <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/rehearsalmanager/massmailings/concert/email/{{ $eventversion->id }}"
                             @endif
                                     @csrf
                                 <div id="buttons" >

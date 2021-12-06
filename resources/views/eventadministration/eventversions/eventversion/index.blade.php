@@ -221,7 +221,7 @@
                                             Mass Mailings
                                         </a>
                                     @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/.../{{ $eventversion->id }}"
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/massmailings/concert/{{ $eventversion->id }}"
                                         >
                                             Mass Mailings
                                         </a>

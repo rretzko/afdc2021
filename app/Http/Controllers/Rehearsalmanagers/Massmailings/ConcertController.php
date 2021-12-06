@@ -78,7 +78,7 @@ class ConcertController extends Controller
             ->where('massmailingtype_id', Massmailingtype::CONCERT)
             ->first();
 
-        event(new SendTestMassmailingEvent($massmailing));
+        event(new SendTestMassmailingEvent($massmailing, auth()->user()->person));
 
         $message = 'Test email sent to: '.$massmailing->findVar('sender_email');
 

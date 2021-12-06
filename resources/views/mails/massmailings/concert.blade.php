@@ -1,1 +1,2 @@
-{{ __FILE__ }}
+<p>Dear {{ $person->first }} -</p>
+{!! $massmailing->parse() !!}

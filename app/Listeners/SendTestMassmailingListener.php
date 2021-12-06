@@ -31,6 +31,6 @@ class SendTestMassmailingListener
 
         Mail::to($event->emailto)
             //->bcc($bcc)
-            ->send(new MassmailingMail($event->massmailing));
+            ->send(new MassmailingMail($event->massmailing, $event->person));
     }
 }

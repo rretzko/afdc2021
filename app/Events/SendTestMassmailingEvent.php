@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Massmailing;
+use App\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -17,16 +18,18 @@ class SendTestMassmailingEvent
 
     public $emailto;
     public $massmailing;
+    public $person;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Massmailing $massmailing)
+    public function __construct(Massmailing $massmailing, Person $person)
     {
         $this->massmailing = $massmailing;
         $this->emailto = $this->massmailing->findVar('sender_email');
+        $this->person= $person;
     }
 
     /**

@@ -28,7 +28,6 @@ class SendTestMassmailingListener
      */
     public function handle(SendTestMassmailingEvent $event)
     {
-
         Mail::to($event->emailto)
             //->bcc($bcc)
             ->send(new MassmailingMail($event->massmailing, $event->person));

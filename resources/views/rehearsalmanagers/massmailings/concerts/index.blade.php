@@ -40,9 +40,9 @@
                         <section id="participants" style="border: 1px solid darkblue;padding: .5rem .25rem; background-color: aliceblue;">
                             <div style="text-align: center;font-weight: bold; background-color: rgba(0,0,0,.1);">Teacher checklist</div>
                             @if(config('app.url') === 'http://afdc2021.test')
-                                <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.test', ['eventversion' => $eventversion]) }}">
+                                <form method="post" action="{{ route('rehearsalmanager.massmailings.concert.store', ['eventversion' => $eventversion]) }}">
                             @else
-                                <form method="post" action="https://afdc-2021-l38q8.digitalocean.app/rehearsalmanager/massmailings/concert/test/{{ $eventversion->id }}"
+                                <form method="post" action="https://afdc-2021-l38q8.digitalocean.app/rehearsalmanager/massmailings/concert/store/{{ $eventversion->id }}"
                             @endif
                                     @csrf
                                 <div id="buttons" >
@@ -50,8 +50,10 @@
                                         <div style="margin-bottom: .5rem;">
                                             @if(strlen($massmailing->findVar('sender_email')))
                                                 <input type="submit";
-                                                    style="border-radius: .5rem; background-color: blanchedalmond; "
-                                                    value="Send Test Email to: {{ $massmailing->findVar('sender_email') }}"
+                                                     style="border-radius: .5rem; background-color: blanchedalmond; "
+                                                     name="test"
+                                                     id="test"
+                                                     value="Send Test Email to: {{ $massmailing->findVar('sender_email') }}"
                                                 />
                                             @else
                                                 <input type="submit";
@@ -63,8 +65,10 @@
                                         </div>
                                         <div>
                                             <input type="submit"
-                                               style="border-radius: .5rem; background-color: darkseagreen; color: white;"
-                                               value="Send LIVE Email"
+                                                   style="border-radius: .5rem; background-color: darkseagreen; color: white;"
+                                                   name="massmailing"
+                                                   id="massmailing"
+                                                   value="Send LIVE Email"
                                             />
                                         </div>
                                     </div>
@@ -81,6 +85,13 @@
                                     :eventversion="$eventversion"
                                     :teachers="$teachers"
                                 />
+
+                                <div style="display: flex; flex-direction: column; text-align: center; margin: .5rem 0;">
+                                    <input type="submit"
+                                           style="border-radius: .5rem; background-color: darkseagreen; color: white;"
+                                           value="Send LIVE Email"
+                                    />
+                                </div>
                             </form>
                         </section>
                     </div>

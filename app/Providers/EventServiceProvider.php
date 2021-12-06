@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\SendLiveMassmailingEvent;
 use App\Events\SendTestMassmailingEvent;
 use App\Events\UpdateScoresummaryCutoffEvent;
+use App\Listeners\SendLiveMassmailingListener;
 use App\Listeners\SendTestMassmailingListener;
 use App\Listeners\UpdateScoresummaryCutoffListener;
 use Illuminate\Auth\Events\Registered;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdateScoresummaryCutoffEvent::class => [
             UpdateScoresummaryCutoffListener::class,
+        ],
+        SendLiveMassmailingEvent::class =>[
+            SendLiveMassmailingListener::class,
         ],
         SendTestMassmailingEvent::class =>[
             SendTestMassmailingListener::class,

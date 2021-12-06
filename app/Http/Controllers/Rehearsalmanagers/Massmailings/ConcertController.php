@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rehearsalmanagers\Massmailings;
 
+use App\Events\SendLiveMassmailingEvent;
 use App\Events\SendTestMassmailingEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Audiencetype;
@@ -9,6 +10,7 @@ use App\Models\Eventversion;
 use App\Models\Massmailing;
 use App\Models\Massmailingtype;
 use App\Models\Massmailingvar;
+use App\Models\Person;
 use Illuminate\Http\Request;
 
 class ConcertController extends Controller
@@ -59,11 +61,39 @@ class ConcertController extends Controller
      * Send the concert email to included list of users
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Eventversion
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) //synonym for send-email
+    public function store(Request $request, Eventversion $eventversion) //synonym for send-email
     {
-        //
+        //early exit for test email
+        if(isset($request['test'])){ return $this->show($eventversion);}
+
+        //early exit for missing recipient list
+        if(! isset($request['checkboxes'])){
+
+            $message = 'No recipients selected. Email NOT sent.';
+
+            return $this->index($eventversion, $message);
+        }
+
+        $massmailing = Massmailing::where('eventversion_id', $eventversion->id)
+            ->where('massmailingtype_id', Massmailingtype::CONCERT)
+            ->first();
+
+        $recipients = Person::find($request['checkboxes']);
+
+        $senttos = [];
+        foreach($recipients AS $recipient){
+
+            $senttos[] = $recipient->fullName();
+        }
+
+        $message = 'Concert email sent to: '.implode(', ', $senttos).'.';
+
+        event(new SendLiveMassmailingEvent($massmailing, $recipients));
+
+        return $this->index($eventversion, $message);
     }
 
     /**

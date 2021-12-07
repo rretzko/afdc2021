@@ -50,7 +50,7 @@
                                         <div style="margin-bottom: .5rem;">
                                             @if(strlen($massmailing->findVar('sender_email')))
                                                 <input type="submit";
-                                                     style="border-radius: .5rem; background-color: blanchedalmond; "
+                                                     style="border-radius: .5rem; background-color: blanchedalmond; font-size: .9rem;"
                                                      name="test"
                                                      id="test"
                                                      value="Send Test Email to: {{ $massmailing->findVar('sender_email') }}"

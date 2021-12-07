@@ -78,8 +78,11 @@
                                         <th colspan="3" style="border-top: 0; border-left: 0;"></th>
                                         @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
 
-                                            @foreach($eventversion->filecontenttypes->where('eventversion_id', $eventversion->id) AS $filecontenttype)
-                                                <th colspan="">{{ucwords($filecontenttype->descr)}}</th>
+                                            @foreach($eventversion->filecontenttypes AS $filecontenttype)
+
+                                                <th colspan="{{ $filecontenttype->scoringcomponents->where('eventversion_id',$eventversion->id)->count() }}">
+                                                    {{ucwords($filecontenttype->descr)}}
+                                                </th>
                                             @endforeach
                                         @endfor
                                         <th colspan="3" style="border-top:0; border-right: 0;"></th>

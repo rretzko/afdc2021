@@ -99,6 +99,7 @@ class Score extends Model
                                 ->where('eventversion_id', $eventversion->id)
                                 ->where('user_id', $adjudicators[$i]->user_id)
                                 ->value('score');
+
                         }else{
 
                             $scores[] = 0;
@@ -153,7 +154,7 @@ class Score extends Model
            }
        }
 
-       dd($rooms->sortBy('order_by'));
+       //dd($rooms->sortBy('order_by'));
     }
 
 }

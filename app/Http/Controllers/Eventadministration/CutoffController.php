@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Eventadministration;
 
+use App\Events\UpdateScoresummaryAlternatingCutoffEvent;
 use App\Events\UpdateScoresummaryCutoffEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Eventensemble;
 use App\Models\Eventensemblecutoff;
 use App\Models\Eventensemblecutofflock;
 use App\Models\Eventversion;
+use App\Models\Scoresummary;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CutoffController extends Controller
 {
@@ -90,7 +94,9 @@ class CutoffController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $score
+     * @param  int  $eventversion_id
+     * @param  int  $instrumentation_id,
+     * @param  int  $cutoff
      * @return \Illuminate\Http\Response
      */
     public function update($eventversion_id, $instrumentation_id, $cutoff)
@@ -98,37 +104,15 @@ class CutoffController extends Controller
         $eventversion = Eventversion::find($eventversion_id);
         $eventensembles = $eventversion->event->eventensembles;
 
-        foreach($eventensembles AS $eventensemble){
+        //default eventensemble acceptance algorithm is serial acceptance of scores above/below $cutoff based on $eventversion->eventversionconfig->bestscore
+        //alternate algorithm is based on alternating scores triggered by $eventversion->eventversionconfig->alternating_scores property
+        if($eventversion->eventversionconfig->alternating_scores){
 
-            $eventensemblecutofflock = Eventensemblecutofflock::where('eventversion_id', $eventversion_id)
-                ->where('eventensemble_id', $eventensemble->id)
-                ->first() ?? new Eventensemblecutofflock;
+            return $this->updateAlternatingScores($eventversion, $eventensembles, $instrumentation_id, $cutoff);
+        }else{
 
-            if(! $eventensemblecutofflock->locked()){
-
-                //create or update the cutoff data
-                $eventensemblecutoff = new \App\Models\Eventensemblecutoff;
-
-                $eventensemblecutoff::updateOrCreate(
-                    [
-                        'eventversion_id' => $eventversion_id,
-                        'eventensemble_id' => $eventensemble->id,
-                        'instrumentation_id' => $instrumentation_id,
-                    ],
-                    [
-                        'cutoff' => $cutoff,
-                        'user_id' => auth()->id(),
-                    ],
-                );
-
-                event(new UpdateScoresummaryCutoffEvent($eventversion_id, $eventensemble->id, $instrumentation_id, $cutoff));
-
-                break;
-            }
+            return $this->updateSerialScores($eventversion, $eventensembles, $instrumentation_id, $cutoff);
         }
-
-        return $this->index($eventversion);
-
     }
 
     /**
@@ -140,5 +124,70 @@ class CutoffController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * alternate eventensemble acceptance
+     *
+     * @param Eventversion $eventversion
+     * @param Collection $eventensembles
+     * @param int $instrumentation_id
+     * @param int $cutoff
+     */
+    private function updateAlternatingScores(Eventversion $eventversion, Collection $eventensembles, int $instrumentation_id, int $cutoff)
+    {
+        //update eventensemblecutoffs table
+        $this->updateEventensemblecutoffsTable($eventversion, $eventensembles, $instrumentation_id, $cutoff);
+
+        event(new UpdateScoresummaryAlternatingCutoffEvent($eventversion, $eventensembles, $instrumentation_id));
+
+        return $this->index($eventversion);
+    }
+
+    private function updateEventensemblecutoffsTable(Eventversion $eventversion, Collection $eventensembles, int $instrumentation_id, int $cutoff)
+    {
+        foreach($eventensembles AS $eventensemble){
+
+            $lock = Eventensemblecutofflock::where('eventensemble_id', $eventensemble->id)
+                ->where('eventversion_id', $eventversion->id)
+                ->first() ?? new Eventensemblecutofflock;
+
+            if((! $lock->id) || (! $lock->locked)) {
+
+                Eventensemblecutoff::updateOrCreate(
+                    [
+                        'eventversion_id' => $eventversion->id,
+                        'eventensemble_id' => $eventensemble->id,
+                        'instrumentation_id' => $instrumentation_id,
+                    ],
+                    [
+                        'cutoff' => $cutoff,
+                        'user_id' => auth()->id(),
+                    ],
+                );
+            }
+        }
+    }
+
+    /**
+     * default eventensemble acceptance
+     *
+     * @param Eventversion $eventversion
+     * @param Collection $eventensembles
+     * @param int $instrumentation_id
+     * @param int $cutoff
+     * @return \Illuminate\Http\Response
+     */
+    private function updateSerialScores(Eventversion $eventversion, Collection $eventensembles, int $instrumentation_id, int $cutoff)
+    {
+        $this->updateEventensemblecutoffsTable($eventversion, $eventensembles, $instrumentation_id, $cutoff);
+
+        foreach($eventensembles AS $eventensemble){
+
+            event(new UpdateScoresummaryCutoffEvent($eventversion->id, $eventensemble->id, $instrumentation_id, $cutoff));
+
+        }
+
+        return $this->index($eventversion);
     }
 }

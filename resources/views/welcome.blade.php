@@ -143,13 +143,14 @@
                 If you build your auditioned events using spreadsheets, docs, or any other system
                 which is paper-and-time-intensive, we invite you to take a look!
             </div>
-
+<!-- {{--
             <div class="demo ">
                 <button href="{{ route('demo') }}" title="Click for our demo pages">
                     Click here for our no-obligation demo!
                 </button>
             </div>
         </div>
+--}} -->
         <!--
                         <div class="links">
                             <a href="https://laravel.com/docs">Docs</a>

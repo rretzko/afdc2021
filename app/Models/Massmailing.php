@@ -47,8 +47,8 @@ class Massmailing extends Model
         $parts = explode('|*',$paragraph);
 
         //get variables
-        $vars = $this->vars->get();
-
+  //      $vars = $this->vars->get();
+dd($this->findVar('google_link'));
         foreach($parts AS $key => $part){
 
             //search if replacements are necessary
@@ -67,7 +67,7 @@ class Massmailing extends Model
 
                 //replace target with correct value
                 $parts[$key] = str_replace($target, $replacement, $part);
-if(strpos($part,'oogle')){dd($parts[$key]);}
+//if(strpos($part,'oogle')){dd($parts[$key]);}
             }else{
 
                 $parts[$key] = $part;

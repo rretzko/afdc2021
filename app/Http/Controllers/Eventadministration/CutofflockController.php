@@ -53,11 +53,11 @@ class CutofflockController extends Controller
         $currentlock = ($current->id) ? $current->locked : 0;
 
         foreach($eventensembles AS $eventensemble){
-//dd($eventversion->id.': '.$eventensemble->id.': '.($currentlock));
+
             Eventensemblecutofflock::updateOrCreate(
                 [
-                    'eventversion_id', $eventversion->id,
-                    'eventensemble_id', $eventensemble->id,
+                    'eventversion_id' => $eventversion->id,
+                    'eventensemble_id' => $eventensemble->id,
                 ],
                 [
                     'locked' => ($currentlock) ? 0 : 1,
@@ -65,7 +65,7 @@ class CutofflockController extends Controller
                 ]
             );
         }
-//dd(__LINE__);
+
         return redirect(route('eventadministrator.tabroom.cutoffs',[
             'eventversion' => $eventversion,
         ]));

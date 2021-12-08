@@ -48,7 +48,7 @@ class Massmailing extends Model
 
         //get variables
   //      $vars = $this->vars->get();
-dd($this->findVar('google_link'));
+
         foreach($parts AS $key => $part){
 
             //search if replacements are necessary
@@ -73,7 +73,7 @@ dd($this->findVar('google_link'));
                 $parts[$key] = $part;
             }
         }
-
+dd(implode($parts));
         return implode(' ',$parts);
     }
 }

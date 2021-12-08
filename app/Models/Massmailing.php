@@ -64,7 +64,7 @@ class Massmailing extends Model
 
                 //find replacement
                 $replacement = $this->findVar($descr);
-
+//if($descr === 'google_link'){dd($replacement);}
                 //replace target with correct value
                 $parts[$key] = str_replace($target, $replacement, $part);
 //if(strpos($part,'oogle')){dd($parts[$key]);}
@@ -73,7 +73,7 @@ class Massmailing extends Model
                 $parts[$key] = $part;
             }
         }
-dd(implode($parts));
+//dd(implode($parts));
         return implode(' ',$parts);
     }
 }

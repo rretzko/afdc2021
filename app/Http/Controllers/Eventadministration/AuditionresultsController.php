@@ -133,7 +133,7 @@ class AuditionresultsController extends Controller
             $a[] = ['grandtotal' => $item->grandtotal(), 'registrant' => $item];
         }
 
-        ($eventversion->eventversionconfig->best_score === 'asc')
+        ($eventversion->eventversionconfig->bestscore === 'asc')
             ? asort($a,)
             : arsort($a);
 

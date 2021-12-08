@@ -37,7 +37,7 @@
                         </div>
                     </section>
 
-                    <section id="summary_counts">
+                    <section id="summary_counts" style="margin-bottom: 1rem;">
                         <table style="margin: auto; ">
                             <tr>
                                 <th>
@@ -65,6 +65,7 @@
                                 </style>
                                 <table>
                                 <thead>
+                                {{-- HEADER JUDGES --}}
                                     <tr>
                                         <th colspan="3" style="border-top: 0; border-bottom: 0; border-left: 0;"></th>
                                         @for($i = 1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
@@ -74,6 +75,7 @@
                                         @endfor
                                         <th colspan="3" style="border:0; border-left: 1px solid black;"></th>
                                     </tr>
+                                    {{-- HEADER FILE CONTENT TYPES --}}
                                     <tr>
                                         <th colspan="3" style="border-top: 0; border-left: 0;"></th>
                                         @for($i=1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
@@ -87,6 +89,7 @@
                                         @endfor
                                         <th colspan="3" style="border-top:0; border-right: 0;"></th>
                                     </tr>
+                                    {{-- HEADER SCORING COMPONENTS --}}
                                     <tr>
                                         <th style="text-align: center;">###</th>
                                         <th>Reg.Id</th>
@@ -98,14 +101,17 @@
                                         @endfor
                                         <th>Total</th>
 
-                                        <th>Mix</th>
+                                        <th>Result</th>
+                                        <!-- {{--
                                         @if($eventversion->event->eventensembles->count() === 2)
                                             <th>Tbl</th>
                                         @endif
+                                        --}} -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($registrants AS $registrant)
+                                    {{-- SCORING DETAILS --}}
                                     <tr>
                                         <td style="text-align: center;">{{ $loop->iteration }}</td>
                                         <td style="text-align: center;">

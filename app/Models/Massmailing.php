@@ -67,7 +67,7 @@ class Massmailing extends Model
 
                 //replace target with correct value
                 $parts[$key] = str_replace($target, $replacement, $part);
-
+if(strpos($part,'oogle')){dd($parts[$key]);}
             }else{
 
                 $parts[$key] = $part;

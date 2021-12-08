@@ -42,11 +42,19 @@
                                         <th>{{ $eventensemble->name }}</th>
                                         @foreach($eventversion->instrumentations() AS $instrumentation)
                                             <td>
-                                                {{ $eventensemblecutoff->countByCutoffEventensembleInstrumentation($eventensemble, $instrumentation) }}
+                                                @if($eventversion->id < 70)
+                                                    {{ $eventensemblecutoff->countByCutoffEventensembleInstrumentation($eventensemble, $instrumentation) }}
+                                                @else
+                                                    {{ $eventensemble->countParticipantsByInstrumentationResultsAbbr($eventversion, $instrumentation) }}
+                                                @endif
                                             </td>
                                         @endforeach
                                         <td style="text-align: center;">
-                                            {{ $eventensemblecutoff->countAccepted($eventensemble) }}
+                                            @if($eventversion->id < 70)
+                                                {{ $eventensemblecutoff->countAccepted($eventensemble) }}
+                                            @else
+                                                {{ $eventensemble->countParticipantsByResultsAbbr($eventversion) }}
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{ route('eventadministrator.lock',

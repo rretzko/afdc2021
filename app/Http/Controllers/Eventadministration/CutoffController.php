@@ -109,6 +109,7 @@ class CutoffController extends Controller
         if($eventversion->eventversionconfig->alternating_scores){
 
             return $this->updateAlternatingScores($eventversion, $eventensembles, $instrumentation_id, $cutoff);
+
         }else{
 
             return $this->updateSerialScores($eventversion, $eventensembles, $instrumentation_id, $cutoff);
@@ -148,23 +149,26 @@ class CutoffController extends Controller
     {
         foreach($eventensembles AS $eventensemble){
 
-            $lock = Eventensemblecutofflock::where('eventensemble_id', $eventensemble->id)
-                ->where('eventversion_id', $eventversion->id)
-                ->first() ?? new Eventensemblecutofflock;
+            if(($eventensemble->instrumentations()->contains($instrumentation_id))) {
 
-            if((! $lock->id) || (! $lock->locked)) {
+                $lock = Eventensemblecutofflock::where('eventensemble_id', $eventensemble->id)
+                    ->where('eventversion_id', $eventversion->id)
+                    ->first() ?? new Eventensemblecutofflock;
 
-                Eventensemblecutoff::updateOrCreate(
-                    [
-                        'eventversion_id' => $eventversion->id,
-                        'eventensemble_id' => $eventensemble->id,
-                        'instrumentation_id' => $instrumentation_id,
-                    ],
-                    [
-                        'cutoff' => $cutoff,
-                        'user_id' => auth()->id(),
-                    ],
-                );
+                if ((!$lock->id) || (!$lock->locked)) {
+
+                    Eventensemblecutoff::updateOrCreate(
+                        [
+                            'eventversion_id' => $eventversion->id,
+                            'eventensemble_id' => $eventensemble->id,
+                            'instrumentation_id' => $instrumentation_id,
+                        ],
+                        [
+                            'cutoff' => $cutoff,
+                            'user_id' => auth()->id(),
+                        ],
+                    );
+                }
             }
         }
     }

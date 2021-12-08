@@ -30,7 +30,7 @@ class UpdateScoresummaryAlternatingCutoffListener
     public function handle(UpdateScoresummaryAlternatingCutoffEvent $event)
     {
         $a = [];
-        //find cutoff for all ensembles (i.e. should be the same cut-off number
+        //find cutoff for first ensembles (i.e. should be the same cut-off number
         $cutoff = Eventensemblecutoff::where('eventversion_id', $event->eventversion->id)
             ->where('eventensemble_id', $event->eventensembles->first()->id)
             ->where('instrumentation_id', $event->instrumentation_id)
@@ -48,15 +48,25 @@ class UpdateScoresummaryAlternatingCutoffListener
 
         $countscoringcomponents = ($event->eventversion->scoringcomponents()->count() * $event->eventversion->eventversionconfig->judge_count);
 
-        //separate scores per eventensemble for $instrumentation_id by alternating rows
-        foreach($event->eventensembles AS $key => $eventensemble){//identify eventensemble by $key
+        //if instrumentation_id is contained in both ensembles
+        if($event->eventensembles[1]->instrumentations()->contains($event->instrumentation_id)) {
 
-            foreach($uniquescores AS $loop => $score){//loop through scoresummaries
+            //separate scores per eventensemble for $instrumentation_id by alternating rows
+            foreach ($event->eventensembles as $key => $eventensemble) {//identify eventensemble by $key
 
-                if(($loop % 2) === $key){//link scoresummary to [0] or [1] eventensemble
+                foreach ($uniquescores as $loop => $score) {//loop through scoresummaries
 
-                    $a[$key][] = $score;
+                    if (($loop % 2) === $key) {//link scoresummary to [0] or [1] eventensemble
+
+                        $a[$key][] = $score;
+                    }
                 }
+            }
+        }else{ //only the first ensemble has $instrumentation_id
+
+            foreach($uniquescores AS $score){
+
+                $a[0][] = $score;
             }
         }
 
@@ -68,31 +78,34 @@ class UpdateScoresummaryAlternatingCutoffListener
 
             foreach($event->eventensembles AS $key => $eventensemble) {
 
-                if (!$scorecount) {
+                if($eventensemble->instrumentations()->contains($event->instrumentation_id)) {
 
-                    $result = 'pend';//ing
+                    if (!$scorecount) {
 
-                } elseif ($scorecount < $countscoringcomponents) {
+                        $result = 'pend';//ing
 
-                    $result = 'inc';//omplete
+                    } elseif ($scorecount < $countscoringcomponents) {
 
-                } elseif ($scorecount > $countscoringcomponents) {
+                        $result = 'inc';//omplete
 
-                    $result = 'err';//or
+                    } elseif ($scorecount > $countscoringcomponents) {
 
-                } elseif ($event->eventversion->eventversionconfig->bestscore === 'asc' ? $scoresummary->score_total > $cutoff : $scoresummary->score_total < $cutoff){
+                        $result = 'err';//or
 
-                    $result = 'n/a';
+                    } elseif ($event->eventversion->eventversionconfig->bestscore === 'asc' ? $scoresummary->score_total > $cutoff : $scoresummary->score_total < $cutoff) {
 
-                } elseif (in_array($scoresummary->score_total, $a[$key])) {
+                        $result = 'n/a';
 
-                    $result = $eventensemble->acceptance_abbr;
-                }
+                    } elseif (in_array($scoresummary->score_total, $a[$key])) {
 
-                if ($result){
-                    $scoresummary->update([
-                        'result' => $result, $eventensemble->acceptance_abbr,
-                    ]);
+                        $result = $eventensemble->acceptance_abbr;
+                    }
+
+                    if ($result) {
+                        $scoresummary->update([
+                            'result' => $result, $eventensemble->acceptance_abbr,
+                        ]);
+                    }
                 }
             }
         }

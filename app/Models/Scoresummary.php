@@ -66,4 +66,30 @@ class Scoresummary extends Model
 
         return $scores;
     }
+
+    /**
+     *
+     * @param Eventversion $eventversion
+     * @param Instrumentation $instrumentation
+     * @return array of unique scores ascending sort
+     */
+    public function uniqueScoresByEventversionInstrumentation(Eventversion $eventversion, Instrumentation $instrumentation)
+    {
+        $a = [];
+        $scoresummaries = $this->where('eventversion_id', $eventversion->id)
+            ->where('instrumentation_id', $instrumentation->id)
+            ->get();
+
+        foreach($scoresummaries AS $scoresummary){
+
+            if(! in_array($scoresummary->score_total, $a)){
+
+                $a[] = $scoresummary->score_total;
+            }
+        }
+
+        sort($a);
+
+        return $a;
+    }
 }

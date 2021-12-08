@@ -51,6 +51,21 @@ class Eventensemble extends Model
         return $scoresummary->result;
     }
 
+    public function countParticipantsByInstrumentationResultsAbbr(Eventversion $eventversion, Instrumentation $instrumentation)
+    {
+        return Scoresummary::where('eventversion_id', $eventversion->id)
+            ->where('instrumentation_id', $instrumentation->id)
+            ->where('result', $this->acceptance_abbr)
+            ->count();
+    }
+
+    public function countParticipantsByResultsAbbr(Eventversion $eventversion)
+    {
+        return Scoresummary::where('eventversion_id', $eventversion->id)
+            ->where('result', $this->acceptance_abbr)
+            ->count();
+    }
+
     public function event()
     {
         return $this->belongsTo(Event::class);

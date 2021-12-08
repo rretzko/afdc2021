@@ -28,6 +28,11 @@ class Eventensemblecutoff extends Model
 
     public function backgroundColorByScoreInstrumentation(\App\Models\Scoresummary $scoresummary, Instrumentation $instrumentation)
     {
+        if($this->eventversion->eventversionconfig->alternating_scores){
+
+            return $this->backgroundColorByScoreInstrumentationAlternating($scoresummary, $instrumentation);
+        }
+
         $eventensembles = $this->eventversion->event->eventensembles;
 
         //cycle through the event comparing $score with cutoff to determine background color
@@ -116,10 +121,49 @@ class Eventensemblecutoff extends Model
 
     public function roster()
     {
-        dd(Registrant::find($this->completedAdjudications($this->eventversion)[0][0]->registrant_id)->student->person->fullnameAlpha());
+        //dd(Registrant::find($this->completedAdjudications($this->eventversion)[0][0]->registrant_id)->student->person->fullnameAlpha());
     }
 
 /** END OF PUBLIC FUNCTIONS **************************************************/
+
+    private function backgroundColorByScoreInstrumentationAlternating(\App\Models\Scoresummary $scoresummary, Instrumentation $instrumentation)
+    {
+        $eventensembles = $this->eventversion->event->eventensembles;
+
+        $cutoff = $this::where('eventversion_id', $this->eventversion->id)
+                ->where('eventensemble_id', $eventensembles->first()->id)
+                ->where('instrumentation_id', $instrumentation->id)
+                ->value('cutoff') ?? 0;
+
+        //early exits
+        if(! $cutoff) {return '';}
+        if(
+            (($this->eventversion->eventversionconfig->bestscore === 'asc') && ($scoresummary->score_total > $cutoff)) ||
+            (($this->eventversion->eventversionconfig->bestscore === 'desc') && ($scoresummary->score_total < $cutoff))
+        ) {
+            return '';
+        }
+        //if alternate ensemble contains $instrumentation_id, determine alternating color,
+        //else use primary color
+
+        if(! $eventensembles[1]->instrumentations()->contains($instrumentation)){
+            return $this->colors[0];
+        }
+
+        //low-to-high golf scores
+        $uniquescores = $scoresummary->uniqueScoresByEventversionInstrumentation($this->eventversion, $instrumentation);
+
+        //high-to-low bowling scores
+        if($this->eventversion->eventversionconfig->bestscore === 'desc'){ rsort($uniquescores);}
+
+        $uniquescoresswap = array_flip($uniquescores);
+
+        //get the key of the cut-off score
+        $keyorder = $uniquescoresswap[$scoresummary->score_total];
+
+        return $this->colors[( $keyorder % 2)];
+    }
+
     private function startFrom(\App\Models\Eventensemble $eventensemble, Instrumentation $instrumentation)
     {
         $startfrom = 0;

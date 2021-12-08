@@ -85,9 +85,16 @@ class Eventensemble extends Model
         $organization_id = $this->event->organization->id;
 
         //#1 Identify Registrants
-        $ss = Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result','acc')
-            ->pluck('registrant_id');
+        //backward compatibility
+        if($eventversion->id < 70) {
+            $ss = Scoresummary::where('eventversion_id', $eventversion->id)
+                ->where('result', 'acc')
+                ->pluck('registrant_id');
+        }else{
+            $ss = Scoresummary::where('eventversion_id', $eventversion->id)
+                ->where('result', $this->acceptance_abbr)
+                ->pluck('registrant_id');
+        }
 
         $registrants = Registrant::find($ss);
 

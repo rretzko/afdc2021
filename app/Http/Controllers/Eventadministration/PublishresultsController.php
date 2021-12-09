@@ -21,7 +21,7 @@ class PublishresultsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $currentdt = $eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first()->dt;
+        $currentdt = ($eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first->dt ?? false);
 
         return view('eventadministration.publishresults.index',
             [

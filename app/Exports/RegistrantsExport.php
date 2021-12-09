@@ -58,7 +58,7 @@ class RegistrantsExport implements FromCollection, WithHeadings, WithMapping
     }
 
     public function map($registrant): array
-    {if($registrant->user_id === 1470){dd($registrant->student->currentTeacher);}
+    {
         return [
             $registrant->id,
             $registrant->student->person->last,
@@ -70,7 +70,7 @@ class RegistrantsExport implements FromCollection, WithHeadings, WithMapping
             $registrant->student->emailPersonal->id ? $registrant->student->emailPersonal->email : '',
             $registrant->student->phoneMobile->id ? $registrant->student->phoneMobile->phone : '',
             $registrant->student->phoneHome->id ? $registrant->student->phoneHome->phone : '',
-            $registrant->student->currentSchool->name,
+            $registrant->schoolname,
             $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->fullName() : '*** missing ***',
             $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->subscriberemailwork : '*** missing ***',
             $registrant->student->currentTeacher ? $registrant->student->currentTeacher->person->subscriberemailpersonal : '*** missing ***',

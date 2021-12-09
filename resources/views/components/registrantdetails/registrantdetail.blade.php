@@ -36,7 +36,7 @@
 
                 <tr style="font-weight: bold;">
                     <td>{{ $loop->iteration }}</td>
-                    <td style="text-align: left;">{{ $registrant->student->currentSchool->name }}</td>
+                    <td style="text-align: left;">{{ $registrant->schoolname }}</td>
                     <td style="text-align: left;">{{ $registrant->student->person->fullnameAlpha() }}</td>
                     <td>{{ $registrant->id }}</td>
                     <td style="text-align: left;">

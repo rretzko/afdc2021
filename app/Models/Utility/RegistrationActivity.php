@@ -170,10 +170,12 @@ class RegistrationActivity extends Model
         foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
 
             $a[] = [
-                'schoolname' => $registrant->student->currentSchool->name,
+                //'schoolname' => $registrant->student->currentSchool->name,
+                'schoolname' => $registrant->schoolname,
                 'fullname' => $registrant->student->person->fullnameAlpha(),
                 'registrant' => $registrant,
             ];
+
         }
 
         sort($a);
@@ -189,7 +191,7 @@ class RegistrationActivity extends Model
 
             $a[] = [
                 'armytime' => $registrant->armytime,
-                'schoolname' => $registrant->student->currentSchool->name,
+                'schoolname' => $registrant->schoolname,
                 'fullname' => $registrant->student->person->fullnameAlpha(),
                 'registrant' => $registrant,
             ];

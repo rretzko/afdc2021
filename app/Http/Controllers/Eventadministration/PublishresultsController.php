@@ -21,7 +21,17 @@ class PublishresultsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $currentdt = ($eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first->dt ?? false);
+        //create a row if none exists
+        if(! $eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first()){
+            Eventversiondate::create([
+                'eventversion_id' => $eventversion->id,
+                'datetype_id' => Datetype::RESULTS_RELEASE,
+            ]);
+            $currentdt = NULL;
+        }else{
+
+            $currentdt = $eventversion->eventversiondates->where('datetype_id', Datetype::RESULTS_RELEASE)->first()->dt;
+        }
 
         return view('eventadministration.publishresults.index',
             [

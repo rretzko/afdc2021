@@ -9,5 +9,5 @@ class Eventversiondate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dt'];
+    protected $fillable = ['datetype_id', 'dt','eventversion_id'];
 }

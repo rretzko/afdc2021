@@ -41,7 +41,7 @@
                                             Download csv
                                         </a>
                                     @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/participatingstudents/csv/{{ $eventversion->id }}/{{ $eventensemble->id }}"
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/participatingstudents/csv/{{ $eventversion->id }}/{{ $ensemble->id }}"
                                         >
                                             Download csv
                                         </a>

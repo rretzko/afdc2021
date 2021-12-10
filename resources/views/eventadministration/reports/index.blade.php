@@ -24,20 +24,33 @@
                                 Reports
                             </h4>
                             <ul>
-                                @foreach($eventversion->instrumentations() AS $instrumentation)
-                                    <li>
-                                        <a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
-                                            [
-                                                'eventversion' => $eventversion,
-                                                'instrumentation' => $instrumentation,
-                                            ]) }}"
-                                        >
-                                        {{ $instrumentation->formattedDescr() }} Audition Results pdf
-                                        </a>
-                                    </li>
-                                @endforeach
+                                @if(config('app.url') === 'http://afdc2021.test')
+                                    @foreach($eventversion->instrumentations() AS $instrumentation)
+                                        <li>
+                                            <a href="{{ route('eventadministrator.tabroom.reports.auditionresults',
+                                                [
+                                                    'eventversion' => $eventversion,
+                                                    'instrumentation' => $instrumentation,
+                                                ]) }}"
+                                            >
+                                            {{ $instrumentation->formattedDescr() }} Audition Results pdf
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    @foreach($eventversion->instrumentations() AS $instrumentation)
+                                        <li>
+                                            <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/{{ $eventversion->id }}/auditionresults/{{ $instrumentation->id }}"
+                                            >
+                                                {{ $instrumentation->formattedDescr() }} Audition Results pdf
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endif
+
 
                                 @if(auth()->id() === 368)
+                                    @if(config('app.url') === 'http://afdc2021.test')
                                         <li>
                                             <a href="{{ route('eventadministrator.tabroom.reports.auditionresults.all',
                                             [
@@ -47,10 +60,19 @@
                                                 Print ALL Audition Results pdf (Domain Owner)
                                             </a>
                                         </li>
+                                    @else
+                                            <li>
+                                                <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroomreports/{{ $eventversion->id }}/auditionresults"
+                                                >
+                                                    Print ALL Audition Results pdf (Domain Owner)
+                                                </a>
+                                            </li>
+                                    @endif
                                 @endif
 
 
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatingdirectors',
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.reports.participatingdirectors',
                                         [
                                             'eventversion' => $eventversion,
                                         ]) }}"
@@ -59,7 +81,8 @@
                                     </a>
                                 </li>
 
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents',
+                                <li>
+                                    <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents',
                                     [
                                         'eventversion' => $eventversion,
                                     ]) }}"
@@ -67,12 +90,7 @@
                                         Participating Students
                                     </a>
                                 </li>
-                                <!-- {{--
-                                <li><a href="{{ route('eventadministrator.tabroom.reports.participatingstudents') }}">
-                                        Participating Students
-                                    </a>
-                                </li>
-                                --}} -->
+
                             </ul>
                         </div>
 

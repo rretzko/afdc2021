@@ -127,6 +127,15 @@ class CutoffController extends Controller
         //
     }
 
+    private function locked(Eventensemble $eventensemble, Eventversion $eventversion) : bool
+    {
+        $lock = Eventensemblecutofflock::where('eventensemble_id', $eventensemble->id)
+                ->where('eventversion_id', $eventversion->id)
+                ->first() ?? new Eventensemblecutofflock;
+
+        return ( $lock->id && $lock->locked);
+    }
+
     /**
      * alternate eventensemble acceptance
      *
@@ -140,7 +149,10 @@ class CutoffController extends Controller
         //update eventensemblecutoffs table
         $this->updateEventensemblecutoffsTable($eventversion, $eventensembles, $instrumentation_id, $cutoff);
 
-        event(new UpdateScoresummaryAlternatingCutoffEvent($eventversion, $eventensembles, $instrumentation_id));
+        if(! $this->locked($eventensembles[0], $eventversion)) {
+
+            event(new UpdateScoresummaryAlternatingCutoffEvent($eventversion, $eventensembles, $instrumentation_id));
+        }
 
         return $this->index($eventversion);
     }
@@ -151,11 +163,7 @@ class CutoffController extends Controller
 
             if(($eventensemble->instrumentations()->contains($instrumentation_id))) {
 
-                $lock = Eventensemblecutofflock::where('eventensemble_id', $eventensemble->id)
-                    ->where('eventversion_id', $eventversion->id)
-                    ->first() ?? new Eventensemblecutofflock;
-
-                if ((!$lock->id) || (!$lock->locked)) {
+                if(! $this->locked($eventensemble, $eventversion)) {
 
                     Eventensemblecutoff::updateOrCreate(
                         [

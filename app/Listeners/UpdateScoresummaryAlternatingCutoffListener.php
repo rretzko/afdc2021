@@ -31,11 +31,12 @@ class UpdateScoresummaryAlternatingCutoffListener
     {
         $a = [];
         //find cutoff for first ensembles (i.e. should be the same cut-off number
-        $cutoff = Eventensemblecutoff::where('eventversion_id', $event->eventversion->id)
+        $eventensemblecutoff = Eventensemblecutoff::where('eventversion_id', $event->eventversion->id)
             ->where('eventensemble_id', $event->eventensembles->first()->id)
             ->where('instrumentation_id', $event->instrumentation_id)
-            ->first()
-            ->cutoff;
+            ->first();
+
+        $cutoff = ($eventensemblecutoff) ? $eventensemblecutoff->cutoff : 0;
 
         //collect all scoresummaries for $instrumentation_id
         $scoresummaries = Scoresummary::where('eventversion_id', $event->eventversion->id)

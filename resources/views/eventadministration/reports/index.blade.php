@@ -91,7 +91,7 @@
                                             Participating Students
                                         </a>
                                     @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports{{ $eventversion->id }}/participatingstudents"
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/{{ $eventversion->id }}/participatingstudents"
                                         >
                                             Participating Students
                                         </a>

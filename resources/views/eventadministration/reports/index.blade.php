@@ -82,13 +82,20 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents',
-                                    [
-                                        'eventversion' => $eventversion,
-                                    ]) }}"
-                                    >
-                                        Participating Students
-                                    </a>
+                                    @if(config('app.url') === 'http://afdc2021.test')
+                                        <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents',
+                                        [
+                                            'eventversion' => $eventversion,
+                                        ]) }}"
+                                        >
+                                            Participating Students
+                                        </a>
+                                    @else
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports{{ $eventversion->id }}/participatingstudents"
+                                        >
+                                            Participating Students
+                                        </a>
+                                    @endif
                                 </li>
 
                             </ul>

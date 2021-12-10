@@ -30,15 +30,22 @@
                             @foreach($eventversion->eventensembles->get() AS $ensemble)
                                 <h3>{{ $ensemble->name }}</h3>
 
-                                <a>
-                                    <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents.csv',
-                                        [
-                                            'eventversion' => $eventversion,
-                                            'eventensemble' => $ensemble
-                                        ]) }}"
-                                    >
-                                        Download csv
-                                    </a>
+                                <div>
+                                    @if(config('app.url') === 'http://afdc2021.test')
+                                        <a href="{{ route('eventadministrator.tabroom.reports.participatingstudents.csv',
+                                            [
+                                                'eventversion' => $eventversion,
+                                                'eventensemble' => $ensemble
+                                            ]) }}"
+                                        >
+                                            Download csv
+                                        </a>
+                                    @else
+                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/participatingstudents/csv/{{ $eventversion->id }}/{{ $eventensemble->id }}"
+                                        >
+                                            Download csv
+                                        </a>
+                                    @endif
                                 </div>
 
                                 <table>

@@ -45,7 +45,7 @@
                                                 @if($eventversion->id < 70)
                                                     {{ $eventensemblecutoff->countByCutoffEventensembleInstrumentation($eventensemble, $instrumentation) }}
                                                 @else
-                                                    {{ $eventensemble->countParticipantsByInstrumentationResultsAbbr($eventversion, $instrumentation) }}
+                                                    {{ $eventensemble->countParticipantsByInstrumentationAcceptanceAbbr($eventversion, $instrumentation) }}
                                                 @endif
                                             </td>
                                         @endforeach
@@ -53,7 +53,7 @@
                                             @if($eventversion->id < 70)
                                                 {{ $eventensemblecutoff->countAccepted($eventensemble) }}
                                             @else
-                                                {{ $eventensemble->countParticipantsByResultsAbbr($eventversion) }}
+                                                {{ $eventensemble->countParticipantsByAcceptanceAbbr($eventversion) }}
                                             @endif
                                         </td>
                                         <td>

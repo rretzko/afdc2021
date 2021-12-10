@@ -62,7 +62,7 @@
                                         </li>
                                     @else
                                             <li>
-                                                <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroomreports/{{ $eventversion->id }}/auditionresults"
+                                                <a href="https://afdc-2021-l38q8.ondigitalocean.app/eventadministrator/tabroom/reports/{{ $eventversion->id }}/auditionresults"
                                                 >
                                                     Print ALL Audition Results pdf (Domain Owner)
                                                 </a>

@@ -56,6 +56,7 @@
                                         <th>Voice Part</th>
                                         <th>Height</th>
                                         <th>FootInches</th>
+                                        <th>T-Shirt</th>
                                         <th>Score</th>
                                         <th>School</th>
                                         <th>Teacher</th>
@@ -81,6 +82,9 @@
                                             </td>
                                             <td>
                                                 {{ $registrant->student->heightFootInch }}
+                                            </td>
+                                            <td>
+                                                {{ $registrant->student->shirtsizeDescr }}
                                             </td>
                                             <td>
                                                 {{ $registrant->grandtotal() }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eventversionrole;
+use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
 class EventadministrationController extends Controller
@@ -15,6 +16,8 @@ class EventadministrationController extends Controller
      */
     public function index(\App\Models\Event $event)
     {
+        Userconfig::updateValue('event', auth()->id(), $event->id);
+
         $eventversionroles = Eventversionrole::where('user_id', auth()->id())
             ->get();
 

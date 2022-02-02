@@ -16,6 +16,8 @@ class EventversionController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+        Userconfig::updateValue('eventversion', auth()->id(), $eventversion->id);
+
         return view('eventadministration.eventversions.eventversion.index',
             [
                 'eventversion' => $eventversion,

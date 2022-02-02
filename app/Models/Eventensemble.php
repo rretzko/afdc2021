@@ -82,15 +82,24 @@ class Eventensemble extends Model
      */
     public function participatingRegistrants(Eventversion $eventversion)
     {
-        $organization_id = $this->event->organization->id;
+        $sjcdaelementary = [68];
 
         //#1 Identify Registrants
-        //backward compatibility
-        if($eventversion->id < 70) {
+        if (in_array($eventversion->id, $sjcdaelementary)) {
+
+            return Registrant::where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+                ->where('registranttype_id', Registranttype::REGISTERED)
+                ->get()
+                ->sortBy('student.person.last');
+
+        } elseif ($eventversion->id < 70) { //backward compatibility
+
             $ss = Scoresummary::where('eventversion_id', $eventversion->id)
                 ->where('result', 'acc')
                 ->pluck('registrant_id');
-        }else{
+
+        } else {
+
             $ss = Scoresummary::where('eventversion_id', $eventversion->id)
                 ->where('result', $this->acceptance_abbr)
                 ->pluck('registrant_id');

@@ -134,6 +134,11 @@ Log::info('*** FJR: Check the student grade v. grades @ the school v. grades tea
             ?? new Phone;
     }
 
+    public function getShirtsizeDescrAttribute()
+    {
+        return Shirtsize::where('id', $this->shirtsize_id)->first()->descr;
+    }
+
     public function guardians()
     {
         return $this->belongsToMany(Guardian::class, 'guardian_student', 'student_user_id', 'guardian_user_id');

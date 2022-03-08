@@ -15,7 +15,7 @@ class Student extends Model
     protected $primaryKey = 'user_id';
 
     public function getCurrentSchoolAttribute()
-    {//if($this->user_id === 1700){dd($this->person->user->schools);}
+    {
         foreach($this->person->user->schools AS $school){
 
             if($school->grades &&

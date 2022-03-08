@@ -46,6 +46,13 @@
                                 Event Version Administration
                             </h4>
                             <ul>
+                                {{-- OBLIGATION ACKNOWLEDGED TEACHERS --}}
+                                <li><a href="{{ route('eventadministrator.acknowledgedteachers',
+                                        ['eventversion' => $eventversion]) }}"
+                                    >
+                                        Obligation Acknowledged Teachers
+                                    </a>
+                                </li>
 
                                 {{-- PARTICIPATING TEACHERS --}}
                                 <li><a href="{{ route('eventadministrator.participatingteachers',

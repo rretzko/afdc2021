@@ -198,6 +198,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('rehearsalmanager/massmailings/concert/update/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
         ->name('rehearsalmanager.massmailings.concert.update');
 
+    /** TEACHERS WITH OBLIGATIONS ACKNOWLEDGED */
+    Route::get('/eventadministrator/acknowledgedteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\AcknowledgedteachersController::class, 'index'])
+        ->name('eventadministrator.acknowledgedteachers');
+
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 

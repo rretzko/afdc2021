@@ -37,6 +37,11 @@ class Person extends Model
         return $str;
     }
 
+    public function getAlphaNameAttribute()
+    {
+        return $this->fullnameAlpha();
+    }
+
     public function getSubscriberemailotherAttribute()
     {
         return $this->subscriberemails->where('emailtype_id', Emailtype::OTHER)->first()->email ?? '';

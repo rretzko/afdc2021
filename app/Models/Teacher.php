@@ -8,11 +8,6 @@ class Teacher extends Model
 {
     protected $primaryKey = 'user_id';
 
-    public function person()
-    {
-        return $this->belongsTo(Person::class, 'user_id', 'user_id');
-    }
-
     /**
      * Derive teacher's current school from teacher's newest student's current school
      * @todo this can be vastly improved...
@@ -20,6 +15,18 @@ class Teacher extends Model
      */
     public function currentSchool()
     {
+        //derive from teacher's schools
+        if($this->schools->count() === 2) {
+            foreach ($this->schools as $school) {
+
+                if(! strstr($school->name, 'Studio')){
+
+                    return $school;
+                }
+            }
+        }
+
+        //otherwise derive school from last student
         $last = new Student;
         foreach($this->students AS $student){
 
@@ -33,6 +40,19 @@ class Teacher extends Model
     public function getSchoolsAttribute()
     {
         return $this->person->user->schools;
+    }
+
+    public function getIsAcknowledgedAttribute() : bool
+    {
+        return (bool)Obligation::where('eventversion_id', Userconfig::getValue('eventversion',auth()->id()))
+            ->where('user_id', $this->user_id)
+            ->where('acknowledgment',1)
+            ->first();
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class, 'user_id', 'user_id');
     }
 
     public function students()

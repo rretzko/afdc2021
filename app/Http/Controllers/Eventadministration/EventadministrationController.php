@@ -30,7 +30,7 @@ class EventadministrationController extends Controller
                     return true;
                 }
             }
-        });
+        })->sortByDesc('senior_class_of');
 
         return view('eventadministration.eventversions.index',
         [

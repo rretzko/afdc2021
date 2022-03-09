@@ -30,11 +30,13 @@
                 (Route::currentRouteName() === 'eventadministrator.instrumentations') ||
                 (Route::currentRouteName() === 'eventadministrator.media.download') ||
                 (Route::currentRouteName() === 'eventadministrator.media.downloads') ||
+                (Route::currentRouteName() === 'eventadministrator.acknowledgedteachers') ||
                 (Route::currentRouteName() === 'eventadministrator.participatingteachers') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
+                (Route::currentRouteName() === 'eventadministrator.studentcounts') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||

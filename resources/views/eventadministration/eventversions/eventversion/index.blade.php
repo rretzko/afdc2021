@@ -62,6 +62,14 @@
                                     </a>
                                 </li>
 
+                                {{-- STUDENT COUNTS --}}
+                                <li><a href="{{ route('eventadministrator.studentcounts',
+                                        ['eventversion' => $eventversion]) }}"
+                                    >
+                                        Student Counts
+                                    </a>
+                                </li>
+
                                 <li>@if($eventversion->filecontenttypes->count() &&
                                             $eventversion->instrumentations()->count() &&
                                             $eventversion->rooms->count())

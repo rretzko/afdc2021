@@ -202,6 +202,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/acknowledgedteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\AcknowledgedteachersController::class, 'index'])
         ->name('eventadministrator.acknowledgedteachers');
 
+    /** STUDENT COUNTS */
+    Route::get('/eventadministrator/studentcounts/{eventversion?}', [App\Http\Controllers\Eventadministration\StudentcountsController::class, 'index'])
+        ->name('eventadministrator.studentcounts');
+
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
 

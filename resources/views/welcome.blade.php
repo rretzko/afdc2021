@@ -13,7 +13,7 @@
     <style>
         html, body {
             background-color: #fff;
-            background-image: url('http://auditionforms.com/public/assets/images/backgrounds/cobblestones_small.jpg');
+            background-image: url('../assets/images/backgrounds/cobblestones_small.jpg');
             background-size: cover;
             color: #fff;
             font-family: 'Nunito', sans-serif;

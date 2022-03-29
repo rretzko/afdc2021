@@ -41,7 +41,7 @@
         @endif
     </div>
 
-    <table style="margin:auto;">
+    <table style="margin:auto; border-collapse: collapse;">
         <thead>
         <tr>
             <th>###</th>
@@ -76,7 +76,7 @@
                 </td>
 
                 @foreach($eventversion->filecontenttypes AS $filecontenttype)
-                    <td style="text-center" >{!! $registrant->fileviewport($filecontenttype) !!}</td>
+                    <td class="text-center" >{!! $registrant->fileviewport($filecontenttype) !!}</td>
                 @endforeach
 
                 <td style="text-align: center;">

@@ -120,6 +120,34 @@ class Eventversion extends Model
     /**
      * @return collection
      */
+    public function getAcknowledgedSchoolsAttribute()
+    {
+        $users = User::find(DB::table('obligations')
+            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->where('acknowledgment', '=', 1)
+            ->distinct()
+            ->pluck('user_id')
+            ->toArray());
+
+        $schools = collect();
+
+        foreach($users AS $user){
+
+            foreach($user->schools AS $school){
+
+                if((! strstr($school->name, 'Studio')) &&
+                    (! $schools->contains($school))){
+                    $schools->push($school);
+                }
+            }
+        }
+
+        return $schools;
+    }
+
+    /**
+     * @return collection
+     */
     public function getEventensemblesAttribute()
     {
         return $this->event->eventensembles();

@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 /* DEMO */
-Route::get('/demo', 'Demo\DemoHomeController@index')->name('demo');
+//Route::get('/demo', 'Demo\DemoHomeController@index')->name('demo');
 
 /* LOG IN */
 Route::get('/login', [App\Http\Controllers\Afdcauth\LoginController::class, 'create'])->name('login');
@@ -135,6 +135,9 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.segments.update');
 
     /** REGISTRATION MANAGERS */
+    Route::get('registrationmanagers/acknowledgedschools/{eventversion}', [App\Http\Controllers\Registrationmanagers\AcknowledgedschoolsController::class, 'index'])
+        ->name('registrationmanagers.acknowledgedschools.index');
+
     Route::get('registrationmanagers/adjudicationforms/{eventversion}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'index'])
         ->name('registrationmanagers.adjudicationforms.index');
     Route::get('registrationmanagers/adjudicationforms/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'show'])

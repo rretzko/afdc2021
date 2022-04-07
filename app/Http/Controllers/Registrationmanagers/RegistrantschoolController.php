@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Emailtype;
 use App\Models\Eventversion;
+use App\Models\Nonsubscriberemail;
+use App\Models\Person;
+use App\Models\Phone;
+use App\Models\Phonetype;
 use App\Models\Registrant;
 use App\Models\School;
 use App\Models\Userconfig;
@@ -98,6 +103,119 @@ class RegistrantschoolController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     * @param $id //registrant_id
+     */
+    public function updateEmergencyContact(Request $request, $id)
+    {
+        $registrant = Registrant::find($id);
+        $student = $registrant->student;
+
+        $input = $request->validate([
+            'email_student_personal' => ['nullable', 'email'],
+            'email_student_school' => ['nullable', 'email'],
+            'guardian_id' => ['required', 'numeric'],
+            'first' => ['required', 'string'],
+            'last' => ['required', 'string'],
+            'email_guardian_primary' => ['nullable', 'email'],
+            'email_guardian_alternate' => ['nullable', 'email'],
+            'phone_guardian_mobile' => ['nullable', 'string'],
+            'phone_guardian_work' => ['nullable', 'string'],
+            'phone_guardian_home' => ['nullable', 'string'],
+        ]);
+
+        //email_student_personal
+        Nonsubscriberemail::updateOrCreate(
+            [
+                'user_id' => $student->user_id,
+                'emailtype_id' => Emailtype::STUDENT_PERSONAL,
+            ],
+            [
+                'email' => $input['email_student_personal'],
+            ]
+        );
+
+        //email_student_school
+        Nonsubscriberemail::updateOrCreate(
+            [
+                'user_id' => $student->user_id,
+                'emailtype_id' => Emailtype::STUDENT_SCHOOL,
+            ],
+            [
+                'email' => $input['email_student_school'],
+            ]
+        );
+
+        //email_guardian_primary
+        Nonsubscriberemail::updateOrCreate(
+            [
+                'user_id' => $input['guardian_id'],
+                'emailtype_id' => Emailtype::GUARDIAN_PRIMARY
+            ],
+            [
+                'email' => $input['email_guardian_primary'],
+            ]
+        );
+
+        //email_guardian_alternate
+        Nonsubscriberemail::updateOrCreate(
+            [
+                'user_id' => $input['guardian_id'],
+                'emailtype_id' => Emailtype::GUARDIAN_ALTERNATE
+            ],
+            [
+                'email' => $input['email_guardian_alternate'],
+            ]
+        );
+
+        //update guardian name
+        if($input['guardian_id']){
+
+            $person = Person::find($input['guardian_id']);
+            $person->first = $input['first'];
+            $person->last = $input['last'];
+            $person->save();
+        }
+
+        //phone_guardian_mobile
+        Phone::updateOrCreate(
+            [
+                'user_id' => $input['guardian_id'],
+                'phonetype_id' => Phonetype::PHONE_GUARDIAN_MOBILE,
+            ],
+            [
+                'phone' => $input['phone_guardian_mobile'],
+            ]
+        );
+
+        //phone_guardian_work
+        Phone::updateOrCreate(
+            [
+                'user_id' => $input['guardian_id'],
+                'phonetype_id' => Phonetype::PHONE_GUARDIAN_WORK,
+            ],
+            [
+                'phone' => $input['phone_guardian_work'],
+            ]
+        );
+
+        //phone_guardian_home
+        Phone::updateOrCreate(
+            [
+                'user_id' => $input['guardian_id'],
+                'phonetype_id' => Phonetype::PHONE_GUARDIAN_HOME,
+            ],
+            [
+                'phone' => $input['phone_guardian_home'],
+            ]
+        );
+
+        return $this->show(Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+            School::find($registrant->school_id));
+
     }
 
     /**

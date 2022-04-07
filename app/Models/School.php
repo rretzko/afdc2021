@@ -44,6 +44,22 @@ class School extends Model
 */
     }
 
+    public function applicantsCount(Eventversion $eventversion) : int
+    {
+        $min = ((($eventversion->id - 1) * 10000) + 9999);
+        $max = (($eventversion->id + 1) * 10000);
+
+        return DB::table('applications')
+            ->join('registrants', function($join){
+                $join->on('registrants.id','=','applications.registrant_id')
+                    ->where('registrants.school_id', '=', $this->id);
+            })
+            ->where('registrant_id','>',$min)
+            ->where('registrant_id','<',$max)
+            ->distinct()
+            ->count('registrant_id');
+    }
+
     /**
      * Return array of all grades found for $this
      */

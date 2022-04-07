@@ -40,7 +40,7 @@
             </form>
                         <div style="border: 1px solid black; padding: 0.5rem 1rem; background-color: rgba(0,0,0,0.1); margin-bottom: 1rem;">
                             <header style="font-weight: bold;">EMERGENCY CONTACT INFORMATION</header>
-                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrant/updateEmergencyContact/{{ $registrant->id }}"> --}} -->
+                            <form method="post" action="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanager/registrant/updateEmergencyContact/{{ $registrant->id }}">
                             <!-- {{-- <form method="post" action="/registrationmanager/registrant/updateEmergencyContact/{{ $registrant->id }}"> --}} -->
                                 @csrf
                                 <div style="display: flex; flex-direction: column; font-weight: bold;">

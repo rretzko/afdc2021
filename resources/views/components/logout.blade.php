@@ -38,6 +38,7 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'eventadministrator.studentcounts') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.acknowledgedschools.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.index') ||

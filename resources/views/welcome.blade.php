@@ -118,8 +118,6 @@
             @auth
                 <a href="{{ url('/home') }}">Home</a>
             @else
-                <a href="{{ route('demo') }}" style="display: none;">Demo</a>
-
                 @if (Route::has('register'))
                     <a href="{{ route('register') }}">Register</a>
                 @endif

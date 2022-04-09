@@ -54,17 +54,20 @@
                                            placeholder="School email"
                                     >
                                 </div>
+
                                 <div>
-                                    <input type="hidden" name="guardian_id" id="guardian_id" value="{{ $registrant->student->guardians->first()->user_id ?? 0 }}"
-                                    <label for="parent-first" style="font-weight: bold;">Parent/Guardian</label>
+                                    <input type="hidden" name="guardian_id" id="guardian_id" value="{{ $registrant->student->guardians->first()->user_id ?? 0 }}" >
+                                    <label for="parent-first" style="font-weight: bold; @if(!  $registrant->student->guardians->first()) color: red; @endif">
+                                        @if(! $registrant->student->guardians->first()) NO PARENT/GUARDIAN FOUND @else Parent/Guardian @endif
+                                    </label>
                                     <div style="display: flex; flex-direction: row; font-weight: bold;">
                                         <input type="text" name="first" id="first"
-                                               value="{{ $registrant->student->guardians->first()->person->first }}"
+                                               value="{{ $registrant->student->guardians->first() ? $registrant->student->guardians->first()->person->first : ''}}"
                                                placeholder="First name"
                                                 required
                                         />
                                         <input type="text" name="last" id="last"
-                                               value="{{ $registrant->student->guardians->first()->person->last }}"
+                                               value="{{ $registrant->student->guardians->first() ? $registrant->student->guardians->first()->person->last : '' }}"
                                                placeholder="Last name"
                                                 required
                                         />
@@ -73,22 +76,22 @@
                                 <div style="display: flex; flex-direction: column; font-weight: bold;">
                                     <label for="parent-email">Parent/Guardian Email</label>
                                     <input style="margin-bottom: 0.25rem;" type="email" name="email_guardian_primary" id="email_guardian_primary"
-                                           value="@if($registrant->student->guardians->first()->emailPrimary->id) {{ $registrant->student->guardians->first()->emailPrimary->email }} @endif "
+                                           value="@if( $registrant->student->guardians->first() && $registrant->student->guardians->first()->emailPrimary->id) {{ $registrant->student->guardians->first()->emailPrimary->email }} @endif "
                                            placeholder="Primary email">
                                     <input type="email" name="email_guardian_alternate" id="email_guardian_alternate"
-                                           value="@if($registrant->student->guardians->first()->emailAlternate->id) {{ $registrant->student->guardians->first()->emailAlternate->email }} @endif"
+                                           value="@if( $registrant->student->guardians->first() && $registrant->student->guardians->first()->emailAlternate->id) {{ $registrant->student->guardians->first()->emailAlternate->email }} @endif"
                                            placeholder="Alternate email">
                                 </div>
                                 <div style="display: flex; flex-direction: column; font-weight: bold;">
                                     <label for="parent-email">Parent/Guardian Phone</label>
                                     <input style="margin-bottom: 0.25rem;" type="text" name="phone_guardian_mobile" id="phone_guardian_mobile" placeholder="Cell Phone"
-                                           value="@if($registrant->student->guardians->first()->phoneMobile->id && strlen($registrant->student->guardians->first()->phoneMobile->phone)) {{ $registrant->student->guardians->first()->phoneMobile->phone }} @endif"
+                                           value="@if( $registrant->student->guardians->first() && $registrant->student->guardians->first()->phoneMobile->id && strlen($registrant->student->guardians->first()->phoneMobile->phone)) {{ $registrant->student->guardians->first()->phoneMobile->phone }} @endif"
                                     >
                                     <input style="margin-bottom: 0.25rem;" type="text" name="phone_guardian_work" id="phone_guardian_work" placeholder="Work Phone"
-                                           value="@if($registrant->student->guardians->first()->phoneWork->id && strlen($registrant->student->guardians->first()->phoneWork->phone)) {{ $registrant->student->guardians->first()->phoneWork->phone }} @endif"
+                                           value="@if( $registrant->student->guardians->first() && $registrant->student->guardians->first()->phoneWork->id && strlen($registrant->student->guardians->first()->phoneWork->phone)) {{ $registrant->student->guardians->first()->phoneWork->phone }} @endif"
                                     >
                                     <input style="margin-bottom: 0.25rem;" type="text" name="phone_guardian_home" id="phone_guardian_home" placeholder="Home Phone"
-                                           value="@if($registrant->student->guardians->first()->phoneHome->id && strlen($registrant->student->guardians->first()->phoneHome->phone)) {{ $registrant->student->guardians->first()->phoneHome->phone }} @endif"
+                                           value="@if( $registrant->student->guardians->first() && $registrant->student->guardians->first()->phoneHome->id && strlen($registrant->student->guardians->first()->phoneHome->phone)) {{ $registrant->student->guardians->first()->phoneHome->phone }} @endif"
                                     >
                                     <input style="font-weight: bold; width: 6rem; border-radius: 1rem;" type="submit" name="submit" id="submit" value="Update" >
 

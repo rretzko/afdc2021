@@ -26,4 +26,19 @@ class Room extends Model
     {
         return $this->belongsToMany(Instrumentation::class);
     }
+
+    public function auditionees()
+    {
+        $instrumentations = $this->instrumentations;
+
+        $r = Registrant::where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->get();
+
+        $a = $r->filter(function($registrant) use($instrumentations){
+                return $instrumentations->contains($registrant->instrumentations->first());
+            });
+
+        return $a;
+    }
 }

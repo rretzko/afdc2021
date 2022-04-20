@@ -216,5 +216,9 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/eventadministrator/tabroom/scoretracking/{eventversion}', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])
         ->name('eventadministrator.tabroom.scoretracking');
+    Route::get('/eventadministrator/tabroom/scoretrackingByRoom/{eventversion}', [App\Http\Controllers\Eventadministration\ScoretrackingByRoomController::class, 'index'])
+        ->name('eventadministrator.tabroom.scoretrackingByRoom');
+    Route::get('/eventadministrator/tabroom/scoretrackingByRoom/room/{room}', [App\Http\Controllers\Eventadministration\ScoretrackingByRoomController::class, 'show'])
+        ->name('eventadministrator.tabroom.scoretrackingByRoom.show');
 
 });

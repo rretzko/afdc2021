@@ -110,6 +110,11 @@ class Registrant extends Model
         return $viewport->viewport();
     }
 
+    public function getCurrentTeacherAttribute()
+    {
+        return $this->student->getCurrentTeacherAttribute();
+    }
+
     /**
      * Provide a string to sort by full name alpha
      * @return string
@@ -141,6 +146,16 @@ class Registrant extends Model
         return Timeslot::where('school_id', $this->school_id)
                 ->where('eventversion_id', $this->eventversion_id)
                 ->first()->timeslot ?? 'None found';
+    }
+
+    public function getTooltipAttribute() : string
+    {
+        $crlf = " &#13; ";
+        $str = $this->getFullnameAlphaAttribute();
+        $str .= $crlf;
+        $str .= $this->getSchoolShortnameAttribute();
+
+        return $str;
     }
 
     public function grandtotal()

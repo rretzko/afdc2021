@@ -30,7 +30,7 @@ class Registrant extends Model
         $str = '';
 
         foreach($room->adjudicators->sortBy('adjudicatorname') AS $adjudicator){
-            $str .= $adjudicator->adjudicatorname.': '.$this->scorecountByAdjudicator($adjudicator).'&#13;';
+            $str .= $adjudicator->adjudicatorname.': '.$this->scorecountByAdjudicator($adjudicator).' ('.$this->scoreSumByAdjudicator($adjudicator).') &#13;';
         }
 
         //$str = 'Adjudicator 1: 9 &#13; Adjudicator 2: 6 &#13; Adjudicator 3: 0';
@@ -191,19 +191,19 @@ class Registrant extends Model
                 ->count('id');
         }
 
+        //total components available for registrant in room
         $totalcomponents = ($scoringcomponents * $room->adjudicators->count());
 
+        //count of adjudicated components from scores table
         $adjudicatedcomponents = DB::table('scores')
             ->where('registrant_id', $this->id)
             ->count('id');
 
+        //simple sum of scores per adjudicator (for use in tolerance testing)
         $adjudicatorscores = [];
         foreach($room->adjudicators AS $adjudicator)
         {
-            $adjudicatorscores[] = DB::table('scores')
-                ->where('registrant_id', $this->id)
-                ->where('user_id', $adjudicator->user_id)
-                ->sum('score');
+            $adjudicatorscores[] = $this->scorecountByAdjudicator($adjudicator);
         }
 
         //colors
@@ -241,6 +241,14 @@ class Registrant extends Model
             ->where('registrant_id', $this->id)
             ->where('user_id', $adjudicator->user_id)
             ->count('id');
+    }
+
+    public function scoreSumByAdjudicator(Adjudicator $adjudicator)
+    {
+        return DB::table('scores')
+            ->where('registrant_id', $this->id)
+            ->where('user_id', $adjudicator->user_id)
+            ->sum('score');
     }
 
     public function scoresummary()

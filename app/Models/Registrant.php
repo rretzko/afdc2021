@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Utility\Fileviewport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Registrant extends Model
 {
@@ -17,6 +18,24 @@ class Registrant extends Model
         $status = new \App\Models\Utility\Adjudicatedstatus(['registrant' => $this]);
 
         return $status->status();
+    }
+
+    /**
+     * Return string for tooltip
+     * @param Room $room
+     * @return string
+     */
+    public function adjudicatorProgress(Room $room): string
+    {
+        $str = '';
+
+        foreach($room->adjudicators->sortBy('adjudicatorname') AS $adjudicator){
+            $str .= $adjudicator->adjudicatorname.': '.$this->scorecountByAdjudicator($adjudicator).'&#13;';
+        }
+
+        //$str = 'Adjudicator 1: 9 &#13; Adjudicator 2: 6 &#13; Adjudicator 3: 0';
+
+        return $str;
     }
 
     public function adjudicators()
@@ -148,16 +167,6 @@ class Registrant extends Model
                 ->first()->timeslot ?? 'None found';
     }
 
-    public function getTooltipAttribute() : string
-    {
-        $crlf = " &#13; ";
-        $str = $this->getFullnameAlphaAttribute();
-        $str .= $crlf;
-        $str .= $this->getSchoolShortnameAttribute();
-
-        return $str;
-    }
-
     public function grandtotal()
     {
         $scoresummary =Scoresummary::where('registrant_id', $this->id)->first();
@@ -170,9 +179,68 @@ class Registrant extends Model
         return $this->belongsToMany(Instrumentation::class);
     }
 
+    public function roomStatusColor(Room $room)
+    {
+        //calc scoring components per adjudicator
+        $scoringcomponents = 0;
+        foreach ($room->filecontenttypes as $filecontenttype) {
+
+            $scoringcomponents += DB::table('scoringcomponents')
+                ->where('eventversion_id', $this->eventversion_id)
+                ->where('filecontenttype_id', $filecontenttype->id)
+                ->count('id');
+        }
+
+        $totalcomponents = ($scoringcomponents * $room->adjudicators->count());
+
+        $adjudicatedcomponents = DB::table('scores')
+            ->where('registrant_id', $this->id)
+            ->count('id');
+
+        $adjudicatorscores = [];
+        foreach($room->adjudicators AS $adjudicator)
+        {
+            $adjudicatorscores[] = DB::table('scores')
+                ->where('registrant_id', $this->id)
+                ->where('user_id', $adjudicator->user_id)
+                ->sum('score');
+        }
+
+        //colors
+        $unauditioned = 'aliceblue;'; //aliceblue
+        $partial = 'rgba(240,255,0,0.3);'; //yellow
+        $completed = 'rgba(0,255,0,0.1);'; //green
+        $tolerance = 'rgba(255,0,0,0.1);'; //red
+        $excess = 'rgba(0,0,255,0.3);'; //darkblue
+        $error = 'white'; //white
+
+        if (!$adjudicatedcomponents) {
+            return $unauditioned;
+        } elseif ($adjudicatedcomponents && ($adjudicatedcomponents < $totalcomponents)) {
+            return $partial;
+        } elseif ($adjudicatedcomponents === $totalcomponents) {
+            return $completed;
+        } elseif ($adjudicatedcomponents && ($adjudicatedcomponents === $totalcomponents) && ((max($adjudicatorscores) - min($adjudicatorscores) > $room->tolerance))) {
+            return $tolerance;
+        } elseif ($adjudicatedcomponents > $totalcomponents) {
+            return $excess;
+        }else{
+            return $error;
+        }
+
+    }
+
     public function school()
     {
         return School::find($this->school_id);
+    }
+
+    public function scorecountByAdjudicator(Adjudicator $adjudicator)
+    {
+        return DB::table('scores')
+            ->where('registrant_id', $this->id)
+            ->where('user_id', $adjudicator->user_id)
+            ->count('id');
     }
 
     public function scoresummary()

@@ -136,6 +136,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('eventadministrator.tabroom.scoretrackingByAdjudicator', $eventversion) }}">
+                                        Score Tracking By Adjudicator
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ route('eventadministrator.tabroom.scoretrackingByRoom', $eventversion) }}">
                                         Score Tracking By Room
                                     </a>

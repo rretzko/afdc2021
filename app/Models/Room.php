@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Room extends Model
 {
@@ -40,5 +41,30 @@ class Room extends Model
             });
 
         return $a;
+    }
+
+    public function auditioneesCount()
+    {
+        $instrumentationids = $this->instrumentations->pluck('id')->toArray();
+
+        return Registrant::with('instrumentations')
+            ->join('instrumentation_registrant','instrumentation_registrant.registrant_id','=','registrants.id')
+            ->whereIn('instrumentation_registrant.instrumentation_id',  $instrumentationids)
+            ->where('registrants.eventversion_id', $this->eventversion_id)
+            ->count('registrants.id');
+    }
+
+    public function auditioneesScoredCountByAdjudicator($adjudicator)
+    {
+        $instrumentationids = $this->instrumentations->pluck('id')->toArray();
+
+        return Registrant::with('instrumentations')
+            ->join('instrumentation_registrant','instrumentation_registrant.registrant_id','=','registrants.id')
+            ->join('scores', 'scores.registrant_id', '=', 'registrants.id')
+            ->whereIn('instrumentation_registrant.instrumentation_id',  $instrumentationids)
+            ->where('registrants.eventversion_id', $this->eventversion_id)
+            ->where('scores.user_id', '=', $adjudicator->user_id)
+            ->distinct('registrants.id')
+            ->count('registrants.id');
     }
 }

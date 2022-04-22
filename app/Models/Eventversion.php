@@ -13,6 +13,11 @@ class Eventversion extends Model
 {
     use HasFactory, SenioryearTrait;
 
+    public function adjudicators()
+    {
+        return $this->hasMany(Adjudicator::class);
+    }
+
     /**
      * @return simple array of classofs for $this->eventversionconfig->grades
      */

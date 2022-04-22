@@ -51,6 +51,7 @@ class Room extends Model
             ->join('instrumentation_registrant','instrumentation_registrant.registrant_id','=','registrants.id')
             ->whereIn('instrumentation_registrant.instrumentation_id',  $instrumentationids)
             ->where('registrants.eventversion_id', $this->eventversion_id)
+            ->where('registrants.registranttype_id', Registranttype::REGISTERED)
             ->count('registrants.id');
     }
 

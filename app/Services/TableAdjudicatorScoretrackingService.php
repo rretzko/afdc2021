@@ -72,6 +72,7 @@ class TableAdjudicatorScoretrackingService
 
             foreach ($room->adjudicators->sortBy('adjudicatorname') as $adjudicator) {
 
+                $email = $adjudicator->person->subscriberemailpersonal ?? $adjudicator->person->subscriberemailwork;
                 $count = $adjudicator->room->auditioneesCount();
                 $scored = $adjudicator->room->auditioneesScoredCountByAdjudicator($adjudicator);
                 $pct = ($scored) ? (number_format((($scored / $count) * 100), 1).'%') : '0%';
@@ -79,17 +80,25 @@ class TableAdjudicatorScoretrackingService
                 //background-color
                 if(! $scored) {
                     $bg = 'rgba(255,0,0,0.1)'; //red
+                    $acolor = 'darkred';
                 }elseif( $count > $scored){
                     $bg = 'rgba(245,243,39,0.1)'; //yellow
+                    $acolor = 'blue';
                 }elseif( $count === $scored){
                     $bg ='rgba(0,255,0,0.1);'; //green
+                    $acolor = 'darkgreen';
                 }else {
                     $bg = 'red'; //bright red
+                    $acolor = 'black';
                 }
 
                 $str .= '<tr style="background-color: '.$bg.'">';
 
-                $str .= '<td style="padding-left: 1rem;">' . $adjudicator->adjudicatorname . '</td>';
+                $str .= '<td style="padding-left: 1rem;">'
+                    . '<a href="mailto:'.$email.'?subject=All-State Auditions&body=Hi, '.$adjudicator->person->first.'"'
+                    . 'style="color: '.$acolor.'">'
+                    . $adjudicator->adjudicatorname
+                    . '</a></td>';
                 $str .= '<td style="text-align: center;">'.$count . '</td>';
                 $str .= '<td style="text-align: center;">'.$scored.'</td>';
                 $str .= '<td style="text-align: center;">'.$pct.'</td>';

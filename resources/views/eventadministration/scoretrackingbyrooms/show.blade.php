@@ -54,7 +54,7 @@
                         </div>
 
 
-                        <div style="margin-top: 1rem; border: 1px solid black; display: flex; flex-direction: row; flex-wrap: wrap; padding: 0.25rem;background-color: rgba(0,0,0,0.3);">
+                        <div style="margin-top: 1rem; border: 1px solid black; display: flex; flex-direction: row; flex-wrap: wrap; padding: 0.25rem;background-color: white;">
                             <header style="width: 100%; text-align: center; font-weight: bold;">{{ $room->auditionees()->count() }} Auditionees</header>
                             @forelse($room->auditionees() AS $auditionee)
                                 <div style="border: 1px solid black; margin-right: 0.25rem; margin-top: 0.25rem; padding: 0 0.25rem; background-color: {{ $auditionee->roomStatusColor($room) }}">

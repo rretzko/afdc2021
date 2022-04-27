@@ -25,7 +25,7 @@
                         <div style="display: flex; flex-direction: row; flex-wrap: wrap; ">
                             @forelse($rooms AS $item) {{-- room --}}
                                     <a href="{{ route('eventadministrator.tabroom.scoretrackingByRoom.show', $item) }}">
-                                        <button style="width: 10rem; margin-right: 10px; margin-top: 10px; @if($item->id === $room->id) background-color: rgba(0,255,0,0.1); @endif">
+                                        <button style="width: 10rem; margin-right: 10px; margin-top: 10px; @if($item->id === $room->id) background-color: black; color: white; @endif">
                                             {{ $item->descr }}
                                         </button>
                                     </a>

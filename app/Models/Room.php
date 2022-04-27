@@ -68,4 +68,17 @@ class Room extends Model
             ->distinct('registrants.id')
             ->count('registrants.id');
     }
+
+    public function scoringcomponents()
+    {
+        $scoringcomponents = collect();
+
+        foreach($this->filecontenttypes AS $filecontenttype){
+
+            $scoringcomponents = $scoringcomponents
+                ->merge($filecontenttype->scoringcomponents->where('eventversion_id', $this->eventversion_id));
+        }
+
+        return $scoringcomponents;
+    }
 }

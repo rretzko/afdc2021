@@ -194,9 +194,12 @@ class Registrant extends Model
         //total components available for registrant in room
         $totalcomponents = ($scoringcomponents * $room->adjudicators->count());
 
+        $scoringcomponentids = $room->scoringcomponents()->pluck('id')->toArray();
+
         //count of adjudicated components from scores table
         $adjudicatedcomponents = DB::table('scores')
             ->where('registrant_id', $this->id)
+            ->whereIn('scoringcomponent_id', $scoringcomponentids)
             ->count('id');
 
         //simple sum of scores per adjudicator (for use in tolerance testing)
@@ -214,7 +217,7 @@ class Registrant extends Model
         $excess = 'rgba(0,0,255,0.3);'; //darkblue
         $error = 'white'; //white
 
-        if (!$adjudicatedcomponents) {
+        if (! $adjudicatedcomponents) {
             return $unauditioned;
         } elseif ($adjudicatedcomponents && ($adjudicatedcomponents < $totalcomponents)) {
             return $partial;

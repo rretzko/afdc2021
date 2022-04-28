@@ -29,6 +29,7 @@ class CutoffController extends Controller
         $eventensemblecutoff = new Eventensemblecutoff;
         $eventensemblecutoff->eventversion = $eventversion;
 
+        //assemble a collection of cutoff locks per eventensemble
         $eventensemblelocks = collect();
         foreach($eventversion->event->eventensembles AS $eventensemble){
 

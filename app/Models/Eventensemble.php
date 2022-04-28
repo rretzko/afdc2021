@@ -55,14 +55,14 @@ class Eventensemble extends Model
     {
         return Scoresummary::where('eventversion_id', $eventversion->id)
             ->where('instrumentation_id', $instrumentation->id)
-            ->where('result', $this->acceptance_abbr)
+            ->where('result', $this->acceptanceAbbr($eventversion, $instrumentation))
             ->count();
     }
 
     public function countParticipantsByAcceptanceAbbr(Eventversion $eventversion)
     {
         return Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', $this->acceptance_abbr)
+            ->where('result', $this->acceptanceAbbr($eventversion))
             ->count();
     }
 
@@ -110,8 +110,6 @@ class Eventensemble extends Model
         return collect($registrants)->sortBy('student.person.last');
     }
 
-
-
     /**
      * 1. Identify accepted registrants
      * 2. Identify unique current schools for #1
@@ -158,6 +156,13 @@ class Eventensemble extends Model
         }
 
         return collect($teachers)->sortBy('person.last');
+    }
+
+    private function acceptanceAbbr(Eventversion $eventversion, Instrumentation $instrumentation=NULL)
+    {
+        $str = 'acc';
+
+        return $str;
     }
 
     private function updateResult($eventversion, $registrant, $value)

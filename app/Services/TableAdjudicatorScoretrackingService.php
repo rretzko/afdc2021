@@ -4,16 +4,21 @@ namespace App\Services;
 
 
 use App\Models\Eventversion;
+use App\Models\Registrant;
+use App\Models\Registranttype;
 
 class TableAdjudicatorScoretrackingService
 {
     private $eventversion;
+    private $registrants;
     private $table;
 
     public function __construct(Eventversion $eventversion)
     {
         $this->eventversion = $eventversion;
         $this->table = 'insert table here';
+
+        $this->init();
 
         $this->buildTable();
     }
@@ -58,9 +63,25 @@ class TableAdjudicatorScoretrackingService
         return $str;
     }
 
+    private function init()
+    {
+        $this->registrants = Registrant::where('eventversion_id', $this->eventversion->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->get();
+
+        $this->scored = 'something';
+    }
+
     private function rows(): string
     {
         $str = '';
+
+        $str .= '<tr style="background-color: black; color: white;">';
+        $str .= '<td style="border: 1px solid lightgrey;">Event-wide</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">'.$this->registrants->count().'</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">2</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">3%</td>';
+        $str .= '</tr>';
 
         foreach ($this->eventversion->rooms as $room){
 

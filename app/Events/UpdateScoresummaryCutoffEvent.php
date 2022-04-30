@@ -15,7 +15,6 @@ class UpdateScoresummaryCutoffEvent
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $cutoff;
-    public $eventensemble_id;
     public $eventversion_id;
     public $instrumentation_id;
 
@@ -24,10 +23,9 @@ class UpdateScoresummaryCutoffEvent
      *
      * @return void
      */
-    public function __construct($eventversion_id, $eventensemble_id, $instrumentation_id, $cutoff)
+    public function __construct($eventversion_id, $instrumentation_id, $cutoff)
     {
         $this->eventversion_id = $eventversion_id;
-        $this->eventensemble_id = $eventensemble_id;
         $this->instrumentation_id = $instrumentation_id;
         $this->cutoff = $cutoff;
     }

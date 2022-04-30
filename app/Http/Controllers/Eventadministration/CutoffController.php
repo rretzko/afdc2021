@@ -195,11 +195,7 @@ class CutoffController extends Controller
     {
         $this->updateEventensemblecutoffsTable($eventversion, $eventensembles, $instrumentation_id, $cutoff);
 
-        foreach($eventensembles AS $eventensemble){
-
-            event(new UpdateScoresummaryCutoffEvent($eventversion->id, $eventensemble->id, $instrumentation_id, $cutoff));
-
-        }
+        event(new UpdateScoresummaryCutoffEvent($eventversion->id, $instrumentation_id, $cutoff));
 
         return $this->index($eventversion);
     }

@@ -101,6 +101,7 @@ class UpdateScoresummaryCutoffListener
                     'locked' => $lock ? $lock->locked : false,
                     'id' => $ensemble->id,
                     'abbr' => $ensemble->acceptance_abbr,
+                    'instrumentations' => $ensemble->instrumentations(),
                 ];
         }
 
@@ -117,7 +118,7 @@ class UpdateScoresummaryCutoffListener
 
             if($ensemble['cutoff']){ //else do nothing
 
-                if($summary->score_total <= $ensemble['cutoff'] ) {
+                if(($ensemble['instrumentations']->contains($summary->instrumentation_id)) && ($summary->score_total <= $ensemble['cutoff'] ) ){
 
                     $result = $ensemble['abbr'];
                 }

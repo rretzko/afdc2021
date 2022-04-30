@@ -62,6 +62,8 @@ class AuditionresultsController extends Controller
      */
     public function show(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation)
     {
+        set_time_limit(120);
+        
         $incompletes = $this->incompleteAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
         $completes = $this->completedAdjudicationsByInstrumentation($eventversion, $instrumentation);
@@ -115,6 +117,12 @@ class AuditionresultsController extends Controller
         //
     }
 
+    /**
+     * Return collection of registered Registrants in asc/desc grandtotal order
+     * @param $eventversion
+     * @param $instrumentation
+     * @return \Illuminate\Support\Collection
+     */
     private function filterRegistrants($eventversion, $instrumentation)
     {
         $registrants = Registrant::where('eventversion_id', $eventversion->id)

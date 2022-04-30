@@ -55,14 +55,14 @@ class Eventensemble extends Model
     {
         return Scoresummary::where('eventversion_id', $eventversion->id)
             ->where('instrumentation_id', $instrumentation->id)
-            ->where('result', $this->acceptanceAbbr($eventversion, $instrumentation))
+            ->where('result', $this->acceptance_abbr)//$this->acceptanceAbbr($eventversion, $instrumentation))
             ->count();
     }
 
     public function countParticipantsByAcceptanceAbbr(Eventversion $eventversion)
     {
         return Scoresummary::where('eventversion_id', $eventversion->id)
-            ->where('result', $this->acceptanceAbbr($eventversion))
+            ->where('result', $this->acceptance_abbr)//$this->acceptanceAbbr($eventversion))
             ->count();
     }
 

@@ -62,7 +62,7 @@
                         {{ $scoresummary->registrantScore($registrant) }}
                     </td>
                     <td>
-                        @if($scoresummary->registrantResult($registrant) === 'TB')
+                        @if($scoresummary->registrantResult($registrant) === 'tbl')
                             -
                         @else
                             {{ $scoresummary->registrantResult($registrant) }}
@@ -70,7 +70,7 @@
                     </td>
 
                     <td>
-                        @if($scoresummary->registrantResult($registrant) === 'MX')
+                        @if($scoresummary->registrantResult($registrant) === 'mx')
                             -
                         @else
                             {{ $scoresummary->registrantResult($registrant) }}

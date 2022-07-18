@@ -21,6 +21,13 @@
                         <div>
                             @if($eventroles->count())
                                 <h2>Event Administration</h2>
+                                @if(auth()->id() === 368)
+                                    <div>
+                                        <a href="{{ route('event.create') }}">
+                                            Add New Event
+                                        </a>
+                                    </div>
+                                @endif
                                 <div>
                                     @foreach($eventroles AS $eventrole)
                                         <div style="font-size: 1.15rem;">

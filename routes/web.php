@@ -47,11 +47,19 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');
     Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
 
+    /** EVENT CREATION */
+    Route::get('/event/new', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'create'])
+        ->name('event.create');
+    Route::post('xyztest', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'store'])
+        ->name('xyztest');
+
+
     /** EVENT ADMINISTRATION */
     Route::get('/eventadministration/{event}',[App\Http\Controllers\Eventadministration\EventadministrationController::class, 'index'])
         ->name('eventadministration.index');
     Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
         ->name('eventadministration.eventversion.index');
+
 
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewEventRequest;
 use App\Models\Eventversionrole;
+use App\Models\Organization;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
@@ -47,18 +49,21 @@ class EventadministrationController extends Controller
      */
     public function create()
     {
-        //
+        return view('eventadministration.create',
+        [
+            'organizations' => Organization::orderBy('name')->get(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param NewEventRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewEventRequest $request)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**

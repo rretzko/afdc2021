@@ -9,6 +9,9 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['auditioncount','first_event','frequency','grades','logo_file','logo_file_alt','name',
+        'organization_id','requiredheight', 'requiredshirtsize', 'short_name','status'];
+
     public function currentEventversion()
     {
         $eventversion_id = Userconfig::getValue('eventversion', auth()->id());

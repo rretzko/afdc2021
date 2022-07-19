@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewEventRequest;
+use App\Models\Event;
 use App\Models\Eventversionrole;
 use App\Models\Organization;
 use App\Models\Userconfig;
@@ -63,7 +64,24 @@ class EventadministrationController extends Controller
      */
     public function store(NewEventRequest $request)
     {
-        dd(__METHOD__);
+        $event = Event::create(
+            [
+                'name' => $request['name'],
+                'short_name' => $request['short_name'],
+                'organization_id' => $request['organization_id'],
+                'auditioncount' => $request['auditioncount'],
+                'frequency' => $request['frequency'],
+                'grades' => implode(',',$request['grades']),
+                'status' => $request['status'],
+                'requiredheight' => $request['requiredheight'],
+                'requiredshirtsize' => $request['requiredshirtsize'],
+                'first_event' => $request['first_event'],
+                'logo_file' => $request['logo_file'],
+                'logo_file_alt' => $request['logo_file_alt'],
+            ]
+        );
+
+        return back();
     }
 
     /**

@@ -24,10 +24,19 @@ class NewEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string','required'],
-            'shortname' => ['string','nullable'],
-            'organization_id' => ['numeric','required','organizations:id'],
             'auditioncount' => ['numeric','required','min:0','max:1'],
+            'first_event' => ['string','required','min:4','max:4'],
+            'frequency' => ['string','required'],
+            'grades' => ['array','required','min:1'],
+            'grades.*' => ['numeric','required','exists:gradetypes,id'],
+            'logo_file' => ['string','nullable'],
+            'logo_file_alt' => ['string','nullable'],
+            'name' => ['string','required'],
+            'organization_id' => ['numeric','required','exists:organizations,id'],
+            'requiredheight' => ['numeric','required','min:0','max:1'],
+            'requiredshirtsize' => ['numeric','required','min:0','max:1'],
+            'short_name' => ['string','nullable'],
+            'status' => ['string','required'],
         ];
     }
 }

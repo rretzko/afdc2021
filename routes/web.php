@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/event/new', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'create'])
         ->name('event.create');
     Route::post('xyztest', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'store'])
-        ->name('xyztest');
+        ->name('event.store');
 
 
     /** EVENT ADMINISTRATION */

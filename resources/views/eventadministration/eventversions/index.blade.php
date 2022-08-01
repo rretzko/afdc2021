@@ -21,6 +21,14 @@
                         <div>
                             @if($eventversionroles->count())
                                 <h2>Event Administration : {{ $event->name }}</h2>
+
+                                {{-- Add New Event --}}
+                                <div>
+                                    <a href="{{ route('eventadministration.eventversion.create') }}">
+                                        Add new event
+                                    </a>
+                                </div>
+
                                 <div>
                                     @foreach($eventversions AS $eventversion)
                                         <div style="font-size: 1.15rem;">

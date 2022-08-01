@@ -59,7 +59,10 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministration.index');
     Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
         ->name('eventadministration.eventversion.index');
-
+    Route::get('/eventadministration/eventversion/',[App\Http\Controllers\Eventadministration\EventversionController::class, 'create'])
+        ->name('eventadministration.eventversion.create');
+    Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
+        ->name('eventadministration.eventversion.index');
 
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])

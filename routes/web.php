@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     /** DASHBOARD */
-    Route::post('/dashboard/event', 'EventController@store')->name('event.store');
+    Route::post('/dashboard/event', 'EventController@store')->name('dashboard.event.store');
     Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
     Route::get('/dashboard/versions', 'EventversionController@index')->name('dashboard.eventversions.index');
     Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
@@ -50,17 +50,16 @@ Route::group(['middleware' => 'auth'],function(){
     /** EVENT CREATION */
     Route::get('/event/new', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'create'])
         ->name('event.create');
-    Route::post('xyztest', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'store'])
+    Route::post('/event/store', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'store'])
         ->name('event.store');
 
-
     /** EVENT ADMINISTRATION */
+    Route::get('/eventadministration/eventversion',[App\Http\Controllers\Eventadministration\EventversionController::class, 'create'])
+    ->name('eventadministration.eventversion.create');
     Route::get('/eventadministration/{event}',[App\Http\Controllers\Eventadministration\EventadministrationController::class, 'index'])
-        ->name('eventadministration.index');
-    Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
-        ->name('eventadministration.eventversion.index');
-    Route::get('/eventadministration/eventversion/',[App\Http\Controllers\Eventadministration\EventversionController::class, 'create'])
-        ->name('eventadministration.eventversion.create');
+       ->name('eventadministration.index');
+    //Route::get('/eventadministration/eventversion',[App\Http\Controllers\Eventadministration\EventversionController::class, 'create'])
+    //    ->name('eventadministration.eventversion.create');
     Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
         ->name('eventadministration.eventversion.index');
 
@@ -235,3 +234,4 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministrator.tabroom.scoretrackingByRoom.show');
 
 });
+

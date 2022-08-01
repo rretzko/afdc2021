@@ -25,7 +25,7 @@
                                 {{-- Add New Event --}}
                                 <div>
                                     <a href="{{ route('eventadministration.eventversion.create') }}">
-                                        Add new event
+                                        Add new event version
                                     </a>
                                 </div>
 

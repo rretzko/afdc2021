@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Eventversion;
+use App\Models\Eventversiontype;
+use App\Models\Gradetype;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
@@ -31,7 +34,12 @@ class EventversionController extends Controller
      */
     public function create()
     {
-        //
+        return view('eventadministration.eventversions.eventversion.create',
+            [
+                'event' => Event::find(Userconfig::getValue('event', auth()->id())),
+                'eventversiontypes' => Eventversiontype::orderBy('descr')->get(),
+                'grades' => Gradetype::orderBy('orderby')->get()
+            ]);
     }
 
     /**

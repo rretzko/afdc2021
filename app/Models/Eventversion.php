@@ -246,14 +246,29 @@ class Eventversion extends Model
      *
      * This method returns the instrumentation for the FIRST ensemble
      * found for $this->event
+     * OR
+     * for all instrumentations for all ensembles if multiple ensembles are found.
      *
      * @return mixed
      */
     public function instrumentations()
     {
-        return $this->event->eventensembles->first()
-            ? $this->event->eventensembles->first()->instrumentations()
-            : collect();
+        if($this->event->eventensembles->count() === 1) {
+
+            return $this->event->eventensembles->first()
+                ? $this->event->eventensembles->first()->instrumentations()
+                : collect();
+
+        }else{
+            $instrumentations = collect();
+
+            foreach($this->event->eventensembles AS $eventensemble){
+
+                $instrumentations = $instrumentations->merge($eventensemble->instrumentations());
+            }
+
+            return $instrumentations;
+        }
     }
 
     public function registrantsByTimeslotSchoolStudent()

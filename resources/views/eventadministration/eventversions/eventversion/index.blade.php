@@ -21,6 +21,10 @@
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Version Configuration</h4>
                         <ul>
+                            <li>Event version Dates</li>
+
+                            <li>Invite Members</li>
+
                             <li>Score Definition
                                 <ul>
                                     <li>

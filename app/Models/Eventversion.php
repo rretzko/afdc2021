@@ -13,6 +13,8 @@ class Eventversion extends Model
 {
     use HasFactory, SenioryearTrait;
 
+    protected $fillable = ['event_id','eventversiontype_id', 'grades', 'name','senior_class_of','short_name'];
+
     public function adjudicators()
     {
         return $this->hasMany(Adjudicator::class);
@@ -249,7 +251,9 @@ class Eventversion extends Model
      */
     public function instrumentations()
     {
-        return $this->event->eventensembles->first()->instrumentations();
+        return $this->event->eventensembles->first()
+            ? $this->event->eventensembles->first()->instrumentations()
+            : collect();
     }
 
     public function registrantsByTimeslotSchoolStudent()

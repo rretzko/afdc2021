@@ -58,10 +58,10 @@ Route::group(['middleware' => 'auth'],function(){
     ->name('eventadministration.eventversion.create');
     Route::get('/eventadministration/{event}',[App\Http\Controllers\Eventadministration\EventadministrationController::class, 'index'])
        ->name('eventadministration.index');
-    //Route::get('/eventadministration/eventversion',[App\Http\Controllers\Eventadministration\EventversionController::class, 'create'])
-    //    ->name('eventadministration.eventversion.create');
     Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
         ->name('eventadministration.eventversion.index');
+    Route::post('/eventadministration/eventversion/store',[App\Http\Controllers\Eventadministration\EventversionController::class, 'store'])
+        ->name('eventadministration.eventversion.store');
 
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])

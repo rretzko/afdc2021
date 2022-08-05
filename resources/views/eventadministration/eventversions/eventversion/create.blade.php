@@ -22,7 +22,16 @@
 
                         <h2>New Event Version Configuration</h2>
 
-                        <form method="post" action="" style="margin-bottom: 1rem;">
+                        {{-- ERRORS --}}
+                        <div style="display: flex; flex-direction: column;">
+                            @foreach($errors->all() AS $error)
+                                <div style="color: red;">{{ $error }}</div>
+                            @endforeach
+                        </div>
+
+                        <form method="post" action="{{ route('eventadministration.eventversion.store') }}" style="margin-bottom: 1rem;">
+
+                            @csrf
 
                             <style>
                                 .inputs{display: flex; flex-direction: column; max-width: 40rem;margin-bottom: 0.5rem;}

@@ -50,7 +50,26 @@ class EventversionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $eventid = Userconfig::getValue('event', auth()->id());
+
+        $inputs = $request->validate([
+           'name' => ['string','required', 'min:8'],
+           'short_name' => ['string', 'required', 'min:3'],
+           'eventversiontype_id' => ['numeric', 'required', 'exists:eventversiontypes,id'],
+            'senior_class_of' => ['numeric','required', 'min:2010'],
+           'grades' => ['array','required', 'min:1'],
+        ]);
+
+        $ev = Eventversion::create([
+           'event_id' => $eventid,
+           'name' => $inputs['name'],
+           'short_name' => $inputs['short_name'],
+           'senior_class_of' => $inputs['senior_class_of'],
+           'eventversiontype_id' => $inputs['eventversiontype_id'],
+           'grades' => implode(',',$inputs['grades']),
+        ]);
+
+        return route('eventadministration.index', ['event' => Event::find($eventid)]);
     }
 
     /**

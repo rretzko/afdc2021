@@ -27,7 +27,11 @@
                                 </a>
                             </li>
 
-                            <li>Invite Members</li>
+                            <li>
+                                <a href="{{ route('eventadministration.eventversion.members.edit') }}">
+                                    Event version Members
+                                </a>
+                            </li>
 
                             <li>Score Definition
                                 <ul>

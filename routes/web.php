@@ -63,6 +63,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministration/eventversion/store',[App\Http\Controllers\Eventadministration\EventversionController::class, 'store'])
         ->name('eventadministration.eventversion.store');
 
+    /** EVENT ADMINISTRATION EVENTVERSION DATES */
+    Route::get('/dates',[App\Http\Controllers\Eventadministration\EventversionDateController::class, 'edit'])
+        ->name('eventadministration.eventversion.dates.edit');
+    Route::post('/dates/update',[App\Http\Controllers\Eventadministration\EventversionDateController::class, 'update'])
+        ->name('eventadministration.eventversion.dates.update');
+
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
         ->name('eventadministrator.index');

@@ -21,7 +21,11 @@
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Version Configuration</h4>
                         <ul>
-                            <li>Event version Dates</li>
+                            <li>
+                                <a href="{{ route('eventadministration.eventversion.dates.edit') }}">
+                                    Event version Dates
+                                </a>
+                            </li>
 
                             <li>Invite Members</li>
 

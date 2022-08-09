@@ -15,6 +15,13 @@ class Membership extends Model
     protected $fillable = ['expiration', 'grade_levels', 'membership_card_path', 'membership_id', 'membershiptype_id',
         'organization_id', 'requestedtype_id', 'subjects', 'user_id'];
 
+    public function eventversionroles()
+    {
+        return Eventversionrole::where('user_id', $this->user_id)
+            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->get();
+    }
+
     public function getExpirationMDYFullAttribute(): string
     {
         return Carbon::parse($this->expiration)->format('M d, Y');

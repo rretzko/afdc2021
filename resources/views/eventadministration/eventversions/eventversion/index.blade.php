@@ -33,6 +33,12 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('eventadministration.eventversion.roles.index') }}">
+                                    Event version Roles
+                                </a>
+                            </li>
+
                             <li>Score Definition
                                 <ul>
                                     <li>

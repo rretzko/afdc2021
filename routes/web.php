@@ -85,6 +85,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/membership/update/{membership}',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
         ->name('eventadministration.eventversion.membership.update');
 
+    /** EVENT ADMINISTRATION EVENTVERSION ROLES */
+    Route::get('/roles', [App\Http\Controllers\Eventadministration\EventversionRoleController::class, 'index'])
+        ->name('eventadministration.eventversion.roles.index');
+    Route::post('/roles/update/{membership}', [App\Http\Controllers\Eventadministration\EventversionRoleController::class, 'update'])
+        ->name('eventadministration.eventversion.roles.update');
+
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])
         ->name('eventadministrator.index');

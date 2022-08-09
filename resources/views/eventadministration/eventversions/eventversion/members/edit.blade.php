@@ -25,13 +25,13 @@
                         {{-- ERRORS --}}
                         <div style="display: flex; flex-direction: column;">
                             @foreach($errors->all() AS $error)
-                                <div style="color: red;">{{ $error }}</div>
+                                <div style="color: red; padding:0.25rem; margin: 0.25rem 0;">{{ $error }}</div>
                             @endforeach
                         </div>
 
                         {{-- SUCCESS --}}
                         @if(Session::has('status'))
-                            <div style="display: flex; flex-direction: column; background-color: rgba(0,255,0,0.1); padding: 0.25rem;">
+                            <div style="display: flex; flex-direction: column; background-color: rgba(0,255,0,0.1); padding: 0.25rem; margin: 0.25rem 0;">
                                {!! \Session::get('status') !!}
                             </div>
                         @endif
@@ -58,6 +58,7 @@
                                 </div>
                             </div>
 
+                            {{-- MEMBERSHIP TABLE --}}
                             <div>
                                 @if($matchesfound)
 

@@ -71,7 +71,10 @@
                 (Route::currentRouteName() === 'eventadministrator.tabroom.reports.participatings') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.results') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.results.show') ||
-                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretracking')
+                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretracking') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.members.edit') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.members.search') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.member.show')
             )
             <a href="{{ route('home') }}">
                 Home

@@ -37,27 +37,29 @@ class SubscriberMatchService
     {
         $str = '';
 
-        if($this->memberships->contains($person->user_id)){
+        if($this->memberships->contains('user_id', $person->user_id)){
 
-            $str .= '<a href="">';
+            $membership = $this->memberships->where('user_id', $person->user_id)->first();
 
-            $str .= '<button style="background-color: rgba(255,0,0,0.1); border: 1px solid darkred; color: darkred; border-radius: 0.5rem;">';
+            $str .= '<a href="/member/remove/'.$membership->id.'"
+                style="background-color: rgba(255,0,0,0.1); border: 1px solid darkred; color: darkred; border-radius: 0.5rem; padding:0 0.25rem;"
+                >';
 
             $str .= 'Remove';
-
-            $str .= '</button>';
 
             $str .= '</a>';
 
         }else {
 
-            $str .= '<a href="" >';
+            $str .= '<a href="/member/add/'.$person->user_id.'"
+                style="background-color: rgba(0,255,0,0.1); border: 1px solid darkgreen; color: darkgreen; border-radius: 0.5rem; padding: 0 0.25rem;"
+                >';
 
-            $str .= '<button style="background-color: rgba(0,255,0,0.1); border: 1px solid darkgreen; color: darkgreen; border-radius: 0.5rem;">';
+            //$str .= '<button style="background-color: rgba(0,255,0,0.1); border: 1px solid darkgreen; color: darkgreen; border-radius: 0.5rem;">';
 
             $str .= 'Add';
 
-            $str .= '</button>';
+            //$str .= '</button>';
 
             $str  .= '</a>';
         }

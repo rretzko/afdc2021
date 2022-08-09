@@ -40,12 +40,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     /** DASHBOARD */
-    Route::post('/dashboard/event', 'EventController@store')->name('dashboard.event.store');
-    Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
-    Route::get('/dashboard/versions', 'EventversionController@index')->name('dashboard.eventversions.index');
-    Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
-    Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');
-    Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
+    //Route::post('/dashboard/event', 'EventController@store')->name('dashboard.event.store');
+    //Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
+    //Route::get('/dashboard/versions', 'EventversionController@index')->name('dashboard.eventversions.index');
+    //Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
+    //Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');
+    //Route::get('/dashboard/organizations', [App\Http\Controllers\OrganizationsController::class, 'index'])->name('organizations');
 
     /** EVENT CREATION */
     Route::get('/event/new', [App\Http\Controllers\Eventadministration\EventadministrationController::class, 'create'])
@@ -60,8 +60,8 @@ Route::group(['middleware' => 'auth'],function(){
        ->name('eventadministration.index');
     Route::get('/eventadministration/eventversion/{eventversion}',[App\Http\Controllers\Eventadministration\EventversionController::class, 'index'])
         ->name('eventadministration.eventversion.index');
-    Route::post('/eventadministration/eventversion/store',[App\Http\Controllers\Eventadministration\EventversionController::class, 'store'])
-        ->name('eventadministration.eventversion.store');
+    //Route::post('/eventadministration/eventversion/store',[App\Http\Controllers\Eventadministration\EventversionController::class, 'store'])
+    //    ->name('eventadministration.eventversion.store');
 
     /** EVENT ADMINISTRATION EVENTVERSION DATES */
     Route::get('/dates',[App\Http\Controllers\Eventadministration\EventversionDateController::class, 'edit'])
@@ -70,12 +70,20 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministration.eventversion.dates.update');
 
     /** EVENT ADMINISTRATION EVENTVERSION MEMBERS */
+    Route::get('/member/edit/{membership}', [App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'show'])
+        ->name('eventadministration.eventversion.member.show');
+    Route::get('/member/remove/{id}', [App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'destroy'])
+        ->name('eventadministration.eventversion.member.remove');
+    Route::get('/member/add/{id}', [App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'store'])
+        ->name('eventadministration.eventversion.member.store');
     Route::get('/members',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'edit'])
         ->name('eventadministration.eventversion.members.edit');
     Route::post('/members/search',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'search'])
         ->name('eventadministration.eventversion.members.search');
-    Route::post('/members/update',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
-        ->name('eventadministration.eventversion.members.update');
+    //Route::post('/members/update',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
+    //    ->name('eventadministration.eventversion.members.update');
+    Route::post('/membership/update/{membership}',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
+        ->name('eventadministration.eventversion.membership.update');
 
     /** EVENT ADMINISTRATOR */
     Route::get('/eventadministrator', [App\Http\Controllers\Eventadministration\EventadministratorController::class, 'index'])

@@ -61,9 +61,9 @@
                             {{-- MEMBERSHIP TABLE --}}
                             <div>
                                 @if($matchesfound)
-
-                                    {!! $matchesfound !!}
-
+                                    <div style="margin-bottom: 1rem;">
+                                        {!! $matchesfound !!}
+                                    </div>
                                 @endif
                             </div>
 

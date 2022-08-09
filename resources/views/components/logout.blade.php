@@ -75,7 +75,8 @@
                 (Route::currentRouteName() === 'eventadministration.eventversion.dates.edit') ||
                 (Route::currentRouteName() === 'eventadministration.eventversion.members.edit') ||
                 (Route::currentRouteName() === 'eventadministration.eventversion.members.search') ||
-                (Route::currentRouteName() === 'eventadministration.eventversion.member.show')
+                (Route::currentRouteName() === 'eventadministration.eventversion.member.show') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.member.store')
             )
             <a href="{{ route('home') }}">
                 Home

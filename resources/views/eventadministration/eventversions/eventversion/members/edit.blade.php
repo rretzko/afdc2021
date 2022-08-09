@@ -47,7 +47,7 @@
                             <div>
                                 <label>Search</label>
                                 <input type="text" name="search" value=""
-                                       placeholder="by email, last name, or school name" style="min-width: 30rem;"
+                                       placeholder="by email (lowercase)" style="min-width: 30rem;"
                                 >
                             </div>
                             <div>

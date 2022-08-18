@@ -514,7 +514,7 @@ class RegistrationActivity extends Model
     }*/
 
     /*private static function makeRegistrant(Student $student)
-    {dd(__FUNCTION__);
+    {
         Registrant::updateOrCreate([
           'id' => self::makeRegistrantId(),
           'user_id' => $student->user_id,

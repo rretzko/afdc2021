@@ -22,6 +22,12 @@
                         <h4>Event Version Configuration</h4>
                         <ul>
                             <li>
+                                <a href="{{ route('eventadministration.eventversion.eventconfigurations.edit') }}">
+                                    Event Configuration
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="{{ route('eventadministration.eventversion.dates.edit') }}">
                                     Event version Dates
                                 </a>

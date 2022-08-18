@@ -76,7 +76,11 @@
                 (Route::currentRouteName() === 'eventadministration.eventversion.members.edit') ||
                 (Route::currentRouteName() === 'eventadministration.eventversion.members.search') ||
                 (Route::currentRouteName() === 'eventadministration.eventversion.member.show') ||
-                (Route::currentRouteName() === 'eventadministration.eventversion.member.store')
+                (Route::currentRouteName() === 'eventadministration.eventversion.member.store') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.roles.index') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.roles.update') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.eventconfigurations.edit') ||
+                (Route::currentRouteName() === 'eventadministration.eventversion.eventconfigurations.update')
             )
             <a href="{{ route('home') }}">
                 Home

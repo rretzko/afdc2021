@@ -93,6 +93,8 @@ class MembershipTableService extends Model
 
         $str .= '<th>Name</th>';
 
+        $str .= '<th>Username</th>';
+
         $str .= '<th>Emails</th>';
 
         $str .= '<th>Schools</th>';
@@ -129,6 +131,8 @@ class MembershipTableService extends Model
             $str .= '<td>'.$cntr.'</td>';
 
             $str .= '<td>'.$user->person->fullnameAlpha().'</td>';
+
+            $str .= '<td>'.$user->username.'</td>';
 
             $str .= '<td>'.$this->emails($user->person).'</td>';
 

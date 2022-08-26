@@ -70,7 +70,7 @@ class SubscriberMatchService
     private function buildMemberships()
     {
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
-        $organization = Organization::find($eventversion->event->organization)->first();
+        $organization = Organization::find(Userconfig::getValue('organization', auth()->id()));
         $this->memberships = $organization->memberships;
     }
 

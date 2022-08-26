@@ -20,6 +20,7 @@ class EventadministrationController extends Controller
     public function index(\App\Models\Event $event)
     {
         Userconfig::updateValue('event', auth()->id(), $event->id);
+        Userconfig::updateValue('organization', auth()->id(), $event->organization->id);
 
         $eventversionroles = Eventversionrole::where('user_id', auth()->id())
             ->get();

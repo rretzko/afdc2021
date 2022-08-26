@@ -72,8 +72,6 @@ class SubscriberMatchService
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
         $organization = Organization::find(Userconfig::getValue('organization', auth()->id()));
         $this->memberships = $organization->memberships;
-        
-        dd($this->memberships);
     }
 
     private function emailRows(): string

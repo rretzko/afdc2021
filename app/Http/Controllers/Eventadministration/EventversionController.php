@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Eventadministration;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Eventversion;
+use App\Models\Eventversionrole;
 use App\Models\Eventversiontype;
 use App\Models\Gradetype;
+use App\Models\Membership;
+use App\Models\Roletype;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
@@ -69,7 +72,17 @@ class EventversionController extends Controller
            'grades' => implode(',',$inputs['grades']),
         ]);
 
-        return route('eventadministration.index', ['event' => Event::find($eventid)]);
+        //add administrator role
+        Eventversionrole::create(
+            [
+                'eventversion_id' => $ev->id,
+                'user_id' => auth()->id(),
+                'membership_id' => Membership::where('user_id', auth()->id())->first()->id,
+                'roletype_id' => Roletype::EVENT_ADMINISTRATOR,
+            ],
+        );
+
+        return view('eventadministration.index', ['event' => Event::find($eventid)]);
     }
 
     /**

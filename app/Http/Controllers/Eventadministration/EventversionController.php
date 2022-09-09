@@ -82,7 +82,7 @@ class EventversionController extends Controller
             ],
         );
 
-        return view('eventadministration.index', ['event' => Event::find($eventid)]);
+        return view('eventadministration.index', ['event' => Event::find($eventid),'eventversion' => $ev]);
     }
 
     /**

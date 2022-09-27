@@ -41,6 +41,14 @@
                                     @endforeach
                                 </div>
                             @endif
+                            {{-- LOG IN AS --}}
+                            @if(auth()->id() === 368)
+                                <div style="border-top: 1px solid darkblue;">
+                                    <a href="{{ route('sa.loginas.edit') }}">
+                                        Log In As
+                                    </a>
+                                </div>
+                            @endif
                         </div>
 
                     </section>

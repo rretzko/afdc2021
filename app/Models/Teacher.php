@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Model
 {
     protected $primaryKey = 'user_id';
+    protected $with = ['person:user_id,last,first'];
 
     /**
      * Derive teacher's current school from teacher's newest student's current school

@@ -267,5 +267,11 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/tabroom/scoretrackingByRoom/room/{room}', [App\Http\Controllers\Eventadministration\ScoretrackingByRoomController::class, 'show'])
         ->name('eventadministrator.tabroom.scoretrackingByRoom.show');
 
+    /** SUPER ADMINISTRATOR */
+
+    Route::get('sa/loginas', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'edit'])
+        ->name('sa.loginas.edit');
+    Route::post('sa/loginas/update', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'update'])
+        ->name('sa.loginas.update');
 });
 

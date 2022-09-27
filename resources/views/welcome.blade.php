@@ -139,7 +139,7 @@
 
             <div class="invitation">
                 If you build your auditioned events using spreadsheets, docs, or any other system
-                which is paper-and-time-intensive, we invite you to take a look!
+                which is paper-and-time-intensive, we invite you to take a look at our solution!
             </div>
 
     </div>

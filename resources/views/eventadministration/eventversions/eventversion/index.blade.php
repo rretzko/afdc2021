@@ -19,6 +19,17 @@
                     </div>
 
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
+                        <h4>Dashboard</h4>
+                        <ul>
+                            <li>
+                                <a href="{{ route('dashboard') }}">
+                                    Dashboard
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Version Configuration</h4>
                         <ul>
                             <li>

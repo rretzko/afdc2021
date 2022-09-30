@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     /** DASHBOARD */
+    Route::get('dashboard', [App\Http\Controllers\Eventadministration\DashboardController::class,'index'])->name('dashboard');
     //Route::post('/dashboard/event', 'EventController@store')->name('dashboard.event.store');
-    //Route::get('/dashboard/events', 'EventController@store')->name('dashboard.events.index');
     //Route::get('/dashboard/versions', 'EventversionController@index')->name('dashboard.eventversions.index');
     //Route::get('/dashboard/invitations', 'InvitationsController@index')->name('dashboard.invitations.index');
     //Route::get('/dashboard/members', [App\Http\Controllers\Members\MembersController::class, 'index'])->name('members');

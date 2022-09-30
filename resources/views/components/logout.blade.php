@@ -23,6 +23,7 @@
         @endif
 
         @if(
+                (Route::currentRouteName() === 'dashboard') ||
                 (Route::currentRouteName() === 'eventadministrator.adjudicators.index') ||
                 (Route::currentRouteName() === 'eventadministrator.adjudicators.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.adjudicators.edit') ||

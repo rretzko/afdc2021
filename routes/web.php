@@ -86,10 +86,11 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('eventadministration.eventversion.members.edit');
     Route::post('/members/search',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'search'])
         ->name('eventadministration.eventversion.members.search');
-    //Route::post('/members/update',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
-    //    ->name('eventadministration.eventversion.members.update');
+    Route::get('/members/download',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'export'])
+        ->name('eventadministration.eventversion.members.export');
     Route::post('/membership/update/{membership}',[App\Http\Controllers\Eventadministration\EventversionMemberController::class, 'update'])
         ->name('eventadministration.eventversion.membership.update');
+
 
     /** EVENT ADMINISTRATION EVENTVERSION ROLES */
     Route::get('/roles', [App\Http\Controllers\Eventadministration\EventversionRoleController::class, 'index'])

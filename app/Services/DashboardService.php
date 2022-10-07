@@ -98,6 +98,7 @@ class DashboardService
     {
         return Obligation::where('eventversion_id', $this->eventversion_id)
             ->where('acknowledgment',1)
+            ->distinct('user_id')
             ->count() ?? 0;
     }
 

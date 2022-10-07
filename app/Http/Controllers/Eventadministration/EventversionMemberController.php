@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Eventadministration;
 
+use App\Exports\MembershipExport;
 use App\Http\Controllers\Controller;
 use App\Models\Datetype;
 use App\Models\Eventversion;
@@ -13,6 +14,7 @@ use App\Models\Userconfig;
 use App\Services\MembershipTableService;
 use App\Services\SubscriberMatchService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EventversionMemberController extends Controller
 {
@@ -40,7 +42,7 @@ class EventversionMemberController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @param  int $id //user_id
+     * @param int $id //user_id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, int $id)
@@ -55,11 +57,11 @@ class EventversionMemberController extends Controller
             ->first();
 
         //restore trashed membership
-        if($trashed){
+        if ($trashed) {
 
-           $trashed->restore();
+            $trashed->restore();
 
-        }else {
+        } else {
 
             Membership::create(
                 [
@@ -72,7 +74,7 @@ class EventversionMemberController extends Controller
             );
         }
 
-        $request->session()->flash('status', '"'.$person->fullnameAlpha().'" has been added.');
+        $request->session()->flash('status', '"' . $person->fullnameAlpha() . '" has been added.');
 
         return $this->edit();
     }
@@ -80,7 +82,7 @@ class EventversionMemberController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Membership $membership)
@@ -129,9 +131,9 @@ class EventversionMemberController extends Controller
         $inputs = $request->validate(
             [
                 'membershiptype_id' => ['numeric', 'required', 'exists:membershiptypes,id'],
-                'membership_id' => ['string','nullable'],
-                'expiration' => ['date','nullable'],
-                'grade_levels' => ['string','nullable'],
+                'membership_id' => ['string', 'nullable'],
+                'expiration' => ['date', 'nullable'],
+                'grade_levels' => ['string', 'nullable'],
                 'subjects' => ['string', 'nullable'],
             ]
         );
@@ -145,7 +147,7 @@ class EventversionMemberController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param  int  $id //memberships id
+     * @param int $id //memberships id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, int $id)
@@ -154,9 +156,18 @@ class EventversionMemberController extends Controller
 
         Membership::destroy($id);
 
-        $request->session()->flash('status', '"'.$person->fullnameAlpha().'" has been removed.');
+        $request->session()->flash('status', '"' . $person->fullnameAlpha() . '" has been removed.');
 
         return $this->edit();
+    }
+
+    public function export()
+    {
+        $membership = new MembershipExport(Eventversion::find(Userconfig::getValue('eventversion', auth()->id())));
+
+        $datetime = date('Ynd_Gis');
+
+        return Excel::download($membership, 'membership_'.$datetime.'.csv');
     }
 
     /**

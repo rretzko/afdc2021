@@ -58,6 +58,15 @@ class MembershipTableService extends Model
 
         $str .= '<table cell-spacing="0" >';
 
+        //dowload
+        $str .= '<tr>
+            <td colspan="8" style="text-align: right;">
+                <a href="members/download">
+                    Download
+                </a>
+            </td>
+        </tr>';
+
         $str .= $this->headers();
 
         $str .= $this->rows($memberships);
@@ -130,7 +139,7 @@ class MembershipTableService extends Model
 
             $str .= '<td>'.$cntr.'</td>';
 
-            $str .= '<td>'.$user->person->fullnameAlpha().'</td>';
+            $str .= '<td title="Sys.Id. '.$user->id.'">'.$user->person->fullnameAlpha().'</td>';
 
             $str .= '<td>'.$user->username.'</td>';
 

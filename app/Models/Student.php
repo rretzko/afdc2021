@@ -16,16 +16,19 @@ class Student extends Model
 
     public function getCurrentSchoolAttribute()
     {
-        foreach($this->person->user->schools AS $school){
+        if($this->id) {//check for teachers who have not added the first student
+            foreach ($this->person->user->schools as $school) {
 
-            if($school->grades &&
-                in_array($this->getGradeAttribute(), $school->grades)){
+                if ($school->grades &&
+                    in_array($this->getGradeAttribute(), $school->grades)) {
 
-                return $school;
+                    return $school;
+                }
             }
+
+            Log::info('*** FJR: '.__METHOD__.': user_id: '.$this->user_id.': school_id: '.$school->id.': grades: '.serialize($school->grades).': gradeAttribute: '.$this->getGradeAttribute());
+            Log::info('*** FJR: Check the student grade v. grades @ the school v. grades teacher has checked.');
         }
-Log::info('*** FJR: '.__METHOD__.': user_id: '.$this->user_id.': school_id: '.$school->id.': grades: '.serialize($school->grades).': gradeAttribute: '.$this->getGradeAttribute());
-Log::info('*** FJR: Check the student grade v. grades @ the school v. grades teacher has checked.');
         return new School;
     }
 

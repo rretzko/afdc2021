@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Application;
 use App\Models\Eapplication;
 use App\Models\Eventversion;
 use App\Models\Fileupload;
 use App\Models\Obligation;
+use App\Models\Registrant;
+use App\Models\Signature;
 use App\Models\Userconfig;
 use Illuminate\Support\Facades\DB;
 
@@ -114,7 +117,31 @@ class DashboardService
                 ->where('signaturestudent',1)
                 ->count() ?? 0;
         }else{
-            return __LINE__;
+
+            //determine min/max of registrant ids
+            $min = (($this->eventversion_id * 10000) - 1); //ex. 739999
+            $max = (($this->eventversion_id + 1) * 10000); //ex. 750000
+
+            //get array of registrant_ids with a downloaded application
+            $registrant_ids =  Application::where('registrant_id', '>', $min)
+                ->where('registrant_id', '<', $max)
+                ->distinct('registrant_id')
+                ->pluck('registrant_id');
+
+            //count how many applications have the approved four signatures
+            $signature = new Signature;
+            $count = 0;
+            foreach($registrant_ids AS $registrant_id){
+
+                //@todo replace constant '4' with configuration determined number of signatures
+                if($signature->signatureCount(Registrant::find($registrant_id)) === 4){
+
+                    $count++;
+                }
+            }
+
+            return $count;
+
         }
     }
 }

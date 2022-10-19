@@ -228,10 +228,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('registrationmanagers.registrationcards.index',
-                                                ['eventversion' => $eventversion]) }}" >
-                                            Registration Cards
-                                        </a>
+                                        @if($eventversion->eventversionconfig->virtualaudition)
+                                            <span style="color: lightgray;">No Registration Cards (virtual audition)</span>
+                                        @else
+                                            <a href="{{ route('registrationmanagers.registrationcards.index',
+                                                    ['eventversion' => $eventversion]) }}" >
+                                                Registration Cards
+                                            </a>
+                                        @endif
                                     </li>
                                     <li>
                                         <a href="{{ route('registrationmanagers.adjudicationforms.index',

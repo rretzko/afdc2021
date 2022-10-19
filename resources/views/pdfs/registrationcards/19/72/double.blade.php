@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div style="margin: 0 2rem; border: 1px solid black;">Audition Number: ######</div>
+                        <div style="margin: 0 2rem; border: 1px solid black;">Registration Number: ######</div>
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div style="margin: 0 2rem; border: 1px solid black;">Audition Number: ######</div>
+                    <div style="margin: 0 2rem; border: 1px solid black;">Registration Number: ######</div>
                 </td>
             </tr>
             <tr>

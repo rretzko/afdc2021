@@ -16,7 +16,8 @@ class ParticipatingteachersController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12)) //sjcda
+        $participatingteachers = (($eventversion->event->id === 11) || ($eventversion->event->id === 12) //sjcda
+            || ($eventversion->event->id === 19))
             ? $eventversion->participatingTeachersEsignature
             : $eventversion->participatingTeachers;
 

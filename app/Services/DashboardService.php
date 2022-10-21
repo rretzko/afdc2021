@@ -55,7 +55,7 @@ class DashboardService
      */
     public function allUploadedFiles(): int
     {
-        $raw = "SELECT a.registrant_id
+        $raw = "SELECT COUNT(a.registrant_id)
         FROM fileuploads a
             JOIN fileuploads b ON a.registrant_id=b.registrant_id AND b.filecontenttype_id=5
         WHERE a.registrant_id >= 730000
@@ -76,7 +76,7 @@ class DashboardService
     {
         return Fileupload::where('registrant_id', '>=', $this->min_registrant_id)
             ->where('registrant_id', '<=', $this->max_registrant_id)
-            ->groupBy('registrant_id')
+            ->distinct('registrant_id')
             ->count() ?? 0;
     }
 

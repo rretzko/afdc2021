@@ -57,8 +57,9 @@
                         <div style="margin-top: 1rem; border: 1px solid black; display: flex; flex-direction: row; flex-wrap: wrap; padding: 0.25rem;background-color: white;">
                             <header style="width: 100%; text-align: center; font-weight: bold;">{{ $room->auditionees()->count() }} Auditionees</header>
                             @forelse($room->auditionees() AS $auditionee)
+
                                 <div style="border: 1px solid black; margin-right: 0.25rem; margin-top: 0.25rem; padding: 0 0.25rem; background-color: {{ $auditionee->roomStatusColor($room) }}">
-                                    <span title="{{ $auditionee->fullnameAlpha }}&#13;@ {{ $auditionee->schoolShortname }}&#13;w/{{ $auditionee->currentTeacher->person->fullnameAlpha() }}&#13;{!! $auditionee->adjudicatorProgress($room) !!}">
+                                    <span title="{{ $auditionee->fullnameAlpha }}&#13;@ {{ $auditionee->schoolShortname }}&#13;w/ {{ $auditionee->currentTeacher ? $auditionee->currentTeacher->person->fullnameAlpha() : 'not found' }}&#13;{!! $auditionee->adjudicatorProgress($room) !!}">
                                         {{ $auditionee->id }}
                                     </span>
                                 </div>

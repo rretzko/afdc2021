@@ -140,7 +140,7 @@ class Registrant extends Model
      */
     public function getFullnameAlphaAttribute()
     {
-        return $this->student->person->fullnameAlpha();
+        return $this->student ? $this->student->person->fullnameAlpha() : 'No Name';
     }
 
     public function getArmytimeAttribute() : string

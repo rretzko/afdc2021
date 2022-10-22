@@ -165,6 +165,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('eventadministrator/scores/input',[App\Http\Controllers\Eventadministration\ScoreController::class, 'create'])
         ->name('eventadministrator.scores.create');
+    Route::post('eventadministrator/scores/store',[App\Http\Controllers\Eventadministration\ScoreController::class, 'store'])
+        ->name('eventadministrator.scores.store');
 
     Route::get('/eventadministrator/scoring/segments/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])
         ->name('eventadministrator.scoring.segments');

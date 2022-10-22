@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ScoreRequest;
 use App\Models\Eventversion;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
@@ -38,9 +39,11 @@ class ScoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScoreRequest $request)
     {
-        //
+        session('success','Scores updated.');
+
+        return redirect()->back()->with('success','Scores updated!');
     }
 
     /**

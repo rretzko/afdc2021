@@ -38,6 +38,7 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
                 (Route::currentRouteName() === 'eventadministrator.scores.create') ||
+                (Route::currentRouteName() === 'eventadministrator.scores.store') ||
                 (Route::currentRouteName() === 'eventadministrator.studentcounts') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByAdjudicator') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByRoom.show') ||

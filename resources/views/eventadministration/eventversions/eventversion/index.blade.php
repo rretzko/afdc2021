@@ -155,7 +155,11 @@
                                 Tab Room
                             </h4>
                             <ul>
-                        <!--        <li>Score Input</li> -->
+                                <li>
+                                    <a href="{{ route('eventadministrator.scores.create') }}">
+                                        Score Input
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ route('eventadministrator.tabroom.scoretracking',
                                         ['eventversion' => $eventversion]) }}">

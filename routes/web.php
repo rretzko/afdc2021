@@ -163,6 +163,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministrator/rooms/update/{eventversion}/{room?}', [App\Http\Controllers\Eventadministration\AuditionroomController::class, 'update'])
         ->name('eventadministrator.rooms.update');
 
+    Route::get('eventadministrator/scores/input',[App\Http\Controllers\Eventadministration\ScoreController::class, 'create'])
+        ->name('eventadministrator.scores.create');
+
     Route::get('/eventadministrator/scoring/segments/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringsegmentController::class, 'index'])
         ->name('eventadministrator.scoring.segments');
     Route::get('/eventadministrator/scoring/components/{eventversion}', [App\Http\Controllers\Eventadministration\AuditionscoringcomponentController::class, 'index'])

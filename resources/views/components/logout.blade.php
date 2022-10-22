@@ -37,7 +37,10 @@
                 (Route::currentRouteName() === 'eventadministrator.rooms.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.edit') ||
                 (Route::currentRouteName() === 'eventadministrator.rooms.update') ||
+                (Route::currentRouteName() === 'eventadministrator.scores.create') ||
                 (Route::currentRouteName() === 'eventadministrator.studentcounts') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByAdjudicator') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByRoom.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.acknowledgedschools.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||

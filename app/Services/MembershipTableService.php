@@ -78,6 +78,11 @@ class MembershipTableService extends Model
 
     private function calcPastDue(string $expiration): string
     {
+        //early exit
+        if(is_null($this->eventversion->eventversiondates->where('datetype_id',Datetype::MEMBERSHIP_VALID)->first())){
+            return '';
+        }
+        
         return ($expiration < $this->eventversion->eventversiondates->where('datetype_id', Datetype::MEMBERSHIP_VALID)->first()->dt)
             ? 'pastdue'
             : '';

@@ -54,7 +54,7 @@
 
                                 {{-- PAYPAL MANUAL ENTRY --}}
                                 <div style="">
-                                    <a href="{{ route('sa.paypal.update') }}">
+                                    <a href="{{ route('sa.paypals.edit') }}">
                                         PayPal Update Check
                                     </a>
                                 </div>

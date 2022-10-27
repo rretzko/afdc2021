@@ -279,6 +279,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('sa.loginas.edit');
     Route::post('sa/loginas/update', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'update'])
         ->name('sa.loginas.update');
+    Route::get('sa/paypal', [App\Http\Controllers\SuperAdministration\PaypalManualController::class, 'edit'])
+        ->name('sa.paypal.edit');
     Route::post('sa/paypal/update', [App\Http\Controllers\SuperAdministration\PaypalManualController::class, 'update'])
         ->name('sa.paypal.update');
 });

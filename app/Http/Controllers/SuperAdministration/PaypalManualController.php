@@ -25,10 +25,10 @@ class PaypalManualController extends Controller
     {
         $payments = $this->parseString($request['paypal-string']);
 
-        if($payments->count() && ($payments->count === 1)){
+        if($payments->count() && ($payments->count() === 1)){
 
             $result = 'One payment found for registrant_id: '.$request['paypal-string'];
-        }elseif($payments->count() && ($payments->count > 1)){
+        }elseif($payments->count() && ($payments->count() > 1)){
 
             $result = $payments->count().' payments found for registrant_id: '.$request['paypal-string'];
         }else{
@@ -46,6 +46,19 @@ class PaypalManualController extends Controller
     private function parseString($str)
     {
         $parts = explode('*',$str);
+
+        Payment::create(
+        [
+            'user_id' => $parts[0],
+            'eventversion_id' => $parts[2],
+            'school_id' => $parts[3],
+            'registrant_id' => $parts[1],
+            'paymenttype_id' => 3, //PayPal
+            'amount' => $parts[4],
+            'updated_by' => auth()->id(),
+            'vendor_id' => 'manual update: '.date('Y-m-d G:i:s'),
+        ]
+    );
 
         return Payment::where('registrant_id', $parts[1])->get();
     }

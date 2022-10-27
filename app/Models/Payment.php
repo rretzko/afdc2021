@@ -10,6 +10,8 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['amount', 'eventversion_id','paymenttype_id','registrant_id', 'school_id','updated_by','user_id','vendor_id'];
+
     public function sumByEventversion(Eventversion $eventversion, array $counties)
     {
         $amount = DB::select(DB::raw("

@@ -147,7 +147,7 @@ class MembershipTableService extends Model
 
             $str .= '<td>'.$this->schools($user).'</td>';
 
-            $str .= '<td class="'.$this->calcPastDue($membership->expiration).'">'.$membership->expirationMDYFull.'</td>';
+            $str .= '<td class="'.is_null($membership->expiration) ? '' : $this->calcPastDue($membership->expiration).'">'.$membership->expirationMDYFull.'</td>';
 
             $str .= '<td>'.$this->btnEdit($membership).'</td>';
 

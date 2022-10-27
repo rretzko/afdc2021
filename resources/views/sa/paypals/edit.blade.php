@@ -8,6 +8,8 @@
 
         @csrf
 
+        {{ $registrant }}
+
         <h2>PayPal Manual Entry</h2>
         <div class="input-group">
             <label>Add Paypal * String</label>

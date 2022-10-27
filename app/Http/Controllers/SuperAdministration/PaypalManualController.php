@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SuperAdministration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
+use App\Models\Registrant;
 use Illuminate\Http\Request;
 
 class PaypalManualController extends Controller
@@ -21,6 +23,30 @@ class PaypalManualController extends Controller
      */
     public function update(Request $request)
     {
-        return view('sa.paypals.update',['registrant' => $request['paypal-string']]);
+        $payments = $this->parseString($request['paypal-string']);
+
+        if($payments->count() && ($payments->count === 1)){
+
+            $result = 'One payment found for registrant_id: '.$request['paypal-string'];
+        }elseif($payments->count() && ($payments->count > 1)){
+
+            $result = $payments->count().' payments found for registrant_id: '.$request['paypal-string'];
+        }else{
+
+            $result = 'No payments found for registrant_id: '.$request['paypal-string'];
+        }
+
+        return view('sa.paypals.edit',['registrant' => $result]);
+    }
+
+    /**
+     * @param $str teacher*registrant*eventversion*school*amount
+     * @return void
+     */
+    private function parseString($str)
+    {
+        $parts = explode('*',$str);
+
+        return Payment::where('registrant_id', $parts[1])->get();
     }
 }

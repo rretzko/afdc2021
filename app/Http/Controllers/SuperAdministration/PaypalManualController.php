@@ -21,6 +21,6 @@ class PaypalManualController extends Controller
      */
     public function update(Request $request)
     {
-        return redirect()->route('sa.paypals.update',['registrant' => 'No registrant found.']);
+        return view('sa.paypals.update',['registrant' => $request['paypal-string']]);
     }
 }

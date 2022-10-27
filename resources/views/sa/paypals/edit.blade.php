@@ -8,10 +8,10 @@
 
         @csrf
 
-        <h2>Log In As</h2>
+        <h2>PayPal Manual Entry</h2>
         <div class="input-group">
-            <label>Select Teacher</label>
-            {{ $registrant }}
+            <label>Add Paypal * String</label>
+            <input name="paypal-string" value="" style="max-width: 20rem;"/>
         </div>
         <div class="input-group">
             <label></label>

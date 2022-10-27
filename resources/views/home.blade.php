@@ -41,7 +41,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                            
+
                             {{-- SYSTEM ADMINISTRATION --}}
                             @if(auth()->id() === 368)
 
@@ -53,7 +53,7 @@
                                 </div>
 
                                 {{-- PAYPAL MANUAL ENTRY --}}
-                                <div style="border-top: 1px solid darkblue;">
+                                <div style="">
                                     <a href="{{ route('sa.paypal.update') }}">
                                         PayPal Update Check
                                     </a>

@@ -4,6 +4,13 @@
     <table>
         <thead>
             <tr>
+                <td colspan="5" style="text-align: right; padding-right: 1rem; font-size: smaller;border: 1px solid white; border-bottom: 1px solid black;">
+                    <a href="{{ route('eventadministrator.participatingteachers.download',['eventversion'=> $eventversion]) }}">
+                        Download
+                    </a>
+                </td>
+            </tr>
+            <tr>
                 <th>###</th>
                 <th>Name</th>
                 <th>School</th>

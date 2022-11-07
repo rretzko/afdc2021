@@ -265,6 +265,8 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
+    Route::get('/eventadministrator/participatingteachers/download/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingTeachersController::class, 'export'])
+        ->name('eventadministrator.participatingteachers.download');
 
     Route::get('/eventadministrator/tabroom/scoretracking/{eventversion}', [App\Http\Controllers\Eventadministration\ScoretrackingController::class, 'index'])
         ->name('eventadministrator.tabroom.scoretracking');

@@ -48,20 +48,24 @@
                                     <td>{{ $applicantsbyinstrumentation[$instrumentation->id] }}</td>
                                 @endforeach
                             </tr>
-                            <tr>
-                                <td class="label">At least one recording uploaded</td>
-                                <td>{{ $minrecording }}</td>
-                                @foreach($eventversion->instrumentations() AS $instrumentation)
-                                    <td>{{ $minrecordingbyinstrumentation[$instrumentation->id] }}</td>
-                                @endforeach
-                            </tr>
-                            <tr>
-                                <td class="label">Full set of recording uploaded & approved</td>
-                                <td>{{ $fullrecordings }}</td>
-                                @foreach($eventversion->instrumentations() AS $instrumentation)
-                                    <td>{{ $fullrecordingsbyinstrumentation[$instrumentation->id] }}</td>
-                                @endforeach
-                            </tr>
+                            @if($eventversion->eventversionconfig->virtualaudition)
+                                <tr>
+                                    <td class="label">At least one recording uploaded</td>
+                                    <td>{{ $minrecording }}</td>
+                                    @foreach($eventversion->instrumentations() AS $instrumentation)
+                                        <td>{{ $minrecordingbyinstrumentation[$instrumentation->id] }}</td>
+                                    @endforeach
+                                </tr>
+                            @endif
+                            @if($eventversion->eventversionconfig->virtualaudition)
+                                <tr>
+                                    <td class="label">Full set of recording uploaded & approved</td>
+                                    <td>{{ $fullrecordings }}</td>
+                                    @foreach($eventversion->instrumentations() AS $instrumentation)
+                                        <td>{{ array_key_exists($instrumentation->id, $fullrecordingsbyinstrumentation) ? $fullrecordingsbyinstrumentation[$instrumentation->id] : 0 }}</td>
+                                    @endforeach
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
 

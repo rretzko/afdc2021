@@ -9,7 +9,7 @@ use App\Models\Userconfig;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ParticipatingteachersController extends Controller
+class ParticipatingTeachersController extends Controller
 {
     /**
      * Display a listing of the resource.

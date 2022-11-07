@@ -263,7 +263,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/eventadministrator/studentcounts/{eventversion?}', [App\Http\Controllers\Eventadministration\StudentcountsController::class, 'index'])
         ->name('eventadministrator.studentcounts');
 
-    Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingteachersController::class, 'index'])
+    Route::get('/eventadministrator/participatingteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingTeachersController::class, 'index'])
         ->name('eventadministrator.participatingteachers');
     Route::get('/eventadministrator/participatingteachers/download/{eventversion?}', [App\Http\Controllers\Eventadministration\ParticipatingTeachersController::class, 'export'])
         ->name('eventadministrator.participatingteachers.download');

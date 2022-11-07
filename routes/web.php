@@ -256,6 +256,8 @@ Route::group(['middleware' => 'auth'],function(){
     /** TEACHERS WITH OBLIGATIONS ACKNOWLEDGED */
     Route::get('/eventadministrator/acknowledgedteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\AcknowledgedteachersController::class, 'index'])
         ->name('eventadministrator.acknowledgedteachers');
+    Route::get('/eventadministrator/acknowledgedteachers/download/{eventversion?}', [App\Http\Controllers\Eventadministration\AcknowledgedteachersController::class, 'export'])
+        ->name('eventadministrator.acknowledgedteachers.download');
 
     /** STUDENT COUNTS */
     Route::get('/eventadministrator/studentcounts/{eventversion?}', [App\Http\Controllers\Eventadministration\StudentcountsController::class, 'index'])

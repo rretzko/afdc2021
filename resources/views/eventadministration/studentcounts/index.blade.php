@@ -55,6 +55,13 @@
                                     <td>{{ $minrecordingbyinstrumentation[$instrumentation->id] }}</td>
                                 @endforeach
                             </tr>
+                            <tr>
+                                <td class="label">Full set of recording uploaded & approved</td>
+                                <td>{{ $fullrecordings }}</td>
+                                @foreach($eventversion->instrumentations() AS $instrumentation)
+                                    <td>{{ $fullrecordingsbyinstrumentation[$instrumentation->id] }}</td>
+                                @endforeach
+                            </tr>
                             </tbody>
                         </table>
 

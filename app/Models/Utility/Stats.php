@@ -3,6 +3,7 @@
 namespace App\Models\Utility;
 
 use App\Models\Eventversion;
+use App\Models\Registrant;
 use App\Models\Userconfig;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,6 +47,88 @@ class Stats extends Model
         }
 
         return $a;
+    }
+
+    /**
+     * Count of applicants who have uploaded and have approved the full set of recordings for $eventversion
+     */
+    public static function fullRecordingsCount(Eventversion $eventversion): int
+    {
+        $file_content_types_count = $eventversion->filecontenttypes->count();
+        $min = (($eventversion->id * 10000) - 1);
+        $max = (($eventversion->id + 1) * 10000);
+
+        $count =  DB::table('applications')
+            ->join('fileuploads','applications.registrant_id','=','fileuploads.registrant_id')
+            ->where('applications.registrant_id','>',$min)
+            ->where('applications.registrant_id','<', $max)
+            ->where('fileuploads.approved','>',1)
+            ->distinct()
+            ->count('applications.registrant_id');
+
+        $rows =  DB::table('applications')
+            ->join('fileuploads','applications.registrant_id','=','fileuploads.registrant_id')
+            ->where('applications.registrant_id','>',$min)
+            ->where('applications.registrant_id','<', $max)
+            ->whereNotNull('fileuploads.approved')
+            ->groupBy('applications.registrant_id','fileuploads.filecontenttype_id')
+            ->get('applications.registrant_id','filecontenttype_id');
+
+        //create array of registrant_ids with the requisite number of files
+        $a=[];
+        foreach($rows AS $row){
+
+            if(self::hasRequisiteFiles($file_content_types_count,$row)){
+                 $a[$row->registrant_id] = $file_content_types_count;
+             }
+        }
+
+        return count($a) ?: 0;
+    }
+
+    /**
+     * Count of applicants who have uploaded and have approved the full set of recordings for $eventversion
+     * by instrumentation
+     */
+    public static function fullRecordingsCountByInstrumentation(Eventversion $eventversion): array
+    {
+        $min = (($eventversion->id * 10000) - 1);
+        $max = (($eventversion->id + 1) * 10000);
+
+        //registrant_id + filecontenttype_id for all registrants with approved fule uploads
+        $rows =  DB::table('applications')
+            ->join('fileuploads','applications.registrant_id','=','fileuploads.registrant_id')
+            ->where('applications.registrant_id','>',$min)
+            ->where('applications.registrant_id','<', $max)
+            ->whereNotNull('fileuploads.approved')
+            ->groupBy('applications.registrant_id','fileuploads.filecontenttype_id')
+            ->get('applications.registrant_id','filecontenttype_id');
+
+        //determine if 1 or more files exist for each $row
+        $a=[];
+        foreach($rows AS $row){
+            array_key_exists($row->registrant_id, $a)
+                ? ($a[$row->registrant_id] = ($a[$row->registrant_id] + 1))
+                : $a[$row->registrant_id] = 1;
+        }
+
+        //filter out any registrant without the requisite number of approved file uploads
+        $counts = [];
+        foreach($a AS $registrantid => $count) {
+
+            if($count == $eventversion->filecontenttypes()->count()) {
+
+                $r = Registrant::find($registrantid);
+                $instrumentationid = $r->instrumentations->first()->id;
+
+                array_key_exists($instrumentationid, $counts)
+                    ? $counts[$instrumentationid] = $counts[$instrumentationid] + 1
+                    : $counts[$instrumentationid] = 1;
+            }
+
+        }
+
+        return $counts;
     }
 
     /**
@@ -104,4 +187,13 @@ class Stats extends Model
             ->count('registrants.school_id');
     }
 
+    private static function hasRequisiteFiles(int $files_needed,\stdClass $row): bool
+    {
+        $files_available = DB::table('fileuploads')
+            ->where('registrant_id', $row->registrant_id)
+            ->whereNotNull('approved')
+            ->count('registrant_id');
+
+        return ($files_needed === $files_available);
+    }
 }

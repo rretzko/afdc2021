@@ -13,13 +13,17 @@ class StudentcountsController extends Controller
 {
     public function index()
     {
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+
         return view('eventadministration.studentcounts.index',
             [
                 'applicants' => Stats::applicationCount(),
                 'applicantsbyinstrumentation' => Stats::applicationCountsByInstrumentation(),
-                'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+                'eventversion' => $eventversion,
                 'minrecording' => Stats::minRecordingCount(),
                 'minrecordingbyinstrumentation' => Stats::minRecordingCountByInstrumentation(),
+                'fullrecordings' => Stats::fullRecordingsCount($eventversion),
+                'fullrecordingsbyinstrumentation' => Stats::fullRecordingsCountByInstrumentation(($eventversion)),
                 'schools' => Stats::schoolsWithApplicantsCount(),
             ]
         );

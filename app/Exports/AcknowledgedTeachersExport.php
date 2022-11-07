@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class AckowledgedTeachersExport implements FromCollection, WithHeadings,WithMapping
+class AcknowledgedTeachersExport implements FromCollection, WithHeadings,WithMapping
 {
     private $obligations;
 
@@ -28,7 +28,7 @@ class AckowledgedTeachersExport implements FromCollection, WithHeadings,WithMapp
     public function headings(): array
     {
         return [
-            'user_id',
+            //'user_id',
             'last',
             'first',
             'middle',
@@ -44,7 +44,7 @@ class AckowledgedTeachersExport implements FromCollection, WithHeadings,WithMapp
     public function map($obligation): array
     {
         return [
-            $obligation['person']->user_id,
+           // $obligation['person']->user_id,
             $obligation['person']->last,
             $obligation['person']->first,
             $obligation['person']->middle,

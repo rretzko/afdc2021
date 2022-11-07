@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Eventadministration;
 
-use App\Exports\AckowledgedTeachersExport;
+use App\Exports\AcknowledgedTeachersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Teacher;
@@ -24,7 +24,7 @@ class AcknowledgedteachersController extends Controller
 
     public function export(Eventversion $eventversion)
     {
-        $export = new AckowledgedTeachersExport($eventversion);
+        $export = new AcknowledgedTeachersExport($eventversion);
 
         $datetime = date('Ynd_Gis');
 

@@ -21,18 +21,20 @@
                     <section id="header" style="padding: 1rem;">
                         <div class="input-group" style="display: flex; flex-direction: row; justify-content: space-around;">
                             <label for="instrumentation_id"></label>
-
-                            @foreach($instrumentations AS $instrumentation)
-                                <a href="{{ route('registrationmanagers.monitorchecklists.show',
-                                            [
-                                                'eventversion' => $eventversion,
-                                                'instrumentation' => $instrumentation
-                                            ]
-                                        )}}"
-                                >
-                                    {{ strtoupper($instrumentation->descr) }} ({{ $registrationactivity->registeredInstrumentationTotalCount($instrumentation) }})
-                                </a>
-                            @endforeach
+                            <div style="display:flex; flex-wrap: wrap; justify-content: center; border: 1px solid darkgray; background-color: rgba(0,0,0,0.1); padding: 0.2rem; border-radius: 0.25rem;">
+                                @foreach($instrumentations AS $instrumentation)
+                                    <a href="{{ route('registrationmanagers.monitorchecklists.show',
+                                                [
+                                                    'eventversion' => $eventversion,
+                                                    'instrumentation' => $instrumentation
+                                                ]
+                                            )}}"
+                                       style="background-color: white; border: 1px solid darkgray; margin: 0.1rem; padding: 0 0.2rem; border-radius: 0.25rem;"
+                                    >
+                                        {{ strtoupper($instrumentation->descr) }} ({{ $registrationactivity->registeredInstrumentationTotalCount($instrumentation) }})
+                                    </a>
+                                @endforeach
+                            </div>
 
                         </div>
                     </section>

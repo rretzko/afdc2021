@@ -226,10 +226,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('registrationmanagers.timeslotassignment.index',
-                                            ['eventversion' => $eventversion]) }}">
-                                            Assign Audition Timeslots
-                                        </a>
+                                        @if($eventversion->eventversionconfig->virtualaudition)
+                                            <span style="color: lightgray;">No Timeslots Required (virtual audition)</span>
+                                        @else
+                                            <a href="{{ route('registrationmanagers.timeslotassignment.index',
+                                                ['eventversion' => $eventversion]) }}">
+                                                Assign Audition Timeslots
+                                            </a>
+                                        @endif
                                     </li>
                                     <li>
                                         @if($eventversion->eventversionconfig->virtualaudition)

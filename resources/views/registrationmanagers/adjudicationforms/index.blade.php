@@ -21,7 +21,7 @@
                     <section id="header" style="padding: 1rem;">
                         <div class="input-group" style="display: flex; flex-direction: row; justify-content: space-around;">
                             <label for="instrumentation_id"></label>
-
+<div style="display:flex; flex-wrap: wrap; justify-content: center; border: 1px solid darkgray; background-color: rgba(0,0,0,0.1); padding: 0.2rem; border-radius: 0.25rem;">
                             @foreach($instrumentations AS $instrumentation)
                                 <a href="{{ route('registrationmanagers.adjudicationforms.show',
                                             [
@@ -29,11 +29,12 @@
                                                 'instrumentation' => $instrumentation
                                             ]
                                         )}}"
+                                   style="background-color: white; border: 1px solid darkgray; margin: 0.1rem; padding: 0 0.2rem; border-radius: 0.25rem;"
                                 >
                                     {{ strtoupper($instrumentation->descr) }} ({{ $registrationactivity->registeredInstrumentationTotalCount($instrumentation) }})
                                 </a>
                             @endforeach
-
+</div>
                         </div>
                     </section>
 
@@ -44,7 +45,7 @@
                                 <h2>{{ strtoupper($targetinstrumentation->descr) }}</h2>
 
                                 <div>
-                                    @if(config('app.url') === 'http://afdc2021.test')
+                                   <!-- {{-- @if(config('app.url') === 'http://afdc2021.test') --}} -->
                                         <a href="{{ route('registrationmanagers.adjudicationforms.pdf',
                                             [
                                                 'eventversion' => $eventversion,
@@ -53,18 +54,18 @@
                                         >
                                             Print PDF
                                         </a>
-                                    @else
+                                    <!-- {{-- @else
                                         <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanagers/adjudicationforms/pdf/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
                                             Print PDF
                                         </a>
-                                    @endif
+                                    @endif --}} -->
                                 </div>
                             </div>
                             <div style="">
 
                                 @foreach($rooms AS $room)
 
-                                    <x-adjudicationforms.1.70.adjudicationform
+                                    <x-adjudicationforms.25.73.adjudicationform
                                         :eventversion="$eventversion"
                                         :instrumentation="$targetinstrumentation"
                                         :registrants="$registrants"

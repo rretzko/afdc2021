@@ -38,6 +38,11 @@ class Teacher extends Model
         return (strlen($last->currentSchool->name) ? $last->currentSchool : $this->schools->first());
     }
 
+    public function getFullNameAlphaAttribute()
+    {
+
+    }
+
     public function getSchoolsAttribute()
     {
         return $this->person->user->schools;

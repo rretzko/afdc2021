@@ -29,10 +29,7 @@ class Person extends Model
     {
         $str = $this->last.', '.$this->first;
 
-        if(strlen($this->middle)){
-
-            $str .= ' '.$this->middle;
-        }
+        $str .= $this->middle ? ' '.$this->middle : '';
 
         return $str;
     }

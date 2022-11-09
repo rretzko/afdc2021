@@ -36,5 +36,11 @@ class Adjudicator extends Model
         return $this->belongsTo(Room::class);
     }
 
+    public function totalScore(Registrant $registrant): int
+    {
+        return Score::where('registrant_id', $registrant->id)
+            ->where('user_id', $this->user_id)
+            ->sum('score');
+    }
 
 }

@@ -15,8 +15,8 @@ class Student extends Model
     protected $primaryKey = 'user_id';
 
     public function getCurrentSchoolAttribute()
-    {
-        if($this->id) {//check for teachers who have not added the first student
+    {;
+        if($this->user_id) {//check for teachers who have not added the first student
             foreach ($this->person->user->schools as $school) {
 
                 if ($school->grades &&

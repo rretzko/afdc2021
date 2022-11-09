@@ -27,7 +27,7 @@
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,255,0,.1);" title="Complete set of scores found">Completed</div>
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,0,0,.1);" title="Scores are out of tolerance">Tolerance</div>
                                 <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(44,130,201,.1);" title="More than expected number of scores found">Excess</div>
-                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,255,255,.1);" title="Something unexpected has occurred">Error</div>
+                                <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,0,0,0.2);" title="Something unexpected has occurred">Error</div>
                         </div>
 
                         {{-- REGISTRANT ID SECTION --}}
@@ -36,6 +36,7 @@
                                 <label style="font-weight: bold; margin-top: .5rem;">{{ strtoupper($instrumentation->descr) }} </label>
                                 <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
                                     @foreach($registrants AS $registrant)
+
                                         @if($registrant->instrumentations->first()->id === $instrumentation->id)
                                             <div style="background-color: {{ $registrant->tabroomStatusBackgroundColor() }}; border: 1px solid black; border-radius: .25rem; margin-right: .25rem; margin-bottom: .25rem; padding: 0 .1rem"
                                                 title="{!! $registrant->auditionDetails() !!}">

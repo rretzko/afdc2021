@@ -6,10 +6,11 @@ use App\Models\Utility\Fileviewport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Traits\RegistrantRoomsTrait;
 
 class Registrant extends Model
 {
-    use HasFactory;
+    use HasFactory,RegistrantRoomsTrait;
 
     protected $fillable = ['eventversion_id', 'id', 'programname', 'registranttype_id', 'school_id', 'user_id'];
 
@@ -52,19 +53,34 @@ class Registrant extends Model
     }
 
     public function auditionDetails()
-    {//$user = User::with('schools')->where('id', (1700))->first();
-      //  dd($user);
+    {
         $scores = Score::where('registrant_id', $this->id)->get();
         $crlf = '&#13;';
 
+        //student name
         $card = $this->student->person->fullnameAlpha().$crlf;
 
+        //school name
         $card .= ($this->student->currentSchool)
-            ? $this->student->currentSchool->shortName.$crlf
+            ? '@ '.$this->student->currentSchool->shortName.$crlf
             : 'No school found; check logs';
 
+        //teacher name
+        $card .= 'w/'.$this->student->currentTeacher->person->alphaName.$crlf;
+
+        //score count
         $card .= 'Score count: '.$scores->count().$crlf;
-        //$card .= $this->student->currentTeacher;
+
+        //rooms
+        foreach($this->registrantRooms($this) AS $room){
+
+            $card .= $room->descr.' Room'.$crlf;
+
+            foreach($room->adjudicators AS $adjudicator){
+
+                $card .= '- '.$adjudicator->adjudicatorName.' ('.$this->scoreSumByAdjudicator($adjudicator).')'.$crlf;
+            }
+        }
 
         return $card;
     }
@@ -269,7 +285,7 @@ class Registrant extends Model
         $colors = [
             'completed' => 'rgba(0,255,0,.1)',//'bg-green-100',
             'excess' => 'rgba(44,130,201,.1)', //bg-blue-100,
-            'error' => 'rgba(0,0,0,.1)',
+            'error' => 'rgba(0,0,0,.2)',
             'partial' => 'rgba(240,255,0,.3)',//'bg-yellow-100',
             'tolerance' => 'rgba(255,0,0,.1)',//'bg-red-100',
             'unauditioned' => '',//bg-white

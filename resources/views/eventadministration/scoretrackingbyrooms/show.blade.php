@@ -45,12 +45,12 @@
 
                         {{-- LEGEND --}}
                         <div id="legend" style="display: flex; flex-direction: row; margin: auto; margin-top: 1rem;">
-                            <div style="border:1px solid black; padding: 0 .25rem; background-color: aliceblue;" title="No scores found">Unauditioned</div>
+                            <div style="border:1px solid black; padding: 0 .25rem; background-color: white;" title="No scores found">Unauditioned</div>
                             <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(240,255,0,.3);" title="Incomplete set of scores found">Partial</div>
                             <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,255,0,.1);" title="Complete set of scores found">Completed</div>
                             <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,0,0,.1);" title="Scores are out of tolerance">Tolerance</div>
                             <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(44,130,201,.2);" title="More than expected number of scores found">Excess</div>
-                            <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(255,255,255,.1);" title="Something unexpected has occurred">Error</div>
+                            <div style="border:1px solid black; padding: 0 .25rem; background-color: rgba(0,0,0,0.2);" title="Something unexpected has occurred">Error</div>
                         </div>
 
 
@@ -58,10 +58,8 @@
                             <header style="width: 100%; text-align: center; font-weight: bold;">{{ $room->auditionees()->count() }} Auditionees</header>
                             @forelse($room->auditionees() AS $auditionee)
 
-                                <div style="border: 1px solid black; margin-right: 0.25rem; margin-top: 0.25rem; padding: 0 0.25rem; background-color: {{ $auditionee->roomStatusColor($room) }}">
-                                    <span title="{{ $auditionee->fullnameAlpha }}&#13;@ {{ $auditionee->schoolShortname }}&#13;w/ {{ $auditionee->currentTeacher ? $auditionee->currentTeacher->person->fullnameAlpha() : 'not found' }}&#13;{!! $auditionee->adjudicatorProgress($room) !!}">
-                                        {{ $auditionee->id }}
-                                    </span>
+                                <div style="border: 1px solid black; border-radius: 0.25rem; margin-right: 0.25rem; margin-top: 0.25rem; padding: 0 0.25rem; background-color: {{ $auditionee->roomStatusColor($room) }}">
+                                    <span title="{!! $auditionee->auditionDetails() !!}">{{ $auditionee->id }}</span>
                                 </div>
                                 @empty No registrants found
                             @endforelse

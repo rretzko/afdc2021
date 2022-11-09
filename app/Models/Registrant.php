@@ -226,12 +226,12 @@ class Registrant extends Model
         }
 
         //colors
-        $unauditioned = 'aliceblue;'; //aliceblue
+        $unauditioned = 'white;'; //white
         $partial = 'rgba(240,255,0,0.3);'; //yellow
         $completed = 'rgba(0,255,0,0.1);'; //green
         $tolerance = 'rgba(255,0,0,0.1);'; //red
         $excess = 'rgba(0,0,255,0.3);'; //darkblue
-        $error = 'white'; //white
+        $error = 'rgba(0,0,0,0.2);'; //gray
 
         if (! $adjudicatedcomponents) {
             return $unauditioned;

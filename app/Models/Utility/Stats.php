@@ -188,6 +188,11 @@ class Stats extends Model
         return $a;
     }
 
+    public static function registeredStudentsCount(): int
+    {
+        return 47;
+    }
+
     public static function schoolsWithApplicantsCount()
     {
         $eventversionid = Userconfig::getValue('eventversion', auth()->id());

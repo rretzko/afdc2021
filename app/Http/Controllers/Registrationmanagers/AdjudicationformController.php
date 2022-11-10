@@ -40,6 +40,7 @@ class AdjudicationformController extends Controller
     public function show(Eventversion $eventversion, Instrumentation $instrumentation)
     {
         $bladepath = 'x-adjudicationforms.'.$eventversion->event->id.'.'.$eventversion->id.'.adjudicationform';
+
         $eventversionrooms = Room::with('instrumentations')
             ->where('eventversion_id', $eventversion->id)
             ->get();

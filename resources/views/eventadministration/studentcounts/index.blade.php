@@ -48,6 +48,13 @@
                                     <td>{{ $applicantsbyinstrumentation[$instrumentation->id] }}</td>
                                 @endforeach
                             </tr>
+                            <tr>
+                                <td class="label">Registrants</td>
+                                <td>{{ $registrants }}</td>
+                                @foreach($eventversion->instrumentations() AS $instrumentation)
+                                    <td>{{ $registrantsbyinstrumentation[$instrumentation->id] }}</td>
+                                @endforeach
+                            </tr>
                             @if($eventversion->eventversionconfig->virtualaudition)
                                 <tr>
                                     <td class="label">At least one recording uploaded</td>

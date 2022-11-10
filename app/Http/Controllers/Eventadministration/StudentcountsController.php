@@ -24,7 +24,8 @@ class StudentcountsController extends Controller
                 'minrecordingbyinstrumentation' => Stats::minRecordingCountByInstrumentation(),
                 'fullrecordings' => Stats::fullRecordingsCount($eventversion),
                 'fullrecordingsbyinstrumentation' => Stats::fullRecordingsCountByInstrumentation(($eventversion)),
-                'registeredstudentscount' => Stats::registeredStudentsCount($eventversion),
+                'registrants' => Stats::registeredStudentsCount($eventversion),
+                'registrantsbyinstrumentation' => Stats::registrantCountsByInstrumentation($eventversion),
                 'schools' => Stats::schoolsWithApplicantsCount(),
             ]
         );

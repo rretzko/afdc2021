@@ -188,9 +188,34 @@ class Stats extends Model
         return $a;
     }
 
-    public static function registeredStudentsCount(): int
+    public static function registeredStudentsCount(Eventversion $eventversion): int
     {
-        return 47;
+        return Registrant::where('eventversion_id', $eventversion->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->count('id');
+    }
+
+    public static function registrantCountsByInstrumentation(Eventversion $eventversion)
+    {
+        $a = [];
+        $min = (($eventversion->id * 10000) - 1);
+        $max = (($eventversion->id + 1) * 10000);
+
+        foreach($eventversion->instrumentations() AS $instrumentation){
+
+            $a[$instrumentation->id] = DB::table('registrants')
+                ->join('instrumentation_registrant', function($join) use($instrumentation){
+                    $join->on('registrants.id', '=', 'instrumentation_registrant.registrant_id')
+                        ->where('instrumentation_registrant.instrumentation_id','=',$instrumentation->id);
+                })
+                ->where('registrants.id','>',$min)
+                ->where('registrants.id','<', $max)
+                ->where('registranttype_id', '=', Registranttype::REGISTERED)
+                ->distinct()
+                ->count('registrants.id');
+        }
+
+        return $a;
     }
 
     public static function schoolsWithApplicantsCount()

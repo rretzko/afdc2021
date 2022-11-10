@@ -60,6 +60,14 @@
                                     </div>
                                 </div>
 
+                                {{-- REGISTERED STUDENTS --}}
+                                <div class="stat">
+                                    <label>Registered Students</label>
+                                    <div class="data">
+                                        {{ $dashboard->registeredStudentsCount($event) }}
+                                    </div>
+                                </div>
+
                                 {{-- VIRTUAL AUDITION --}}
                                 @if($event->eventversionconfig->virtualaudition)
                                     {{-- AT LEAST ONE UPLOADED FILE --}}

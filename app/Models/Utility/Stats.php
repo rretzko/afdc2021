@@ -4,7 +4,9 @@ namespace App\Models\Utility;
 
 use App\Models\Eventversion;
 use App\Models\Registrant;
+use App\Models\Registranttype;
 use App\Models\Userconfig;
+use AWS\CRT\Auth\SignatureType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,15 +17,28 @@ class Stats extends Model
 
     public static function applicationCount()
     {
-        $eventversionid = Userconfig::getValue('eventversion', auth()->id());
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversionid = $eventversion->id;
         $min = (($eventversionid * 10000) - 1);
         $max = (($eventversionid + 1) * 10000);
 
-        return DB::table('applications')
-            ->where('registrant_id','>',$min)
-            ->where('registrant_id','<', $max)
+        return ($eventversion->eventversionconfig->eapplication)
+
+            ? DB::table('eapplications')
+                ->where('registrant_id','>',$min)
+                ->where('registrant_id','<', $max)
+                ->where('signatureguardian','=',1)
+                ->where('signaturestudent','=',1)
+                ->distinct()
+                ->count('registrant_id')
+
+            :  DB::table('applications')
+            ->join('signatures','signatures.registrant_id','=','applications.registrant_id')
+            ->where('applications.registrant_id','>',$min)
+            ->where('applications.registrant_id','<', $max)
+            ->where('signatures.signaturetype_id','=',4) //teacher
             ->distinct()
-            ->count('registrant_id');
+            ->count('applications.registrant_id');
     }
 
     public static function applicationCountsByInstrumentation()

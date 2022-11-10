@@ -8,6 +8,7 @@ use App\Models\Eventversion;
 use App\Models\Fileupload;
 use App\Models\Obligation;
 use App\Models\Registrant;
+use App\Models\Registranttype;
 use App\Models\Signature;
 use App\Models\Userconfig;
 use Illuminate\Support\Facades\DB;
@@ -103,6 +104,17 @@ class DashboardService
             ->where('acknowledgment',1)
             ->distinct('user_id')
             ->count() ?? 0;
+    }
+
+    /**
+     * Return count of students with signed application/eapplication
+     * @return int
+     */
+    public function registeredStudentsCount(Eventversion $eventversion): int
+    {
+        return Registrant::where('eventversion_id', $eventversion->id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->count('id');
     }
 
     /**

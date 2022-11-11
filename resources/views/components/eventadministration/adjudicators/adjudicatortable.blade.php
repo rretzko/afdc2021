@@ -8,6 +8,7 @@
             <tr>
                 <th>###</th>
                 <th>Room</th>
+                <th>Count</th>
                 <th>Content</th>
                 <th>Voice Part(s)</th>
                 <th class="sr-only">Delete</th>
@@ -18,6 +19,7 @@
                 <tr style="background-color: lightgoldenrodyellow;">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $room->descr }}</td>
+                    <td style="text-align: center;">{{ $room->auditioneesCount() }}</td>
                     <td>
                         @foreach($room->filecontenttypes AS $filecontenttype)
                             {{ $filecontenttype->descr }}
@@ -31,7 +33,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="4" style="padding-left: 3rem;">
+                    <td colspan="5" style="padding-left: 3rem;">
                         <ul>
                             @foreach($room->adjudicators AS $adjudicator)
                             <li>

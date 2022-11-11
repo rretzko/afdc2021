@@ -24,6 +24,7 @@
                             table{border-collapse: collapse;}
                             td,th{border: 1px solid black; padding-left: .25rem; padding-right: .25rem; text-align: center;}
                             td.label{width: 30%; text-align: right;}
+                            td.highlight{background-color: rgba(0,0,0,0.1); font-weight: bold;}
                         </style>
                         <table>
                             <thead>
@@ -49,10 +50,10 @@
                                 @endforeach
                             </tr>
                             <tr>
-                                <td class="label">Registrants</td>
-                                <td>{{ $registrants }}</td>
+                                <td class="label highlight" >Registrants</td>
+                                <td class="highlight">{{ $registrants }}</td>
                                 @foreach($eventversion->instrumentations() AS $instrumentation)
-                                    <td>{{ $registrantsbyinstrumentation[$instrumentation->id] }}</td>
+                                    <td class="highlight">{{ $registrantsbyinstrumentation[$instrumentation->id] }}</td>
                                 @endforeach
                             </tr>
                             @if($eventversion->eventversionconfig->virtualaudition)

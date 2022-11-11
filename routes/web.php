@@ -279,10 +279,21 @@ Route::group(['middleware' => 'auth'],function(){
 
     /** SUPER ADMINISTRATOR */
 
+    /** LOAD FAKE SCORES */
+    Route::get('sa/loadscores', [App\Http\Controllers\SuperAdministration\LoadFakeScoresForTestingController::class, 'edit'])
+        ->name('sa.loadscores.edit');
+    Route::get('sa/loadscores/{room}', [App\Http\Controllers\SuperAdministration\LoadFakeScoresForTestingController::class, 'store'])
+        ->name('sa.loadscores.store');
+    Route::post('sa/loadscores/update', [App\Http\Controllers\SuperAdministration\LoadFakeScoresForTestingController::class, 'update'])
+        ->name('sa.loadscores.update');
+
+    /** LOG IN AS */
     Route::get('sa/loginas', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'edit'])
         ->name('sa.loginas.edit');
     Route::post('sa/loginas/update', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'update'])
         ->name('sa.loginas.update');
+
+    /** PAYPAL MANUAL ENTRY */
     Route::get('sa/paypal', [App\Http\Controllers\SuperAdministration\PaypalManualController::class, 'edit'])
         ->name('sa.paypals.edit');
     Route::post('sa/paypal/update', [App\Http\Controllers\SuperAdministration\PaypalManualController::class, 'update'])

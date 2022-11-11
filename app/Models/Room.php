@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Room extends Model
 {
@@ -67,6 +68,36 @@ class Room extends Model
             ->where('scores.user_id', '=', $adjudicator->user_id)
             ->distinct('registrants.id')
             ->count('registrants.id');
+    }
+
+    public function createFakeScores(int $eventversion_id): int
+    {
+        $score_count = 0;
+        foreach($this->adjudicators AS $adjudicator){
+
+            foreach($this->auditionees() AS $auditionee){
+
+                foreach($this->scoringcomponents() AS $scoringcomponent){
+
+                    Score::updateOrCreate(
+                        [
+                            'registrant_id' => $auditionee->id,
+                            'eventversion_id' => $eventversion_id,
+                            'user_id' => $adjudicator->user_id,
+                            'scoringcomponent_id' => $scoringcomponent->id,
+                        ],
+                        [
+                            'score' => random_int(1,9),
+                            'proxy_id' => $adjudicator->user_id,
+                        ]
+                    );
+
+                    $score_count++;
+                }
+            }
+        }
+
+        return $score_count;
     }
 
     public function scoringcomponents()

@@ -58,6 +58,13 @@
                                         PayPal Update Check
                                     </a>
                                 </div>
+
+                                {{-- LOAD FAKE SCORES FOR TESTING --}}
+                                <div style="">
+                                    <a href="{{ route('sa.loadscores.edit') }}">
+                                        Load Fake Scores For Testing
+                                    </a>
+                                </div>
                             @endif
                         </div>
 

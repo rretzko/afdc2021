@@ -57,8 +57,8 @@ class Registrant extends Model
         $scores = Score::where('registrant_id', $this->id)->get();
         $crlf = '&#13;';
 
-        //student name
-        $card = $this->student->person->fullnameAlpha().$crlf;
+        //student name and instrumentation
+        $card = $this->student->person->fullnameAlpha().' ('.strtoupper($this->instrumentations->first()->abbr).')'.$crlf;
 
         //school name
         $card .= ($this->student->currentSchool)

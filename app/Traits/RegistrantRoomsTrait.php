@@ -18,9 +18,13 @@ trait RegistrantRoomsTrait
 
         //filter $allrooms to $rooms containing $instrumentation_id
         $rooms = $allrooms->filter(function($room) use($instrumentation_id){
+
             foreach($room->instrumentations AS $instrumentation){
 
-                return $instrumentation->id == $instrumentation_id;
+                if($instrumentation->id == $instrumentation_id){
+
+                    return true;
+                }
             }
         });
 

@@ -97,7 +97,7 @@ class UpdateScoresummaryCutoffListener
 
             $details[] =
                 [
-                    'cutoff' => $cutoff->cutoff,
+                    'cutoff' => $cutoff ? $cutoff->cutoff : $event->cutoff,
                     'locked' => $lock ? $lock->locked : false,
                     'id' => $ensemble->id,
                     'abbr' => $ensemble->acceptance_abbr,

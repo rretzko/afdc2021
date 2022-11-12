@@ -38,23 +38,31 @@ class Eventensemblecutoff extends Model
         //cycle through the event comparing $score with cutoff to determine background color
         foreach($eventensembles AS $key => $eventensemble){
 
-            $cutoff = $this::where('eventversion_id', $this->eventversion->id)
-                ->where('eventensemble_id', $eventensemble->id)
-                ->where('instrumentation_id', $instrumentation->id)
-                ->value('cutoff') ?? 0;
+            /**
+             * @since 2022-11-12 for MAHC configuration of concurrent eventensembles WITHOUT overlapping instrumentation
+             */
+            if($eventensemble->instrumentations()->contains($instrumentation)) {
 
-            //early exit
-            if(! $cutoff){return '';}
+                $cutoff = $this::where('eventversion_id', $this->eventversion->id)
+                        ->where('eventensemble_id', $eventensemble->id)
+                        ->where('instrumentation_id', $instrumentation->id)
+                        ->value('cutoff') ?? 0;
 
-            if ($this->eventversion->eventversionconfig->bestscore === 'asc') {
-                if ($scoresummary->score_total <= $cutoff) {
-
-                    return $this->colors[$key];
+                //early exit
+                if (!$cutoff) {
+                    return '';
                 }
-            } else {
-                if ($scoresummary->score_total >= $cutoff) {
 
-                    return $this->colors[$key];
+                if ($this->eventversion->eventversionconfig->bestscore === 'asc') {
+                    if ($scoresummary->score_total <= $cutoff) {
+
+                        return $this->colors[$key];
+                    }
+                } else {
+                    if ($scoresummary->score_total >= $cutoff) {
+
+                        return $this->colors[$key];
+                    }
                 }
             }
         }

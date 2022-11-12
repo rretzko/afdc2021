@@ -177,6 +177,8 @@ class CutoffController extends Controller
                             'user_id' => auth()->id(),
                         ],
                     );
+                }else{
+
                 }
             }
         }

@@ -11,6 +11,8 @@ class Score extends Model
 
     protected $fillable = ['eventversion_id', 'scoringcomponent_id', 'proxy_id', 'registrant_id','score', 'user_id'];
 
+    private $eventversion;
+
     public function registrantScoringcomponentScore(\App\Models\Registrant $registrant, \App\Models\Scoringcomponent $scoringcomponent, $judge_index)
     {
         $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
@@ -72,16 +74,19 @@ class Score extends Model
 
     public function registrantScores(\App\Models\Registrant $registrant)
     {
-        $eventversion = Eventversion::find($registrant->eventversion_id);
-       // $scores = Score::where('registrant_id', $registrant->id)->get();
-        $scoringcomponents = Scoringcomponent::where('eventversion_id', $eventversion->id)->orderBy('order_by')-> get();
-        $rooms = $this->filterRooms($eventversion, $registrant);
-        $filecontenttypes = $eventversion->filecontenttypes;
+        $this->eventversion = Eventversion::find($registrant->eventversion_id);
+       //dd(Score::where('registrant_id', $registrant->id)->get());
+        $scoringcomponents = Scoringcomponent::where('eventversion_id', $this->eventversion->id)->orderBy('order_by')-> get();
+        $rooms = $this->filterRooms($this->eventversion, $registrant);
+        //dd($rooms);
+        $filecontenttypes = $this->eventversion->filecontenttypes;
         $scores = [];
 
         if($rooms->count()) {
-            for ($i = 0; $i < $eventversion->eventversionconfig->judge_count; $i++) { //1,2,3
+            //for each judge
+            for ($i = 0; $i < $this->eventversion->eventversionconfig->judge_count; $i++) { //0,1,2,3
 
+                //for each file content type
                 foreach ($filecontenttypes as $key => $filecontenttype) { //scales, solo, quartet
 
                     $room = $rooms->filter(function ($room) use ($filecontenttype) {
@@ -90,7 +95,8 @@ class Score extends Model
 
                     $adjudicators = $room->first()->adjudicators;
 
-                    foreach ($filecontenttype->scoringcomponents->where('eventversion_id', $eventversion->id) as $scoringcomponent) {
+                    //for each scoring component
+                    foreach ($filecontenttype->scoringcomponents->where('eventversion_id', $this->eventversion->id) as $scoringcomponent) {
 
                         //error avoidance if full compliment of adjudicators is not available
                         if(isset($adjudicators[$i])) {
@@ -118,8 +124,8 @@ class Score extends Model
                 }
             }
         }
-//if($registrant->id == 711877){dd($scores);}
-        //return $scores;
+
+        //dd($scores);
         return $this->mapScores($scores);
     }
 
@@ -176,40 +182,83 @@ class Score extends Model
             $scoringcomponents[$score['scoringcomponent_id']][] = $score['score'];
         }
 
-        $scores = [
-            $scoringcomponents[48][0], //judge 1, Scales Quality
-            $scoringcomponents[49][0], //judge 1, Scales Low Scales
-            $scoringcomponents[50][0], //judge 1, Scales High Scales
-            $scoringcomponents[51][0], //judge 1, Scales Chromatic Scales
-            $scoringcomponents[58][0], //judge 1, Solo Quality
-            $scoringcomponents[59][0], //judge 1, Solo Intonation
-            $scoringcomponents[60][0], //judge 1, Solo Musicianship
-            $scoringcomponents[61][0], //judge 1, Quintet Quality
-            $scoringcomponents[62][0], //judge 1, Quintet Intonation
-            $scoringcomponents[63][0], //judge 1, Quintet Musicianship
+        switch($this->eventversion->event->id){
+            case 1: //CJMEA
+                $scores =
+                    [
 
-            $scoringcomponents[48][1], //judge 2, Scales Quality
-            $scoringcomponents[49][1], // etc.
-            $scoringcomponents[50][1],
-            $scoringcomponents[51][1],
-            $scoringcomponents[58][1],
-            $scoringcomponents[59][1],
-            $scoringcomponents[60][1],
-            $scoringcomponents[61][1],
-            $scoringcomponents[62][1],
-            $scoringcomponents[63][1],
+                    ];
+                break;
+            case 19: //All-Shore
+                $scores =
+                    [
 
-            $scoringcomponents[48][2],
-            $scoringcomponents[49][2],
-            $scoringcomponents[50][2],
-            $scoringcomponents[51][2],
-            $scoringcomponents[58][2],
-            $scoringcomponents[59][2],
-            $scoringcomponents[60][2],
-            $scoringcomponents[61][2],
-            $scoringcomponents[62][2],
-            $scoringcomponents[63][2],
-        ];
+                    ];
+                break;
+            case 25: //MAHC
+                $scores = [
+                    //MAHC 2022-23
+                    $scoringcomponents[70][0], //low scale quality
+                    $scoringcomponents[71][0], //low scale intonation
+                    $scoringcomponents[72][0], //high scale quality
+                    $scoringcomponents[73][0], //high scale intonation
+                    $scoringcomponents[94][0], //solo quality
+                    $scoringcomponents[95][0], //solo intonation
+                    $scoringcomponents[96][0], //solo musicianship
+
+                    $scoringcomponents[70][1], //...
+                    $scoringcomponents[71][1],
+                    $scoringcomponents[72][1],
+                    $scoringcomponents[73][1],
+                    $scoringcomponents[94][1],
+                    $scoringcomponents[95][1],
+                    $scoringcomponents[96][1],
+
+                    $scoringcomponents[70][2],
+                    $scoringcomponents[71][2],
+                    $scoringcomponents[72][2],
+                    $scoringcomponents[73][2],
+                    $scoringcomponents[94][2],
+                    $scoringcomponents[95][2],
+                    $scoringcomponents[96][2],
+                ];
+                break;
+            default: //NJ All-State
+                $scores = [
+                    $scoringcomponents[48][0], //judge 1, Scales Quality
+                    $scoringcomponents[49][0], //judge 1, Scales Low Scales
+                    $scoringcomponents[50][0], //judge 1, Scales High Scales
+                    $scoringcomponents[51][0], //judge 1, Scales Chromatic Scales
+                    $scoringcomponents[58][0], //judge 1, Solo Quality
+                    $scoringcomponents[59][0], //judge 1, Solo Intonation
+                    $scoringcomponents[60][0], //judge 1, Solo Musicianship
+                    $scoringcomponents[61][0], //judge 1, Quintet Quality
+                    $scoringcomponents[62][0], //judge 1, Quintet Intonation
+                    $scoringcomponents[63][0], //judge 1, Quintet Musicianship
+
+                    $scoringcomponents[48][1], //judge 2, Scales Quality
+                    $scoringcomponents[49][1], // etc.
+                    $scoringcomponents[50][1],
+                    $scoringcomponents[51][1],
+                    $scoringcomponents[58][1],
+                    $scoringcomponents[59][1],
+                    $scoringcomponents[60][1],
+                    $scoringcomponents[61][1],
+                    $scoringcomponents[62][1],
+                    $scoringcomponents[63][1],
+
+                    $scoringcomponents[48][2],
+                    $scoringcomponents[49][2],
+                    $scoringcomponents[50][2],
+                    $scoringcomponents[51][2],
+                    $scoringcomponents[58][2],
+                    $scoringcomponents[59][2],
+                    $scoringcomponents[60][2],
+                    $scoringcomponents[61][2],
+                    $scoringcomponents[62][2],
+                    $scoringcomponents[63][2],
+                ];
+        }
 
         return $scores;
     }

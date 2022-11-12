@@ -73,12 +73,11 @@ class Room extends Model
     public function createFakeScores(int $eventversion_id): int
     {
         $score_count = ($this->scoringcomponents()->count() * $this->adjudicators->count());
+        $score_total = 0;
 
-        foreach($this->adjudicators AS $adjudicator){
+        foreach($this->auditionees() AS $auditionee){
 
-            foreach($this->auditionees() AS $auditionee){
-
-                $score_total = 0;
+            foreach($this->adjudicators AS $adjudicator){
 
                 foreach($this->scoringcomponents() AS $scoringcomponent){
 
@@ -97,21 +96,21 @@ class Room extends Model
                             'proxy_id' => $adjudicator->user_id,
                         ]
                     );
-
-                    Scoresummary::updateOrCreate(
-                        [
-                            'eventversion_id' => $eventversion_id,
-                            'registrant_id' => $auditionee->id,
-                            'instrumentation_id' => $auditionee->instrumentations->first()->id,
-                        ],
-                        [
-                            'score_total' => $score_total,
-                            'score_count' => $score_count,
-                        ]
-                    );
-
                 }
             }
+            Scoresummary::updateOrCreate(
+                [
+                    'eventversion_id' => $eventversion_id,
+                    'registrant_id' => $auditionee->id,
+                    'instrumentation_id' => $auditionee->instrumentations->first()->id,
+                ],
+                [
+                    'score_total' => $score_total,
+                    'score_count' => $score_count,
+                ]
+            );
+
+            $score_total = 0;
         }
 
         return $score_count;

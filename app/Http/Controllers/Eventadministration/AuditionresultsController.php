@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Eventadministration;
 use App\Models\Eventversion;
 use App\Models\Registrant;
 use App\Models\Registranttype;
+use App\Models\Scoresummary;
 use App\Models\Scoringcomponent;
 use App\Models\Userconfig;
 use App\Traits\CompletedAdjudicationsTrait;
@@ -24,11 +25,15 @@ class AuditionresultsController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+        $completes = Scoresummary::where('eventversion_id', $eventversion->id)->where('result', '<>', 'inc')->get();
+        $incompletes = Scoresummary::where('eventversion_id', $eventversion->id)->where('result', '=', 'inc')->get();
+
         return view('eventadministration.auditionresults.index',
         [
-            'completes' => collect(),
+            'completes' => $completes,
             'eventversion' => $eventversion,
-            'incompletes' => collect(),
+            'incompletes' => $incompletes,
+            'summary_page' => true,
         ]);
     }
 
@@ -63,7 +68,7 @@ class AuditionresultsController extends Controller
     public function show(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation)
     {
         set_time_limit(120);
-        
+
         $incompletes = $this->incompleteAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
         $completes = $this->completedAdjudicationsByInstrumentation($eventversion, $instrumentation);

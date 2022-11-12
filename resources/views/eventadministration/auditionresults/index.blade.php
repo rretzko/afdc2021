@@ -58,7 +58,7 @@
                     </section>
 
                     <section id="results">
-                        @if(isset($completes) && $completes->count())
+                        @if((! isset($summary_page)) && isset($completes) && $completes->count())
                             <div style="padding: 0 1rem; margin:auto;">
                                 <style>
                                     td,th{border: 1px solid black;padding:0 .25rem; text-align: center;}

@@ -56,5 +56,6 @@ class Adjudication extends Model
         $countcomponents = ($scoringcomponents->count() * $this->eventversion->eventversionconfig->judge_count);
 
         $this->completes = $this->completedAdjudications($this->eventversion);
+
     }
 }

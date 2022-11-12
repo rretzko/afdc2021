@@ -72,12 +72,18 @@ class Room extends Model
 
     public function createFakeScores(int $eventversion_id): int
     {
-        $score_count = 0;
+        $score_count = ($this->scoringcomponents()->count() * $this->adjudicators->count());
+
         foreach($this->adjudicators AS $adjudicator){
 
             foreach($this->auditionees() AS $auditionee){
 
+                $score_total = 0;
+
                 foreach($this->scoringcomponents() AS $scoringcomponent){
+
+                    $score = random_int(1,9);
+                    $score_total += $score;
 
                     Score::updateOrCreate(
                         [
@@ -87,12 +93,23 @@ class Room extends Model
                             'scoringcomponent_id' => $scoringcomponent->id,
                         ],
                         [
-                            'score' => random_int(1,9),
+                            'score' => $score,
                             'proxy_id' => $adjudicator->user_id,
                         ]
                     );
 
-                    $score_count++;
+                    Scoresummary::updateOrCreate(
+                        [
+                            'eventversion_id' => $eventversion_id,
+                            'registrant_id' => $auditionee->id,
+                            'instrumentation_id' => $auditionee->instrumentations->first()->id,
+                        ],
+                        [
+                            'score_total' => $score_total,
+                            'score_count' => $score_count,
+                        ]
+                    );
+
                 }
             }
         }

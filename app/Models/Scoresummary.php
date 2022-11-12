@@ -9,7 +9,8 @@ class Scoresummary extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['result'];
+    protected $fillable = ['eventversion_id', 'instrumentation_id','registrant_id', 'result',
+        'score_count', 'score_total'];
 
     protected $with = ['registrant'];
 

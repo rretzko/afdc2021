@@ -15,8 +15,10 @@
         <div class="input-group">
             <label>Select Eventversion</label>
             <select name="eventversion_id" style="max-width: 20rem;">
-                @foreach($eventversions->sortBy('name') AS $eventversion)
-                    <option value="{{ $eventversion->id }}">{{ $eventversion->name }}</option>
+                @foreach($eventversions->sortBy('name') AS $target_eventversion)
+                    <option value="{{ $target_eventversion->id }}"
+                    @if($eventversion && $eventversion->id == $target_eventversion->id) SELECTED @endif
+                    >{{ $target_eventversion->name }}</option>
                 @endforeach
             </select>
         </div>

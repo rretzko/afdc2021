@@ -53,10 +53,13 @@ class LoadFakeScoresForTestingController extends Controller
            ],
        );
 
+       //change Userconfig for use in $this->store()
+        Userconfig::updateValue('eventversion',auth()->id(), $inputs['eventversion_id']);
+
        $registrants_count = Registrant::where('eventversion_id', $inputs['eventversion_id'])
            ->where('registranttype_id', Registranttype::REGISTERED)
            ->count('id');
-
+;
        $rooms_count = Room::where('eventversion_id', $inputs['eventversion_id'])
            ->count('id');
 

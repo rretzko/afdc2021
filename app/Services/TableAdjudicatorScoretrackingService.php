@@ -6,11 +6,15 @@ namespace App\Services;
 use App\Models\Eventversion;
 use App\Models\Registrant;
 use App\Models\Registranttype;
+use Illuminate\Support\Facades\DB;
 
 class TableAdjudicatorScoretrackingService
 {
     private $eventversion;
     private $registrants;
+    private $registrants_count;
+    private $registrants_scored_count;
+    private $registrants_scored_pct;
     private $table;
 
     public function __construct(Eventversion $eventversion)
@@ -69,7 +73,25 @@ class TableAdjudicatorScoretrackingService
             ->where('registranttype_id', Registranttype::REGISTERED)
             ->get();
 
+        $this->registrants_count = $this->registrants->count() ?: 0;
+
+        $this->registrants_scored_count = $this->registrantsScoredCount($this->registrants->first()->eventversion_id);
+
+        $this->registrants_scored_pct = $this->registrants_count
+            ? number_format((($this->registrants_scored_count / $this->registrants_count) * 100), 0)
+            : 0;
+
         $this->scored = 'something';
+    }
+
+    private function registrantsScoredCount(int $eventversion_id): int
+    {
+
+        return DB::table('scores')
+            ->select('registrant_id')
+            ->where('eventversion_id', $eventversion_id)
+            ->distinct()
+            ->count('registrant_id');
     }
 
     private function rows(): string
@@ -78,9 +100,9 @@ class TableAdjudicatorScoretrackingService
 
         $str .= '<tr style="background-color: black; color: white;">';
         $str .= '<td style="border: 1px solid lightgrey;">Event-wide</td>';
-        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">'.$this->registrants->count().'</td>';
-        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">2</td>';
-        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">3%</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">'.$this->registrants_count.'</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">'.$this->registrants_scored_count.'</td>';
+        $str .= '<td style="border: 1px solid lightgrey;" class="text-center">'.$this->registrants_scored_pct.'%</td>';
         $str .= '</tr>';
 
         foreach ($this->eventversion->rooms as $room){

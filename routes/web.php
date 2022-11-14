@@ -188,12 +188,19 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanagers/acknowledgedschools/{eventversion}', [App\Http\Controllers\Registrationmanagers\AcknowledgedschoolsController::class, 'index'])
         ->name('registrationmanagers.acknowledgedschools.index');
 
+    /** ADJUDICATION FORMS BY INSTRUMENTATION */
     Route::get('registrationmanagers/adjudicationforms/{eventversion}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'index'])
         ->name('registrationmanagers.adjudicationforms.index');
     Route::get('registrationmanagers/adjudicationforms/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'show'])
         ->name('registrationmanagers.adjudicationforms.show');
     Route::get('registrationmanagers/adjudicationforms/pdf/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\AdjudicationformController::class, 'pdf'])
         ->name('registrationmanagers.adjudicationforms.pdf');
+
+    /** ADJUDICATION FORMS BY ROOM */
+    Route::get('registrationmanagers/adjudicationformsbyroom/show/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\AdjudicationformByRoomController::class, 'show'])
+        ->name('registrationmanagers.adjudicationformsbyroom.show');
+    Route::get('registrationmanagers/adjudicationformsbyroom/pdf/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\AdjudicationformByRoomController::class, 'pdf'])
+        ->name('registrationmanagers.adjudicationformsbyroom.pdf');
 
     Route::get('registrationmanagers/monitorchecklists/{eventversion}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'index'])
         ->name('registrationmanagers.monitorchecklists.index');

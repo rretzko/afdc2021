@@ -7,9 +7,11 @@ use App\Models\Instrumentation;
 use App\Models\Payment;
 use App\Models\Registrant;
 use App\Models\Registranttype;
+use App\Models\Room;
 use App\Models\School;
 use App\Models\Schoolpayment;
 use App\Models\Student;
+use App\Models\Userconfig;
 use App\Traits\SenioryearTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -161,6 +163,24 @@ class RegistrationActivity extends Model
         $merged = $originals->merge($duplicates);
 
         return $merged->sortBy('id');
+    }
+
+    public function registrantsByRoomByTimeslotSchoolNameFullnameAlpha(Room $room)
+    {
+        $a = [];
+        foreach($room->auditionees() AS $registrant){
+
+            $a[] = [
+                'armytime' => $registrant->armytime,
+                'schoolname' => $registrant->schoolname,
+                'fullname' => $registrant->student->person->fullnameAlpha(),
+                'registrant' => $registrant,
+            ];
+        }
+
+        sort($a);
+
+        return collect(array_column($a,'registrant'));
     }
 
     public function registrantsBySchoolNameFullnameAlpha(Instrumentation $instrumentation)

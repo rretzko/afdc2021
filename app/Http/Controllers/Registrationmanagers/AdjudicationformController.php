@@ -20,6 +20,15 @@ class AdjudicationformController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+        if($eventversion->id == 72){ //NJ All-Shore
+
+            return redirect()->route('registrationmanagers.adjudicationformsbyroom.show',
+            [
+                'eventversion' => $eventversion,
+                'room' => $eventversion->rooms->first(),
+            ]);
+        }
+
         $bladepath = 'x-adjudicationforms.'.$eventversion->event->id.'.'.$eventversion->id.'.adjudicationform';
         return view('registrationmanagers.adjudicationforms.index',[
             'bladepath' => $bladepath,

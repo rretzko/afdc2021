@@ -24,33 +24,33 @@
     <table>
         <tr>
             <td>
-                1 - Highly Superior
+                5 - Superior
             </td>
-            <td style="background-color: rgba(0,0,0,.2); width: 3rem; text-align: center;">
-                2
-            </td>
-            <td>
-                3 - Excellent
-            </td>
-            <td style="background-color: rgba(0,0,0,.2); width: 3rem; text-align: center;">
-                4
+            <td style="background-color: rgba(0,0,0,.2); text-align: center;">
+                4 - Excellent
             </td>
             <td>
-                5 - Good
+                3 - Good
             </td>
-            <td style="background-color: rgba(0,0,0,.2); width: 3rem; text-align: center;">
-                6
-            </td>
-            <td>
-                7 - Fair
-            </td>
-            <td style="background-color: rgba(0,0,0,.2); width: 3rem; text-align: center;">
-                8
+            <td style="background-color: rgba(0,0,0,.2);text-align: center;">
+                2 - Fair
             </td>
             <td>
-                9 - Poor
+                1 - Poor
             </td>
         </tr>
+    </table>
+
+    {{-- ADJUDICATORS --}}
+    <table>
+        <tbody>
+        <tr>
+        <th>Adjudicators</th>
+        @foreach($room->adjudicators AS $adjudicator)
+            <td>{{ $adjudicator->adjudicatorName }} ({{ $adjudicator->user_id }})</td>
+        @endforeach
+        </tr>
+        </tbody>
     </table>
 
     {{-- ROWS --}}
@@ -69,7 +69,10 @@
             <th>Reg.Id</th>
             @foreach($room->filecontenttypes AS $filecontenttype)
                 @foreach($filecontenttype->scoringcomponents->where('eventversion_id',$eventversion->id) AS $scoringcomponent)
-                    <th>{{ $scoringcomponent->abbr }}</th>
+                    <th>
+                        {{ $scoringcomponent->abbr }}
+                        @if($scoringcomponent->abbr == 'Qrt')<span style="font-size: smaller;">( * 4 )</span>@endif
+                    </th>
                 @endforeach
             @endforeach
             <th>Total</th>
@@ -77,11 +80,12 @@
         </thead>
 
         <tbody>
-        @foreach($registrants AS $registrant)
+        {{-- @foreach($registrants AS $registrant) --}}
+        @foreach($room->auditioneesByTime() AS $registrant)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $registrant->timeslot }}</td>
                 <td>{{ $registrant->id }}</td>
+                <td>{{ $registrant->timeslot }}</td>
                 @foreach($room->filecontenttypes AS $filecontenttype)
                     @foreach($filecontenttype->scoringcomponents->where('eventversion_id', $eventversion->id) AS $scoringcomponent)
                         <th></th>

@@ -44,6 +44,26 @@ class Room extends Model
         return $a;
     }
 
+    public function auditioneesByTime()
+    {
+        $a = [];
+        foreach($this->auditionees() AS $registrant){
+
+            $armytime = Timeslot::where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+                ->where('school_id',$registrant->student->person->user->schools->first()->id)
+                ->value('armytime');
+
+            $a[] = [
+                'timestamp' => $armytime,
+                'registrant_id' => $registrant->id,
+                'registrant' => $registrant,
+            ];
+        };
+        sort($a);
+
+        return array_column($a, 'registrant');
+    }
+
     public function auditioneesCount()
     {
         $instrumentationids = $this->instrumentations->pluck('id')->toArray();

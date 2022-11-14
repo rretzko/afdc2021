@@ -22,24 +22,44 @@
                         <div class="input-group" style="display: flex; flex-direction: row; justify-content: space-around;">
                             <label for="instrumentation_id"></label>
                             <div style="display:flex; flex-wrap: wrap; justify-content: center; border: 1px solid darkgray; background-color: rgba(0,0,0,0.1); padding: 0.2rem; border-radius: 0.25rem;">
-                                @foreach($instrumentations AS $instrumentation)
-                                    <a href="{{ route('registrationmanagers.adjudicationforms.show',
-                                                [
-                                                    'eventversion' => $eventversion,
-                                                    'instrumentation' => $instrumentation
-                                                ]
-                                            )}}"
-                                       style="background-color: white; border: 1px solid darkgray; margin: 0.1rem; padding: 0 0.2rem; border-radius: 0.25rem;"
-                                    >
-                                        {{ strtoupper($instrumentation->descr) }} ({{ $registrationactivity->registeredInstrumentationTotalCount($instrumentation) }})
-                                    </a>
-                                @endforeach
+
+                                @if(isset($instrumentations)) {{-- DEFAULT SETTING --}}
+                                    @foreach($instrumentations AS $instrumentation)
+                                        <a href="{{ route('registrationmanagers.adjudicationforms.show',
+                                                    [
+                                                        'eventversion' => $eventversion,
+                                                        'instrumentation' => $instrumentation
+                                                    ]
+                                                )}}"
+                                           style="background-color: white; border: 1px solid darkgray; margin: 0.1rem; padding: 0 0.2rem; border-radius: 0.25rem;"
+                                        >
+                                            {{ strtoupper($instrumentation->descr) }} ({{ $registrationactivity->registeredInstrumentationTotalCount($instrumentation) }})
+                                        </a>
+                                    @endforeach
+                                @endif
+
+                                {{-- FOR NJ ALL-SHORE --}}
+                                @if(isset($rooms))
+                                        @foreach($rooms AS $targetroom)
+                                            <a href="{{ route('registrationmanagers.adjudicationformsbyroom.show',
+                                                    [
+                                                        'eventversion' => $eventversion,
+                                                        'room' => $targetroom
+                                                    ]
+                                                )}}"
+                                               style="background-color: white; border: 1px solid darkgray; margin: 0.1rem; padding: 0 0.2rem; border-radius: 0.25rem;"
+                                            >
+                                                {{ $targetroom->descr }}
+                                            </a>
+                                        @endforeach
+                                @endif
+
                             </div>
                         </div>
                     </section>
 
                     <section id="cards" style="padding: 0 .5rem;">
-                        @if($targetinstrumentation)
+                        @if(isset($targetinstrumentation) && $targetinstrumentation) {{-- DEFAULT SETTING --}}
 
                             <div style="display: flex; flex-direction: row; justify-content: space-between;">
                                 <h2>{{ strtoupper($targetinstrumentation->descr) }}</h2>
@@ -76,6 +96,37 @@
                             </div>
 
                         @endif
+
+                        {{-- NJ ALL-SHORE --}}
+                        @if(isset($room) && $room)
+                                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                    <h2>{{ strtoupper($room->descr) }}</h2>
+
+                                    <div>
+
+                                        <a href="{{ route('registrationmanagers.adjudicationformsbyroom.pdf',
+                                            [
+                                                'eventversion' => $eventversion,
+                                                'room' => $room,
+                                            ]) }}"
+                                        >
+                                            Print PDF
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div style="">
+
+                                        <x-adjudicationforms.19.72.adjudicationform
+                                            :eventversion="$eventversion"
+                                            :registrants="$registrants"
+                                            :room="$room"
+                                            type="{{ strpos($room->descr, 'olo') ? 'solo' : 'scales' }}"
+                                        />
+
+                                </div>
+                        @endif
+
                     </section>
 
                 </div>

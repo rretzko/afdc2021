@@ -213,7 +213,7 @@ class Eventversion extends Model
             ->sortBy(['person.last', 'person.first']);
     }
 
-    //SJCDA defines registered students as have two esignatures
+    //SJCDA and All-Shore define registered students as have two esignatures
     //use the Obligations table to determine those teachers who (at least) signed up to participate
     public function getParticipatingTeachersEsignatureAttribute()
     {
@@ -232,7 +232,8 @@ class Eventversion extends Model
 
             $teacher = Student::find($registrant->user_id)->currentTeacher;
 
-            if($teacher){
+            $domain_owner = 368; //domain owner
+            if($teacher && (! ($teacher->user_id == $domain_owner))){
 
                 $teachers->push($teacher);
             }

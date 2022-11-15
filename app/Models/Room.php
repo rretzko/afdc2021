@@ -101,7 +101,9 @@ class Room extends Model
 
                 foreach($this->scoringcomponents() AS $scoringcomponent){
 
-                    $score = random_int(1,9);
+                    $minmax = [$scoringcomponent->bestscore, $scoringcomponent->worstscore];
+
+                    $score = (random_int(min($minmax), max($minmax)) * $scoringcomponent->multiplier);
                     $score_total += $score;
 
                     Score::updateOrCreate(
@@ -118,17 +120,8 @@ class Room extends Model
                     );
                 }
             }
-            Scoresummary::updateOrCreate(
-                [
-                    'eventversion_id' => $eventversion_id,
-                    'registrant_id' => $auditionee->id,
-                    'instrumentation_id' => $auditionee->instrumentations->first()->id,
-                ],
-                [
-                    'score_total' => $score_total,
-                    'score_count' => $score_count,
-                ]
-            );
+
+            $this->updateScoreSummary($auditionee->id, $eventversion_id, $auditionee->instrumentations->first()->id);
 
             $score_total = 0;
         }
@@ -147,5 +140,20 @@ class Room extends Model
         }
 
         return $scoringcomponents;
+    }
+
+    private function updateScoreSummary(int $auditionee_id, int $eventversion_id, int $instrumentation_id): void
+    {
+        Scoresummary::updateOrCreate(
+            [
+                'eventversion_id' => $eventversion_id,
+                'registrant_id' => $auditionee_id,
+                'instrumentation_id' => $instrumentation_id,
+            ],
+            [
+                'score_total' => Score::where('registrant_id',$auditionee_id)->sum('score'),
+                'score_count' => Score::where('registrant_id',$auditionee_id)->count('score'),
+            ]
+        );
     }
 }

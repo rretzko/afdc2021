@@ -197,8 +197,29 @@ class CutoffController extends Controller
     {
         $this->updateEventensemblecutoffsTable($eventversion, $eventensembles, $instrumentation_id, $cutoff);
 
-        event(new UpdateScoresummaryCutoffEvent($eventversion->id, $instrumentation_id, $cutoff));
+        if(! $this->eventEnsemblesAreLocked($eventversion, $eventensembles)) {
+
+            event(new UpdateScoresummaryCutoffEvent($eventversion->id, $instrumentation_id, $cutoff));
+        }
 
         return $this->index($eventversion);
+    }
+
+    /**
+     * Return boolean true if all eventensembles are locked
+     */
+    private function eventEnsemblesAreLocked(Eventversion $eventversion, Collection $eventensembles): bool
+    {
+        $locked = true;
+
+        foreach($eventensembles AS $eventensemble){
+
+            if(! Eventensemblecutofflock::where('eventversion_id', $eventversion->id)->where('eventensemble_id', $eventensemble->id)->first()->locked){
+
+                return false;
+            }
+        }
+
+        return $locked;
     }
 }

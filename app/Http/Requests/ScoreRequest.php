@@ -31,13 +31,13 @@ class ScoreRequest extends FormRequest
         //removed 'required' from all score-* values to give widest flexibility
         return [
             'registration_id' => ['required','numeric','exists:registrants,id','min:'.$min,'max:'.$max],
-            'adjudicator_id' => ['required','numeric','exists:adjudicators,id'],
-            'score-0' => ['numeric','min:1','max:9'],
-            'score-1' => ['numeric','min:1','max:9'],
-            'score-2' => ['numeric','min:1','max:9'],
-            'score-3' => ['numeric','min:1','max:9'],
-            'score-4' => ['numeric','min:1','max:9'],
-            'score-5' => ['numeric','min:1','max:9'],
+            'adjudicator_id' => ['required','numeric','exists:adjudicators,user_id'],
+            'score-0' => ['nullable','numeric','min:1','max:9'],
+            'score-1' => ['nullable','numeric','min:1','max:9'],
+            'score-2' => ['nullable','numeric','min:1','max:9'],
+            'score-3' => ['nullable','numeric','min:1','max:9'],
+            'score-4' => ['nullable','numeric','min:1','max:9'],
+            'score-5' => ['nullable','numeric','min:1','max:9'],
         ];
     }
 

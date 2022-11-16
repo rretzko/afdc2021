@@ -95,7 +95,7 @@
                                         <th>Reg.Id</th>
                                         <th>Voice</th>
                                         @for($i = 1; $i<=$eventversion->eventversionconfig->judge_count; $i++)
-                                            @foreach($scoringcomponents AS $scoringcomponent)
+                                        @foreach($scoringcomponents AS $scoringcomponent)
                                                 <th>{{ $scoringcomponent->abbr }}</th>
                                             @endforeach
                                         @endfor

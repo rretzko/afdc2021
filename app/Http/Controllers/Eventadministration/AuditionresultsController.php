@@ -84,7 +84,7 @@ class AuditionresultsController extends Controller
                 'registrants' => $filtered,
                 'score' => new \App\Models\Score,
                 'scoresummary' => new \App\Models\Scoresummary,
-                'scoringcomponents' => Scoringcomponent::where('eventversion_id', $eventversion->id)->get(),
+                'scoringcomponents' => Scoringcomponent::where('eventversion_id', $eventversion->id)->orderBy('order_by')->get(),
             ]);
     }
 

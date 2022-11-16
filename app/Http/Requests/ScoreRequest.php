@@ -28,15 +28,16 @@ class ScoreRequest extends FormRequest
         $min = ($eventversion_id * 10000);
         $max = ($min + 9999);
 
+        //removed 'required' from all score-* values to give widest flexibility
         return [
             'registration_id' => ['required','numeric','exists:registrants,id','min:'.$min,'max:'.$max],
             'adjudicator_id' => ['required','numeric','exists:adjudicators,id'],
-            'score-0' => ['required','numeric','min:1','max:9'],
-            'score-1' => ['required','numeric','min:1','max:9'],
-            'score-2' => ['required','numeric','min:1','max:9'],
-            'score-3' => ['required','numeric','min:1','max:9'],
-            'score-4' => ['required','numeric','min:1','max:9'],
-            'score-5' => ['required','numeric','min:1','max:9'],
+            'score-0' => ['numeric','min:1','max:9'],
+            'score-1' => ['numeric','min:1','max:9'],
+            'score-2' => ['numeric','min:1','max:9'],
+            'score-3' => ['numeric','min:1','max:9'],
+            'score-4' => ['numeric','min:1','max:9'],
+            'score-5' => ['numeric','min:1','max:9'],
         ];
     }
 

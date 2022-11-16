@@ -59,7 +59,7 @@
                                             <label style="width: 4rem;" for="{{ $sc->abbr }}">
                                                 {{ $sc->abbr }}
                                             </label>
-                                            <input type="text" name="score-{{ $key }}" value="{{ old('score-'.$key) }}"  style="max-width: 4rem; text-align: center;" onblur="checkValue('{{ $key }}');"  required />
+                                            <input type="text" name="score-{{ $key }}" value="{{ old('score-'.$key) }}"  style="max-width: 4rem; text-align: center;" onblur="checkValue('{{ $key }}');"  />
                                             @if($sc->abbr === 'Qrt')<span style="margin-left: 1rem;">(* 4)</span>@endif
                                             @error('score-'.$key)
                                                 <div class="err" style="margin-left: 0.5rem;">{{ $message }}</div>

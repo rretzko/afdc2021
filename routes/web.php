@@ -232,12 +232,17 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/registrationmanager/registrant/updateEmergencyContact/{id}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'updateEmergencyContact'])
         ->name('registrationmanager.registrant.updateEC');
 
+    Route::get('registrationmanager/registrationcards/blanks/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'showBlankCards'])
+        ->name('registrationmanagers.registrationcards.blanks');
+    Route::get('registrationmanager/registrationcards/blanks.pdfs/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'blanksPdf'])
+        ->name('registrationmanagers.registrationcards.blanks.pdf');
     Route::get('registrationmanager/registrationcards/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'index'])
         ->name('registrationmanagers.registrationcards.index');
     Route::get('registrationmanager/registrationcards/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'show'])
         ->name('registrationmanagers.registrationcards.show');
     Route::get('registrationmanager/registrationcards/pdfs/{eventversion}/{instrumentation}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'pdf'])
         ->name('registrationmanagers.registrationcards.pdf');
+
 
     Route::get('registrationmanager/timeslots/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotassignmentController::class, 'index'])
         ->name('registrationmanagers.timeslotassignment.index');
@@ -293,6 +298,12 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('sa.loadscores.store');
     Route::post('sa/loadscores/update', [App\Http\Controllers\SuperAdministration\LoadFakeScoresForTestingController::class, 'update'])
         ->name('sa.loadscores.update');
+
+    /** LOAD SCORE SUMMARIES */
+    Route::get('sa/loadscoresummaries', [App\Http\Controllers\SuperAdministration\LoadScoreSummariesController::class, 'index'])
+        ->name('sa.loadscoresummaries.index');
+    Route::post('sa/loadscoresummaries/update', [App\Http\Controllers\SuperAdministration\LoadScoreSummariesController::class, 'update'])
+        ->name('sa.loadscoresummaries.update');
 
     /** LOG IN AS */
     Route::get('sa/loginas', [App\Http\Controllers\SuperAdministration\LogInAsController::class, 'edit'])

@@ -65,6 +65,13 @@
                                         Load Fake Scores For Testing
                                     </a>
                                 </div>
+
+                                    {{-- SCORE SUMMARY LOAD --}}
+                                    <div style="">
+                                        <a href="{{ route('sa.loadscoresummaries.index') }}">
+                                            Load Score Summaries from pre-loaded scores
+                                        </a>
+                                    </div>
                             @endif
                         </div>
 

@@ -214,7 +214,9 @@ class CutoffController extends Controller
 
         foreach($eventensembles AS $eventensemble){
 
-            if(! Eventensemblecutofflock::where('eventversion_id', $eventversion->id)->where('eventensemble_id', $eventensemble->id)->first()->locked){
+            if((! Eventensemblecutofflock::where('eventversion_id', $eventversion->id)) ||
+                (! Eventensemblecutofflock::where('eventversion_id', $eventversion->id)->where('eventensemble_id', $eventensemble->id)->first()) ||
+                (! Eventensemblecutofflock::where('eventversion_id', $eventversion->id)->where('eventensemble_id', $eventensemble->id)->first()->locked)){
 
                 return false;
             }

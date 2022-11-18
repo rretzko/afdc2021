@@ -190,29 +190,39 @@ class Score extends Model
                     ];
                 break;
             case 19: //All-Shore
-                $scores = [
-                    //All-Shore 2022-23
-                    $scoringcomponents[64][0], //low scale
-                    $scoringcomponents[65][0], //high scale
-                    $scoringcomponents[66][0], //chromatic scale
-                    $scoringcomponents[67][0], //arpeggio
-                    $scoringcomponents[69][0], //quartet
-                    $scoringcomponents[68][0], //solo
 
-                    $scoringcomponents[64][1],
-                    $scoringcomponents[65][1],
-                    $scoringcomponents[66][1],
-                    $scoringcomponents[67][1],
-                    $scoringcomponents[69][1],
-                    $scoringcomponents[68][1],
+                if(isset($scoringcomponents)) {
+                    $scores = [
+                        //All-Shore 2022-23
+                        $scoringcomponents[64][0], //low scale
+                        $scoringcomponents[65][0], //high scale
+                        $scoringcomponents[66][0], //chromatic scale
+                        $scoringcomponents[67][0], //arpeggio
+                        $scoringcomponents[69][0], //quartet
+                        $scoringcomponents[68][0], //solo
 
-                    $scoringcomponents[64][2],
-                    $scoringcomponents[65][2],
-                    $scoringcomponents[66][2],
-                    $scoringcomponents[67][2],
-                    $scoringcomponents[69][2],
-                    $scoringcomponents[68][2],
-                ];
+                        $scoringcomponents[64][1],
+                        $scoringcomponents[65][1],
+                        $scoringcomponents[66][1],
+                        $scoringcomponents[67][1],
+                        $scoringcomponents[69][1],
+                        $scoringcomponents[68][1],
+
+                        $scoringcomponents[64][2],
+                        $scoringcomponents[65][2],
+                        $scoringcomponents[66][2],
+                        $scoringcomponents[67][2],
+                        $scoringcomponents[69][2],
+                        $scoringcomponents[68][2],
+                    ];
+                }else{
+
+                    $scores = [
+                        0,0,0,0,0,0,
+                        0,0,0,0,0,0,
+                        0,0,0,0,0,0,
+                        ];
+                }
                 break;
             case 25: //MAHC
                 $scores = [

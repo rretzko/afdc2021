@@ -225,33 +225,43 @@ class Score extends Model
                 }
                 break;
             case 25: //MAHC
-                $scores = [
-                    //MAHC 2022-23
-                    $scoringcomponents[70][0], //low scale quality
-                    $scoringcomponents[71][0], //low scale intonation
-                    $scoringcomponents[72][0], //high scale quality
-                    $scoringcomponents[73][0], //high scale intonation
-                    $scoringcomponents[94][0], //solo quality
-                    $scoringcomponents[95][0], //solo intonation
-                    $scoringcomponents[96][0], //solo musicianship
+                if(isset($scoringcomponents)){
+                    $scores = [
+                        //MAHC 2022-23
+                        $scoringcomponents[70][0], //low scale quality
+                        $scoringcomponents[71][0], //low scale intonation
+                        $scoringcomponents[72][0], //high scale quality
+                        $scoringcomponents[73][0], //high scale intonation
+                        $scoringcomponents[94][0], //solo quality
+                        $scoringcomponents[95][0], //solo intonation
+                        $scoringcomponents[96][0], //solo musicianship
 
-                    $scoringcomponents[70][1], //...
-                    $scoringcomponents[71][1],
-                    $scoringcomponents[72][1],
-                    $scoringcomponents[73][1],
-                    $scoringcomponents[94][1],
-                    $scoringcomponents[95][1],
-                    $scoringcomponents[96][1],
+                        $scoringcomponents[70][1], //...
+                        $scoringcomponents[71][1],
+                        $scoringcomponents[72][1],
+                        $scoringcomponents[73][1],
+                        $scoringcomponents[94][1],
+                        $scoringcomponents[95][1],
+                        $scoringcomponents[96][1],
 
-                    $scoringcomponents[70][2],
-                    $scoringcomponents[71][2],
-                    $scoringcomponents[72][2],
-                    $scoringcomponents[73][2],
-                    $scoringcomponents[94][2],
-                    $scoringcomponents[95][2],
-                    $scoringcomponents[96][2],
-                ];
+                        $scoringcomponents[70][2],
+                        $scoringcomponents[71][2],
+                        $scoringcomponents[72][2],
+                        $scoringcomponents[73][2],
+                        $scoringcomponents[94][2],
+                        $scoringcomponents[95][2],
+                        $scoringcomponents[96][2],
+                    ];
+                }else{
+
+                    $scores = [
+                        0,0,0,0,0,0,0,
+                        0,0,0,0,0,0,0,
+                        0,0,0,0,0,0,0,
+                    ];
+                }
                 break;
+
             default: //NJ All-State
                 $scores = [
                     $scoringcomponents[48][0], //judge 1, Scales Quality

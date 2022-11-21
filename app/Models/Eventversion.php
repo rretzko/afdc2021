@@ -268,7 +268,8 @@ class Eventversion extends Model
                 $instrumentations = $instrumentations->merge($eventensemble->instrumentations());
             }
 
-            return $instrumentations;
+            //unique() required in the case of instrumentation duplication across ensembles
+            return $instrumentations->unique('id');
         }
     }
 

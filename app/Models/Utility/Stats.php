@@ -22,7 +22,7 @@ class Stats extends Model
         $min = (($eventversionid * 10000) - 1);
         $max = (($eventversionid + 1) * 10000);
 
-        return ($eventversion->eventversionconfig->eapplication)
+       return ($eventversion->eventversionconfig->eapplication)
 
             ? DB::table('eapplications')
                 ->where('registrant_id','>',$min)
@@ -32,13 +32,14 @@ class Stats extends Model
                 ->distinct()
                 ->count('registrant_id')
 
-            :  DB::table('applications')
-            ->join('signatures','signatures.registrant_id','=','applications.registrant_id')
-            ->where('applications.registrant_id','>',$min)
-            ->where('applications.registrant_id','<', $max)
-            ->where('signatures.signaturetype_id','=',4) //teacher
-            ->distinct()
-            ->count('applications.registrant_id');
+           : DB::table('registrants')
+            ->where('eventversion_id', $eventversion->id)
+            ->where('registranttype_id', Registranttype::APPLIED)
+            ->orWhere(function($query) use($eventversion){
+                $query->where('eventversion_id', $eventversion->id)->where('registranttype_id',Registranttype::REGISTERED);
+            })
+            ->count();
+
     }
 
     public static function applicationCountsByInstrumentation()
@@ -50,15 +51,17 @@ class Stats extends Model
 
         foreach($eventversion->instrumentations() AS $instrumentation){
 
-            $a[$instrumentation->id] = DB::table('applications')
+            $a[$instrumentation->id] = DB::table('registrants')
                 ->join('instrumentation_registrant', function($join) use($instrumentation){
-                    $join->on('applications.registrant_id', '=', 'instrumentation_registrant.registrant_id')
+                    $join->on('registrants.id', '=', 'instrumentation_registrant.registrant_id')
                         ->where('instrumentation_registrant.instrumentation_id','=',$instrumentation->id);
                 })
-                ->where('applications.registrant_id','>',$min)
-                ->where('applications.registrant_id','<', $max)
-                ->distinct()
-                ->count('applications.registrant_id');
+                ->where('registrants.eventversion_id', '=', $eventversion->id)
+                ->where('registranttype_id','=',Registranttype::APPLIED)
+                ->orWhere(function($query) use($eventversion){
+                    $query->where('eventversion_id', $eventversion->id)->where('registranttype_id',Registranttype::REGISTERED);
+                })
+                ->count('registrants.id');
         }
 
         return $a;
@@ -208,11 +211,20 @@ class Stats extends Model
                     $join->on('registrants.id', '=', 'instrumentation_registrant.registrant_id')
                         ->where('instrumentation_registrant.instrumentation_id','=',$instrumentation->id);
                 })
+                ->where('registrants.eventversion_id','=', $eventversion->id)
+                ->where('registranttype_id', '=', Registranttype::REGISTERED)
+                ->distinct()
+                ->count('registrants.id');
+            /*$a[$instrumentation->id] = DB::table('registrants')
+                ->join('instrumentation_registrant', function($join) use($instrumentation){
+                    $join->on('registrants.id', '=', 'instrumentation_registrant.registrant_id')
+                        ->where('instrumentation_registrant.instrumentation_id','=',$instrumentation->id);
+                })
                 ->where('registrants.id','>',$min)
                 ->where('registrants.id','<', $max)
                 ->where('registranttype_id', '=', Registranttype::REGISTERED)
                 ->distinct()
-                ->count('registrants.id');
+                ->count('registrants.id');*/
         }
 
         return $a;

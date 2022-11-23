@@ -81,7 +81,11 @@ class RegistrationcardsController extends Controller
 
         //upper voicing instrumentations
         /** @todo should be a configuration option */
-        $doubleformats = [63,64,65,66,67,68,69,70];
+        if($eventversion->event->id === 1){ //CJMEA
+            $doubleformats = [63,64,65,66,];
+        }else{
+            $doubleformats = [63,64,65,66,67,68,69,70];
+        }
 
         $view = 'pdfs.registrationcards.';
         $view .= $eventversion->event->id.'.';

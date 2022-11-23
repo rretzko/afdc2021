@@ -13,8 +13,8 @@ class Eventversionconfig extends Model
 
     protected $fillable = ['alternating_scores','audiofiles','bestscore','eapplication','epaymentsurcharge',
     'eventversion_id','grades','judge_count','instrumentation_count','max_count','max_uppervoice_count','membershipcard',
-    'missing_judge_average','onsiteregistrationfee','paypalstudent','paypalteacher','registrationfee','videofiles',
-    'virtualaudition'];
+    'missing_judge_average','onsiteregistrationfee','participation_fee', 'participation_fee_amount',
+    'paypalstudent','paypalteacher','registrationfee','videofiles','virtualaudition'];
 
     public function eventversion()
     {

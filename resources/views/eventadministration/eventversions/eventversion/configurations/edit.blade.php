@@ -240,7 +240,7 @@
                                     </div>
 
                                     <div>
-                                        <label for="expiration" class="membership_date" >Last Accepted Expiration Date</label>
+                                        <label for="expiration" class="dateblock-label" >Last Accepted Expiration Date</label>
                                         <input type="date" name="expiration"
                                                value="{{ isset($dates) && $dates->where('datetype_id',3)->first() ? $dates->where('datetype_id',3)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
                                         >
@@ -291,6 +291,28 @@
                                         <label for="alternating_scores" class="dateblock-label">Divide accepted students by alternating scores</label>
                                     </div>
                                 </div>
+                            </div>
+
+                            {{-- PARTICIPATION FEE --}}
+                            <div class="input-block">
+                                <label for="participation_fee" class="datetype-label">Participation Fee</label>
+                                <div style="display:flex; flex-direction: column; margin-left: 1rem; ">
+                                    <div>
+                                        <input type="checkbox" name="participation_fee"
+                                               value="1"
+                                               @if($configurations && $configurations->participation_fee) checked @endif
+                                        >
+                                        <label for="participation_fee" class="dateblock-label">A participation fee will be collected through the site.</label>
+                                    </div>
+
+                                    <div>
+                                        <label for="participation_fee_amount" class="dateblock-label" >Participation Fee Amount</label>
+                                        <input type="number" step="any" name="participation_fee_amount" class="dateblock-label"
+                                               value="{{ $configurations->participation_fee_amount  ?: '0.00' }}"
+                                        >
+                                    </div>
+                                </div>
+
                             </div>
 
                             {{-- SUBMIT --}}

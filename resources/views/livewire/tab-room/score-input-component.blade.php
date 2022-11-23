@@ -74,7 +74,8 @@
                                     </div>
 
                                     <div>
-                                        <input wire:model="scores.{{$scoringcomponent['id']}}"  value="{{ $scores[$scoringcomponent['id']] }}" style="width: 3rem; max-width: 3rem;" />
+                                        <input wire:model="scores.{{$scoringcomponent['id']}}"
+                                               value="{{ array_key_exists($scoringcomponent['id'], $scores) ? $scores[$scoringcomponent['id']] : 0 }}" style="width: 3rem; max-width: 3rem;" />
                                     </div>
 
                                 </div>

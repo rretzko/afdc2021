@@ -13,6 +13,8 @@ class Room extends Model
 
     protected $fillable = ['descr', 'eventversion_id', 'order_by','tolerance'];
 
+    protected $with = ['adjudicators'];
+
     public function adjudicators()
     {
         return $this->hasMany(Adjudicator::class);

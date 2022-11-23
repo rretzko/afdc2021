@@ -94,6 +94,8 @@ class EventversionConfigurationController extends Controller
                 'max_count' => ['required','numeric','min:0','max:50'],
                 'max_uppervoice_count' => ['required','numeric','min:0','max:50'],
                 'membershipcard' => ['nullable','numeric','min:1','max:1'],
+                'participation_fee' => ['nullable','numeric','min:1','max:1'],
+                'participation_fee_amount' => ['nullable','numeric'],
                 'paypalstudent' => ['nullable','numeric','min:1','max:1'],
                 'paypalteacher' => ['nullable'],
                 'registrationfee' => ['nullable','string'],
@@ -126,6 +128,8 @@ class EventversionConfigurationController extends Controller
                 'membershipcard' => array_key_exists('membershipcard', $inputs) ?: 0,
                 'instrumentation_count' => $inputs['instrumentation_count'],
                 'alternating_scores' => array_key_exists('alternating_scores', $inputs) ?: 0,
+                'participation_fee' => array_key_exists('participation_fee', $inputs) ?: 0,
+                'participation_fee_amount' => array_key_exists('participation_fee_amount', $inputs) ? $inputs['participation_fee_amount']: 0,
             ]
         );
 

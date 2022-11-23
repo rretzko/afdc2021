@@ -4,26 +4,18 @@ namespace App\Http\Controllers\Eventadministration;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScoreRequest;
+use App\Models\Adjudicator;
 use App\Models\Eventversion;
 use App\Models\Registrant;
 use App\Models\Score;
 use App\Models\Scoresummary;
 use App\Models\Scoringcomponent;
+use App\Models\User;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -31,9 +23,17 @@ class ScoreController extends Controller
      */
     public function create()
     {
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $eventversion_id = $eventversion->id;
+        $rooms = $eventversion->rooms;
+
+        $adjudicators = Adjudicator::where('eventversion_id', $eventversion_id)->get()->sortBy('adjudicatorName');
+
         return view('eventadministration.scores.create',
         [
-            'eventversion' => Eventversion::find(Userconfig::getValue('eventversion', auth()->id())),
+            'eventversion' => $eventversion,
+            'rooms' => $rooms,
+            'adjudicators' => $adjudicators,
         ]);
     }
 

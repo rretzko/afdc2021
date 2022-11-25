@@ -24,9 +24,10 @@ class MonitorchecklistController extends Controller
         return view('registrationmanagers.monitorchecklists.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
-            'targetinstrumentation' => NULL,
+            'targetroom' => new Room(),
             'instrumentations' => $eventversion->instrumentations(),
             'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
+            'rooms' => $eventversion->rooms,
         ]);
     }
 
@@ -34,31 +35,31 @@ class MonitorchecklistController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Eventversion $eventversion
-     * @param  \App\Models\Instrumentation $instrumentations
+     * @param  \App\Models\Room $room
      * @return \Illuminate\Http\Response
      */
-    public function show(Eventversion $eventversion, Instrumentation $instrumentation)
+    public function show(Eventversion $eventversion, Room $room)
     {
         $bladepath = 'x-registrationcards.'.$eventversion->event->id.'.'.$eventversion->id.'.registrationcard';
-        $eventversionrooms = Room::with('instrumentations')
-            ->where('eventversion_id', $eventversion->id)
-            ->get();
+        //$eventversionrooms = Room::with('instrumentations')
+        //    ->where('eventversion_id', $eventversion->id)
+        //    ->get();
 
-        $rooms = $eventversionrooms->filter(function($room) use($instrumentation){
-            return $room->instrumentations->contains($instrumentation);
-        })
-            ->values(); //reset collection keys
+        //$rooms = $eventversionrooms->filter(function($room) use($instrumentation){
+        //    return $room->instrumentations->contains($instrumentation);
+       // })
+         //   ->values(); //reset collection keys
 
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
         return view('registrationmanagers.monitorchecklists.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
-            'targetinstrumentation' => $instrumentation,
-            'instrumentations' => $eventversion->instrumentations(),
-            'registrants' => $registrationactivity->registrantsByTimeslotSchoolNameFullnameAlpha($instrumentation),
+            'targetroom' => $room,
+            'rooms' => $eventversion->rooms,
+            //'registrants' => $registrationactivity->registrantsByTimeslotSchoolNameFullnameAlpha($instrumentation),
+            'registrants' => $registrationactivity->registrantsByRoomById($room),
             'registrationactivity' => $registrationactivity,
-            'rooms' => $rooms,
         ]);
     }
 
@@ -68,19 +69,21 @@ class MonitorchecklistController extends Controller
      * @param  \App\Models\Eventversion $eventversion
      * @param  \App\Models\Instrumentation $instrumentation
      */
-    public function pdf(Eventversion $eventversion, Instrumentation $instrumentation)
+    public function pdf(Eventversion $eventversion, Room $room)
     {
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
-        $registrants = $registrationactivity->registrantsByTimeslotSchoolNameFullnameAlpha($instrumentation);
+        $registrants = $registrationactivity->registrantsByRoomById($room);
 
-        $eventversionrooms = Room::with('instrumentations')
-            ->where('eventversion_id', $eventversion->id)
-            ->get();
+        //$eventversionrooms = Room::with('instrumentations')
+        //    ->where('eventversion_id', $eventversion->id)
+        //    ->get();
 
-        $rooms = $eventversionrooms->filter(function($room) use($instrumentation){
-            return $room->instrumentations->contains($instrumentation);
-        })
-            ->values();
+        //$rooms = $eventversionrooms->filter(function($room) use($instrumentation){
+        //    return $room->instrumentations->contains($instrumentation);
+        //})
+        //    ->values();
+
+        $rooms = $eventversion->rooms;
 
         $view = 'pdfs.monitorchecklists.';
         //$view .= $eventversion->event->id.'.';
@@ -88,9 +91,9 @@ class MonitorchecklistController extends Controller
         $view .= 'monitorchecklist';
 
         $pdf = PDF::loadView($view,
-            compact('eventversion','instrumentation','registrants','rooms'))
+            compact('eventversion','room','registrants','rooms'))
             ->setPaper('letter','portrait');
 
-        return $pdf->download('monitorchecklists_'.str_replace(' ','-',$instrumentation->formattedDescr()).'.pdf');
+        return $pdf->download('monitorchecklists_'.str_replace(' ','-',$room->descr).'.pdf');
     }
 }

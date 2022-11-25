@@ -206,9 +206,9 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('registrationmanagers/monitorchecklists/{eventversion}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'index'])
         ->name('registrationmanagers.monitorchecklists.index');
-    Route::get('registrationmanagers/monitorchecklists/show/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'show'])
+    Route::get('registrationmanagers/monitorchecklists/show/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'show'])
         ->name('registrationmanagers.monitorchecklists.show');
-    Route::get('registrationmanagers/monitorchecklists/pdf/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'pdf'])
+    Route::get('registrationmanagers/monitorchecklists/pdf/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\MonitorchecklistController::class, 'pdf'])
         ->name('registrationmanagers.monitorchecklists.pdf');
 
     Route::get('registrationmanagers/registrantdetails/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'index'])

@@ -1,6 +1,5 @@
 @props([
     'eventversion',
-    'instrumentation',
     'registrants',
     'room',
 ])

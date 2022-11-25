@@ -4,7 +4,7 @@
     .page_break{page-break-before: always;}
 </style>
 
-@foreach($rooms AS $room)
+{{-- @foreach($rooms AS $room) --}}
 
     {{-- HEADERS --}}
     <table>
@@ -14,14 +14,20 @@
             </th>
         </tr>
         <tr style="background-color: rgba(0,0,0,.1);">
-            <th style="font-weight: bold;">
+            <th style="font-weight: bold;  font-size: 2rem;">
                 {{ $room->descr }}
             </th>
         </tr>
         <tr>
-            <th style="font-size: 1.15rem;">
-                {{ $instrumentation->formattedDescr() }}
-            </th>
+            <td style="font-size: 1.15rem;">
+                <div style="display:flex; flex-direction: row; justify-content: space-around;">
+                    @forelse($room['adjudicators'] AS $adjudicator)
+                        <span style="padding: 0 1rem; @if($loop->last) border-right: 1px solid darkgrey; @endif border-left: 1px solid darkgrey;">{{ $adjudicator->adjudicatorName }}</span>
+                    @empty
+                        <div>No Adjudicator found</div>
+                    @endforelse
+                </div>
+            </td>
         </tr>
     </table>
 
@@ -49,4 +55,4 @@
     </table>
 
     <div class="page_break"></div>
-@endforeach
+{{-- @endforeach --}}

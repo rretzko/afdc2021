@@ -13,6 +13,32 @@ use Illuminate\Http\Request;
 class AdjudicationformByRoomController extends Controller
 {
     /**
+     * Display the eventversion rooms
+     *
+     * @param  \App\Models\Eventversion $eventversion
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Eventversion $eventversion)
+    {
+        $bladepath = 'x-adjudicationforms.'.$eventversion->event->id.'.'.$eventversion->id.'.adjudicationform';
+
+        $rooms = Room::with('instrumentations')
+            ->where('eventversion_id', $eventversion->id)
+            ->get();
+
+        $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
+
+        return view('registrationmanagers.adjudicationforms.index',[
+            'bladepath' => $bladepath,
+            'eventversion' => $eventversion,
+            'room' => new Room(),
+            'registrants' => null,
+            'registrationactivity' => $registrationactivity,
+            'rooms' => $rooms,
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Eventversion $eventversion
@@ -33,7 +59,7 @@ class AdjudicationformByRoomController extends Controller
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
             'room' => $room,
-            'registrants' => $registrationactivity->registrantsByRoomByTimeslotSchoolNameFullnameAlpha($room),
+            'registrants' => $registrationactivity->registrantsByRoomById($room),
             'registrationactivity' => $registrationactivity,
             'rooms' => $rooms,
         ]);
@@ -57,7 +83,7 @@ class AdjudicationformByRoomController extends Controller
             ->where('eventversion_id', $eventversion->id)
             ->get();
 
-        $registrants = $ra->registrantsByRoomByTimeslotSchoolNameFullnameAlpha($room);
+        $registrants = $ra->registrantsByRoomById($room);
 
         $view = 'pdfs.adjudicationforms.';
         $view .= $eventversion->event->id.'.';
@@ -65,7 +91,7 @@ class AdjudicationformByRoomController extends Controller
         $view .= 'adjudicationform';
 
         $pdf = PDF::loadView($view,
-            compact('eventversion','registrants','rooms'))
+            compact('eventversion','registrants','room'))
             ->setPaper('letter','portrait');
 
         return $pdf->download('adjudicationForm_'.str_replace(' ','_',$room->descr).'.pdf');

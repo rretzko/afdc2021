@@ -46,6 +46,8 @@
                 (Route::currentRouteName() === 'registrationmanagers.acknowledgedschools.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||
+                (Route::currentRouteName() === 'registrationmanagers.adjudicationformsbyroom.index') ||
+                (Route::currentRouteName() === 'registrationmanagers.adjudicationformsbyroom.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||

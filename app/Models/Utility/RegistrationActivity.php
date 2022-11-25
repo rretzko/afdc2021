@@ -165,6 +165,22 @@ class RegistrationActivity extends Model
         return $merged->sortBy('id');
     }
 
+    public function registrantsByRoomById(Room $room)
+    {
+        $a = [];
+        foreach($room->auditionees()->sortBy('id') AS $registrant){
+
+            $a[] = [
+                'id' => $registrant->id,
+                'registrant' => $registrant,
+            ];
+        }
+
+        sort($a);
+
+        return collect(array_column($a,'registrant'));
+    }
+
     public function registrantsByRoomByTimeslotSchoolNameFullnameAlpha(Room $room)
     {
         $a = [];

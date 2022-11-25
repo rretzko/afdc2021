@@ -246,9 +246,9 @@
                                         @endif
                                     </li>
                                     <li>
-                                        <a href="{{ route('registrationmanagers.adjudicationforms.index',
+                                        <a href="{{ route('registrationmanagers.adjudicationformsbyroom.index',
                                                 ['eventversion' => $eventversion]) }}" >
-                                            Adjudication Forms
+                                            Adjudication Forms By Room
                                         </a>
                                     </li>
                                     <li>

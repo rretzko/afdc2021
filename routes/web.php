@@ -197,6 +197,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrationmanagers.adjudicationforms.pdf');
 
     /** ADJUDICATION FORMS BY ROOM */
+    Route::get('registrationmanagers/adjudicationformsbyroom/index/{eventversion}', [App\Http\Controllers\Registrationmanagers\AdjudicationformByRoomController::class, 'index'])
+        ->name('registrationmanagers.adjudicationformsbyroom.index');
     Route::get('registrationmanagers/adjudicationformsbyroom/show/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\AdjudicationformByRoomController::class, 'show'])
         ->name('registrationmanagers.adjudicationformsbyroom.show');
     Route::get('registrationmanagers/adjudicationformsbyroom/pdf/{eventversion}/{room}', [App\Http\Controllers\Registrationmanagers\AdjudicationformByRoomController::class, 'pdf'])

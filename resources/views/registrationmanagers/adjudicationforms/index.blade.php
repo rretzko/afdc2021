@@ -52,7 +52,7 @@
                                                 {{ $targetroom->descr }}
                                             </a>
                                         @endforeach
-                                @endif
+                                @endif {{-- END NJ ALL-SHORE --}}
 
                             </div>
                         </div>
@@ -95,10 +95,10 @@
                                 @endforeach
                             </div>
 
-                        @endif
+                        @endif {{-- end isset($targetinstrumentation --}}
 
                         {{-- NJ ALL-SHORE --}}
-                        @if(isset($room) && $room)
+                        @if(isset($room) && $room->id)
                                 <div style="display: flex; flex-direction: row; justify-content: space-between;">
                                     <h2>{{ strtoupper($room->descr) }}</h2>
 
@@ -125,7 +125,7 @@
                                         />
 
                                 </div>
-                        @endif
+                        @endif{{-- END if($room) --}}
 
                     </section>
 

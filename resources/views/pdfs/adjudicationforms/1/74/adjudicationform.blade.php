@@ -4,7 +4,7 @@
     .page_break{page-break-before: always;}
 </style>
 
-@foreach($rooms AS $room)
+{{-- @foreach($rooms AS $room) --}}
 
     {{-- HEADERS --}}
     <table>
@@ -14,7 +14,7 @@
             </th>
         </tr>
         <tr style="background-color: rgba(0,0,0,.1);">
-            <th style="font-weight: bold;">
+            <th style="font-weight: bold; font-size: 2rem;">
                 {{ $room->descr }}
             </th>
         </tr>
@@ -94,4 +94,4 @@
     </table>
 
     <div class="page_break"></div>
-@endforeach
+{{-- @endforeach --}}

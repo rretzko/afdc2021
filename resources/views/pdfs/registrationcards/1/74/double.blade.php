@@ -7,73 +7,68 @@
     <div style="display: flex; flex-direction: row;">
         <table>
             <tr>
-                <td style="font-weight: bold; border-top: 1px solid black;" colspan="3">{{ $eventversion->name }}</td>
+                <td  colspan="2" style="width: 200px; min-width: 200px; max-width: 200px; font-weight: bold; border-top: 1px solid black;">
+                    {{ $eventversion->name }}
+                </td>
                 <td style="color: white;">-</td>
-                <td style="font-weight: bold; border-top: 1px solid black;" colspan="3">{{ $eventversion->name }}</td>
-                <td style="border: 1px solid black; border-bottom: 0; color: lightgrey; text-align: center;">TAB</td>
+                <td colspan="2" style="width: 200px; min-width: 200px; max-width: 200px; font-weight: bold; border-top: 1px solid black;">
+                    {{ $eventversion->name }}
+                </td>
             </tr>
             <tr style="font-weight: bold; text-transform: uppercase;">
-                <td colspan="3">{{ $rooms[0]->descr }}</td>
+                <td colspan="2">{{ $rooms[0]->descr }}</td>
                 <td style="color: white;">-</td>
-                <td colspan="3">{{ $rooms[1]->descr }}</td>
-                <td style="border-left: 1px solid black; border-right: 1px solid black; color: lightgrey; text-align: center; font-weight: normal">
-                    ROOM
-                </td>
+                <td colspan="2">{{ $rooms[1]->descr }}</td>
             </tr>
-            <tr>
-                <td colspan="2" style="border-right: 0;">
+            <tr style="margin: 0.5rem 0; border-right: 1px solid black;">
+                <td style="border-right: 0; background-color: lightgray;">
                     Aud # <b>{{ $registrant->id }}</b>
                 </td>
-                <td style="border-left: 0; font-weight: bold;">
+                <td style="border-left: 0; font-weight: bold; background-color: lightgray;">
                     {{ $instrumentation->formattedDescr() }}
                 </td>
                 <td style="color: white;">-</td>
-                <td colspan="2" style="border-right: 0;">
+                <td  style="border-right: 0; background-color: lightgray;">
                     Aud # <b>{{ $registrant->id }}</b>
                 </td>
-                <td style="border-left: 0; font-weight: bold;">
+                <td style="border-left: 0; border-right: 1px solid black; font-weight: bold; background-color: lightgray;">
                     {{ $instrumentation->formattedDescr() }}
                 </td>
-                <td style="border: 1px solid black; border-top: 0; color: lightgrey; text-align: center;">ONLY</td>
             <tr>
-                <td colspan="3" style="text-align: center; font-size: 1.5rem; font-weight: bold; min-width: 20rem; width: 20rem; max-width: 20rem;">
+                <td colspan="2" style="text-align: center; font-size: 1.5rem; font-weight: bold; ">
                     {{ $registrant->student->person->fullnameAlpha() }}
                 </td>
                 <td style="color: white;">-</td>
-                <td colspan="3" style="text-align: center; font-size: 1.5rem; font-weight: bold; border-right: 0; min-width: 20rem; width: 20rem; max-width: 20rem;">
+                <td colspan="2" style="text-align: center; font-size: 1.5rem; font-weight: bold;">
                     {{ $registrant->student->person->fullnameAlpha() }}
                 </td>
-                <td style="border-top: 1px solid black; border-right: 1px solid black; border-left: 1px solid white;"></td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center;">
+                <td colspan="2" style="text-align: center;">
                     {{ $registrant->student->emails->count() ? $registrant->student->emails->first()->email : 'No email found' }}
                 </td>
                 <td style="color: white;">-</td>
-                <td colspan="3" style="text-align: center; border-right: 0;">
+                <td colspan="2" style="text-align: center; ">
                     {{ $registrant->student->emails->count() ? $registrant->student->emails->first()->email : 'No email found' }}
                 </td>
-                <td style="border-right: 1px solid black; border-left: 1px solid white;"></td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center;">
+                <td colspan="2" style="text-align: center;">
                     {{ $registrant->timeslot }}
                 </td>
                 <td style="color: white;">-</td>
-                <td colspan="3" style="text-align: center; border: 0;">
+                <td colspan="2" style="text-align: center;">
                     {{ $registrant->timeslot }}
                 </td>
-                <td style="border-right: 1px solid black; border-left: 1px solid white;"></td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center; border-bottom: 1px solid black;">
+                <td colspan=2" style="text-align: center; border-bottom: 1px solid black;">
                     {{ $registrant->student->currentSchool->shortName }}
                 </td>
                 <td style="color: white;">-</td>
-                <td colspan="3" style="text-align: center; border: 0; border-left: 1px solid black; border-bottom: 1px solid black;">
+                <td colspan="2" style="text-align: center; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">
                     {{ $registrant->student->currentSchool->shortName }}
                 </td>
-                <td style="border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid white;"></td>
             </tr>
 
             </tr>

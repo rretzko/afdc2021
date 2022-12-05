@@ -223,7 +223,11 @@ class RegistrationActivity extends Model
     {
         $a = [];
 
-        foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
+        $registrants = ($instrumentation->id)
+            ? $this->registeredInstrumentationTotal($instrumentation)
+            : $this->registeredTotal();
+
+        foreach($registrants AS $registrant){
 
             $a[] = [
                 'armytime' => $registrant->armytime,

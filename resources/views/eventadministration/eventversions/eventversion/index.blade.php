@@ -209,6 +209,7 @@
                             </ul>
                         </div>
 
+                        {{-- REGISTRATION MANAGER --}}
                         <div>
                             <h4>
                                 Registration Manager
@@ -256,6 +257,17 @@
                                                 ['eventversion' => $eventversion]) }}" >
                                             Room monitor checklists
                                         </a>
+                                    </li>
+                                    {{-- REPORTS --}}
+                                    <li>
+                                        Reports
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('registrationmanagers.registrantdetails.all.csv',['eventversion' => $eventversion]) }}">
+                                                    Registrant info dump csv
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
 <!-- {{--
                                     <li>

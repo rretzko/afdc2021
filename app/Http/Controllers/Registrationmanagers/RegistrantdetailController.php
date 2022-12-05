@@ -63,4 +63,16 @@ class RegistrantdetailController extends Controller
 
         return Excel::download($download, 'registrants_'.strtotime('NOW').'.csv');
     }
+
+    /**
+     * download a pdf of ALL participants
+     *
+     * @param  \App\Models\Eventversion $eventversion
+     */
+    public function csvAll(Eventversion $eventversion)
+    {
+        $download = new RegistrantsExport($eventversion);
+
+        return Excel::download($download, 'registrants_'.strtotime('NOW').'.csv');
+    }
 }

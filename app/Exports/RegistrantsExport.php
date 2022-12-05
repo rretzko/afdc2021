@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Emailtype;
+use App\Models\Instrumentation;
 use App\Models\Nonsubscriberemail;
 use App\Models\Phone;
 use App\Models\Phonetype;
@@ -16,10 +17,13 @@ class RegistrantsExport implements FromCollection, WithHeadings, WithMapping
 {
     private $registrants;
 
-    public function __construct(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation) {
+    public function __construct(\App\Models\Eventversion $eventversion, \App\Models\Instrumentation $instrumentation = NULL) {
 
         $ra = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
-        $this->registrants = $ra->registrantsByTimeslotSchoolNameFullnameAlpha($instrumentation);
+
+        $this->registrants = ($instrumentation)
+            ? $ra->registrantsByTimeslotSchoolNameFullnameAlpha($instrumentation)
+            : $ra->registrantsByTimeslotSchoolNameFullnameAlpha(new Instrumentation);
     }
 
     public function collection()

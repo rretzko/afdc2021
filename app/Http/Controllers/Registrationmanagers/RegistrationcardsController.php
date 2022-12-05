@@ -100,25 +100,23 @@ class RegistrationcardsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * download a pdf of blank registration cards
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Eventversion $eventversion
      */
-    public function update(Request $request, $id)
+    public function blanks(Eventversion $eventversion)
     {
-        //
-    }
+        $ra = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $view = 'pdfs.registrationcards.';
+        $view .= $eventversion->event->id.'.';
+        $view .= $eventversion->id.'.';
+        $view .= 'blanks.double';
+
+        $pdf = PDF::loadView($view,
+            compact('eventversion'))
+            ->setPaper('letter','portrait');
+
+        return $pdf->download('registrationcards.pdf');
     }
 }

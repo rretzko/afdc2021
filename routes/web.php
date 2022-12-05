@@ -234,7 +234,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/registrationmanager/registrant/updateEmergencyContact/{id}', [App\Http\Controllers\Registrationmanagers\RegistrantschoolController::class, 'updateEmergencyContact'])
         ->name('registrationmanager.registrant.updateEC');
 
-    Route::get('registrationmanager/registrationcards/blanks/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'showBlankCards'])
+    Route::get('registrationmanager/registrationcards/blanks/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'blanks'])
         ->name('registrationmanagers.registrationcards.blanks');
     Route::get('registrationmanager/registrationcards/blanks.pdfs/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'blanksPdf'])
         ->name('registrationmanagers.registrationcards.blanks.pdf');

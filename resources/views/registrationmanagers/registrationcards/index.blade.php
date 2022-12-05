@@ -34,6 +34,17 @@
                                 </a>
                             @endforeach
 
+                            {{-- BLANK REGISTRATION CARDS --}}
+                            @if($eventversion->event->id === 1)
+                                <a href="{{ route('registrationmanagers.registrationcards.blanks',
+                                            [
+                                                'eventversion' => $eventversion,
+                                            ]
+                                        )}}">
+                                    Blanks
+                                </a>
+                            @endif
+
                         </div>
                     </section>
 

@@ -224,7 +224,7 @@
                                     <li>
                                         <a href="{{ route('registrationmanagers.registrantdetails.index',['eventversion' => $eventversion]) }}">
                                             Registrant Detail
-                                        </a>
+                                        </a> <span style="font-size: small;"> (includes info dump csv by voice part)</span>
                                     </li>
                                     <li>
                                         @if($eventversion->eventversionconfig->virtualaudition)
@@ -264,7 +264,7 @@
                                         <ul>
                                             <li>
                                                 <a href="{{ route('registrationmanagers.registrantdetails.all.csv',['eventversion' => $eventversion]) }}">
-                                                    Registrant info dump csv
+                                                    All Registrants info dump csv by school by name
                                                 </a>
                                             </li>
                                         </ul>

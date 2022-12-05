@@ -300,23 +300,25 @@
                             </h4>
 
                             <ul>
+                                @if($eventversion->eventversionconfig->participation_fee)
+                                    <li>
+                                        <a href="{{ route('rehearsalmanager.participationfee.index') }}">
+                                            Participation Fee Roster
+                                        </a>
+                                    </li>
+                                @endif
+                                <!-- {{--
                                 <li>
-                                    @if(config('app.url') === 'http://afdc2021.test')
-                                        <a href="{{ route('rehearsalmanager.massmailings.index',
-                                            [
-                                                'eventversion' => $eventversion,
-                                            ]) }}"
-                                        >
-                                            Mass Mailings
-                                        </a>
-                                    @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/rehearsalmanager/massmailings/{{ $eventversion->id }}"
-                                        >
-                                            Mass Mailings
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('rehearsalmanager.massmailings.index',
+                                        [
+                                            'eventversion' => $eventversion,
+                                        ]) }}"
+                                    >
+                                        Mass Mailings
+                                    </a>
                                 </li>
                                 <li>Participant Status Change</li>
+                                --}} -->
                             </ul>
 
                         </div>

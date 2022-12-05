@@ -262,6 +262,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanager/timeslots/students/pdf/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotstudentController::class, 'pdf'])
         ->name('registrationmanagers.timeslotstudent.pdf');
 
+    Route::get('rehearsalmanager/participationfee', [App\Http\Controllers\Rehearsalmanagers\ParticipationFeeController::class, 'index'])
+        ->name('rehearsalmanager.participationfee.index');
+    /*
     Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])
         ->name('rehearsalmanager.massmailings.index');
     Route::get('rehearsalmanager/massmailings/concert/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'index'])
@@ -270,6 +273,7 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('rehearsalmanager.massmailings.concert.store');
     Route::post('rehearsalmanager/massmailings/concert/update/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\Massmailings\ConcertController::class, 'update'])
         ->name('rehearsalmanager.massmailings.concert.update');
+    */
 
     /** TEACHERS WITH OBLIGATIONS ACKNOWLEDGED */
     Route::get('/eventadministrator/acknowledgedteachers/{eventversion?}', [App\Http\Controllers\Eventadministration\AcknowledgedteachersController::class, 'index'])

@@ -90,6 +90,21 @@
                 <td></td>
             </tr>
         @endforeach
+
+        {{-- ADD 10 EXTRA ROWS FOR WALK-INS --}}
+        @for($i=0; $i<10; $i++)
+            <tr>
+                <td style="height: 1rem;"></td>
+                <td></td>
+                <td></td>
+                @foreach($room->filecontenttypes AS $filecontenttype)
+                    @foreach($filecontenttype->scoringcomponents->where('eventversion_id', $eventversion->id) AS $scoringcomponent)
+                        <th></th>
+                    @endforeach
+                @endforeach
+                <td></td>
+            </tr>
+        @endfor
         </tbody>
     </table>
 

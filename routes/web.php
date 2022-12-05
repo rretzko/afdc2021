@@ -217,6 +217,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrationmanagers.registrantdetails.show');
     Route::get('registrationmanagers/registrantdetails/all/csv/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'csvAll'])
         ->name('registrationmanagers.registrantdetails.all.csv');
+    Route::get('registrationmanagers/registrationdetails/all/csv/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'csvRegistrationAll'])
+        ->name('registrationmanagers.registrationdetails.all.csv');
     Route::get('registrationmanagers/registrantdetails/csv/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'csv'])
         ->name('registrationmanagers.registrantdetails.csv');
 

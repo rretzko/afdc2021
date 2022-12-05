@@ -267,6 +267,11 @@
                                                     All Registrants info dump csv by school by name
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="{{ route('registrationmanagers.registrationdetails.all.csv',['eventversion' => $eventversion]) }}">
+                                                    All Registrants roster csv by timeslot by school by name
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
 <!-- {{--

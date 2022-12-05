@@ -39,4 +39,11 @@ class Timeslot extends Model
 
         return $a;
     }
+
+    public function timeslot(int $eventversion_id, int $school_id): string
+    {
+        return Timeslot::where('school_id', $school_id)
+            ->where('eventversion_id', $eventversion_id)
+            ->value('timeslot');
+    }
 }

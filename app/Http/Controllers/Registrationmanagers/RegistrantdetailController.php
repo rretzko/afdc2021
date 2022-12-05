@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Registrationmanagers;
 
 use App\Exports\RegistrantsExport;
+use App\Exports\RegistrantsRosterExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Instrumentation;
@@ -74,5 +75,17 @@ class RegistrantdetailController extends Controller
         $download = new RegistrantsExport($eventversion);
 
         return Excel::download($download, 'registrants_'.strtotime('NOW').'.csv');
+    }
+
+    /**
+     * download a pdf of ALL participants
+     *
+     * @param  \App\Models\Eventversion $eventversion
+     */
+    public function csvRegistrationAll(Eventversion $eventversion)
+    {
+        $download = new RegistrantsRosterExport($eventversion);
+
+        return Excel::download($download, 'registrants_roster_'.strtotime('NOW').'.csv');
     }
 }

@@ -15,7 +15,7 @@
         </tr>
         <tr style="background-color: rgba(0,0,0,.1);">
             <th style="font-weight: bold;  font-size: 2rem;">
-                {{ $room->descr }}
+                MONITOR CHECKLIST: {{ $room->descr }}
             </th>
         </tr>
         <tr>

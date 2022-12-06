@@ -57,7 +57,7 @@
                         @if($targetroom && $targetroom->id)
 
                             <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                <h2>{{ strtoupper($targetroom->descr) }}</h2>
+                                <h2>MONITOR CHECKLIST: {{ strtoupper($targetroom->descr) }}</h2>
 
                                 <div>
                                     {{-- @if(config('app.url') === 'http://afdc2021.test') --}}

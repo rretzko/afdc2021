@@ -64,6 +64,7 @@
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.test') ||
                 (Route::currentRouteName() === 'rehearsalmanager.massmailings.concert.update') ||
                 (Route::currentRouteName() === 'rehearsalmanager.participationfee.index') ||
+                (Route::currentRouteName() === 'rehearsalmanager.paypalreconciliation.index') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.delete') ||
                 (Route::currentRouteName() === 'eventadministrator.scoring.components.edit') ||

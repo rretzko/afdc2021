@@ -262,10 +262,19 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('registrationmanager/timeslots/students/pdf/{eventversion}', [App\Http\Controllers\Registrationmanagers\TimeslotstudentController::class, 'pdf'])
         ->name('registrationmanagers.timeslotstudent.pdf');
 
+    /** PARTICIPATION FEE TABLE BY SCHOOL */
     Route::get('rehearsalmanager/participationfee', [App\Http\Controllers\Rehearsalmanagers\ParticipationFeeController::class, 'index'])
         ->name('rehearsalmanager.participationfee.index');
     Route::get('rehearsalmanager/participationfee/export', [App\Http\Controllers\Rehearsalmanagers\ParticipationFeeController::class, 'export'])
         ->name('rehearsalmanager.participationfee.export');
+
+    /** PAYPAL RECONCILIATION */
+    Route::get('rehearsalmanager/paypalreconciliation', [App\Http\Controllers\Rehearsalmanagers\PaypalReconciliationController::class, 'index'])
+        ->name('rehearsalmanager.paypalreconciliation.index');
+    Route::get('rehearsalmanager/paypalreconciliation/export', [App\Http\Controllers\Rehearsalmanagers\PaypalReconciliationController::class, 'export'])
+        ->name('rehearsalmanager.paypalreconciliation.export');
+
+
     /*
     Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])
         ->name('rehearsalmanager.massmailings.index');

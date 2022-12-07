@@ -33,4 +33,19 @@ class Payment extends Model
             ->where('school_id', $school->id)
             ->sum('amount');
     }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class, 'user_id', 'user_id');
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

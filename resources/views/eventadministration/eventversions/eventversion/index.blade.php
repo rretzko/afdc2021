@@ -306,6 +306,11 @@
                                             Participation Fee Roster
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('rehearsalmanager.paypalreconciliation.index') }}">
+                                            PayPal Reconciliation Roster
+                                        </a>
+                                    </li>
                                 @endif
                                 <!-- {{--
                                 <li>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Rehearsalmanagers;
 
+use App\Exports\ParticipationFeeExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Userconfig;
 use App\Models\Utility\AcceptedParticipants;
 use App\Models\Utility\AcceptedSchools;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipationFeeController extends Controller
 {
@@ -25,5 +27,18 @@ class ParticipationFeeController extends Controller
             compact( 'acceptances', 'count_total', 'eventversion',
                 'sum_balance_due','sum_students','sum_teachers')
         );
+    }
+
+    public function export()
+    {
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $schools = AcceptedSchools::byEventversion($eventversion->id);
+        $acceptances = AcceptedParticipants::countsBySchoolWithPayPalPayments($eventversion, $schools); //return array
+
+        $export = new ParticipationFeeExport($acceptances);
+
+        $datetime = date('Ynd_Gis');
+
+        return Excel::download($export, 'participationFees_'.$datetime.'.csv');
     }
 }

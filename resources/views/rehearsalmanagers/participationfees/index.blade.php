@@ -36,6 +36,14 @@
                             <table>
                                 <thead>
                                 <tr>
+                                    <td colspan="5" style="border: 1px solid white; border-bottom: 1px solid black;"></td>
+                                    <td style="border: 1px solid white; border-bottom: 1px solid black; font-size: small;">
+                                        <a href="{{ route("rehearsalmanager.participationfee.export") }}">
+                                            Download csv
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th colspan="2" style="text-align: right;">Totals</th>
                                     <th style="text-align: center;">{{ $count_total }}</th>
                                     <th style="text-align: center;">{{ $sum_students }}</th>

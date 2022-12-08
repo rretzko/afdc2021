@@ -53,6 +53,15 @@
         </tr>
     </table>
 
+{{-- JUDGES --}}
+<table>
+    <tr>
+        @foreach($room->adjudicators AS $adjudicator)
+            <td>{{ $adjudicator->adjudicatorname }} ({{ $adjudicator->user_id }})</td>
+        @endforeach
+    </tr>
+</table>
+
     {{-- ROWS --}}
     <table>
         <thead>

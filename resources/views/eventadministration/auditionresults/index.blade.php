@@ -36,7 +36,7 @@
 
                         </div>
                     </section>
-
+<!-- {{--
                     <section id="summary_counts" style="margin-bottom: 1rem;">
                         <table style="margin: auto; ">
                             <tr>
@@ -56,7 +56,7 @@
                         </table>
 
                     </section>
-
+--}} -->
                     <section id="results">
                         @if((! isset($summary_page)) && isset($completes) && $completes->count())
                             <div style="padding: 0 1rem; margin:auto;">
@@ -121,9 +121,11 @@
                                         </td>
                                         <td style="text-align: center;">{{ strtoupper($registrant->instrumentations->first()->abbr) }}</td>
 
-                                            @foreach($score->registrantScores($registrant) AS $value)
+                                            @forelse($score->registrantScores($registrant) AS $value)
                                                 <td> {{  $value }} </td>
-                                            @endforeach
+                                            @empty
+                                                <td>0</td>
+                                            @endforelse
 
                                         <td>
                                             {{ $scoresummary->registrantScore($registrant) }}

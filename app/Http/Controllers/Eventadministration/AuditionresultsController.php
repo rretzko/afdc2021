@@ -26,6 +26,7 @@ class AuditionresultsController extends Controller
     public function index(Eventversion $eventversion)
     {
         $completes = Scoresummary::where('eventversion_id', $eventversion->id)->where('result', '<>', 'inc')->get();
+        $noshows = Scoresummary::where('eventversion_id', $eventversion->id)->where('result', '=', 'n/s')->get();
         $incompletes = Scoresummary::where('eventversion_id', $eventversion->id)->where('result', '=', 'inc')->get();
 
         return view('eventadministration.auditionresults.index',
@@ -34,6 +35,7 @@ class AuditionresultsController extends Controller
             'eventversion' => $eventversion,
             'incompletes' => $incompletes,
             'summary_page' => true,
+            'noshows' => $noshows,
         ]);
     }
 
@@ -69,8 +71,11 @@ class AuditionresultsController extends Controller
     {
         set_time_limit(120);
 
+        //$noshows = $this->noShowAdjudicationByInstrumentation($eventversion, $instrumentation);
+
         $incompletes = $this->incompleteAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
+        //return Scoresummary objects for each completed audition
         $completes = $this->completedAdjudicationsByInstrumentation($eventversion, $instrumentation);
 
         $filtered = $this->filterRegistrants($eventversion, $instrumentation);

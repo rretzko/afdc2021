@@ -9,6 +9,7 @@ use App\Models\Eventensemble;
 use App\Models\Eventensemblecutoff;
 use App\Models\Eventensemblecutofflock;
 use App\Models\Eventversion;
+use App\Models\Instrumentation;
 use App\Models\Scoresummary;
 use App\Models\Userconfig;
 use Illuminate\Http\Request;

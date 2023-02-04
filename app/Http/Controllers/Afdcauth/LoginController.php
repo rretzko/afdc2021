@@ -41,7 +41,8 @@ class LoginController extends Controller
 
             $eventroles = Eventrole::where('user_id', auth()->id())->get();
 
-            if($eventroles){
+            if($eventroles->count()){
+
                 //return redirect()->route('registrationmanagers.index');
                 return view('home',
                 [
@@ -56,7 +57,7 @@ class LoginController extends Controller
                     ]);
             }
         }
-
+dd(__LINE__);
         return redirect()->route('login');
     }
 

@@ -39,8 +39,8 @@ class DashboardService
         $raw = "SELECT a.registrant_id
         FROM fileuploads a
             JOIN fileuploads b ON a.registrant_id=b.registrant_id AND b.filecontenttype_id=5 AND b.approved IS NOT NULL
-        WHERE a.registrant_id >= 730000
-        AND a.registrant_id <= 739999
+        WHERE a.registrant_id >= ". $this->min_registrant_id ."
+        AND a.registrant_id <= ". $this->max_registrant_id ."
         AND a.filecontenttype_id=1
         AND a.approved IS NOT NULL
         GROUP BY a.registrant_id";
@@ -59,8 +59,8 @@ class DashboardService
         $raw = "SELECT COUNT(a.registrant_id)
         FROM fileuploads a
             JOIN fileuploads b ON a.registrant_id=b.registrant_id AND b.filecontenttype_id=5
-        WHERE a.registrant_id >= 730000
-        AND a.registrant_id <= 739999
+        WHERE a.registrant_id >= " . $this->min_registrant_id . "
+        AND a.registrant_id <= " . $this->max_registrant_id . "
         AND a.filecontenttype_id=1
         GROUP BY a.registrant_id";
 

@@ -63,10 +63,11 @@
                             @endif
                         </div>
 
-                        {{-- PROHIBITED STUDENT TABLE --}}
-                        <div>
+                        {{-- REMOVED STUDENT TABLE --}}
+                        <div style="margin-top: 1rem;">
+                            <h4 style="text-align: center;">Removed Student Table</h4>
                             <style>
-                                table{border-collapse: collapse;margin: auto; margin-top: 1rem;}
+                                table{border-collapse: collapse;margin: auto;}
                                 td,th{border: 1px solid black; padding: 0 0.25rem;}
                             </style>
                             <table>

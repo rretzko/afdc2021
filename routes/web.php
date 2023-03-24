@@ -63,6 +63,10 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/eventadministration/eventversion/store',[App\Http\Controllers\Eventadministration\EventversionController::class, 'store'])
         ->name('eventadministration.eventversion.store');
 
+    /** EVENT ADMINISTRATION: MILESTONES */
+    Route::get('/eventadministration/milestones/{eventversion}',[\App\Http\Controllers\Eventadministration\MilestoneController::class, 'index'])
+        ->name('eventadministration.milestones');
+
     /** EVENT ADMINISTRATION EVENTVERSION CONFIGURATION */
     Route::get('/configuration',[App\Http\Controllers\Eventadministration\EventversionConfigurationController::class, 'edit'])
         ->name('eventadministration.eventversion.eventconfigurations.edit');
@@ -274,6 +278,11 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('rehearsalmanager/paypalreconciliation/export', [App\Http\Controllers\Rehearsalmanagers\PaypalReconciliationController::class, 'export'])
         ->name('rehearsalmanager.paypalreconciliation.export');
 
+    /** REMOVED STUDENT ROSTER */
+    Route::get('rehearsalmanager/removedstudentroster', [App\Http\Controllers\Rehearsalmanagers\RemovedStudentRosterController::class, 'index'])
+        ->name('rehearsalmanager.removedstudentroster.index');
+    Route::post('rehearsalmanager/removedstudentroster/store', [App\Http\Controllers\Rehearsalmanagers\RemovedStudentRosterController::class, 'store'])
+        ->name('rehearsalmanager.removedstudentroster.store');
 
     /*
     Route::get('rehearsalmanager/massmailings/{eventversion}', [App\Http\Controllers\Rehearsalmanagers\MassmailingController::class, 'index'])

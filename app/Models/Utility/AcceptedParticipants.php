@@ -21,6 +21,30 @@ class AcceptedParticipants extends Model
     static public $sum_paypal_teachers = 0;
     static public $count_total = 0;
 
+    static public function acceptedParticipantNamesArray(Eventversion $eventversion): array
+    {
+        $a = DB::table('registrants')
+            ->join('scoresummaries', 'registrants.id','=','scoresummaries.registrant_id')
+            ->join('schools', 'registrants.school_id', '=', 'schools.id')
+            ->join('people', 'registrants.user_id', '=', 'people.user_id')
+            ->where('registrants.eventversion_id', $eventversion->id)
+            ->where('registrants.registranttype_id', Registranttype::REGISTERED)
+            ->whereNotIn('scoresummaries.result', self::$not_accepteds)
+            ->select('registrants.id', 'registrants.user_id','registrants.school_id','schools.name AS schoolName','people.first','people.middle','people.last')
+            ->orderBy('people.last')
+            ->orderBy('people.first')
+            ->orderBy('schools.name')
+            ->get()
+            ->toArray();
+
+        foreach($a AS $key => $participant){
+
+            $a[$key]->nameAlpha = $participant->last . ', ' . $participant->first . ' ' . $participant->middle;
+        }
+
+        return $a;
+    }
+
     static public function countsBySchoolWithPayPalPayments(Eventversion $eventversion, Collection $schools): array
     {
         $a = [];

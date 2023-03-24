@@ -15,6 +15,7 @@ class Registranttype extends Model
     const NOAPP = 24;
     const PROHIBITED = 18;
     const REGISTERED = 16;
+    const REMOVED = 41;
 
     public function registrants()
     {

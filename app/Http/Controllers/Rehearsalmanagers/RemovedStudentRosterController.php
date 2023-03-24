@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rehearsalmanagers;
 
+use App\Exports\RemovedStudentRosterExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Registrant;
@@ -9,6 +10,7 @@ use App\Models\Registranttype;
 use App\Models\Userconfig;
 use App\Models\Utility\AcceptedParticipants;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RemovedStudentRosterController extends Controller
 {
@@ -33,13 +35,23 @@ class RemovedStudentRosterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Download csv of removed students
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function export()
     {
-        //
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $removeds = Registrant::where('eventversion_id', $eventversion->id)
+            ->where('registranttype_id', Registranttype::REMOVED)
+            ->get()
+            ->sortBy('fullNameAlpha');
+
+        $export = new RemovedStudentRosterExport($removeds);
+
+        $datetime = date('Ynd_Gis');
+
+        return Excel::download($export, 'removedStudentRoster_'.$datetime.'.csv');
     }
 
     /**

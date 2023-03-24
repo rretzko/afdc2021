@@ -281,6 +281,8 @@ Route::group(['middleware' => 'auth'],function(){
     /** REMOVED STUDENT ROSTER */
     Route::get('rehearsalmanager/removedstudentroster', [App\Http\Controllers\Rehearsalmanagers\RemovedStudentRosterController::class, 'index'])
         ->name('rehearsalmanager.removedstudentroster.index');
+    Route::get('rehearsalmanager/removedstudentroster/export', [App\Http\Controllers\Rehearsalmanagers\RemovedStudentRosterController::class, 'export'])
+        ->name('rehearsalmanager.removedstudentroster.export');
     Route::post('rehearsalmanager/removedstudentroster/store', [App\Http\Controllers\Rehearsalmanagers\RemovedStudentRosterController::class, 'store'])
         ->name('rehearsalmanager.removedstudentroster.store');
 

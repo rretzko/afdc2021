@@ -74,7 +74,7 @@
                                 <tr>
                                     <td colspan="3" style="border: 1px solid white; border-bottom: 1px solid black;"></td>
                                     <td style="border: 1px solid white; border-bottom: 1px solid black; font-size: small; text-align: right;">
-                                        <a href="{{ route("rehearsalmanager.participationfee.export") }}">
+                                        <a href="{{ route("rehearsalmanager.removedstudentroster.export") }}">
                                             Download csv
                                         </a>
                                     </td>

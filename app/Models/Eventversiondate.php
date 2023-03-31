@@ -17,8 +17,14 @@ class Eventversiondate extends Model
         //early exit
         if(is_null($this->dt)){ return date('Y-M-d', strtotime('NOW')); }
 
-        return substr($this->dt,0,4).'-'
-            .substr($this->dt,5,2).'-'
-            .substr($this->dt,8,2);
+        return Carbon::parse($this->dt)->format('Y-m-d');
+    }
+
+    public function getDtYMDHMAAttribute(): string
+    {
+        //early exit
+        if(is_null($this->dt)){ return date('Y-M-d g:i a', strtotime('NOW')); }
+
+        return Carbon::parse($this->dt)->format('Y-m-d H:i');
     }
 }

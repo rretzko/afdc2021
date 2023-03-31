@@ -73,7 +73,7 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <td colspan="3" style="border: 1px solid white; border-bottom: 1px solid black;"></td>
+                                    <td colspan="4" style="border: 1px solid white; border-bottom: 1px solid black;"></td>
                                     <td style="border: 1px solid white; border-bottom: 1px solid black; font-size: small; text-align: right;">
                                         <a href="{{ route("rehearsalmanager.removedstudentroster.export") }}">
                                             Download csv
@@ -85,6 +85,7 @@
                                     <th style="text-align: left;">Student</th>
                                     <th style="text-align: left;">School</th>
                                     <th style="text-align: center;">Voice</th>
+                                    <th style="color: transparent;">Revert</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,7 +95,16 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $removed->fullNameAlpha }}</td>
                                             <td>{{ $removed->schoolName }}</td>
-                                            <td style="text-align: center;">{{ $removed->instrumentations->first()->formattedDescr() }}</td>
+                                            <td style="text-align: center;">
+                                                {{ $removed->instrumentations->first()->formattedDescr() }}
+                                            </td>
+                                            <td style="padding: 4px; text-align: center;">
+                                                <a href="">
+                                                    <button style="background-color: rgba(0,255,0,0.1); padding: 0.25rem;">
+                                                        Revert
+                                                    </button>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @empty
                                         <td colspan="3" style="text-align: center;">No students found</td>

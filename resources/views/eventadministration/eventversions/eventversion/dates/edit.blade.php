@@ -49,20 +49,20 @@
                             </style>
 
                             {{-- ADMINISTRATION --}}
-                            <div class="input-block"">
+                            <div class="input-block">
                                 <label for="datetype_ids[1]" class="datetype-label">Administration</label>
                                 <div style="display:flex; flex-direction: column; ">
                                     <div>
                                         <label for="datetype_ids[1]" class="dateblock-label">Open</label>
-                                        <input type="date" name="datetype_ids[1]"
-                                               value="{{ $dates->where('datetype_id',1)->first() ? $dates->where('datetype_id',1)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                        <input type="datetime-local" name="datetype_ids[1]"
+                                               value="{{ $dates->where('datetype_id',1)->first() ? $dates->where('datetype_id',1)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                            >
                                         <span class="hint">(1)</span>
                                     </div>
                                     <div>
                                         <label for="datetype_ids[2]" class="dateblock-label">Close</label>
-                                        <input type="date" name="datetype_ids[2]"
-                                               value="{{ $dates->where('datetype_id',2)->first() ? $dates->where('datetype_id',2)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                        <input type="datetime-local" name="datetype_ids[2]"
+                                               value="{{ $dates->where('datetype_id',2)->first() ? $dates->where('datetype_id',2)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                         >
                                         <span class="hint">(2)</span>
                                     </div>
@@ -76,15 +76,15 @@
                                 <div class="date-block">
                                     <div>
                                         <label for="datetype_ids[3]" class="dateblock-label" >Open</label>
-                                        <input type="date" name="datetype_ids[3]"
-                                               value="{{ $dates->where('datetype_id',3)->first() ? $dates->where('datetype_id',3)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                        <input type="datetime-local" name="datetype_ids[3]"
+                                               value="{{ $dates->where('datetype_id',3)->first() ? $dates->where('datetype_id',3)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                         >
                                         <span class="hint">(3)</span>
                                     </div>
                                     <div>
                                         <label for="datetype_ids[4]" class="dateblock-label">Close</label>
-                                        <input type="date" name="datetype_ids[4]"
-                                               value="{{ $dates->where('datetype_id',4)->first() ? $dates->where('datetype_id',4)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                        <input type="datetime-local" name="datetype_ids[4]"
+                                               value="{{ $dates->where('datetype_id',4)->first() ? $dates->where('datetype_id',4)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                         >
                                         <span class="hint">(4)</span>
                                     </div>
@@ -98,15 +98,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[5]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[5]"
-                                       value="{{ $dates->where('datetype_id',5)->first() ? $dates->where('datetype_id',5)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[5]"
+                                       value="{{ $dates->where('datetype_id',5)->first() ? $dates->where('datetype_id',5)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(5)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[6]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[6]"
-                                       value="{{ $dates->where('datetype_id',6)->first() ? $dates->where('datetype_id',6)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[6]"
+                                       value="{{ $dates->where('datetype_id',6)->first() ? $dates->where('datetype_id',6)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                >
                                 <span class="hint">(6)</span>
                             </div>
@@ -120,15 +120,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[7]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[7]"
-                                       value="{{ $dates->where('datetype_id',7)->first() ? $dates->where('datetype_id',7)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[7]"
+                                       value="{{ $dates->where('datetype_id',7)->first() ? $dates->where('datetype_id',7)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(7)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[8]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[8]"
-                                       value="{{ $dates->where('datetype_id',8)->first() ? $dates->where('datetype_id',8)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[8]"
+                                       value="{{ $dates->where('datetype_id',8)->first() ? $dates->where('datetype_id',8)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(8)</span>
                             </div>
@@ -142,15 +142,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[9]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[9]"
-                                       value="{{ $dates->where('datetype_id',9)->first() ? $dates->where('datetype_id',9)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[9]"
+                                       value="{{ $dates->where('datetype_id',9)->first() ? $dates->where('datetype_id',9)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(9)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[10]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[10]"
-                                       value="{{ $dates->where('datetype_id',10)->first() ? $dates->where('datetype_id',10)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[10]"
+                                       value="{{ $dates->where('datetype_id',10)->first() ? $dates->where('datetype_id',10)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(10)</span>
                             </div>
@@ -164,13 +164,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[11]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[11]" value="{{ $dates->where('datetype_id',11)->first() ? $dates->where('datetype_id',11)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[11]"
+                                       value="{{ $dates->where('datetype_id',11)->first() ? $dates->where('datetype_id',11)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(11)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[12]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[12]" value="{{ $dates->where('datetype_id',12)->first() ? $dates->where('datetype_id',12)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[12]"
+                                       value="{{ $dates->where('datetype_id',12)->first() ? $dates->where('datetype_id',12)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(12)</span>
                             </div>
@@ -184,8 +186,8 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[13]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[13]"
-                                       value="{{ $dates->where('datetype_id',13)->first() ? $dates->where('datetype_id',13)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[13]"
+                                       value="{{ $dates->where('datetype_id',13)->first() ? $dates->where('datetype_id',13)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(13)</span>
                             </div>
@@ -199,8 +201,8 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[14]" class="dateblock-label">Release</label>
-                                <input type="date" name="datetype_ids[14]"
-                                       value="{{ $dates->where('datetype_id',14)->first() ? $dates->where('datetype_id',14)->first()->dtYMD : '' }}"
+                                <input type="datetime-local" name="datetype_ids[14]"
+                                       value="{{ $dates->where('datetype_id',14)->first() ? $dates->where('datetype_id',14)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(14)</span>
                             </div>
@@ -214,15 +216,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[16]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[16]"
-                                       value="{{ $dates->where('datetype_id',16)->first() ? $dates->where('datetype_id',16)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[16]"
+                                       value="{{ $dates->where('datetype_id',16)->first() ? $dates->where('datetype_id',16)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(16)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[15]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[15]"
-                                       value="{{ $dates->where('datetype_id',15)->first() ? $dates->where('datetype_id',15)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[15]"
+                                       value="{{ $dates->where('datetype_id',15)->first() ? $dates->where('datetype_id',15)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(15)</span>
                             </div>
@@ -236,15 +238,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[17]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[17]"
-                                       value="{{ $dates->where('datetype_id',17)->first() ? $dates->where('datetype_id',17)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[17]"
+                                       value="{{ $dates->where('datetype_id',17)->first() ? $dates->where('datetype_id',17)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(17)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[18]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[18]"
-                                       value="{{ $dates->where('datetype_id',18)->first() ? $dates->where('datetype_id',18)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[18]"
+                                       value="{{ $dates->where('datetype_id',18)->first() ? $dates->where('datetype_id',18)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(18)</span>
                             </div>
@@ -258,15 +260,15 @@
                         <div class="date-block">
                             <div>
                                 <label for="datetype_ids[19]" class="dateblock-label" >Open</label>
-                                <input type="date" name="datetype_ids[19]"
-                                       value="{{ $dates->where('datetype_id',19)->first() ? $dates->where('datetype_id',19)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[19]"
+                                       value="{{ $dates->where('datetype_id',19)->first() ? $dates->where('datetype_id',19)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(19)</span>
                             </div>
                             <div>
                                 <label for="datetype_ids[20]" class="dateblock-label">Close</label>
-                                <input type="date" name="datetype_ids[20]"
-                                       value="{{ $dates->where('datetype_id',20)->first() ? $dates->where('datetype_id',20)->first()->dtYMD : date('Y-M-d',strtotime('NOW')) }}"
+                                <input type="datetime-local" name="datetype_ids[20]"
+                                       value="{{ $dates->where('datetype_id',20)->first() ? $dates->where('datetype_id',20)->first()->dtYMDHMA : date('Y-m-d G:i',strtotime('NOW')) }}"
                                 >
                                 <span class="hint">(20)</span>
                             </div>

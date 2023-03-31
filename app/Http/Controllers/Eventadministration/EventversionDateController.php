@@ -6,51 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Eventversiondate;
 use App\Models\Userconfig;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventversionDateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -87,28 +47,29 @@ class EventversionDateController extends Controller
 
         foreach($inputs['datetype_ids'] AS $datetypeid => $date){
 
+            switch(strlen($date)){
+                case '10':
+                    $dtStr = $date.' 00:00:00';
+                    break;
+                case '17': //2023-03-31\T18:00
+                    $dtStr = Carbon::createFromFormat('Y-m-d\TH:i',$date)->toDateTimeString();
+                    break;
+                default:
+                    $dtStr = $date;
+                    break;
+            }
+
             Eventversiondate::updateOrCreate(
                 [
                     'eventversion_id' => $eventversionid,
                     'datetype_id' => $datetypeid
                 ],
                 [
-                    'dt' => $date,
+                    'dt' => $dtStr,
                 ]
             );
         }
 
         return redirect()->back()->with('status','Dates are updated.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

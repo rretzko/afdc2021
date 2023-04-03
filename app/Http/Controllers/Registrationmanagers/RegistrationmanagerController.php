@@ -8,6 +8,7 @@ use App\Models\Registrant;
 use App\Models\School;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
+use App\Services\ParticipatingDirectorsTable;
 use App\Traits\CountiesTrait;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,14 @@ class RegistrationmanagerController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
+        $service = new ParticipatingDirectorsTable;
+
         return view('registrationmanagers.index', [
             'counties' => $this->geostateCounties(),
             'eventversion' => $eventversion,
             'mycounties' => $this->userCounties(auth()->id(),$eventversion->id),
             'toggle' => Userconfig::getValue('counties', auth()->id()),
+            'table' => $service->table(),
         ]);
     }
 

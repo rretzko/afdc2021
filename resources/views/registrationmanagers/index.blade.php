@@ -31,8 +31,14 @@
                     />
 
                     <div style="margin:auto;">
+                        {!! $table !!}
+                    </div>
+
+                    {{--
+                    <div style="margin:auto;">
                         <x-tables.schoolscounties toggle="{{ $toggle }}" :eventversion="$eventversion" />
                     </div>
+                    --}}
                 </div>
             </div>
         </div>

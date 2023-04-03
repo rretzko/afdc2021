@@ -60,7 +60,7 @@ class ParticipatingDirectorsTable
             ->join('schools', 'registrants.school_id','=','schools.id')
             ->where('registrants.eventversion_id', $this->eventversion->id)
             ->where('registrants.registranttype_id', Registranttype::REGISTERED)
-            ->select(['registrants.school_id'])
+            ->select(['registrants.school_id','schools.name'])
             ->distinct()
             ->orderBy('schools.name')
             ->get()

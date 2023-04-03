@@ -39,11 +39,14 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Eventversion $eventversion
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function export(Eventversion $eventversion)
     {
-        //
+
+
+        return redirect()->back();
     }
 
     /**

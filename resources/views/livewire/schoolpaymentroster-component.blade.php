@@ -2,9 +2,18 @@
     <style>
         table{border-collapse: collapse; border: 1px solid black; }
         td,th{border: 1px solid black; padding:0 .25rem;}
+        .no-border{border: 0; text-align: right;}
     </style>
     <table id="checkregister">
         <thead>
+            <tr>
+                <th colspan="6" style="border: 0;"></th>
+                <th class="no-border">
+                    <a href="{{ route('payments.export', ['eventversion' => $this->eventversion]) }}">
+                        csv
+                    </a>
+                </th>
+            </tr>
             <tr>
                 <th>###</th>
                 <th>School</th>

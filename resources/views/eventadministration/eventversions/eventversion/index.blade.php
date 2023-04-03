@@ -32,6 +32,12 @@
                     {{-- EVENT CONFIGURATION --}}
                     <div style="padding: 1rem .5rem; padding-bottom: 0;">
                         <h4>Event Version Configuration</h4>
+                        <style>
+                            li{}
+                            .link-def{display: flex; flex-direction: row; border-top: 1px solid black; padding: 0.25rem 0;}
+                            .def{margin-left: 1rem; font-style: italic; width: 75%;}
+                            .link{width: 25%;}
+                        </style>
                         <ul>
                             <li>
                                 <a href="{{ route('eventadministration.eventversion.eventconfigurations.edit') }}">
@@ -225,11 +231,26 @@
                             </h4>
                             <div>
                                 <ul>
+                                    {{-- PARTICIPATING DIRECTORS --}}
                                     <li>
-                                        <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
-                                            Participating Schools
-                                        </a>
+                                        <div class="link-def">
+                                            <a class="link" href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
+                                                Participating Schools
+                                            </a>
+                                            <div class="def">
+                                                Table of ALL participating schools (i.e. school with REGISTERED students)
+                                                including
+                                                <ul>
+                                                    <li>Count by voice part and total</li>
+                                                    <li>Total amount due</li>
+                                                    <li>Total amount paid</li>
+                                                    <li>Email link to send 'receipt of package' notice which can be used
+                                                        for any additional email notifications</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </li>
+
                                     <li>
                                         <a href="{{ route('registrationmanagers.registrantdetails.index',['eventversion' => $eventversion]) }}">
                                             Registrant Detail
@@ -303,12 +324,6 @@
                         </div>
 
                         {{-- REHEARSAL MANAGER --}}
-                        <style>
-                            li{}
-                            .link-def{display: flex; flex-direction: row; border-top: 1px solid black; padding: 0.25rem 0;}
-                            .def{margin-left: 1rem; font-style: italic; width: 75%;}
-                            .link{width: 25%;}
-                        </style>
                         <div>
                             <h4>
                                 Rehearsal Manager

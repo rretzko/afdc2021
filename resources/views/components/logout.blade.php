@@ -130,7 +130,6 @@
 
         @if(
                 (Route::currentRouteName() === 'registrants.school.show') ||
-                (Route::currentRouteName() === 'payments.index') ||
                 (Route::currentRouteName() === 'registrants.school.edit')
            )
             <a href="{{ route('home') }}">
@@ -148,6 +147,32 @@
             <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
                 Registration Manager
             </a>
+        @endif
+
+        @if(
+                (Route::currentRouteName() === 'payments.index')
+           )
+            <a href="{{ route('home') }}">
+                Home
+            </a>
+            &nbsp; - &nbsp;
+            <a href="{{ route('eventadministration.index',['event' => $event]) }}">
+                Eventversions
+            </a>
+            &nbsp; - &nbsp;
+            <a href="{{ route('eventadministration.eventversion.index',['eventversion' => $eventversion]) }}">
+                Eventversion
+            </a>
+            &nbsp; - &nbsp;
+            <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
+                Registration Manager
+            </a>
+
+            &nbsp; - &nbsp;
+            <a href="{{ route('registrationmanagers.index',['eventversion' => $eventversion]) }}">
+                Participating Schools
+            </a>
+
         @endif
 
             @if(

@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Models\Eventversion;
 use App\Models\Registranttype;
 use App\Models\School;
+use App\Models\Schoolpayment;
 use App\Models\Userconfig;
 use FontLib\TrueType\Collection;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ class ParticipatingDirectorsTable
     private $eventversion;
     private $instrumentations;
     private $instrumentationHeaderLabels;
+    private $receiptEmailBody;
     private $registrationFee;
     private $rowsArray;
     private $schoolIds;
@@ -48,6 +50,17 @@ class ParticipatingDirectorsTable
             ->count('registrants.id');
     }
 
+    private function firstEmail(array $row): string
+    {
+        return strlen($row['emailWork'])
+            ? $row['emailWork']
+            : (
+                strlen($row['emailPersonal'])
+                ? $row['emailPersonal']
+                : $row['emailOther']
+            );
+    }
+
     private function getInstrumentations(): \Illuminate\Support\Collection
     {
         $this->eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
@@ -74,7 +87,10 @@ class ParticipatingDirectorsTable
         $this->schoolIds = $this->getSchoolIds();
         $this->registrationFee = $this->eventversion->eventversionconfig->registrationfee;
         $this->rowsArray = $this->rowsArray();
+        $this->receiptEmailBody = $this->receiptEmailBody();
+
         $this->table = $this->makeTable();
+
     }
 
     private function instrumentationCountCells($schoolId): string
@@ -95,7 +111,7 @@ class ParticipatingDirectorsTable
 
         $str .= '<td style="text-align: center;">' . $sumRegistrants .'</td>';
 
-        $str .= '<td style=text-align: left;">'. $this->calcAmountDue($sumRegistrants) . '</td>';
+        $str .= '<td style="text-align: right;">'. $this->calcAmountDue($sumRegistrants) . '</td>';
 
         return $str;
     }
@@ -122,10 +138,14 @@ class ParticipatingDirectorsTable
         return $str;
     }
 
+    private function receiptEmailBody(): string
+    {
+        return 'This notice is to advise you that we have received your '.$this->eventversion->name." packet.</p>"
+        . "<p>The packet has not yet been opened, but you will be notified if there are any questions or expected items missing.</p>";
+    }
+
     /**
-     * @return array[
-     * 'school_id' => ####
-     * 'schoolName' => 'School Name'
+     * @return array
      */
     private function rowsArray(): array
     {
@@ -134,16 +154,27 @@ class ParticipatingDirectorsTable
 
             $schoolId = $row->school_id;
             $school = School::find($schoolId);
-            $currentTeacher = $school->currentTeacher($this->eventversion)->person->fullNameAlpha();
+            $currentTeacher = $school->currentTeacher($this->eventversion);
+            $currentPerson = $currentTeacher->person;
 
             $a[] = [
                 'schoolId' => $schoolId,
                 'schoolName' => $school->shortName,
-                'teacherName' => $currentTeacher,
+                'teacherName' => $currentPerson->fullNameAlpha(),
+                'emailOther' => $currentPerson->subscriberEmailOther,
+                'emailPersonal' => $currentPerson->subscriberEmailPersonal,
+                'emailWork' => $currentPerson->subscriberEmailWork,
             ];
         }
 
         return $a;
+    }
+
+    private function schoolPayments($schoolId): float
+    {
+        return Schoolpayment::where('school_id', $schoolId)
+            ->where('eventversion_id', $this->eventversion->id)
+            ->sum('amount');
     }
 
     private function tableFinish(): string
@@ -153,18 +184,22 @@ class ParticipatingDirectorsTable
 
     private function tableHeaders(): string
     {
-        $str = '<tr>'
-            . '<td colspan="13" style="border-left: 0; border-top: 0; border-right: 0;"></td>'
-            . '<td style="font-size: 0.8rem; text-align: center;">';
+        $csvColSpan = ($this->instrumentations->count() + 4);
+        $str = '';
+
+    /*FUTURE DEVELOPMENT IF REQUESTED
+        $str .= '<tr>'
+            . '<td colspan="' . $csvColSpan . '" style="border-left: 0; border-top: 0; border-right: 0;"></td>'
+            . '<td style="font-size: 0.8rem; text-align: center; border:0; border-bottom: 1px solid black;">';
         $str .= '<a href="" >csv</a>';
         $str .= '</a>'
             . '</td>';
         $str .= '</tr>';
-
+    */
         $str .= '<tr>';
         $str .= '<th>###</th>';
         $str .= '<th>School Name/Director</th>';
-        $str .= '<th>Receipt</th>';
+        //$str .= '<th>Receipt</th>';
         $str .= $this->instrumentationHeaderLabels;
         $str .= '<th>Total</th>';
         $str .= '<th>Due</th>';
@@ -187,20 +222,25 @@ class ParticipatingDirectorsTable
         $str = '';
 
         foreach($this->rowsArray AS $key => $row){
-            $str .= '<tr>';
+
+            $shading = ($key % 2) ? 'background-color: rgba(0,255,0,0.08);' : '';
+
+            $str .= '<tr style="' . $shading . '">';
             $str .= '<td>' . ($key + 1) . '</td>';
             $str .= '<td>' . $row['schoolName']
                 . '<br />'
+                . '<a href="mailto:' . $this->firstEmail($row) .'?subject=Receipt of NJ All-State Package&body='. $this->receiptEmailBody . '" title="' . $this->teacherEmailsTitle($row) . '">'
                 . $row['teacherName']
+                . '</a>'
                 . '</td>';
-            $str .= '<td style="text-align: center; color: blue; cursor: pointer;">'
-                . '<span wire:click="setSchool(' . $row['schoolId'] .')">email</span>'
-                . '</td>';
+            //$str .= '<td style="text-align: center; color: blue; cursor: pointer;">'
+            //    . '<span wire:click="setSchool(' . $row['schoolId'] .')">email</span>'
+             //   . '</td>';
 
             //individual instrumentation cells + total instrumentation cell + amount_due cell
             $str .= $this->instrumentationCountCells($row['schoolId']);
 
-            $str .= '<td>Paid</td>';
+            $str .= '<td style="text-align: right;">' . $this->schoolPayments($row['schoolId']) . '</td>';
 
             $str .= '</tr>';
         }
@@ -218,5 +258,16 @@ class ParticipatingDirectorsTable
         $str .= '</style>';
 
         return $str;
+    }
+
+    private function teacherEmailsTitle(array $row): string
+    {
+        $a = [];
+
+        if(strlen($row['emailWork'])){ $a[] = $row['emailWork'];}
+        if(strlen($row['emailPersonal'])){ $a[] = $row['emailPersonal'];}
+        if(strlen($row['emailOther'])){ $a[] = $row['emailOther'];}
+
+        return implode(', ',$a);
     }
 }

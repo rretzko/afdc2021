@@ -11,7 +11,7 @@ use App\Models\Userconfig;
 use FontLib\TrueType\Collection;
 use Illuminate\Support\Facades\DB;
 
-class ParticipatingDirectorsTable
+class ParticipatingDirectorsTableService
 {
     private $eventversion;
     private $instrumentations;
@@ -140,8 +140,10 @@ class ParticipatingDirectorsTable
 
     private function receiptEmailBody(): string
     {
-        return 'This notice is to advise you that we have received your '.$this->eventversion->name." packet.</p>"
-        . "<p>The packet has not yet been opened, but you will be notified if there are any questions or expected items missing.</p>";
+        $crlf = "%0D%0A";
+
+        return 'This notice is to advise you that we have received your '.$this->eventversion->name." packet." . $crlf
+        . "The packet has not yet been opened, but you will be notified if there are any questions or expected items missing." . $crlf;
     }
 
     /**
@@ -199,7 +201,6 @@ class ParticipatingDirectorsTable
         $str .= '<tr>';
         $str .= '<th>###</th>';
         $str .= '<th>School Name/Director</th>';
-        //$str .= '<th>Receipt</th>';
         $str .= $this->instrumentationHeaderLabels;
         $str .= '<th>Total</th>';
         $str .= '<th>Due</th>';
@@ -233,9 +234,6 @@ class ParticipatingDirectorsTable
                 . $row['teacherName']
                 . '</a>'
                 . '</td>';
-            //$str .= '<td style="text-align: center; color: blue; cursor: pointer;">'
-            //    . '<span wire:click="setSchool(' . $row['schoolId'] .')">email</span>'
-             //   . '</td>';
 
             //individual instrumentation cells + total instrumentation cell + amount_due cell
             $str .= $this->instrumentationCountCells($row['schoolId']);

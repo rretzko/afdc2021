@@ -339,7 +339,7 @@ class RegistrationActivity extends Model
      */
     private function buildRegistrants()
     {
-        $registrantids = (count($this->counties))
+        $ids = (count($this->counties))
             ? DB::select(DB::raw("
                 SELECT registrants.id FROM registrants,school_user,schools,students
                 WHERE registrants.eventversion_id= :eventversion_id
@@ -350,20 +350,12 @@ class RegistrationActivity extends Model
                 AND students.classof IN (".implode(',',$this->classofs).")"),
               ['eventversion_id' => $this->eventversion_id,])
 
-            : DB::select(DB::raw("
-                SELECT registrants.id
-                FROM registrants,school_user,schools,students
-                WHERE registrants.eventversion_id= :eventversion_id
-                AND registrants.user_id=school_user.user_id
-                AND school_user.school_id=schools.id
-                AND registrants.user_id=students.user_id
-                AND students.classof IN (".implode(',',$this->classofs).")"),
-                ['eventversion_id' => $this->eventversion_id,]);
+            : $this->nonCountyRegistrants();
 
         //array of registrant ids
-        $ids = array_map(function($row){
-            return $row->id;
-        }, $registrantids);
+        //$ids = array_map(function($row){
+        //    return $row->id;
+        //}, $registrantids);
 
         //array of school ids
         $schoolids = [];
@@ -600,6 +592,26 @@ class RegistrationActivity extends Model
 
         return $registrants;
     }*/
+
+    private function nonCountyRegistrants(): array
+    {
+        return DB::table('registrants')
+            ->where('eventversion_id', $this->eventversion_id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->pluck('id')
+            ->toArray();
+        /*
+        DB::select(DB::raw("
+                SELECT registrants.id
+                FROM registrants,school_user,schools,students
+                WHERE registrants.eventversion_id= :eventversion_id
+                AND registrants.user_id=school_user.user_id
+                AND school_user.school_id=schools.id
+                AND registrants.user_id=students.user_id
+                AND students.classof IN (".implode(',',$this->classofs).")"),
+            ['eventversion_id' => $this->eventversion_id,])
+        */
+    }
 
     private function registeredInstrumentationForSchool(School $school, Instrumentation $instrumentation)
     {

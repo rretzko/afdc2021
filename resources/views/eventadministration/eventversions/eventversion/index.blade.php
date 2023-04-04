@@ -191,11 +191,25 @@
                                         </div>
                                     </li>
 
+                                    {{-- REGISTRANT DETAIL --}}
                                     <li>
-                                        <a href="{{ route('registrationmanagers.registrantdetails.index',['eventversion' => $eventversion]) }}">
-                                            Registrant Detail
-                                        </a> <span style="font-size: small;"> (includes info dump csv by voice part)</span>
+                                        <div class="link-def">
+                                            <a class="link" href="{{ route('registrationmanagers.registrantdetails.index',['eventversion' => $eventversion]) }}">
+                                                Participating Students
+                                            </a>
+                                            <div class="def">
+                                                Select voice part to display table of ALL participating students
+                                                ordered by school and last name including
+                                                <ul>
+                                                    <li>School, teacher, registration id, voice part</li>
+                                                    <li>Student Name, emails, phones</li>
+                                                    <li>Parent/Guardian name, email, phone</li>
+                                                    <li>Teacher name can be clicked to send email regarding any missing items</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </li>
+
                                     <li>
                                         @if($eventversion->eventversionconfig->virtualaudition)
                                             <span style="color: lightgray;">No Timeslots Required (virtual audition)</span>

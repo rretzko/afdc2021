@@ -205,6 +205,7 @@ class ParticipatingDirectorsTableService
         $str .= '<th>Total</th>';
         $str .= '<th>Due</th>';
         $str .= '<th>Paid</th>';
+        $str .= '<th>Payment</th>';
         $str .= '</tr>';
 
         return $str;
@@ -239,6 +240,14 @@ class ParticipatingDirectorsTableService
             $str .= $this->instrumentationCountCells($row['schoolId']);
 
             $str .= '<td style="text-align: right;">' . $this->schoolPayments($row['schoolId']) . '</td>';
+
+            $str .= '<td style="text-align: center;">
+                        <a href="/registrationmanager/payments/' . $this->eventversion->id . '">
+                            <button style="font-size: 0.8rem; border-radius: 0.5rem; background-color: lightyellow;">
+                                Payment
+                            </button>
+                        </a>
+                    </td>';
 
             $str .= '</tr>';
         }

@@ -11,7 +11,7 @@
 
                     <div class="card-header col-12 d-flex">
                         <div class="text-left col-5">
-                            {{ __("Registration Manager: $eventversion->name ") }}
+                            {{ __("Registration Manager: $eventversion->name Participating Schools") }}
                         </div>
                         <div class="text-right col-7">
                             {{  __('Welcome back, ') }}{{ auth()->user()->person->first }}
@@ -24,13 +24,15 @@
                     @endif
 
                     {{-- ACTIVITY NAVIGATION MENU --}}
+                    {{--
                     <x-navs.activities toggle="{{ $toggle }}"
                                         :counties="$counties"
                                         :mycounties="$mycounties"
                                         :eventversion="$eventversion"
                     />
+                    --}}
 
-                    <div style="margin:auto;">
+                    <div style="margin:auto; margin-top: 1rem;">
                         {!! $table !!}
                     </div>
 

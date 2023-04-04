@@ -137,7 +137,9 @@ class Stats extends Model
             if($count == $eventversion->filecontenttypes()->count()) {
 
                 $r = Registrant::find($registrantid);
-                $instrumentationid = $r->instrumentations->first()->id;
+                $instrumentationid = ((! $r) || (! $r->instrumentations) || (! $r->instrumentations->first()))
+                    ? dd($r)
+                    : $r->instrumentations->first()->id;
 
                 array_key_exists($instrumentationid, $counts)
                     ? $counts[$instrumentationid] = $counts[$instrumentationid] + 1

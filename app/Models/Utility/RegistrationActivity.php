@@ -46,6 +46,7 @@ class RegistrationActivity extends Model
         $this->duplicateregistrants = collect();
         $this->eventversion_id = $this->eventversion->id;
         $this->eventversion_schools = $this->eventversion->schools();
+
         $this->payment = new Payment;
 
         $this->registrants = $this->buildRegistrants();
@@ -366,7 +367,7 @@ class RegistrationActivity extends Model
 
         $registrants =  Registrant::with('student', 'student.person', 'student.person.user.schools')
             ->whereIn('id', $ids)
-            ->whereIn('school_id', $schoolids)
+            ->whereNotIn('school_id', $schoolids)
             ->get()
             ->sortBy('person.last');
 

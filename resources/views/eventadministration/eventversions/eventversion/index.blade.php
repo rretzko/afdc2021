@@ -181,9 +181,12 @@
                                                 Table of ALL participating schools (i.e. school with REGISTERED students)
                                                 including
                                                 <ul>
+                                                    <li>If applicable, display defaults to schools in your counties
+                                                        with the option to display ALL counties.</li>
                                                     <li>Count by voice part and total</li>
                                                     <li>Total amount due</li>
                                                     <li>Total amount paid</li>
+                                                    <li>Hover over School name to display that school's student name and voice part</li>
                                                     <li>Email link to send 'receipt of package' notice which can be used
                                                         for any additional email notifications</li>
                                                 </ul>

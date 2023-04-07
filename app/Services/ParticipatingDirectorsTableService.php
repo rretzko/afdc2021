@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\Eventversion;
+use App\Models\Registrant;
 use App\Models\Registranttype;
 use App\Models\School;
 use App\Models\Schoolpayment;
@@ -79,6 +80,32 @@ class ParticipatingDirectorsTableService
             ->orderBy('schools.name')
             ->get()
             ->toArray();
+    }
+
+    private function getSchoolStudentDetails(int $schoolId): string
+    {
+        $crlf = '&#10;';
+        $divider = ' | ';
+        $eventversionId = Userconfig::getValue('eventversion', auth()->id());
+        $raw = collect();
+        $str = '';
+
+        $ids = DB::table('registrants')
+            ->where('school_id', $schoolId)
+            ->where('eventversion_id', $eventversionId)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->select('id')
+            ->pluck('id');
+
+        $registrants = Registrant::find($ids)->sortBy('fullNameAlpha');
+
+        foreach($registrants AS $registrant){
+
+            $str .= $registrant->student->person->fullNameAlpha() . $divider;
+            $str .= strtoupper($registrant->instrumentations->first()->abbr) . $crlf;
+        }
+
+        return $str;
     }
 
     private function init(array $myCounties): void
@@ -230,7 +257,8 @@ class ParticipatingDirectorsTableService
 
             $str .= '<tr style="' . $shading . '">';
             $str .= '<td>' . ($key + 1) . '</td>';
-            $str .= '<td>' . $row['schoolName']
+            $str .= '<td>'
+                . '<span style="color: darkviolet;" title="' . $this->getSchoolStudentDetails($row['schoolId']) . '">' . $row['schoolName'] . '</span>'
                 . '<br />'
                 . '<a href="mailto:' . $this->firstEmail($row) .'?subject=Receipt of NJ All-State Package&body='. $this->receiptEmailBody . '" title="' . $this->teacherEmailsTitle($row) . '">'
                 . $row['teacherName']

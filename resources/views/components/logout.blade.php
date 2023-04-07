@@ -52,6 +52,8 @@
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.show') ||
+                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.changeVoicePart') ||
+                (Route::currentRouteName() === 'registrationmanagers.registrantdetails.updateVoicePart') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.timeslotassignment.index') ||

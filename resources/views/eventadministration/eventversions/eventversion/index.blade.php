@@ -207,7 +207,12 @@
                                                 Select voice part to display table of ALL participating students
                                                 ordered by school and last name including
                                                 <ul>
-                                                    <li>School, teacher, registration id, voice part</li>
+                                                    <li>School, teacher, registration id, voice part
+                                                        <ul>
+                                                            <li>Click the teacher's name to send an email</li>
+                                                            <li>Click the voice part to change the registrant's voice part</li>
+                                                        </ul>
+                                                    </li>
                                                     <li>Student Name, emails, phones</li>
                                                     <li>Parent/Guardian name, email, phone</li>
                                                     <li>Teacher name can be clicked to send email regarding any missing items</li>

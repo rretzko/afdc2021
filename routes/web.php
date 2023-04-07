@@ -225,6 +225,10 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrationmanagers.registrationdetails.all.csv');
     Route::get('registrationmanagers/registrantdetails/csv/{eventversion}/{instrumentation}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'csv'])
         ->name('registrationmanagers.registrantdetails.csv');
+    Route::get('registrationmanagers.registrationdetails/changeVoicePart/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'changeVoicePart'])
+        ->name('registrationmanagers.registrantdetails.changeVoicePart');
+    Route::post('registrationmanagers/registrationdetails/updateVoicePart/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'updateVoicePart'])
+        ->name('registrationmanagers.registrantdetails.updateVoicePart');
 
     Route::get('/registrationmanager/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])
         ->name('registrationmanagers.index');

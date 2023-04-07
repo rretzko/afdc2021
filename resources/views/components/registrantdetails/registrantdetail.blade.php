@@ -56,7 +56,11 @@
                          '*** ERROR ***
                         @endif
                     </td>
-                    <td>{{ $registrant->instrumentations->first()->formattedDescr() }}</td>
+                    <td>
+                        <a href="{{ route('registrationmanagers.registrantdetails.changeVoicePart', ['registrant' => $registrant]) }}" style="color: #007bff">
+                            {{ $registrant->instrumentations->first()->formattedDescr() }}
+                        </a>
+                    </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>

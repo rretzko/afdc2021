@@ -7,7 +7,10 @@ use App\Exports\RegistrantsRosterExport;
 use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Instrumentation;
+use App\Models\Registrant;
+use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrantdetailController extends Controller
@@ -87,5 +90,35 @@ class RegistrantdetailController extends Controller
         $download = new RegistrantsRosterExport($eventversion);
 
         return Excel::download($download, 'registrants_roster_'.strtotime('NOW').'.csv');
+    }
+
+    public function changeVoicePart(Registrant $registrant)
+    {
+        $eventversion = Eventversion::find($registrant->eventversion_id);
+        $bladepath = 'x-registrantdetails.index';
+
+        return view('registrationmanagers.registrantdetails.changeVoicePart',[
+            'bladepath' => $bladepath,
+            'eventversion' => $eventversion,
+            'targetinstrumentation' => NULL,
+            'instrumentations' => $eventversion->instrumentations(),
+            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
+            'registrant' => $registrant,
+        ]);
+    }
+
+    public function updateVoicePart(Request $request, Registrant $registrant)
+    {
+        $inputs = $request->validate(
+            [
+                'instrumentation_id' => ['required','numeric','min:63','max:70'],
+            ]
+        );
+
+        $instrumentation = Instrumentation::find($inputs['instrumentation_id']);
+
+        $registrant->instrumentations()->sync($instrumentation->id);
+
+        return $this->index(Eventversion::find(Userconfig::getValue('eventversion', auth()->id())));
     }
 }

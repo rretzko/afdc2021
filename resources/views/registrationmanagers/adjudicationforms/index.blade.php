@@ -38,7 +38,7 @@
                                     @endforeach
                                 @endif
 
-                                {{-- FOR NJ ALL-SHORE --}}
+                                {{-- TAG HEADER WITH ROOM NAME --}}
                                 @if(isset($rooms))
                                         @foreach($rooms AS $targetroom)
                                             <a href="{{ route('registrationmanagers.adjudicationformsbyroom.show',
@@ -65,20 +65,14 @@
                                 <h2>{{ strtoupper($targetinstrumentation->descr) }}</h2>
 
                                 <div>
-                                   <!-- {{-- @if(config('app.url') === 'http://afdc2021.test') --}} -->
-                                        <a href="{{ route('registrationmanagers.adjudicationforms.pdf',
-                                            [
-                                                'eventversion' => $eventversion,
-                                                'instrumentation' => $targetinstrumentation,
-                                            ]) }}"
-                                        >
-                                            Print PDF
-                                        </a>
-                                    <!-- {{-- @else
-                                        <a href="https://afdc-2021-l38q8.ondigitalocean.app/registrationmanagers/adjudicationforms/pdf/{{ $eventversion->id }}/{{ $targetinstrumentation->id }}">
-                                            Print PDF
-                                        </a>
-                                    @endif --}} -->
+                                    <a href="{{ route('registrationmanagers.adjudicationforms.pdf',
+                                        [
+                                            'eventversion' => $eventversion,
+                                            'instrumentation' => $targetinstrumentation,
+                                        ]) }}"
+                                    >
+                                        Print PDF
+                                    </a>
                                 </div>
                             </div>
                             <div style="">
@@ -97,8 +91,9 @@
 
                         @endif {{-- end isset($targetinstrumentation --}}
 
-                        {{-- NJ ALL-SHORE --}}
+                        {{-- NJ ALL-STATE --}}
                         @if(isset($room) && $room->id)
+
                                 <div style="display: flex; flex-direction: row; justify-content: space-between;">
                                     <h2>{{ strtoupper($room->descr) }}</h2>
 
@@ -117,12 +112,21 @@
                                 </div>
                                 <div style="">
 
+                                    @if($eventversion->event->id == 9) {{-- NJ ALL-STATE CHORUS --}}
+                                        <x-adjudicationforms.9.adjudicationform
+                                            :eventversion="$eventversion"
+                                            :registrants="$registrants"
+                                            :room="$room"
+                                            type="{{ strpos($room->descr, 'olo') ? 'solo' : 'scales' }}"
+                                        />
+                                    @else {{-- DEFAULT --}}
                                         <x-adjudicationforms.19.72.adjudicationform
                                             :eventversion="$eventversion"
                                             :registrants="$registrants"
                                             :room="$room"
                                             type="{{ strpos($room->descr, 'olo') ? 'solo' : 'scales' }}"
                                         />
+                                    @endif
 
                                 </div>
                         @endif{{-- END if($room) --}}

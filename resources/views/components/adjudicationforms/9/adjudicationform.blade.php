@@ -18,22 +18,27 @@
 
     </div>
 
-    <div class="scoresheet" style="margin: auto; margin-bottom: 1rem;">
+    <div class="scoresheet" style=" margin-bottom: 1rem;">
         <style>
-            table{ border-collapse: collapse; border: 1px solid black;}
+            table{ border-collapse: collapse; margin: auto;}
             td,th{border: 1px solid black;text-align: center;}
+            .solo{background-color: rgba(0,0,0,0.1);}
         </style>
         <table>
             <thead>
+            {{-- THEAD 1: CATEGORY --}}
             <tr>
-                <th colspan="3"></th>
+                <th colspan="@if($eventversion->eventversionconfig->virtualaudition) 2 @else 3 @endif"></th>
                 @foreach($room->filecontenttypes AS $filecontenttype)
-                    <th colspan="{{ $filecontenttype->scoringcomponents->where('eventversion_id', $room->eventversion_id)->count() }}">
+                    <th colspan="{{ $filecontenttype->scoringcomponents->where('eventversion_id', $room->eventversion_id)->count() }}"
+                        class="{{ $filecontenttype->descr }}"
+                    >
                         {{ $filecontenttype->descr }}
                     </th>
                 @endforeach
                 <th></th>
             </tr>
+            {{-- THEAD 2: COMPONENT --}}
             <tr>
                 <th>###</th>
                 @if(! $eventversion->eventversionconfig->virtualaudition)
@@ -42,7 +47,7 @@
                 <th>Registrant #</th>
                 @foreach($room->filecontenttypes AS $filecontenttype)
                     @foreach($filecontenttype->scoringcomponents->where('eventversion_id',$room->eventversion_id) AS $scoringcomponent)
-                        <th style="width: 3rem;">
+                        <th style="width: 3rem;" class="{{ $filecontenttype->descr }}" >
                             {{ $scoringcomponent->abbr }}
                             @if($scoringcomponent->abbr === 'Qrt')<span style="font-size: smaller;">( * 4 )</span>@endif
                         </th>
@@ -59,14 +64,20 @@
                         <td>{{ $auditionee->timeslot }}</td>
                     @endif
                     <td>{{ $auditionee->id }}</td>
-                    @foreach($room->filecontenttypes AS $filecontentype)
-                        @for($i=0; $i<=$filecontenttype->scoringcomponents->where('eventversion_id',$room->eventversion_id)->count();$i++)
-                            <td></td>
+                    @foreach($room->filecontenttypes AS $filecontenttype)
+                        @for($i=0; $i<$filecontenttype->scoringcomponents->where('eventversion_id',$room->eventversion_id)->count();$i++)
+                            <td class="{{ $filecontenttype->descr }}"></td>
                         @endfor
                     @endforeach
+                    {{-- TOTAL COLUMN --}}
+                    <td></td>
                 </tr>
             @empty
-                <tr><td colspan="8">No registrants found</tr>
+                <tr>
+                    <td colspan="@if($eventversion->eventversionconfig->virtualaudition) 7 @else 8 @endif">
+                        No registrants found
+                    </td>
+                </tr>
             @endforelse
             </tbody>
         </table>

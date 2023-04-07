@@ -210,26 +210,51 @@
                                         </div>
                                     </li>
 
-                                    <li>
-                                        @if($eventversion->eventversionconfig->virtualaudition)
-                                            <span style="color: lightgray;">No Timeslots Required (virtual audition)</span>
-                                        @else
+                                    {{-- ASSIGN AUDITION TIMESLOTS : LIVE AUDITIONS ONLY --}}
+                                    @if($eventversion->eventversionconfig->virtualaudition)
+                                        {{-- DISPLAY NOTHING --}}
+                                    @else
+                                        <li>
+
                                             <a href="{{ route('registrationmanagers.timeslotassignment.index',
                                                 ['eventversion' => $eventversion]) }}">
                                                 Assign Audition Timeslots
                                             </a>
-                                        @endif
-                                    </li>
-                                    <li>
-                                        @if($eventversion->eventversionconfig->virtualaudition)
-                                            <span style="color: lightgray;">No Registration Cards (virtual audition)</span>
-                                        @else
+
+                                        </li>
+                                    @endif
+
+                                    {{-- REGISTRATION CARDS : LIVE AUDITIONS ONLY --}}
+                                    @if($eventversion->eventversionconfig->virtualaudition)
+                                        {{-- DISPLAY NOTHING --}}
+                                    @else
+                                        <li>
+
                                             <a href="{{ route('registrationmanagers.registrationcards.index',
                                                     ['eventversion' => $eventversion]) }}" >
                                                 Registration Cards
                                             </a>
-                                        @endif
+
+                                        </li>
+                                    @endif
+
+                                    {{-- APPLICANT FORMS FOR PAPER RECORDS OF AUDITIONS --}}
+                                    <li>
+                                        <div class="link-def">
+                                            <a class="link" href="{{ route('registrationmanagers.adjudicationformsbyroom.index',
+                                                ['eventversion' => $eventversion]) }}"
+                                            >
+                                                Adjudication Forms By Room
+                                            </a>
+                                            <div class="def">
+                                                <p>
+                                                    Display Audition Scoring Forms for each audition room.<br />
+                                                    Click 'Download PDF' to download a pdf of the room's form.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </li>
+
                                     <li>
                                         <a href="{{ route('registrationmanagers.adjudicationformsbyroom.index',
                                                 ['eventversion' => $eventversion]) }}" >

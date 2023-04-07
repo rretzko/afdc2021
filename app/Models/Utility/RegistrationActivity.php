@@ -367,7 +367,7 @@ class RegistrationActivity extends Model
 
         $registrants =  Registrant::with('student', 'student.person', 'student.person.user.schools')
             ->whereIn('id', $ids)
-            ->whereNotIn('school_id', $schoolids)
+            ->whereIn('school_id', $schoolids)
             ->get()
             ->sortBy('person.last');
 

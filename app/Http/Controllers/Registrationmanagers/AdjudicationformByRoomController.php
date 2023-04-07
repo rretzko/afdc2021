@@ -91,7 +91,7 @@ class AdjudicationformByRoomController extends Controller
         $view .= 'adjudicationform';
 
         $pdf = PDF::loadView($view,
-            compact('eventversion','registrants','room'))
+            compact('eventversion','registrants','room','rooms'))
             ->setPaper('letter','portrait');
 
         return $pdf->download('adjudicationForm_'.str_replace(' ','_',$room->descr).'.pdf');

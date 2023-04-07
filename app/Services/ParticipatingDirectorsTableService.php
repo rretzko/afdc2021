@@ -22,9 +22,9 @@ class ParticipatingDirectorsTableService
     private $schoolIds;
     private $table;
 
-    public function __construct()
+    public function __construct(array $myCounties=[])
     {
-        $this->init();
+        $this->init($myCounties);
     }
 
     public function table(): string
@@ -67,12 +67,13 @@ class ParticipatingDirectorsTableService
         return $this->eventversion->instrumentations();
     }
 
-    private function getSchoolIds(): array
+    private function getSchoolIds(array $myCounties): array
     {
         return  DB::table('registrants')
             ->join('schools', 'registrants.school_id','=','schools.id')
             ->where('registrants.eventversion_id', $this->eventversion->id)
             ->where('registrants.registranttype_id', Registranttype::REGISTERED)
+            ->whereIn('schools.county_id', $myCounties)
             ->select(['registrants.school_id','schools.name'])
             ->distinct()
             ->orderBy('schools.name')
@@ -80,11 +81,11 @@ class ParticipatingDirectorsTableService
             ->toArray();
     }
 
-    private function init(): void
+    private function init(array $myCounties): void
     {
         $this->instrumentations = $this->getInstrumentations();
         $this->instrumentationHeaderLabels = $this->instrumentationHeaderLabels();
-        $this->schoolIds = $this->getSchoolIds();
+        $this->schoolIds = $this->getSchoolIds($myCounties);
         $this->registrationFee = $this->eventversion->eventversionconfig->registrationfee;
         $this->rowsArray = $this->rowsArray();
         $this->receiptEmailBody = $this->receiptEmailBody();

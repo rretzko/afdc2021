@@ -23,13 +23,15 @@ class RegistrationmanagerController extends Controller
      */
     public function index(Eventversion $eventversion)
     {
-        $service = new ParticipatingDirectorsTableService;
+        $myCounties = $this->userCounties(auth()->id(),$eventversion->id);
+
+        $service = new ParticipatingDirectorsTableService($myCounties);
 
         return view('registrationmanagers.index', [
             'counties' => $this->geostateCounties(),
             'eventversion' => $eventversion,
-            'mycounties' => $this->userCounties(auth()->id(),$eventversion->id),
-            'toggle' => Userconfig::getValue('counties', auth()->id()),
+            'mycounties' => $myCounties,
+            'toggle' => 'my', //Userconfig::getValue('counties', auth()->id()),
             'table' => $service->table(),
         ]);
     }
@@ -80,13 +82,23 @@ class RegistrationmanagerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Display ALL counties for user
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function allCounties()
     {
-        //
+        $eventversion = Eventversion::find(Userconfig::getValue('eventversion', auth()->id()));
+        $counties = $this->geostateCounties();
+
+        $service = new ParticipatingDirectorsTableService($counties);
+
+        return view('registrationmanagers.index', [
+            'counties' => $counties,
+            'eventversion' => $eventversion,
+            'mycounties' => $counties,
+            'toggle' => 'all',
+            'table' => $service->table(),
+        ]);
     }
 }

@@ -20,11 +20,11 @@
 
                     {{-- COUNTY SCOPE --}}
                     @if(count($mycounties))
-                        <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
+                        <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :eventversion="$eventversion" :mycounties="$mycounties"/>
                     @endif
 
                     {{-- ACTIVITY NAVIGATION MENU --}}
-                    {{--
+                    {{-- Adds 'Payments' link which is now part of table row
                     <x-navs.activities toggle="{{ $toggle }}"
                                         :counties="$counties"
                                         :mycounties="$mycounties"

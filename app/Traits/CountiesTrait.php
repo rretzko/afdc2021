@@ -6,7 +6,7 @@ use App\Models\Userconfig;
 
 trait CountiesTrait
 {
-    private $eventversionswithcounties = [65];
+    private $eventversionswithcounties = [65,75];
 
     private $counties = [
         37 => [1,2,3,4,5,6,7,8,9,10, //NJ includes "unknown" county

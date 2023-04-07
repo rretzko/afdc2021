@@ -243,6 +243,8 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrationmanager.registrant.updateEC');
     Route::get('/registrationmanager/payments/csv/{eventversion}', [App\Http\Controllers\Registrationmanagers\PaymentController::class, 'export'])
         ->name('payments.export');
+    Route::get('registrationmanager/counties/all', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'allCounties'])
+        ->name('registrationmanager.counties.all');
 
     Route::get('registrationmanager/registrationcards/blanks/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'blanks'])
         ->name('registrationmanagers.registrationcards.blanks');

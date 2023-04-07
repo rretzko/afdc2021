@@ -8,12 +8,14 @@ use App\Models\Registrant;
 use App\Models\Registranttype;
 use App\Models\School;
 use App\Models\Schoolpayment;
+use App\Models\SchoolVerified;
 use App\Models\Userconfig;
 use FontLib\TrueType\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ParticipatingDirectorsTableService
 {
+    private $checkmark;
     private $eventversion;
     private $instrumentations;
     private $instrumentationHeaderLabels;
@@ -110,6 +112,7 @@ class ParticipatingDirectorsTableService
 
     private function init(array $myCounties): void
     {
+        $this->checkmark = '&#x2714;';
         $this->instrumentations = $this->getInstrumentations();
         $this->instrumentationHeaderLabels = $this->instrumentationHeaderLabels();
         $this->schoolIds = $this->getSchoolIds($myCounties);
@@ -229,6 +232,7 @@ class ParticipatingDirectorsTableService
         $str .= '<tr>';
         $str .= '<th>###</th>';
         $str .= '<th>School Name/Director</th>';
+        $str .= '<th style="text-align: center;" title="Audition Package Complete">' . $this->checkmark . '</th>';
         $str .= $this->instrumentationHeaderLabels;
         $str .= '<th>Total</th>';
         $str .= '<th>Due</th>';
@@ -264,6 +268,9 @@ class ParticipatingDirectorsTableService
                 . $row['teacherName']
                 . '</a>'
                 . '</td>';
+
+            //verification checkmark
+            $str .= '<td style="text-align: center;">' . $this->verificationCheckmark($row['schoolId']) . '</td>';
 
             //individual instrumentation cells + total instrumentation cell + amount_due cell
             $str .= $this->instrumentationCountCells($row['schoolId']);
@@ -305,5 +312,38 @@ class ParticipatingDirectorsTableService
         if(strlen($row['emailOther'])){ $a[] = $row['emailOther'];}
 
         return implode(', ',$a);
+    }
+
+    /**
+     * If audition package is complete, display checkmark, else 'done' button
+     * @param $row
+     * @return string
+     */
+    private function verificationCheckmark(int $schoolId): string
+    {
+        $verified = SchoolVerified::where('school_id', $schoolId)
+            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+            ->first();
+
+        if($verified && $verified->verified){
+
+            $button = '<a href="\registrationmanager\undone\\' . $schoolId . '"
+                title="Click to UNverify the audition package."
+            >';
+            $button .= $this->checkmark;
+            $button .= '</a>';
+
+        }else {
+
+            $button = '<a href="\registrationmanager\done\\' . $schoolId . '"
+                title="Click to verify that the audition package is complete."
+            >';
+            $button .= '<button style="font-size: 0.66rem; border-radius: 0.5rem; background-color: mediumseagreen; color: white;">'
+                . 'Done'
+                . '</button>';
+            $button .= '</a>';
+        }
+
+        return $button;
     }
 }

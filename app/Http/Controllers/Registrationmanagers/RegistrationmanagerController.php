@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Registrant;
 use App\Models\School;
+use App\Models\SchoolVerified;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
 use App\Services\ParticipatingDirectorsTableService;
@@ -100,5 +101,35 @@ class RegistrationmanagerController extends Controller
             'toggle' => 'all',
             'table' => $service->table(),
         ]);
+    }
+
+    public function schoolVerified(int $schoolId)
+    {
+        SchoolVerified::updateOrCreate(
+            [
+                'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+                'school_id' => $schoolId,
+            ],
+            [
+                'verified' => 1,
+            ]
+        );
+
+        return back();
+    }
+
+    public function schoolUnverified(int $schoolId)
+    {
+        SchoolVerified::updateOrCreate(
+            [
+                'eventversion_id' => Userconfig::getValue('eventversion', auth()->id()),
+                'school_id' => $schoolId,
+            ],
+            [
+                'verified' => 0,
+            ]
+        );
+
+        return back();
     }
 }

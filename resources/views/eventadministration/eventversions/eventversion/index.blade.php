@@ -189,6 +189,9 @@
                                                     <li>Hover over School name to display that school's student name and voice part</li>
                                                     <li>Email link to send 'receipt of package' notice which can be used
                                                         for any additional email notifications</li>
+                                                    <li>Mark the school as having a complete audition package by clicking
+                                                    the "Done" button. Click the resulting checkmark to "unverify" the
+                                                    audition package.</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -258,40 +261,52 @@
                                         </div>
                                     </li>
 
-                                    <li>
-                                        <a href="{{ route('registrationmanagers.adjudicationformsbyroom.index',
-                                                ['eventversion' => $eventversion]) }}" >
-                                            Adjudication Forms By Room
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('registrationmanagers.monitorchecklists.index',
-                                                ['eventversion' => $eventversion]) }}" >
-                                            Room monitor checklists
-                                        </a>
-                                    </li>
-                                    {{-- REPORTS --}}
-                                    <li>
-                                        Reports
-                                        <ul>
-                                            <li>
-                                                <a href="{{ route('registrationmanagers.registrantdetails.all.csv',['eventversion' => $eventversion]) }}">
-                                                    All Registrants info dump csv by school by name
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('registrationmanagers.registrationdetails.all.csv',['eventversion' => $eventversion]) }}">
-                                                    All Registrants roster csv by timeslot by school by name
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- {{--
-                                    <li>
-                                        Non-Participating Schools
-                                    </li>
---}} -->
+                                    {{-- ROOM MONITOR CHECKLIST : LIVE AUDITIONS ONLY --}}
+                                    @if($eventversion->eventversionconfig->virtualaudition)
+                                        {{-- DISPLAY NOTHING --}}
+                                    @else
+                                        <li>
+                                            <a href="{{ route('registrationmanagers.monitorchecklists.index',
+                                                    ['eventversion' => $eventversion]) }}" >
+                                                Room monitor checklists
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
+                            </div>
+                        </div>
+                        {{-- REGISTRATION MANAGER --}}
+                        <div>
+                            <h4>
+                                Reports
+                            </h4>
+                            <div>
+                                <ul>
+
+                                    <li>
+                                        <div class="link-def">
+                                            <a class="link" href="{{ route('registrationmanagers.registrantdetails.all.csv', ['eventversion' => $eventversion]) }}">
+                                                Registrants by school by name (csv)
+                                            </a>
+                                            <div class="def">
+                                                <p>
+                                                    CSV download of registrants information sorted by school, by registrant name
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    @if($eventversion->eventversionconfig->virtualaudition)
+                                        {{-- DISPLAY NOTHING --}}
+                                    @else
+                                        <li>
+                                            <a href="{{ route('registrationmanagers.registrationdetails.all.csv',['eventversion' => $eventversion]) }}">
+                                                All Registrants roster csv by timeslot by school by name
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+
                             </div>
                         </div>
 

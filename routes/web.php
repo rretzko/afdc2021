@@ -245,6 +245,10 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('payments.export');
     Route::get('registrationmanager/counties/all', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'allCounties'])
         ->name('registrationmanager.counties.all');
+    Route::get('registrationmanager/done/{school}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'schoolVerified'])
+        ->name('registrationmanager.school.verified');
+    Route::get('registrationmanager/undone/{school}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'schoolUnverified'])
+        ->name('registrationmanager.school.unverified');
 
     Route::get('registrationmanager/registrationcards/blanks/{eventversion}',[App\Http\Controllers\Registrationmanagers\RegistrationcardsController::class , 'blanks'])
         ->name('registrationmanagers.registrationcards.blanks');

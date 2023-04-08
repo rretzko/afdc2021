@@ -8,9 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Eventversion;
 use App\Models\Instrumentation;
 use App\Models\Registrant;
+use App\Models\Registranttype;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrantdetailController extends Controller
@@ -24,12 +26,14 @@ class RegistrantdetailController extends Controller
     public function index(Eventversion $eventversion)
     {
         $bladepath = 'x-registrantdetails.index';
+
         return view('registrationmanagers.registrantdetails.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
             'targetinstrumentation' => NULL,
-            'instrumentations' => $eventversion->instrumentations(),
-            'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
+            //'instrumentations' => $eventversion->instrumentations(),
+           // 'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
+            'navInstrumentations' => $this->navInstrumentations($eventversion),
         ]);
     }
 
@@ -105,6 +109,29 @@ class RegistrantdetailController extends Controller
             'registrationactivity' => new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]),
             'registrant' => $registrant,
         ]);
+    }
+
+    private function navInstrumentations(Eventversion $eventversion)
+    {
+        $a = [];
+        $eventversionId = $eventversion->id;
+
+        foreach($eventversion->instrumentations()->pluck('descr','id') AS $id => $descr){
+
+            $a[$id] = [$descr, $this->countRegistrants($eventversionId, $id)];
+        }
+
+        return $a;
+    }
+
+    private function countRegistrants($eventversionId, $instrumentationId): int
+    {
+        return DB::table('registrants')
+            ->join('instrumentation_registrant', 'registrants.id','=','instrumentation_registrant.registrant_id')
+            ->where('registrants.eventversion_id', $eventversionId)
+            ->where('registrants.registranttype_id', Registranttype::REGISTERED)
+            ->where('instrumentation_id', $instrumentationId)
+            ->count('registrants.id');
     }
 
     public function updateVoicePart(Request $request, Registrant $registrant)

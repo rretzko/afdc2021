@@ -47,14 +47,16 @@ class RegistrantdetailController extends Controller
     public function show(Eventversion $eventversion, Instrumentation $instrumentation)
     {
         $bladepath = 'x-registrantdetails.registrantdetail';
+        $navInstrumentations = $this->navInstrumentations($eventversion);
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
+        $registrants = $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation);
 
         return view('registrationmanagers.registrantdetails.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
             'targetinstrumentation' => $instrumentation,
-            'instrumentations' => $eventversion->instrumentations(),
-            'registrants' => $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation),
+            'navInstrumentations' => $navInstrumentations,
+            'registrants' => $registrants,
             'registrationactivity' => $registrationactivity,
         ]);
     }

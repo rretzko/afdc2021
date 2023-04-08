@@ -202,6 +202,17 @@ class RegistrationActivity extends Model
 
     public function registrantsBySchoolNameFullnameAlpha(Instrumentation $instrumentation)
     {
+        $instrumentationId = $instrumentation->id;
+
+        return Registrant::query()
+            ->join('instrumentation_registrant','registrants.id','=','instrumentation_registrant.registrant_id')
+            ->where('eventversion_id', $this->eventversion_id)
+            ->where('registranttype_id', Registranttype::REGISTERED)
+            ->where('instrumentation_registrant.instrumentation_id', $instrumentationId)
+            ->get()
+            ->sortBy(['schoolName','fullnameAlpha']);
+
+        /*
         $a = [];
 
         foreach($this->registeredInstrumentationTotal($instrumentation) AS $registrant){
@@ -218,6 +229,7 @@ class RegistrationActivity extends Model
         sort($a);
 
         return collect(array_column($a,'registrant'));
+        */
     }
 
     public function registrantsByTimeslotSchoolNameFullnameAlpha(Instrumentation $instrumentation)

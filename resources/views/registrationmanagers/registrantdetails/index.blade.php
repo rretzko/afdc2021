@@ -62,7 +62,7 @@
                                 <x-registrantdetails.registrantdetail
                                     :eventversion="$eventversion"
                                     :instrumentation="$targetinstrumentation"
-                                    :registrants="$registrants"
+                                    :registrants="$registrantsArray"
                                 />
 
                             </div>

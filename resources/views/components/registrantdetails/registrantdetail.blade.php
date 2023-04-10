@@ -36,58 +36,56 @@
 
                 <tr style="font-weight: bold;">
                     <td>{{ $loop->iteration }}</td>
-                    <td style="text-align: left;">{{ $registrant->schoolname }}</td>
-                    <td style="text-align: left;">{{ $registrant->student->person->fullnameAlpha() }}</td>
-                    <td>{{ $registrant->id }}</td>
+                    <td style="text-align: left;">{{ $registrant['schoolName'] }}</td>
+                    <td style="text-align: left;">{{ $registrant['fullName'] }}</td>
+                    <td>{{ $registrant['registrantId'] }}</td>
                     <td style="text-align: left;">
-                        @if($registrant->student->currentTeacher)
-                            @if($registrant->student->currentTeacher->person->subscriberemails)
-                                <a href="mailto:{{ $registrant->student->currentTeacher->person->subscriberemails->first()->email }}
-                                    ?subject={{ $registrant->student->person->fullName() }} missing information
-                                    &body=Hi {{ $registrant->student->currentTeacher->person->first }} - %0D%0A%0D%0A***** THE FOLLOWING INFORMATION MUST BE UPDATED BY MONDAY, DECEMBER 6th *****%0D%0A%0D%0APlease update the following missing information for {{ $registrant->student->person->fullName() }}%0D%0AEmails: {{ $registrant->student->emailsCsv ?: '*** missing ***' }}%0D%0APhones: {{ $registrant->student->phonesCsv ?: '*** missing ***' }}%0D%0AParent/Guardian: {{ $registrant->student->guardians->count() ? $registrant->student->guardians->first()->person->fullName() : '*** missing ***' }}%0D%0AParent/Guardian Emails: {{ ($registrant->student->guardians->count() && (strlen($registrant->student->guardians->first()->emailsCsv) > 5) && $registrant->student->guardians->first()->emailsCsv) ?  $registrant->student->guardians->first()->emailsCsv : '*** missing ***'}}%0D%0AParent/Guardian Phone: {{ ($registrant->student->guardians->count() && $registrant->student->guardians->first()->phonesCsv) ?  $registrant->student->guardians->first()->phonesCsv : '*** missing ***'}}%0D%0ATo update this information, please go to TheDirectorsRoom.com, click the Students (menu item), and click the Edit button by the student\'s name.%0D%0AOR...%0D%0A%0D%0APlease have the student update their profile on StudentFolder.info.%0D%0AThank you for your immediate attention to this!%0D%0A%0D%0A{{ auth()->user()->person->fullName() }}, Registration Manager%0D%0A{{ $eventversion->name }}">
-                                    {{ $registrant->student->currentTeacher->person->fullName()}}
-                                </a>
-                            @else
-                                <span title="No email found for {{ $registrant->student->currentTeacher->person->fullName() }}">
-                                    {{ $registrant->student->currentTeacher->person->fullName() }}
-                                </span>
-                            @endif
-                        @else
-                         '*** ERROR ***
-                        @endif
+                        <a href="mailto:{{ $registrant['teacherEmail'] }}
+                            ?subject={{ $registrant['fullName'] }} missing information
+                            &body=Hi {{ $registrant['teacherFirstName'] }} - %0D%0A%0D%0A***** THE FOLLOWING INFORMATION MUST BE UPDATED BY MONDAY, DECEMBER 6th *****%0D%0A%0D%0APlease update the following missing information for {{ $registrant['fullName'] }}%0D%0AEmails: {{ $registrant['emails'] ?: '*** missing ***' }}%0D%0APhones: {{ $registrant['phones'] ?: '*** missing ***' }}%0D%0AParent/Guardian: $registrant['guardian'] }}%0D%0AParent/Guardian Emails: {{ $registrant['guardianEmails'] }}%0D%0AParent/Guardian Phone: {{ $registrant['guardianPhones'] }}%0D%0ATo update this information, please go to TheDirectorsRoom.com, click the Students (menu item), and click the Edit button by the student\'s name.%0D%0AOR...%0D%0A%0D%0APlease have the student update their profile on StudentFolder.info.%0D%0AThank you for your immediate attention to this!%0D%0A%0D%0A{{ auth()->user()->person->fullName() }}, Registration Manager%0D%0A{{ $eventversion->name }}">
+                            {{ $registrant['teacherName'] }}
+                        </a>
                     </td>
                     <td>
-                        <a href="{{ route('registrationmanagers.registrantdetails.changeVoicePart', ['registrant' => $registrant]) }}" style="color: #007bff">
-                            {{ $registrant->instrumentations->first()->formattedDescr() }}
+                        <a href="{{ route('registrationmanagers.registrantdetails.changeVoicePart', ['registrant' => $registrant['registrantId']]) }}" style="color: #007bff">
+                            {{ $registrant['voicePart'] }}
                         </a>
                     </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>
-                    <td style="text-align: right; @if(! strlen($registrant->student->emailsCsv)) color: red; @endif">Emails</td>
-                    <td colspan="4" style="text-align: left;">
-                        {{ $registrant->student->emailsCsv ?: '*** missing ***'}}
+                    <td style="text-align: right; @if( strpos($registrant['emails'], 'MISSING')) color: red; @endif">Emails</td>
+                    <td colspan="4" style="text-align: left; @if( strpos($registrant['emails'], 'MISSING')) color: red; @endif">
+                        {{ $registrant['emails'] }}
                     </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>
-                    <td style="text-align: right; @if(! strlen($registrant->student->phonesCsv)) color: red; @endif">Phones</td>
-                    <td colspan="4" style="text-align: left;">{{ $registrant->student->phonesCsv ?: '*** missing ***' }}</td>
+                    <td style="text-align: right; @if(strpos($registrant['phones'], 'MISSING')) color: red; @endif">Phones</td>
+                    <td colspan="4" style="text-align: left; @if(strpos($registrant['phones'], 'MISSING')) color: red; @endif">{{ $registrant['phones'] }}</td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>
-                    <td style="text-align: right; @if(! $registrant->student->guardians->count()) color: red; @endif">Parent/Guardian</td>
-                    <td colspan="4" style="text-align: left;">{{ $registrant->student->guardians->count() ? $registrant->student->guardians->first()->person->fullname().' ('.$registrant->student->guardians->first()->user_id.') ': '*** missing ***'}} </td>
+                    <td style="text-align: right; @if(! $registrant['guardian']) color: red; @endif">Parent/Guardian</td>
+                    <td colspan="4" style="text-align: left;">{{ $registrant['guardian'].' ('.$registrant['guardianId'].') '}} </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>
-                    <td style="text-align: right; @if((! $registrant->student->guardians->count()) || (! $registrant->student->guardians->first()->emailsCsv)) color: red; @endif">Parent/Guardian Email</td>
-                    <td colspan="4" style="text-align: left;">{{ ($registrant->student->guardians->count() && $registrant->student->guardians->first()->emailCsv) ? $registrant->student->guardians->first()->emailsCsv : '*** missing ***'}}</td>
+                    <td style="text-align: right; @if( strpos($registrant['guardianEmails'], 'MISSING')) color: red; @endif ">
+                        Parent/Guardian Email
+                    </td>
+                    <td colspan="4" style="text-align: left; @if( strpos($registrant['guardianEmails'], 'MISSING')) color: red; @endif">
+                        {{ $registrant['guardianEmails'] }}
+                    </td>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td></td>
-                    <td style="text-align: right; @if((! $registrant->student->guardians->count()) || (! $registrant->student->guardians->first()->phonesCsv)) color: red; @endif">Parent/Guardian Phone</td>
-                    <td colspan="4" style="text-align: left;">{{ ($registrant->student->guardians->count() && $registrant->student->guardians->first()->phoneCsv) ? $registrant->student->guardians->first()->phonesCsv : '*** missing ***'}}</td>
+                    <td style="text-align: right; @if((! $registrant['guardianPhones'])) color: red; @endif">
+                        Parent/Guardian Phone
+                    </td>
+                    <td colspan="4" style="text-align: left; @if( strpos($registrant['guardianPhones'], 'MISSING')) color: red; @endif">
+                        {{ $registrant['guardianPhones'] }}
+                    </td>
                 </tr>
             @endforeach
             </tbody>

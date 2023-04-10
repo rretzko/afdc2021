@@ -232,6 +232,49 @@ class RegistrationActivity extends Model
         */
     }
 
+    public function registrantsBySchoolNameFullnameAlphaArray(Instrumentation $instrumentation): array
+    {
+        $a = [];
+        $missing = '***MISSING***';
+
+        foreach($this->registrantsBySchoolNameFullnameAlpha($instrumentation) AS $registrant){
+
+            $teacher = $registrant->student->currentTeacher;
+            $teacherPerson = $teacher ? $teacher->person : '*** NULL TEACHER ***';
+            $teacherFullName = (is_object($teacherPerson) && $teacherPerson) ? $teacherPerson->fullName() : '*** NULL TEACHER ***';
+            $teacherFirstName = (is_object($teacherPerson) && $teacherPerson) ? $teacherPerson->first : '*** NULL TEACHER ***';
+
+            $registrantPhones = $registrant->student->phonesCsv;
+            $phones = ( $registrantPhones && (strlen($registrantPhones) > 9)) ? $registrantPhones : $missing;
+
+            $registrantEmails = $registrant->student->emailsCsv;
+            $emails = ($registrantEmails && (strlen($registrantEmails) > 6)) ? $registrantEmails : $missing;
+
+            $guardian = $registrant->student->guardians->first();
+            $guardianEmails = ($guardian->emailCsv && (strlen($guardian->emailCsv) > 6)) ? $guardian->emailCsv : $missing;
+            $guardianPhones = ($guardian->phonesCsv && (strlen($guardian->phoneCsv) > 9)) ? $guardian->phoneCsv : $missing;
+
+            $a[] = [
+                'schoolName' => $registrant->schoolname,
+                'fullName' => $registrant->fullnameAlpha,
+                'registrantId' => $registrant->id,
+                'teacherName' => $teacherFullName,
+                'teacherEmail' => (is_object($teacherPerson)) ? $teacherPerson->subscriberemails->first()->email : $missing,
+                'teacherFirstName' => $teacherFirstName,
+                'registrantId' => $registrant->id,
+                'voicePart' => strtoupper($registrant->instrumentations->first()->formattedDescr()),
+                'emails' => $emails,
+                'phones' => $phones,
+                'guardian' => $registrant->student->guardians->first()->person->fullName(),
+                'guardianId' => $registrant->student->guardians->first()->user_id,
+                'guardianEmails' => $guardianEmails,
+                'guardianPhones' => $registrant->student->guardians->first()->phoneCsv,
+            ];
+        }
+
+        return $a;
+    }
+
     public function registrantsByTimeslotSchoolNameFullnameAlpha(Instrumentation $instrumentation)
     {
         $a = [];

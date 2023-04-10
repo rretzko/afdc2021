@@ -50,14 +50,16 @@ class RegistrantdetailController extends Controller
         $navInstrumentations = $this->navInstrumentations($eventversion);
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
         $registrants = $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation);
+        $registrantsArray = $registrationactivity->registrantsBySchoolNameFullnameAlphaArray($instrumentation);
 
         return view('registrationmanagers.registrantdetails.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
             'targetinstrumentation' => $instrumentation,
             'navInstrumentations' => $navInstrumentations,
-            'registrants' => $registrants,
-            'registrationactivity' => $registrationactivity,
+            //'registrants' => $registrants,
+            //'registrationactivity' => $registrationactivity,
+            'registrantsArray' => $registrantsArray,
         ]);
     }
 

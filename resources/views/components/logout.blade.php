@@ -3,7 +3,7 @@
 'eventversion' => ''
 ])
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
-<!-- {{-- {{Route::currentRouteName()}} --}} -->
+ <!-- {{-- {{Route::currentRouteName()}} --}} -->
 
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
         @if(Route::currentRouteName() === 'eventadministration.index')
@@ -43,11 +43,15 @@
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByAdjudicator') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByRoom.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
+                (Route::currentRouteName() === 'registrationmanager.counties.all') ||
+                (Route::currentRouteName() === 'registrationmanager.counties.my') ||
                 (Route::currentRouteName() === 'registrationmanagers.acknowledgedschools.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationforms.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationformsbyroom.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.adjudicationformsbyroom.show') ||
+                (Route::currentRouteName() === 'registrationmanagers.counties.all') ||
+                (Route::currentRouteName() === 'registrationmanagers.counties.my') ||
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.monitorchecklists.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||

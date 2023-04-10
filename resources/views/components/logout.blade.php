@@ -3,7 +3,7 @@
 'eventversion' => ''
 ])
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
- <!-- {{-- {{Route::currentRouteName()}} --}} -->
+<!-- {{--  {{Route::currentRouteName()}} --}} -->
 
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
         @if(Route::currentRouteName() === 'eventadministration.index')
@@ -57,6 +57,7 @@
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.changeVoicePart') ||
+                (Route::currentRouteName() === 'registrationmanagers.registrantdetail.registrant') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrantdetails.updateVoicePart') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.index') ||
                 (Route::currentRouteName() === 'registrationmanagers.registrationcards.show') ||

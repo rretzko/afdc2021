@@ -20,7 +20,7 @@
 
                     {{-- COUNTY SCOPE --}}
                     @if(count($mycounties))
-                        <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties"/>
+                        <x-navs.togglecounties toggle="{{$toggle}}" :counties="$counties" :mycounties="$mycounties" :eventversion="$eventversion"/>
                     @endif
 
                     {{-- ACTIVITY NAVIGATION MENU --}}

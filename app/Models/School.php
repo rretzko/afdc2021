@@ -32,7 +32,14 @@ class School extends Model
         //early exit
         if(! $registrant){ return new Teacher(); }
 
-        return $registrant->student->currentTeacher;
+        $coTeachers =
+            [
+                265 => 165, //Heather Lockart replaces Laurie Lausi
+            ];
+
+        return key_exists($registrant->student->currentTeacher->user_id, $coTeachers)
+            ? Teacher::find($coTeachers[$registrant->student->currentTeacher->user_id])
+            : $registrant->student->currentTeacher;
 /*
         $teacher_user_id = DB::table('student_teacher')
             ->where('student_user_id', $registrant->user_id)

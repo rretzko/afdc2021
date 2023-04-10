@@ -67,6 +67,11 @@ class School extends Model
             ->count('registrant_id');
     }
 
+    public function getCountyNameAttribute(): string
+    {
+        return County::find($this->county_id)->name;
+    }
+
     /**
      * Return array of all grades found for $this
      */

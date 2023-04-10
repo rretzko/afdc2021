@@ -194,6 +194,7 @@ class ParticipatingDirectorsTableService
             $a[] = [
                 'schoolId' => $schoolId,
                 'schoolName' => $school->shortName,
+                'schoolCounty' => $school->countyName,
                 'teacherName' => $currentPerson->fullNameAlpha(),
                 'emailOther' => $currentPerson->subscriberEmailOther,
                 'emailPersonal' => $currentPerson->subscriberEmailPersonal,
@@ -264,6 +265,7 @@ class ParticipatingDirectorsTableService
             $str .= '<td>' . ($key + 1) . '</td>';
             $str .= '<td>'
                 . '<span style="color: darkviolet;" title="' . $this->getSchoolStudentDetails($row['schoolId']) . '">' . $row['schoolName'] . '</span>'
+                . ' (' . $row['schoolCounty'] . ')'
                 . '<br />'
                 . '<a href="mailto:' . $this->firstEmail($row) .'?subject=Receipt of NJ All-State Package&body='. $this->receiptEmailBody . '" title="' . $this->teacherEmailsTitle($row) . '">'
                 . $row['teacherName']

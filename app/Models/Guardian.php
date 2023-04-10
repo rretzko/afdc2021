@@ -63,7 +63,7 @@ class Guardian extends Model
         $mobile = $this->getPhoneMobileAttribute();
         $work = $this->getPhoneWorkAttribute();
 
-        if($mobile->id && strlen($mobile->phone)){ $phones[] = $mobile->phone.' (pc)';}
+        if($mobile->id && strlen($mobile->phone)){ $phones[] = $this->formatPhone($mobile->phone).' (pc)';}
         if($home->id && strlen($home->phone)){ $phones[] = $home->phone.' (ph)';}
         if($work->id && strlen($work->phone)){ $phones[] = $work->phone.' (pw)';}
 
@@ -129,6 +129,17 @@ class Guardian extends Model
     }
 
 /** END OF PUBLIC FUNCTIONS  *************************************************/
+
+    private function formatPhone($phone): string
+    {
+        //if(strpos($phone, '(')){
+
+//            return $phone;
+  //      }
+
+        //return '(' . substr($phone, 0, 3) . ') '; //.substr($phone, 4, 3) . '-' . substr($phone, 7);
+        return $phone;
+    }
 
     private function getEmail($emailtype_descr)
     {

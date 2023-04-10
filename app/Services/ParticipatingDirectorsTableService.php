@@ -104,7 +104,8 @@ class ParticipatingDirectorsTableService
         foreach($registrants AS $registrant){
 
             $str .= $registrant->student->person->fullNameAlpha() . $divider;
-            $str .= strtoupper($registrant->instrumentations->first()->abbr) . $crlf;
+            $str .= strtoupper($registrant->instrumentations->first()->abbr) . $divider;
+            $str .= $registrant->student->guardians->first()->phonesCsv . $crlf;
         }
 
         return $str;

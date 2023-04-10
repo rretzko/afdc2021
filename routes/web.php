@@ -229,8 +229,10 @@ Route::group(['middleware' => 'auth'],function(){
         ->name('registrationmanagers.registrantdetails.changeVoicePart');
     Route::post('registrationmanagers/registrationdetails/updateVoicePart/{registrant}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'updateVoicePart'])
         ->name('registrationmanagers.registrantdetails.updateVoicePart');
-    Route::post('registrationmanagers.registrantdetail.registrant.show/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'showSingleRegistrant'])
+    Route::post('registrationmanagers/registrantdetail/registrant/show/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'showSingleRegistrant'])
         ->name('registrationmanagers.registrantdetail.registrant');
+    Route::post('registrationmanagers/registrantdetail/registrant/update', [App\Http\Controllers\Registrationmanagers\RegistrantdetailController::class, 'updateSingleRegistrant'])
+        ->name('registrationmanagers.registrantdetail.registrant.update');
 
     Route::get('/registrationmanager/{eventversion}', [App\Http\Controllers\Registrationmanagers\RegistrationmanagerController::class, 'index'])
         ->name('registrationmanagers.index');

@@ -52,6 +52,10 @@ class Guardian extends Model
                 ->first() ?? new Nonsubscriberemail;
     }
 
+    public function getFullNameAlphaAttribute()
+    {
+        return $this->person->fullNameAlpha();
+    }
     /**
      * @since 2021-11-30
      * @return string

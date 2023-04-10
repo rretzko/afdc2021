@@ -11,6 +11,8 @@ class Person extends Model
 
     protected $primaryKey = 'user_id';
 
+    protected $fillable = ['first','last','middle'];
+
     public function fullname()
     {
         $str = $this->first;

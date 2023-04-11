@@ -322,9 +322,51 @@
                             </h4>
                             <ul>
                                 <li>
-                                    <a href="{{ route('eventadministrator.scores.create') }}">
-                                        Score Input
-                                    </a>
+                                    {{-- SCORE INPUT --}}
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.scores.create') }}">
+                                            Score Input
+                                        </a>
+                                        <div class="def">
+                                            Use this page to enter or override scores for a registered student.
+                                            <ul>
+                                                <li style="color: red;">The following must be created before</span> the form will work:
+                                                    <ul style="color: black;">
+                                                        <li>
+                                                            <a href="{{ route('eventadministrator.segments',
+                                                ['eventversion' => $eventversion]) }}"
+                                                               title="Define the major audition parts (ex. scales,solo,etc."
+                                                            >Audition Segments (ex. scales, solo, quintet)
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('eventadministrator.instrumentations',
+                                                ['eventversion' => $eventversion]) }}"
+                                                               title="Define the instrumentation to be adjudicated"
+                                                            >
+                                                                Voice Parts (ex. SI, SII, AI, AII, etc.)
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('eventadministrator.rooms',
+                                                ['eventversion' => $eventversion]) }}"
+                                                               title="Define the adjudication room segments and instrumentations"
+                                                            >
+                                                                Room Definitions (ex. Soprano I Scales, etc.)
+                                                            </a>
+                                                        </li>
+                                                        <li>Judge Assignments</li>
+                                                        <li>See above under "Event Version Administration" for these pages.</li>
+                                                    </ul>
+                                                </li>
+                                                <li>Choose Room, Judge, and Registrant ID to display the form.</li>
+                                                <li>Current scores are displayed when the registrant Id is added.</li>
+                                                <li>An error message displays if an incorrect registrant Id is entered</li>
+                                                <li>Scores are updated immediately updated upon entry</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </li>
                                 <li>
                                     <a href="{{ route('eventadministrator.tabroom.scoretracking',

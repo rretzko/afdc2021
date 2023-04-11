@@ -46,7 +46,7 @@
 
         {{-- REGISTRANT ID --}}
         <div class="input-group" style="width: 20rem;">
-            <label for="registration_id">Registration ID</label>
+            <label for="registration_id">Registrant ID</label>
             <input type="text" wire:model="registrantid" value="{{ old('registration_id') }}" autofocus required />
             <div style="color: red;">
                 {{ $registrantiderror }}

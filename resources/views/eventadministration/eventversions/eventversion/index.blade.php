@@ -330,7 +330,8 @@
                                         <div class="def">
                                             Use this page to enter or override scores for a registered student.
                                             <ul>
-                                                <li style="color: red;">The following must be created before</span> the form will work:
+                                                <li style="color: red;">The following must be created before the form will work
+                                                    <span style="color: black; font-size: small;">(otherwise, a 500 error will result)</span>:
                                                     <ul style="color: black;">
                                                         <li>
                                                             <a href="{{ route('eventadministrator.segments',

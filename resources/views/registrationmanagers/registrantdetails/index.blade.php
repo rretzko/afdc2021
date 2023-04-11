@@ -104,7 +104,7 @@
                         @endif
 
                         {{-- TARGET REGISTRANT --}}
-                        @if($targetRegistrant)
+                        @if(isset($targetRegistrant) && $targetRegistrant)
 
                             <div style="width: 100%;">
 

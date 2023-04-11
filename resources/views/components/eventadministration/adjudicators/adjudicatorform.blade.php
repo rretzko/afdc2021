@@ -35,6 +35,14 @@
             </select>
         </div>
 
+            <div class="input-group">
+                <label for="" style="color: white;">Spacer</label>
+                <div style="width: 20rem; font-size: small;">
+                    Note: <b>ALL</b> organization members are included in this drop-down selector so that non-participating
+                    Directors may be assigned as Adjudicators.
+                </div>
+            </div>
+
         <div class="input-group">
             <label></label>
             <input type="submit" name="submit" id="submit" value="Update Room" />

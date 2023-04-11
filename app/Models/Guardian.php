@@ -67,7 +67,7 @@ class Guardian extends Model
         $mobile = $this->getPhoneMobileAttribute();
         $work = $this->getPhoneWorkAttribute();
 
-        if($mobile->id && strlen($mobile->phone)){ $phones[] = $this->formatPhone($mobile->phone).' (pc)';}
+        if($mobile->id && strlen($mobile->phone)){ $phones[] = $mobile->phone . ' (pc)';}
         if($home->id && strlen($home->phone)){ $phones[] = $home->phone.' (ph)';}
         if($work->id && strlen($work->phone)){ $phones[] = $work->phone.' (pw)';}
 

@@ -28,6 +28,7 @@ class SchoolPaymentsExport implements FromCollection,WithHeadings,WithMapping
             'user_id',
             'amount',
             'comments',
+            'created_by',
             'created_at',
         ];
     }
@@ -39,6 +40,7 @@ class SchoolPaymentsExport implements FromCollection,WithHeadings,WithMapping
             Person::find($row->user_id)->fullNameAlpha(),
             $row->amount,
             $row->comments,
+            Person::find($row->updated_by)->fullNameAlpha(),
             $row->created_at
         ];
     }

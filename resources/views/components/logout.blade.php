@@ -41,6 +41,7 @@
                 (Route::currentRouteName() === 'eventadministrator.scores.store') ||
                 (Route::currentRouteName() === 'eventadministrator.studentcounts') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByAdjudicator') ||
+                (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByRoom') ||
                 (Route::currentRouteName() === 'eventadministrator.tabroom.scoretrackingByRoom.show') ||
                 (Route::currentRouteName() === 'registrationmanagers.index') ||
                 (Route::currentRouteName() === 'registrationmanager.counties.all') ||

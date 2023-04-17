@@ -113,7 +113,7 @@ class TableAdjudicatorScoretrackingService
 
             $str .= '</tr>';
 
-            foreach ($room->adjudicators->sortBy('adjudicatorname') as $adjudicator) {
+            foreach ($room->adjudicators as $adjudicator) {
 
                 $email = $adjudicator->person->subscriberemailpersonal ?? $adjudicator->person->subscriberemailwork;
                 $count = $adjudicator->room->auditioneesCount();

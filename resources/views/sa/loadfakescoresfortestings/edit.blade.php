@@ -79,7 +79,7 @@
                         <div class="data-row">
                             <label>
                                 <a href="{{ route('sa.loadscores.store',['room' => $room]) }}" title="Create Scores for Room {{ $loop->iteration }}">
-                                    <button class="create-scores-btn">
+                                    <button class="create-scores-btn" style="cursor: pointer">
                                         Room {{ $loop->iteration }}
                                     </button>
                                 </a>

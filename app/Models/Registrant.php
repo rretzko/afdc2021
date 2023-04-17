@@ -66,7 +66,10 @@ class Registrant extends Model
             : 'No school found; check logs';
 
         //teacher name
-        $card .= 'w/'.$this->student->currentTeacher->person->alphaName.$crlf;
+        if(! $this->student->currentTeacher){ dd($this->id . ': ' . $this->user_id . ': ' . $this->programname);}
+        $card .= 'w/'
+            . $this->student->currentTeacher->person ? $this->student->currentTeacher->person->alphaName : 'Teacher missing'
+            . $crlf;
 
         //score count
         $card .= 'Score count: '.$scores->count().$crlf;

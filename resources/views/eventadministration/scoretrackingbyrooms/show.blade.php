@@ -35,7 +35,7 @@
 
                         <div style="display: flex; flex-direction: row; flex-wrap: wrap;  justify-content: center; margin-top: 1rem; border: 1px solid black; width: 100%; padding: 0.25rem 0; background-color: rgba(0,0,0,0.1);">
                             <header style="font-weight: bold; margin-right: 1rem;">Adjudicators: </header>
-                            @forelse($room->adjudicators->sortBy('adjudicatorname') AS $adjudicator)
+                            @forelse($room->adjudicators AS $adjudicator)
                                 <div style="border: 1px solid black; margin-right: 1rem; padding: 0 0.5rem; background-color: white;">
                                     {{ $adjudicator->adjudicatorname }}
                                 </div>

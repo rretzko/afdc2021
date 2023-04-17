@@ -20,6 +20,8 @@ class ScoretrackingController extends Controller
     {
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
+        set_time_limit(360);
+
         return view('eventadministration.scoretrackings.index',
         [
            'eventversion' => $eventversion,

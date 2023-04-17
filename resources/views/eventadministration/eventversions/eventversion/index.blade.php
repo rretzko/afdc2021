@@ -90,19 +90,42 @@
                             </h4>
                             <ul>
                                 {{-- OBLIGATION ACKNOWLEDGED TEACHERS --}}
-                                <li><a href="{{ route('eventadministrator.acknowledgedteachers',
-                                        ['eventversion' => $eventversion]) }}"
-                                    >
-                                        Obligation Acknowledged Teachers
-                                    </a>
+                                <li>
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.acknowledgedteachers',
+                                        ['eventversion' => $eventversion]) }}">
+                                            Obligation Acknowledged Teachers
+                                        </a>
+                                        <div class="def">
+                                            Table of directors who have clicked through (acknowledged) the event
+                                            obligations page.  The page includes:
+                                            <ul>
+                                                <li>Name, School, emails (clickable email links) and phone numbers</li>
+                                                <li>Download link for csv file</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </li>
 
                                 {{-- PARTICIPATING TEACHERS --}}
-                                <li><a href="{{ route('eventadministrator.participatingteachers',
-                                        ['eventversion' => $eventversion]) }}"
-                                    >
-                                        Participating Teachers
-                                    </a>
+                                <li>
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.participatingteachers',
+                                        ['eventversion' => $eventversion]) }}">
+                                            Participating Teachers
+                                        </a>
+                                        <div class="def">
+                                            Table of directors with students for whom the director has approved the
+                                            student's application signatures, although the student MAY NOT yet be fully
+                                            qualified as REGISTERED.  The page is intended to be a checkpoint during the
+                                            registration process to identify teachers engaged in the registration process.
+                                            The page includes:
+                                            <ul>
+                                                <li>Name, School, emails (clickable email links) and phone numbers</li>
+                                                <li>Download link for csv file</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </li>
 
                                 {{-- STUDENT COUNTS --}}
@@ -369,22 +392,79 @@
                                     </div>
 
                                 </li>
+
+                                {{-- SCORE TRACKING BY ROOM --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.scoretracking',
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.tabroom.scoretrackingByRoom', $eventversion) }}">
+                                            Score Tracking By Room
+                                        </a>
+                                        <div class="def">
+                                            Display the current status of a single room's registrants:
+                                            <ul>
+                                                <li>White: Unauditioned</li>
+                                                <li>Yellow: Partial audition</li>
+                                                <li>Green: Completed audition</li>
+                                                <li>Red: Audition scores out of tolerance</li>
+                                                <li>Blue: Excess of scores found</li>
+                                                <li>Grey: Unidentified error</li>
+                                            </ul>
+                                            Float over the registrant number to display:
+                                            <ul>
+                                                <li>Student name, voice part, school and teacher</li>
+                                                <li>Total scores by room and named adjudicator</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                {{-- SCORE TRACKING ALL--}}
+                                <li>
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.tabroom.scoretracking',
                                         ['eventversion' => $eventversion]) }}">
-                                        Score Tracking
-                                    </a>
+                                            Score Tracking
+                                        </a>
+                                        <div class="def">
+                                            Display the current status of ALL registrants:
+                                            <ul>
+                                                <li>White: Unauditioned</li>
+                                                <li>Yellow: Partial audition</li>
+                                                <li>Green: Completed audition</li>
+                                                <li>Red: Audition scores out of tolerance</li>
+                                                <li>Blue: Excess of scores found</li>
+                                                <li>Grey: Unidentified error</li>
+                                            </ul>
+                                            Float over the registrant number to display:
+                                            <ul>
+                                                <li>Student name, voice part, school and teacher</li>
+                                                <li>Total scores by room and named adjudicator</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </li>
+
+                                {{-- SCORE TRACKING BY ROOM AND ADJUDICATOR --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.scoretrackingByAdjudicator', $eventversion) }}">
-                                        Score Tracking By Room + Adjudicator
-                                    </a>
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.tabroom.scoretrackingByAdjudicator', $eventversion) }}">
+                                            Score Tracking By Room + Adjudicator
+                                        </a>
+                                        <div class="def">
+                                            Display summary table of:
+                                            <ul>
+                                                <li>Each room</li>
+                                                <li>Each adjudicator in the room</li>
+                                                <li>The number of registrants to be adjudicated</li>
+                                                <li>The number of registrants completed</li>
+                                                <li>The percentage of registrants completed.</li>
+                                        </div>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.scoretrackingByRoom', $eventversion) }}">
-                                        Score Tracking By Room
-                                    </a>
-                                </li>
+
+
+
+
                                 <li>
                                     <a href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
                                         View and Download media files

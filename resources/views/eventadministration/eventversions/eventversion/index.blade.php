@@ -458,24 +458,39 @@
                                                 <li>The number of registrants to be adjudicated</li>
                                                 <li>The number of registrants completed</li>
                                                 <li>The percentage of registrants completed.</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </li>
 
-
-
-
+                                {{-- DISPLAY/PLAY MEDIA FILES --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
-                                        View and Download media files
-                                    </a>
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.media.downloads',['eventversion' => $eventversion]) }}">
+                                            View and Download media files
+                                        </a>
+                                        <div class="def">
+                                            Select registrant number to display available media files.  These media file
+                                            may then be played.
+                                        </div>
+                                    </div>
                                 </li>
+
+                                {{-- CUT-OFFS --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.cutoffs',
+                                    <div class="link-def">
+                                        <a class="link" href="{{ route('eventadministrator.tabroom.cutoffs',
                                                 ['eventversion' => $eventversion]) }}">
-                                        Cut-Offs
-                                    </a>
+                                            Cut-Offs
+                                        </a>
+                                        <div class="def">
+                                            Use this table to assign cut-off lines per voice part.  Click on the <i>inclusive</i>
+                                            score value.  The number of registrants contained within that value will be
+                                            displayed on the header table.
+                                        </div>
+                                    </div>
                                 </li>
+
                                 <li>
                                     <a href="{{ route('eventadministrator.tabroom.results',
                                                 ['eventversion' => $eventversion]) }}">

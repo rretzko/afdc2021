@@ -41,7 +41,7 @@
                 @foreach($ranks AS $rank)
                     <option value="{{ $rank['id'] }}"
                             @if($adjudicator && $adjudicator->rank === $rank['id']) SELECTED @endif
-                    >{{ $mbr->user->person->fullnameAlpha() . ' (' . $adjudicator->rankDescr . ')' }}</option>
+                    >{{ $rank['descr'] }}</option>
                 @endforeach
             </select>
         </div>

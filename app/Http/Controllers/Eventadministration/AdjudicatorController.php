@@ -106,7 +106,7 @@ class AdjudicatorController extends Controller
         $inputs = $request->validate([
            'room_id' => ['required', 'numeric'],
            'user_id' => ['required', 'numeric'],
-            'rank' => ['required', 'numeric', 'min:1','max:4'],
+           'rank' => ['required', 'numeric', 'min:1','max:4'],
         ]);
 
         $eventversion = Eventversion::find(Room::find($inputs['room_id'])->eventversion_id);

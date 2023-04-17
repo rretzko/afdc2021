@@ -26,6 +26,19 @@ class Adjudicator extends Model
         return User::find($this->user_id)->person->fullnameAlpha();
     }
 
+    public function getRankDescrAttribute(): string
+    {
+        $descrs = [
+            1 => 'Head Judge',
+            2 => 'Judge 2',
+            3 => 'Judge 3',
+            4 => 'Judge 4',
+        ];
+        $str = 'Judge 3';
+
+        return $descrs[$this->rank];
+    }
+
     public function person()
     {
         return $this->belongsTo(Person::class,'user_id','user_id');

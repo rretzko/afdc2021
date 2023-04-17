@@ -38,7 +38,7 @@
                             @foreach($room->adjudicators AS $adjudicator)
                             <li>
                                 <a href="{{ route('eventadministrator.adjudicators.edit',['id' => $adjudicator->id]) }}">
-                                    {{ $adjudicator->adjudicatorname }}
+                                    {{ $adjudicator->adjudicatorname . ' (' . $adjudicator->rankDescr . ')' }}
                                 </a>
                             </li>
                             @endforeach

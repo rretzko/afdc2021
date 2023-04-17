@@ -17,7 +17,8 @@ class Room extends Model
 
     public function adjudicators()
     {
-        return $this->hasMany(Adjudicator::class);
+        return $this->hasMany(Adjudicator::class)
+            ->orderBy('rank');
     }
 
     public function filecontenttypes()

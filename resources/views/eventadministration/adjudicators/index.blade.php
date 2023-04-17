@@ -26,6 +26,7 @@
                             :eventversion="$eventversion"
                             :member="$member"
                             :members="$members"
+                            :ranks="$ranks"
                             :rooms="$rooms"
                         />
 

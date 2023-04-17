@@ -35,6 +35,17 @@
             </select>
         </div>
 
+        <div class="input-group">
+            <label for="rank">Rank</label>
+            <select name="rank" id="rank">
+                @foreach($ranks AS $rank)
+                    <option value="{{ $rank['id'] }}"
+                            @if($adjudicator && $adjudicator->rank === $rank['id']) SELECTED @endif
+                    >{{ $rank['descr'] }}</option>
+                @endforeach
+            </select>
+        </div>
+
             <div class="input-group">
                 <label for="" style="color: white;">Spacer</label>
                 <div style="width: 20rem; font-size: small;">

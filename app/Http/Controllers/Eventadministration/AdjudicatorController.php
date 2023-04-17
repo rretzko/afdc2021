@@ -12,18 +12,31 @@ use Illuminate\Http\Request;
 
 class AdjudicatorController extends Controller
 {
+    private $ranks;
+
+    public function __construct()
+    {
+        $this->ranks = [
+            ['id' => 1, 'descr' => 'Head Judge'],
+            ['id' => 2, 'descr' => 'Judge 2'],
+            ['id' => 3, 'descr' => 'Judge 3'],
+            ['id' => 4, 'descr' => 'Judge 4'],
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(\App\Models\Eventversion $eventversion)
-    {//dd($eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']));
+    {
         return view('eventadministration.adjudicators.index',
             [
                 'eventversion' => $eventversion,
                 'member' => new Membership(),
                 'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
+                'ranks' => $this->ranks,
                 'rooms' => $eventversion->rooms->sortBy('order_by'),
                 'adjudicator' => NULL,
             ]);
@@ -76,6 +89,7 @@ class AdjudicatorController extends Controller
                 'eventversion' => $eventversion,
                 'member' => new Membership(),
                 'members' => $eventversion->event->organization->memberships->sortBy(['user.person.last','user.person.first']),
+                'ranks' => $this->ranks,
                 'rooms' => $eventversion->rooms->sortBy('order_by'),
                 'adjudicator' => Adjudicator::find($id),
             ]);
@@ -92,6 +106,7 @@ class AdjudicatorController extends Controller
         $inputs = $request->validate([
            'room_id' => ['required', 'numeric'],
            'user_id' => ['required', 'numeric'],
+            'rank' => ['required', 'numeric', 'min:1','max:4'],
         ]);
 
         $eventversion = Eventversion::find(Room::find($inputs['room_id'])->eventversion_id);
@@ -104,6 +119,7 @@ class AdjudicatorController extends Controller
             ],
             [
                 'adjudicatorstatustype_id' => 1,
+                'rank' => $inputs['rank'],
             ]
         );
 

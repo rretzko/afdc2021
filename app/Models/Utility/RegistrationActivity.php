@@ -13,6 +13,7 @@ use App\Models\Schoolpayment;
 use App\Models\Student;
 use App\Models\Userconfig;
 use App\Traits\SenioryearTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -202,6 +203,8 @@ class RegistrationActivity extends Model
 
     public function registrantsBySchoolNameFullnameAlpha(Instrumentation $instrumentation)
     {
+        $start = Carbon::parse(now());
+
         $instrumentationId = $instrumentation->id;
 
         return Registrant::query()

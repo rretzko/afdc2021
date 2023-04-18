@@ -14,6 +14,7 @@ use App\Models\Registrant;
 use App\Models\Registranttype;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -57,16 +58,17 @@ class RegistrantdetailController extends Controller
         $bladepath = 'x-registrantdetails.registrantdetail';
         $navInstrumentations = $this->navInstrumentations($eventversion);
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
-        $registrants = $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation);
+        //$registrants = $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation);
         $registrantsArray = $registrationactivity->registrantsBySchoolNameFullnameAlphaArray($instrumentation);
         $selectRegistrants = $this->selectRegistrants($eventversion);
+
 Log::info(__CLASS__ . ': ' . __METHOD__);
         return view('registrationmanagers.registrantdetails.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,
             'targetinstrumentation' => $instrumentation,
             'navInstrumentations' => $navInstrumentations,
-            'registrants' => $registrants,
+            //'registrants' => $registrants,
             //'registrationactivity' => $registrationactivity,
             'registrantsArray' => $registrantsArray,
             'selectRegistrants' => $this->selectRegistrants($eventversion),

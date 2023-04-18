@@ -17,6 +17,7 @@ use App\Models\Utility\RegistrationActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrantdetailController extends Controller
@@ -59,7 +60,7 @@ class RegistrantdetailController extends Controller
         $registrants = $registrationactivity->registrantsBySchoolNameFullnameAlpha($instrumentation);
         $registrantsArray = $registrationactivity->registrantsBySchoolNameFullnameAlphaArray($instrumentation);
         $selectRegistrants = $this->selectRegistrants($eventversion);
-
+Log::info(__CLASS__ . ': ' . __METHOD__);
         return view('registrationmanagers.registrantdetails.index',[
             'bladepath' => $bladepath,
             'eventversion' => $eventversion,

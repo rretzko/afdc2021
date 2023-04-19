@@ -83,6 +83,10 @@
         </div>
     </div>
 
+    @if(auth()->id() == 343) {{-- olivia dunn --}}
+    {{ phpinfo() }}
+    @endif
+
 @endsection
 
 

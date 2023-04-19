@@ -36,7 +36,8 @@ class Room extends Model
     {
         $instrumentations = $this->instrumentations;
 
-        $r = Registrant::where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
+        $r = Registrant::query()
+            ->where('eventversion_id', Userconfig::getValue('eventversion', auth()->id()))
             ->where('registranttype_id', Registranttype::REGISTERED)
             ->get();
 

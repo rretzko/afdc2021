@@ -42,25 +42,6 @@
                             @endforelse
                         </div>
 
-
-                        {{-- REGISTRANT ID SECTION --}}
-<!-- {{--
-                        @foreach($eventversion->instrumentations() AS $instrumentation)
-                            <div style="border-bottom: 1px solid lightgrey;padding-bottom: .5rem;">
-                                <label style="font-weight: bold; margin-top: .5rem;">{{ strtoupper($instrumentation->descr) }} </label>
-                                <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-                                    @foreach($registrants AS $registrant)
-                                        @if($registrant->instrumentations->count() && $registrant->instrumentations->first()->id === $instrumentation->id)
-                                            <div style="background-color: {{ $registrant->tabroomStatusBackgroundColor() }}; border: 1px solid black; border-radius: .25rem; margin-right: .25rem; margin-bottom: .25rem; padding: 0 .1rem"
-                                                title="{!! $registrant->auditionDetails() !!}">
-                                                {{ $registrant->id }}
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
---}} -->
                     </div>
                 </div>
 

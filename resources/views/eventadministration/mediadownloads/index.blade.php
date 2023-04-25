@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-12 "">
 
                 <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
 
@@ -30,7 +30,7 @@
 
                             <div class="input-group">
                                 <label for="registrant_id" style="">Registrant Id</label>
-                                <input type="text" name="registrant_id" value=""/>
+                                <input type="text" style="padding-left: 0.5rem;" name="registrant_id" value="" autofocus />
                             </div>
                             @error('registrant_id')
 
@@ -70,23 +70,24 @@
 
                         </div>
 --}}
-                        {{-- VIEWPORTS --}}
-                        <div>
-                            @if($targetregistrant->id)
-                            <h3>Viewports for: {{ $targetregistrant->id }}</h3>
-                                @foreach($eventversion->filecontenttypes AS $filecontenttype)
-                                    <div>
-
-                                            <label>{{ ucwords($filecontenttype->descr) }}</label>
-                                            <div style="text-align: center;" >
-                                                {!! $targetregistrant->fileviewport($filecontenttype) !!}
-                                            </div>
-
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
                     </div>
+                </div>
+
+                {{-- VIEWPORTS --}}
+                <div style=" margin: auto; background-color: rgba(0,0,0,0.1); padding: 1rem; margin-bottom: 1rem;">
+                    @if($targetregistrant->id)
+                        <h3>Uploads for: {{ $targetregistrant->id }}</h3>
+                        @foreach($eventversion->filecontenttypes AS $filecontenttype)
+                            <div style="margin: auto;">
+
+                                <label>{{ ucwords($filecontenttype->descr) }}</label>
+                                <div style="text-align: center;" >
+                                    {!! $targetregistrant->fileviewport($filecontenttype) !!}
+                                </div>
+
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

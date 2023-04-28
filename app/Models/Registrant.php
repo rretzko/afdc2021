@@ -64,7 +64,7 @@ class Registrant extends Model
         $card .= ($this->student->currentSchool)
             ? '@ '.$this->student->currentSchool->shortName.$crlf
             : 'No school found; check logs';
-
+/*
         //teacher name
         if(! $this->student->currentTeacher){ dd($this->id . ': ' . $this->user_id . ': ' . $this->programname);}
         $card .= 'w/'
@@ -84,7 +84,7 @@ class Registrant extends Model
                 $card .= '- '.$adjudicator->adjudicatorName.' ('.$this->scoreSumByAdjudicator($adjudicator).')'.$crlf;
             }
         }
-
+*/
         return $card;
     }
 

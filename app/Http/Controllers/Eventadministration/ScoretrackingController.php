@@ -7,7 +7,9 @@ use App\Models\Event;
 use App\Models\Eventversion;
 use App\Models\Userconfig;
 use App\Models\Utility\RegistrationActivity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ScoretrackingController extends Controller
 {
@@ -17,15 +19,20 @@ class ScoretrackingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Eventversion $eventversion)
-    {
+    { $start = Carbon::now();
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
-        //set_time_limit(360);
+        set_time_limit(360);
+
+        $registrants = $registrationactivity->registeredTotalByInstrumentation();
+
+        $end = Carbon::now();
+        Log::info('registrants duration: '.$end->diffInSeconds($start));
 
         return view('eventadministration.scoretrackings.index',
         [
            'eventversion' => $eventversion,
-           'registrants' => $registrationactivity->registeredTotal(),
+           'registrants' => $registrants,
         ]);
     }
 

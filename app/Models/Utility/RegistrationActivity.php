@@ -167,6 +167,27 @@ class RegistrationActivity extends Model
         return $merged->sortBy('id');
     }
 
+    /**
+     * Need: registrant_id, audition status, audition details
+     * @return Collection
+     */
+    public function registeredTotalByInstrumentation(): array
+    {
+        $a = [];
+        foreach($this->registeredTotal() AS $registrant){
+
+            $a[$registrant->instrumentations->first()->id][$registrant->id] =
+                [
+                    'id' => $registrant->id,
+                    'auditionDetails' => $registrant->auditionDetails(),
+                    'backgroundColor' => $registrant->tabroomStatusBackgroundColor(),
+                ];
+        }
+        ksort($a);
+
+        return $a;
+    }
+
     public function registrantsByRoomById(Room $room)
     {
         $a = [];

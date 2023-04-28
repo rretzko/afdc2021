@@ -179,7 +179,7 @@ class RegistrationActivity extends Model
             $a[$registrant->instrumentations->first()->id][$registrant->id] =
                 [
                     'id' => $registrant->id,
-                    'auditionDetails' => $registrant->auditionDetails(),
+                    'auditionDetails' => 'auditionDetails', //$registrant->auditionDetails(),
                     'backgroundColor' => $registrant->tabroomStatusBackgroundColor(),
                 ];
         }

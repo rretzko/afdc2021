@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
                 <x-logout :event="$eventversion->event" :eventversion="$eventversion" />
-{{ 'blade start: ' . \Illuminate\Support\Facades\Log::info(\Carbon\Carbon::now()) }}
+{{-- 'blade start: ' . \Illuminate\Support\Facades\Log::info(\Carbon\Carbon::now()) --}}
                 <div class="card">
 
                     <div class="card-header col-12 d-flex">
@@ -46,7 +46,7 @@
 
                                 </div>
                             </div>
-                            {{ \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now()) }}
+                            {{-- \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now()) --}}
                         @endforeach
 
                     </div>

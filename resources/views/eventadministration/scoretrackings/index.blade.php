@@ -32,7 +32,7 @@
 
                         {{-- REGISTRANT ID SECTION --}}
                         @foreach($eventversion->instrumentations() AS $instrumentation)
-                            {{ \Illuminate\Support\Facades\Log::info($instrumentation->id . ' start: ' . \Carbon\Carbon::now()) }}
+                            {{-- \Illuminate\Support\Facades\Log::info($instrumentation->id . ' start: ' . \Carbon\Carbon::now()) --}}
                             <div style="border-bottom: 1px solid lightgrey;padding-bottom: .5rem;">
                                 <label style="font-weight: bold; margin-top: .5rem;">{{ strtoupper($instrumentation->descr) }} </label>
                                 <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
@@ -46,7 +46,7 @@
 
                                 </div>
                             </div>
-                        {{ \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now()) }}
+                        {{-- \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now()) --}}
                         @endforeach
 
                     </div>

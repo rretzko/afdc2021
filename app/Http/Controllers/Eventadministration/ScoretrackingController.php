@@ -20,7 +20,7 @@ class ScoretrackingController extends Controller
      */
     public function index(Eventversion $eventversion)
     { $start = Carbon::now();
-Log::info('*** start: ' . $start);
+Log::info('*** START: ' . $start);
         $registrationactivity = new RegistrationActivity(['eventversion' => $eventversion, 'counties' => []]);
 
         set_time_limit(360);
@@ -34,6 +34,7 @@ Log::info('registrants duration: '.$end->diffInSeconds($start));
         [
            'eventversion' => $eventversion,
            'registrants' => $registrants,
+            'start' => $start,
         ]);
     }
 

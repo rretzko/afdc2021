@@ -54,6 +54,7 @@
             </div>
         </div>
         {{ \Illuminate\Support\Facades\Log::info('*** Done: ' . \Carbon\Carbon::now()) }}
+        {{ \Illuminate\Support\Facades\Log::info('*** DURATION: ' . \Carbon\Carbon::now()->diffInSeconds($start)) }}
     </div>
 @endsection
 

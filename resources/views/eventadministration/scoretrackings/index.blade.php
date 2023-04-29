@@ -46,14 +46,14 @@
 
                                 </div>
                             </div>
-                             \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now())
+                        {{ \Illuminate\Support\Facades\Log::info($instrumentation->id . ' end: ' . \Carbon\Carbon::now()) }}
                         @endforeach
 
                     </div>
                 </div>
             </div>
         </div>
-        \Illuminate\Support\Facades\Log::info('*** Done: ' . \Carbon\Carbon::now())
+        {{ \Illuminate\Support\Facades\Log::info('*** Done: ' . \Carbon\Carbon::now()) }}
     </div>
 @endsection
 

@@ -64,16 +64,15 @@ class Registrant extends Model
         $card .= ($this->student->currentSchool)
             ? '@ '.$this->student->currentSchool->shortName.$crlf
             : 'No school found; check logs';
-/*
+
         //teacher name
         if(! $this->student->currentTeacher){ dd($this->id . ': ' . $this->user_id . ': ' . $this->programname);}
         $card .= 'w/'
-            . $this->student->currentTeacher->person ? $this->student->currentTeacher->person->alphaName : 'Teacher missing'
-            . $crlf;
+            . $this->student->currentTeacher->person ? $this->student->currentTeacher->person->alphaName . $crlf : 'Teacher missing ' . $crlf;
 
         //score count
         $card .= 'Score count: '.$scores->count().$crlf;
-
+/*
         //rooms
         foreach($this->registrantRooms($this) AS $room){
 

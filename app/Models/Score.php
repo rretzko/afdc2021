@@ -283,40 +283,82 @@ class Score extends Model
                     break;
 
                 default: //NJ All-State
-                    $scores = [
-                        $scoringcomponents[48][0], //judge 1, Scales Quality
-                        $scoringcomponents[49][0], //judge 1, Scales Low Scales
-                        $scoringcomponents[50][0], //judge 1, Scales High Scales
-                        $scoringcomponents[51][0], //judge 1, Scales Chromatic Scales
-                        $scoringcomponents[58][0], //judge 1, Solo Quality
-                        $scoringcomponents[59][0], //judge 1, Solo Intonation
-                        $scoringcomponents[60][0], //judge 1, Solo Musicianship
-                        $scoringcomponents[61][0], //judge 1, Quintet Quality
-                        $scoringcomponents[62][0], //judge 1, Quintet Intonation
-                        $scoringcomponents[63][0], //judge 1, Quintet Musicianship
+                    if($this->eventversion->id === 72) {
+                        $scores = [
+                            //2022-23
+                            $scoringcomponents[48][0], //judge 1, Scales Quality
+                            $scoringcomponents[49][0], //judge 1, Scales Low Scales
+                            $scoringcomponents[50][0], //judge 1, Scales High Scales
+                            $scoringcomponents[51][0], //judge 1, Scales Chromatic Scales
+                            $scoringcomponents[58][0], //judge 1, Solo Quality
+                            $scoringcomponents[59][0], //judge 1, Solo Intonation
+                            $scoringcomponents[60][0], //judge 1, Solo Musicianship
+                            $scoringcomponents[61][0], //judge 1, Quintet Quality
+                            $scoringcomponents[62][0], //judge 1, Quintet Intonation
+                            $scoringcomponents[63][0], //judge 1, Quintet Musicianship
 
-                        $scoringcomponents[48][1], //judge 2, Scales Quality
-                        $scoringcomponents[49][1], // etc.
-                        $scoringcomponents[50][1],
-                        $scoringcomponents[51][1],
-                        $scoringcomponents[58][1],
-                        $scoringcomponents[59][1],
-                        $scoringcomponents[60][1],
-                        $scoringcomponents[61][1],
-                        $scoringcomponents[62][1],
-                        $scoringcomponents[63][1],
+                            $scoringcomponents[48][1], //judge 2, Scales Quality
+                            $scoringcomponents[49][1], // etc.
+                            $scoringcomponents[50][1],
+                            $scoringcomponents[51][1],
+                            $scoringcomponents[58][1],
+                            $scoringcomponents[59][1],
+                            $scoringcomponents[60][1],
+                            $scoringcomponents[61][1],
+                            $scoringcomponents[62][1],
+                            $scoringcomponents[63][1],
 
-                        $scoringcomponents[48][2],
-                        $scoringcomponents[49][2],
-                        $scoringcomponents[50][2],
-                        $scoringcomponents[51][2],
-                        $scoringcomponents[58][2],
-                        $scoringcomponents[59][2],
-                        $scoringcomponents[60][2],
-                        $scoringcomponents[61][2],
-                        $scoringcomponents[62][2],
-                        $scoringcomponents[63][2],
-                    ];
+                            $scoringcomponents[48][2],
+                            $scoringcomponents[49][2],
+                            $scoringcomponents[50][2],
+                            $scoringcomponents[51][2],
+                            $scoringcomponents[58][2],
+                            $scoringcomponents[59][2],
+                            $scoringcomponents[60][2],
+                            $scoringcomponents[61][2],
+                            $scoringcomponents[62][2],
+                            $scoringcomponents[63][2],
+                        ];
+                    }elseif($this->eventversion->id === 75) {
+
+                        $scores = [
+                            //2023-24
+                            $scoringcomponents[84][0], //judge 1, Scales Quality
+                            $scoringcomponents[85][0], //judge 1, Scales Low Scales
+                            $scoringcomponents[86][0], //judge 1, Scales High Scales
+                            $scoringcomponents[87][0], //judge 1, Scales Chromatic Scales
+                            $scoringcomponents[88][0], //judge 1, Solo Quality
+                            $scoringcomponents[89][0], //judge 1, Solo Intonation
+                            $scoringcomponents[90][0], //judge 1, Solo Musicianship
+                            $scoringcomponents[91][0], //judge 1, Quintet Quality
+                            $scoringcomponents[92][0], //judge 1, Quintet Intonation
+                            $scoringcomponents[93][0], //judge 1, Quintet Musicianship
+
+                            $scoringcomponents[84][1], //judge 2, Scales Quality
+                            $scoringcomponents[85][1], // etc.
+                            $scoringcomponents[86][1],
+                            $scoringcomponents[87][1],
+                            $scoringcomponents[88][1],
+                            $scoringcomponents[89][1],
+                            $scoringcomponents[90][1],
+                            $scoringcomponents[91][1],
+                            $scoringcomponents[92][1],
+                            $scoringcomponents[93][1],
+
+                            $scoringcomponents[84][2],
+                            $scoringcomponents[85][2],
+                            $scoringcomponents[86][2],
+                            $scoringcomponents[87][2],
+                            $scoringcomponents[88][2],
+                            $scoringcomponents[89][2],
+                            $scoringcomponents[90][2],
+                            $scoringcomponents[91][2],
+                            $scoringcomponents[92][2],
+                            $scoringcomponents[93][2],
+                        ];
+                    }else{
+                        dd('**** ERROR *****');
+                    }
             }
         }else{ //no show
             //hard-coded for cjmes

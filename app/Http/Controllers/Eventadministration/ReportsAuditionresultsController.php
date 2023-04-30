@@ -79,6 +79,10 @@ class ReportsAuditionresultsController extends Controller
      */
     public function show(Eventversion $eventversion)
     {
+        set_time_limit(120);
+
+        ini_set('memory_limit', '1024M');
+
         $filename = self::build_Filename($eventversion);
 
         $registrants = $this->filterRegistrantsAllInstrumentations($eventversion);

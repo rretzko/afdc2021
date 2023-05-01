@@ -177,7 +177,7 @@
                                 </li>
 
                                 {{-- Event Milestone Tracking --}}
-                                <li>
+                                <li style="border-bottom: 1px solid black;">
                                     <a href="{{ route('eventadministration.milestones', ['eventversion' => $eventversion]) }}">
                                         Event Milestone Tracking (future)
                                     </a>
@@ -273,7 +273,7 @@
                                     @endif
 
                                     {{-- APPLICANT FORMS FOR PAPER RECORDS OF AUDITIONS --}}
-                                    <li>
+                                    <li style="border-bottom: 1px solid black;">
                                         <div class="link-def">
                                             <a class="link" href="{{ route('registrationmanagers.adjudicationformsbyroom.index',
                                                 ['eventversion' => $eventversion]) }}"
@@ -311,7 +311,7 @@
                             <div>
                                 <ul>
 
-                                    <li>
+                                    <li style="border-bottom: 1px solid black;">
                                         <div class="link-def">
                                             <a class="link" href="{{ route('registrationmanagers.registrantdetails.all.csv', ['eventversion' => $eventversion]) }}">
                                                 Registrants by school by name (csv)
@@ -327,7 +327,7 @@
                                     @if($eventversion->eventversionconfig->virtualaudition)
                                         {{-- DISPLAY NOTHING --}}
                                     @else
-                                        <li>
+                                        <li style="border-bottom: 1px solid black;">
                                             <a href="{{ route('registrationmanagers.registrationdetails.all.csv',['eventversion' => $eventversion]) }}">
                                                 All Registrants roster csv by timeslot by school by name
                                             </a>
@@ -491,25 +491,55 @@
                                     </div>
                                 </li>
 
+                                {{-- DETAILED AUDITION RESULTS --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.results',
+                                    <div class="link-def">
+                                        <a href="{{ route('eventadministrator.tabroom.results',
                                                 ['eventversion' => $eventversion]) }}">
-                                        Detailed Audition Results
-                                    </a>
+                                            Detailed Audition Results
+                                        </a>
+                                        <div class="def">
+                                            Select a voice part to display the adjudication details for each registrant
+                                            in that voice part.
+                                            <br />
+                                            Note: This page make take 10-45 seconds to display depending on the number of
+                                            registrants in the voice part.
+                                        </div>
+                                    </div>
                                 </li>
-                        <!--        <li>Registrant Updates</li> -->
+
+                                {{-- DOWNLOADABLE REPORTS --}}
                                 <li>
-                                    <a href="{{ route('eventadministrator.tabroom.reports',
+                                    <div class="link-def">
+                                        <a href="{{ route('eventadministrator.tabroom.reports',
                                                 ['eventversion' => $eventversion]) }}">
-                                        Reports
-                                    </a>
+                                            Downloadable Reports
+                                        </a>
+                                        <div class="def">
+                                            <ul>
+                                                <li>Download pdfs of detailed audition results for each voice part.</li>
+                                                <li>Download csv file of participating directors.</li>
+                                                <li>Download csv file of participating students.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="{{ route('eventadministrator.tabroom.publish',
+
+                                {{-- PUBLISH RESULTS --}}
+                                <li style="border-bottom: 1px solid black;">
+                                    <div class="link-def">
+                                        <a href="{{ route('eventadministrator.tabroom.publish',
                                                 ['eventversion' => $eventversion]) }}">
-                                        Publish Results
-                                    </a>
+                                            Publish Results
+                                        </a>
+                                        <div class="def">
+                                            One-button click to publish the results to all participating directors.
+                                            <br />
+                                            Note: Button toggles to "Un-publish" if a correction is needed!
+                                        </div>
+                                    </div>
                                 </li>
+
                             </ul>
                         </div>
 
@@ -525,77 +555,57 @@
 
                         {{-- REHEARSAL MANAGER --}}
                         <div>
-                            <h4>
-                                Rehearsal Manager
-                            </h4>
+                            @if($eventversion->eventversionconfig->participation_fee)
+                                <h4>
+                                    Rehearsal Manager
+                                </h4>
 
-                            <ul style="list-style-type: none;">
-                                @if($eventversion->eventversionconfig->participation_fee)
-                                    <li>
-                                        <div class="link-def"  style="border-top: 0;">
-                                            <a href="{{ route('rehearsalmanager.participationfee.index') }}"
-                                                class="link"
-                                            >
-                                                Participation Fee Roster
-                                            </a>
-                                            <div class="def">
-                                                Roster of participating schools (alpha) with count of students, PayPal
-                                                cumulative payments, cumulative Teacher payments, and balance due.
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="link-def">
-                                            <a href="{{ route('rehearsalmanager.paypalreconciliation.index') }}"
-                                                class="link"
-                                            >
-                                                PayPal Reconciliation Roster
-                                            </a>
-                                            <div class="def">
-                                                Roster of PayPal payments by date paid with payee name, registrant id
-                                                (if student) school name, amount and date.
-                                            </div>
-                                        </div>
-                                    </li>
+                                <ul style="list-style-type: none;">
 
-                                    {{-- REMOVED STUDENTS ROSTER --}}
-                                    <li>
-                                        <div class="link-def">
-                                            <a class="link" href="{{ route('rehearsalmanager.removedstudentroster.index') }}">
-                                                    'Removed Student' Roster
-                                            </a>
-                                            <div class="def">
-                                                Change student participation status to/from 'Removed'.<br />
-                                                'Removed' status prohibits student from participating in next event.
+                                        <li>
+                                            <div class="link-def"  style="border-top: 0;">
+                                                <a href="{{ route('rehearsalmanager.participationfee.index') }}"
+                                                    class="link"
+                                                >
+                                                    Participation Fee Roster
+                                                </a>
+                                                <div class="def">
+                                                    Roster of participating schools (alpha) with count of students, PayPal
+                                                    cumulative payments, cumulative Teacher payments, and balance due.
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @endif
-                                <!-- {{--
-                                <li>
-                                    <a href="{{ route('rehearsalmanager.massmailings.index',
-                                        [
-                                            'eventversion' => $eventversion,
-                                        ]) }}"
-                                    >
-                                        Mass Mailings
-                                    </a>
-                                </li>
-                                <li>Participant Status Change</li>
-                                --}} -->
-                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="link-def">
+                                                <a href="{{ route('rehearsalmanager.paypalreconciliation.index') }}"
+                                                    class="link"
+                                                >
+                                                    PayPal Reconciliation Roster
+                                                </a>
+                                                <div class="def">
+                                                    Roster of PayPal payments by date paid with payee name, registrant id
+                                                    (if student) school name, amount and date.
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        {{-- REMOVED STUDENTS ROSTER --}}
+                                        <li>
+                                            <div class="link-def">
+                                                <a class="link" href="{{ route('rehearsalmanager.removedstudentroster.index') }}">
+                                                        'Removed Student' Roster
+                                                </a>
+                                                <div class="def">
+                                                    Change student participation status to/from 'Removed'.<br />
+                                                    'Removed' status prohibits student from participating in next event.
+                                                </div>
+                                            </div>
+                                        </li>
+                                </ul>
+                            @endif
 
                         </div>
-<!-- {{--
-                        <div>
-                            <h4>
-                                Registration Desk
-                            </h4>
-                            <ul>
-                                <li>In-person registration</li>
-                            </ul>
-                        </div>
---}} -->
+
                     </div>
                 </div>
             </div>
